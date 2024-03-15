@@ -22,6 +22,9 @@ mongoose.connect(URL, {
     console.log("MongoDB connection error:", error);
 });
 
+const fertilizerRouter = require('./routes/inventory_mgmt/fertilizers.js');
+app.use('/fertilizer', fertilizerRouter);
+
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
 });
