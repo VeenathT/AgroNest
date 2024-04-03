@@ -1,3 +1,5 @@
+// farmerfeedbacks.js (in routes)
+
 const router = require("express").Router();
 const FarmerFeedback = require("../models/farmerfeedback");
 
@@ -19,11 +21,16 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all farmer feedbacks
+// Get all farmer feedbacks with average rating
 router.get("/", async (req, res) => {
   try {
     const feedbacks = await FarmerFeedback.find();
-    res.json(feedbacks);
+    let totalRatings = 0;
+    feedbacks.forEach((feedback) => {
+      totalRatings += feedback.starRating;
+    });
+    const averageRating = feedbacks.length > 0 ? totalRatings / feedbacks.length : 0;
+    res.json({ feedbacks, averageRating });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
