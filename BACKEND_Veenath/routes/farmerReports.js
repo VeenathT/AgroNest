@@ -1,25 +1,18 @@
+// farmerReports.js (in routes)
+
 const router = require("express").Router();
 const FarmerReport = require("../models/farmerReport");
 
 // Create farmer report
 router.post("/", async (req, res) => {
   try {
-    const {
-      name,
-      orderId,
-      description,
-      priority,
-      category,
-      farmerId,
-      area,
-    } = req.body;
+    const { name, orderId, description, priority, category, area } = req.body;
     const newReport = new FarmerReport({
       name,
       orderId,
       description,
       priority,
       category,
-      farmerId,
       area,
     });
     const savedReport = await newReport.save();
@@ -58,10 +51,10 @@ router.get("/:id", async (req, res) => {
 // Update farmer report by ID
 router.put("/:id", async (req, res) => {
   try {
-    const { name, orderId, description, priority, category, status, farmerId, area } = req.body;
+    const { name, orderId, description, priority, category, area } = req.body;
     const updatedReport = await FarmerReport.findByIdAndUpdate(
       req.params.id,
-      { name, orderId, description, priority, category, status, farmerId, area },
+      { name, orderId, description, priority, category, area },
       { new: true }
     );
     if (!updatedReport) {

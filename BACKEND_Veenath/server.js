@@ -28,6 +28,7 @@ connection.once("open", () => {
 // Import farmer feedback and report routes
 const farmerFeedbackRoutes = require("./routes/farmerfeedbacks");
 const farmerReportRoutes = require("./routes/farmerReports");
+// Import suggestion routes
 const suggestionRoutes = require("./routes/suggestions");
 
 // Use farmer feedback and report routes
