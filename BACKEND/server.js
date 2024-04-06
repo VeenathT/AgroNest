@@ -25,17 +25,13 @@ mongoose.connect(URL, {
 const fertilizerRouter = require('./routes/inventory_mgmt/fertilizers.js');
 app.use('/fertilizer', fertilizerRouter);
 
-// Import farmer feedback and report routes
-const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks");
-const farmerReportRoutes = require("./routes/Veenath/farmerReports");
-// Import suggestion routes
-const suggestionRoutes = require("./routes/Veenath/suggestions");
-
-// Use farmer feedback and report routes
+const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
 app.use("/api/feedbacks", farmerFeedbackRoutes);
+const farmerReportRoutes = require("./routes/Veenath/farmerReports.js");
 app.use("/api/reports", farmerReportRoutes);
-// Use suggestion routes
+const suggestionRoutes = require("./routes/Veenath/suggestions.js");
 app.use("/api/suggestions", suggestionRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
