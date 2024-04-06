@@ -38,7 +38,6 @@ const farmerRouter = require("./routes/Thisaravi/farmers.js");
 app.use("/farmer", farmerRouter);
 
 
-
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
 });
