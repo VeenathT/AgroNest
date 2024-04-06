@@ -28,6 +28,9 @@ app.use('/fertilizer', fertilizerRouter);
 const farmerRouter = require("./routes/Thisaravi/farmers.js");
 app.use("/farmer",farmerRouter);
 
+const FAnalysis = require("./routes/Kande/FAnalysis.js");
+app.use("/FAnalysis",FAnalysis);
+
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
 });
