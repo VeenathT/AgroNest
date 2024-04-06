@@ -27,10 +27,16 @@ app.use('/fertilizer', fertilizerRouter);
 
 const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
 app.use("/api/feedbacks", farmerFeedbackRoutes);
+
 const farmerReportRoutes = require("./routes/Veenath/farmerReports.js");
 app.use("/api/reports", farmerReportRoutes);
+
 const suggestionRoutes = require("./routes/Veenath/suggestions.js");
 app.use("/api/suggestions", suggestionRoutes);
+
+const farmerRouter = require("./routes/Thisaravi/farmers.js");
+app.use("/farmer", farmerRouter);
+
 
 
 app.listen(PORT, () => {
