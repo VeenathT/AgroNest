@@ -26,10 +26,10 @@ const fertilizerRouter = require('./routes/inventory_mgmt/fertilizers.js');
 app.use('/fertilizer', fertilizerRouter);
 
 // Import farmer feedback and report routes
-const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks");
-const farmerReportRoutes = require("./routes/Veenath/farmerReports");
+const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
+const farmerReportRoutes = require("./routes/Veenath/farmerReports.js");
 // Import suggestion routes
-const suggestionRoutes = require("./routes/Veenath/suggestions");
+const suggestionRoutes = require("./routes/Veenath/suggestions.js");
 
 // Use farmer feedback and report routes
 app.use("/api/feedbacks", farmerFeedbackRoutes);
