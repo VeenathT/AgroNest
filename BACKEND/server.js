@@ -25,8 +25,26 @@ mongoose.connect(URL, {
 const fertilizerRouter = require('./routes/Sudarshan/inventory_mgmt/fertilizers.js');
 app.use('/fertilizer', fertilizerRouter);
 
+
 const dealerRouter = require('./routes/Sudarshan/dealer_acc_mgmt/dealers.js');
 app.use('/dealer', dealerRouter);
+
+const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
+app.use("/api/feedbacks", farmerFeedbackRoutes);
+
+const farmerReportRoutes = require("./routes/Veenath/farmerReports.js");
+app.use("/api/reports", farmerReportRoutes);
+
+const suggestionRoutes = require("./routes/Veenath/suggestions.js");
+app.use("/api/suggestions", suggestionRoutes);
+
+const farmerRouter = require("./routes/Thisaravi/farmers.js");
+app.use("/farmer", farmerRouter);
+
+
+const FAnalysis = require("./routes/Kande/FAnalysis.js");
+app.use("/FAnalysis",FAnalysis);
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
