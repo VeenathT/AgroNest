@@ -22,8 +22,12 @@ mongoose.connect(URL, {
     console.log("MongoDB connection error:", error);
 });
 
-const fertilizerRouter = require('./routes/inventory_mgmt/fertilizers.js');
+const fertilizerRouter = require('./routes/Sudarshan/inventory_mgmt/fertilizers.js');
 app.use('/fertilizer', fertilizerRouter);
+
+
+const dealerRouter = require('./routes/Sudarshan/dealer_acc_mgmt/dealers.js');
+app.use('/dealer', dealerRouter);
 
 const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
 app.use("/api/feedbacks", farmerFeedbackRoutes);
@@ -40,6 +44,7 @@ app.use("/farmer", farmerRouter);
 
 const FAnalysis = require("./routes/Kande/FAnalysis.js");
 app.use("/FAnalysis",FAnalysis);
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
