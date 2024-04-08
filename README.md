@@ -18,7 +18,7 @@ agricultural information and product promotion, attracting users and increasing 
 features like targeted distribution and promotional content management. Every facet of our 
 application, from dealer profile management to fertilizer analysis reports, is painstakingly crafted 
 to improve farming practices, boost production, and promote long-term farming community growth
-## Main Actors:-
+## Main Actors In Our System:-
 #### Farmer
 #### Dealer 
 #### Company Administrator 
