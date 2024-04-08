@@ -1,5 +1,5 @@
 # AgroNest - Fertilizer Management System
-## Our Web Application:-
+## About Our Web Application:-
 Our web application stands at the forefront of agricultural innovation, offering a holistic solution 
 to streamline fertilizer management practices and empower stakeholders across the agricultural 
 value chain. Utilizing state-of-the-art technologies and integrating sophisticated features, our 
@@ -19,12 +19,12 @@ features like targeted distribution and promotional content management. Every fa
 application, from dealer profile management to fertilizer analysis reports, is painstakingly crafted 
 to improve farming practices, boost production, and promote long-term farming community growth
 ## Main Actors:-
-##### Farmer
-##### Dealer 
-##### Company Administrator 
-##### System Manager
-##### Laboratory 
-##### User (visitor)
+#### Farmer
+#### Dealer 
+#### Company Administrator 
+#### System Manager
+#### Laboratory 
+#### User (visitor)
 
 ## Collaborations:-
 ##### Veenath G.D.T. Feedback and Inquiry Management 
