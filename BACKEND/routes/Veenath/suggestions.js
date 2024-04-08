@@ -1,15 +1,14 @@
-// suggestions.js
-
+// suggestions.js (routes)
 const router = require("express").Router();
 const Suggestion = require("../../models/Veenath/suggestion");
 
 // Create a new suggestion
 router.post("/", async (req, res) => {
   try {
-    const { fertilizerId, description } = req.body;
+    const { fertilizId, suggest } = req.body;
     const newSuggestion = new Suggestion({
-      fertilizerId,
-      description,
+      fertilizId,
+      suggest,
     });
     const savedSuggestion = await newSuggestion.save();
     res.status(201).json(savedSuggestion);
@@ -47,10 +46,10 @@ router.get("/:id", async (req, res) => {
 // Update suggestion by ID
 router.put("/:id", async (req, res) => {
   try {
-    const { fertilizerId, description } = req.body;
+    const { fertilizId, suggest } = req.body;
     const updatedSuggestion = await Suggestion.findByIdAndUpdate(
       req.params.id,
-      { fertilizerId, description },
+      { fertilizId, suggest },
       { new: true }
     );
     if (!updatedSuggestion) {

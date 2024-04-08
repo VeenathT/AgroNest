@@ -1,13 +1,12 @@
-// suggestion.js
-
+// suggestion.js (models)
 const mongoose = require("mongoose");
 
 const suggestionSchema = new mongoose.Schema({
-  fertilizerId: {
+  fertilizId: {
     type: String,
     required: true,
   },
-  description: {
+  suggest: {
     type: String,
     required: true,
   },
