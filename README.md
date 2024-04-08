@@ -19,12 +19,12 @@ features like targeted distribution and promotional content management. Every fa
 application, from dealer profile management to fertilizer analysis reports, is painstakingly crafted 
 to improve farming practices, boost production, and promote long-term farming community growth
 ## Main Actors In Our System:-
-###### Farmer
-###### Dealer 
-###### Company Administrator 
-###### System Manager
-###### Laboratory 
-###### User (visitor)
+##### Farmer
+##### Dealer 
+##### Company Administrator 
+##### System Manager
+##### Laboratory 
+##### User (visitor)
 
 ## Collaborations:-
 ##### Veenath G.D.T.          - Feedback and Inquiry Management 
