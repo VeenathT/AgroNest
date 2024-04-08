@@ -6,14 +6,15 @@ const FarmerReport = require("../../models/Veenath/farmerReport");
 // Create farmer report
 router.post("/", async (req, res) => {
   try {
-    const { name, orderId, description, priority, category, area } = req.body;
+    const { name, topic, description, priority, category, area, status } = req.body;
     const newReport = new FarmerReport({
       name,
-      orderId,
+      topic,
       description,
       priority,
       category,
       area,
+      status,
     });
     const savedReport = await newReport.save();
     res.status(201).json(savedReport);
@@ -51,10 +52,10 @@ router.get("/:id", async (req, res) => {
 // Update farmer report by ID
 router.put("/:id", async (req, res) => {
   try {
-    const { name, orderId, description, priority, category, area } = req.body;
+    const { name, topic, description, priority, category, area, status } = req.body;
     const updatedReport = await FarmerReport.findByIdAndUpdate(
       req.params.id,
-      { name, orderId, description, priority, category, area },
+      { name, topic, description, priority, category, area, status },
       { new: true }
     );
     if (!updatedReport) {
