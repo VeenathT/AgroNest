@@ -57,7 +57,7 @@ const farmerReportSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Pending", "Open", "Resolved"],
+    enum: ["Pending","Resolved"],
     default: "Pending",
   },
 });
