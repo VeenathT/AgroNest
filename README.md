@@ -1,4 +1,4 @@
-# AgroNest
+# AgroNest - Fertilizer Management System 
 ## Members
 ##### Veenath G.D.T.
 ##### Semasingha W.A.L.D. 
