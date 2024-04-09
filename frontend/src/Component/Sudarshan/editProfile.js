@@ -29,7 +29,7 @@ const DealerProfile = () => {
         </IconButton>
       </div>
       <div className="profile-container">
-        <Typography variant="h4" style={{ textAlign: 'center' }}>Welcome, {dealerName}!</Typography>
+        <Typography variant="h4" style={{ textAlign: 'center' }}>Here you can edit your details, {dealerName}!</Typography>
         <Avatar alt="Dealer" src="" className="avatar" style={{ boxShadow: '0 0 10px green' }} />
         <div className="details-container"> 
           <div className="detail-item">
