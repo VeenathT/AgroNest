@@ -1,14 +1,8 @@
-import './App.css';
-import Signup from './Component/Thisaravi/Signup';
+import React from 'react';
+import Layout from './Component/layout/Layout';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Signup/>
-      </header>
-    </div>
-  );
+    return <Layout />;
 }
 
-export default App;
+export default App;
