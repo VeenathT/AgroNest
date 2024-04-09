@@ -30,12 +30,12 @@ const SignUp = () => {
       });
 
       console.log('Signup successful:', response.data);
-      navigate('/login'); // Redirect to login page after successful signup
+      navigate('/login');
     } catch (error) {
         if (error.response && error.response.data) {
             console.error('Signup error:', error.response.data);
           } else {
-            console.error('Signup error:', error.message); // Log the error message if response.data is undefined
+            console.error('Signup error:', error.message); 
           }
     }
   };

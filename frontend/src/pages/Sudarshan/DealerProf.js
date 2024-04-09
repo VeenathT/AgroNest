@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DealerProfile from '../../Component/Sudarshan/DealerProfile';
-import EditProfile from '../../Component/Sudarshan/EditProfile';
-import Sidebar from '../../Component/Sudarshan/Sidebar';
 import '../../styles/Sudarshan/dealer_profile.css';
 
 const DealerProfilePage = () => {

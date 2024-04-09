@@ -57,20 +57,20 @@ router.post('/registerDealer', async (req, res) => {
     try {
         const { username, password } = req.body;
 
-        // Validate username and password presence
+        
         if (!username || !password) {
             return res.status(400).json({ error: 'Please provide both username and password' });
         }
 
-        // Find the dealer by username
+        
         const dealer = await Dealer.findOne({ username });
 
-        // If dealer doesn't exist
+        
         if (!dealer) {
             return res.status(404).json({ error: 'Dealer not found' });
         }
 
-        // Compare passwords
+        
         const isPasswordValid = await bcrypt.compare(password, dealer.password);
         if (!isPasswordValid) {
             return res.status(401).json({ error: 'Invalid username or password' });
@@ -83,6 +83,31 @@ router.post('/registerDealer', async (req, res) => {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
+});
+
+module.exports = router;
+
+router.get('/dealers', async (req, res) => {
+  try {
+      // Extract user ID from JWT token
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET || '16811');
+      const dealerId = decodedToken.id;
+
+      
+      const dealer = await Dealer.findById(dealerId);
+
+      
+      if (!dealer) {
+          return res.status(404).json({ error: 'Dealer not found' });
+      }
+
+      
+      res.status(200).json(dealer);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 module.exports = router;

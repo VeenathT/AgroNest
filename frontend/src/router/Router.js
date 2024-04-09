@@ -4,7 +4,8 @@ import DealerProf from '../pages/Sudarshan/DealerProf';
 import LandingPage from '../pages/common/LandingPage';
 import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
-import Header from '../Component/common/header'; // Import the Header component
+import Header from '../Component/common/header';
+import EditProfile from '../pages/Sudarshan/EditProf' // Import the Header component
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +35,7 @@ const Router = () => {
           path="/profile"
           element={<DealerProf isLoggedIn={isLoggedIn} />}
         />
+        <Route path="/editProf" element={<EditProfile />} />
       </Routes>
     </>
   );

@@ -11,7 +11,7 @@ import '../../styles/Sudarshan/sidebar.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-const Sidebar = ({ open, onClose }) => {
+const Sidebar = ({ open, onClose, dealerName, handleEditProfile }) => {
 
 
   return (
@@ -19,10 +19,10 @@ const Sidebar = ({ open, onClose }) => {
       <div className="sidebar-container">
         
         <Avatar alt="Dealer" src="" className="avatar" style={{ marginTop: '30px', boxShadow: '0 0 10px green' }} />
-        <Typography variant="h6" align="center">Dealer's Name</Typography>
+        <Typography variant="h6" align="center">{dealerName}</Typography>
         <hr />
         <List>
-          <ListItemButton component="a" href="/EditProf">
+          <ListItemButton onClick={handleEditProfile}>
             <ListItemIcon><EditIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Edit Profile" />
           </ListItemButton>
