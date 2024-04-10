@@ -43,7 +43,7 @@ app.use("/api/suggestions", suggestionRoutes);
 const farmerRouter = require("./routes/Thisaravi/farmers.js");
 app.use("/farmer", farmerRouter);
 
-
+// kande
 const FAnalysis = require("./routes/Kande/FAnalysis.js");
 app.use("/FAnalysis",FAnalysis);
 
