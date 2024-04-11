@@ -1,11 +1,11 @@
 // formPage.js
 
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const FormPage = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
   const [name, setName] = useState('');
   const [topic, setTopic] = useState('');
