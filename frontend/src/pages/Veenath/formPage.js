@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const FormPage = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const [name, setName] = useState('');
   const [topic, setTopic] = useState('');
@@ -18,7 +18,7 @@ const FormPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/reports', {
+      await axios.post('http://localhost:8070/api/reports', {
         name,
         topic,
         description,
@@ -29,7 +29,7 @@ const FormPage = () => {
       setSuccessMessage('Inquiry submitted successfully!');
       setTimeout(() => {
         setSuccessMessage('');
-        history.push('/');
+        navigate('/');
       }, 3000);
     } catch (error) {
       console.error(error);
