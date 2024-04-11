@@ -5,6 +5,9 @@ const cors = require('cors');
 const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
+//rahul
+const dealerRoutes = require('./routes/Rahul/dealer.routes');
+const farmerRoutes =require('./routes/Rahul/farmer.routes');
 
 const PORT = process.env.PORT || 8070;
 
@@ -46,6 +49,11 @@ app.use("/farmer", farmerRouter);
 
 const FAnalysis = require("./routes/Kande/FAnalysis.js");
 app.use("/FAnalysis",FAnalysis);
+
+//Rahul
+app.use(dealerRoutes);
+app.use(farmerRoutes);
+//
 
 
 app.listen(PORT, () => {
