@@ -10,7 +10,7 @@ const DealerInquiry = () => {
   useEffect(() => {
     const fetchInquiries = async () => {
       try {
-        const response = await axios.get('/api/reports');
+        const response = await axios.get('http://localhost:8070/api/reports');
         setInquiries(response.data);
       } catch (error) {
         console.error(error);
