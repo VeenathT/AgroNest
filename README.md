@@ -23,8 +23,8 @@ Farmer , Dealer , Company-Administrator , System-Manager , Laboratory , User(vis
 
 ## Libraries and Frameworks:–
 ##### • React: A JavaScript library for building user interfaces, React can be used for developing the 
-##### front-end components of our web application. Its component-based architecture and virtual 
-##### DOM make it well-suited for creating interactive and responsive UIs. 
+ front-end components of our web application. Its component-based architecture and virtual 
+DOM make it well-suited for creating interactive and responsive UIs. 
 ##### • Node.js: As a server-side runtime environment, Node.js allows us to run JavaScript code on 
 ##### the server, enabling the development of scalable and efficient backend services. It provides a 
 ##### non-blocking, event-driven architecture, making it suitable for handling asynchronous 
