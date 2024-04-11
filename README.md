@@ -1,3 +1,4 @@
+![AgroNest ](https://github.com/VeenathT/AgroNest/assets/159011911/29158cd5-7f91-4b94-bff7-5a5ce60d634b)
 
 # AgroNest - Fertilizer Management System
 Welcome to AgroNest! , Our comprehensive solution for fertilizer management. This project aims to streamline various aspects of farming, including Fertilizer Buying & Selling, Laboratory Management, Soil Quality Guidance, Promotions Handling, Fertilizer Data Analysis, Feedback Collection, and more.
