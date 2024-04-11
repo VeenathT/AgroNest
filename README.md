@@ -1,4 +1,6 @@
+
 # AgroNest - Fertilizer Management System
+Welcome to AgroNest! , Our comprehensive solution for fertilizer management. This project aims to streamline various aspects of farming, including Fertilizer Buying & Selling, Laboratory Management, Soil Quality Guidance, Promotions Handling, Fertilizer Data Analysis, Feedback Collection, and more.
 ## About Our Web Application:-
 Our web application stands at the forefront of agricultural innovation, offering a holistic solution 
 to streamline fertilizer management practices and empower stakeholders across the agricultural 
