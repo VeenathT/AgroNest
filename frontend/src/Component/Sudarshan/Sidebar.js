@@ -26,7 +26,7 @@ const Sidebar = ({ open, onClose, dealerName, handleEditProfile }) => {
             <ListItemIcon><EditIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Edit Profile" />
           </ListItemButton>
-          <ListItemButton component="a" href="/manage-shop">
+          <ListItemButton component="a" href="/manageShop">
             <ListItemIcon><StoreIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Manage Shop" />
           </ListItemButton>
@@ -41,10 +41,6 @@ const Sidebar = ({ open, onClose, dealerName, handleEditProfile }) => {
           <ListItemButton component="a" href="/orders">
             <ListItemIcon><ShoppingCartIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Orders" />
-          </ListItemButton>
-          <ListItemButton component="a" href="/logout">
-            <ListItemIcon><ExitToAppIcon style={{ color: 'green' }} /></ListItemIcon>
-            <ListItemText primary="Logout" />
           </ListItemButton>
           
         </List>

@@ -1,23 +1,42 @@
-import React, { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import DealerProf from '../pages/Sudarshan/DealerProf';
 import LandingPage from '../pages/common/LandingPage';
 import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
-import EditProfile from '../pages/Sudarshan/EditProf' // Import the Header component
+import EditProfile from '../pages/Sudarshan/EditProf';
+import ManageShop from '../pages/Sudarshan/ManageShop';
+import Feedbacks from '../pages/Sudarshan/Feedbacks';
+import Inquiries from '../pages/Sudarshan/Inquries';
+import Orders from '../pages/Sudarshan/Orders';
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    localStorage.setItem('isLoggedIn', 'true');
+    setIsLoggedIn(true);
+    navigate('/');
+  };
 
   const handleLogout = () => {
-    // Perform any logout logic here, e.g., clearing local storage, etc.
-    setIsLoggedIn(false);
+    localStorage.removeItem('token'); // Clear any authentication tokens
+    setIsLoggedIn(false); // Update isLoggedIn state to false
+    navigate('/'); // Redirect to the landing page
   };
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} /> {/* Pass props to the Header component */}
+      {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}  {/* Pass props to the Header component */}
       <Routes>
         <Route
           path="/"
@@ -36,6 +55,10 @@ const Router = () => {
           element={<DealerProf isLoggedIn={isLoggedIn} />}
         />
         <Route path="/editProf" element={<EditProfile />} />
+        <Route path="/manageShop" element={<ManageShop />} />
+        <Route path="/feedbacks" element={<Feedbacks />} />
+        <Route path="/inquiries" element={<Inquiries />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </>
   );

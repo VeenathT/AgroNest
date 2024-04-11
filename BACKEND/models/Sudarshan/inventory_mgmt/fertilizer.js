@@ -6,6 +6,10 @@ const fertilizerSchema = new Schema({
         type : String,
         required : true
     },
+    id : {
+        type : Number,
+        required : true
+    },
     price : {
         type : Number,
         required : true
