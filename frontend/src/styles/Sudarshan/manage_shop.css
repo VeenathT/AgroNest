@@ -40,7 +40,7 @@
   .section > h4 {
     margin-bottom: 10px;
     font-weight: bold;
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.568);
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
   }
   
   .section > button {
@@ -60,5 +60,50 @@
   .dark-green-bg {
     background-color: #388e3c; /* Dark green background color */
     color: white; /* Text color for dark green background */
+  }
+  .fertilizer-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust as needed */
+  }
+  
+  .fertilizer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* Optional: Add margin between items */
+  }
+
+  .fertilizer-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: black; /* Set font color to black */
+    font-size: 16px; /* Optional: Add margin between items */
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 10px; /* Adjust space between buttons */
+  }
+  .image-container {
+    border: 3px solid #000; /* Add border around the image */
+    padding: 5px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.6);
+    margin-top: 10px; /* Optional: Add padding for spacing */
+  }
+  
+  .image-container img {
+    width: 100%; /* Ensure the image fills the container */
+  }
+
+  .chart-container {
+    margin-top: 30px;
   }
   

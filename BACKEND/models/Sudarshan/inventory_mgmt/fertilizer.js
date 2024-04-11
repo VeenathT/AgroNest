@@ -6,7 +6,7 @@ const fertilizerSchema = new Schema({
         type : String,
         required : true
     },
-    id : {
+    itemcode : {
         type : Number,
         required : true
     },

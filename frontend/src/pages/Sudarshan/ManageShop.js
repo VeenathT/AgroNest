@@ -22,6 +22,10 @@ import algae from '../../images/Sudarshan/fertilizer images/algae.png';
 import recovery from '../../images/Sudarshan/fertilizer images/recovery.png';
 import xfert from '../../images/Sudarshan/fertilizer images/xfert.png';
 import dolomite from '../../images/Sudarshan/fertilizer images/dolomite.png';
+import { ButtonGroup } from '@mui/material';
+import { Bar } from 'react-chartjs-2';
+import "chart.js/auto";
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const ManageShop = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,6 +38,10 @@ const ManageShop = () => {
     const [selectedProductImage, setSelectedProductImage] = useState('');
     const navigate = useNavigate();
     const [dealerId, setDealerId] = useState(null);
+    const [fertilizers, setFertilizers] = useState([]);
+    const [updatedPrice, setUpdatedPrice] = useState('');
+    const [updatedQuantity, setUpdatedQuantity] = useState('');
+    const [chartData, setChartData] = useState({});
 
 
     useEffect(() => {
@@ -49,24 +57,120 @@ const ManageShop = () => {
         const data = response.data;
         console.log('Dealer data:', data);
         setDealerData(data);
-        const dealerId = data.id;
+        const dealerId = data._id;
         console.log('Dealer ID:', dealerId);
         setDealerId(dealerId);
-      } catch (error) {
-        console.error('Error fetching dealer data:', error);
-      }
-    };
+
+        const fertilizersResponse = await axios.get(`http://localhost:8070/dealer/${dealerId}/fertilizers`);
+        console.log('Fertilizers response:', fertilizersResponse);
+                setFertilizers(fertilizersResponse.data);
+                console.log('Fertilizers:', fertilizersResponse.data);
+
+                 
+  
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          }
+      };
 
     fetchDealerData();
     }, []);
 
-  const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
+    const fetchFertilizerDataForChart = async () => {
+      try {
+          const token = localStorage.getItem('token');
+          const response = await axios.get('http://localhost:8070/dealer/dealers', {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          });
+          const data = response.data;
+          console.log('Dealer data:', data);
+          setDealerData(data);
+          const dealerId = data._id;
+          console.log('Dealer ID:', dealerId);
+          setDealerId(dealerId);
+  
+          const fertilizersResponse = await axios.get(`http://localhost:8070/dealer/${dealerId}/fertilizers`);
+          console.log('Fertilizers response:', fertilizersResponse);
+          setFertilizers(fertilizersResponse.data);
+          console.log('Fertilizers:', fertilizersResponse.data);
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  };
 
-  const handleEditProfile = () => {
+  useEffect(() => {
+    fetchFertilizerDataForChart();
+}, []);
+
+    useEffect(() => {
+      // Render chart when fertilizers data is available
+      if (fertilizers && fertilizers.length > 0) {
+          console.log("Fertilizers data:", fertilizers);
+          const labels = fertilizers.map(fertilizer => fertilizer.name);
+          const quantities = fertilizers.map(fertilizer => fertilizer.quantity);
+  
+          console.log("Labels:", labels);
+          console.log("Quantities:", quantities);
+  
+          // Set the data for the chart
+          console.log("Setting chart data...");
+          setChartData({
+              labels: labels,
+              datasets: [
+                  {
+                      label: 'Quantity Available',
+                      data: quantities,
+                      backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                      borderColor: 'rgba(255, 99, 18, 1)',
+                      borderWidth: 2
+                  }
+              ]
+          });
+      } else {
+          // If fertilizers data is not available, set an empty chartData
+          console.log("No fertilizers data available. Setting empty chart data.");
+          setChartData({
+              labels: [],
+              datasets: []
+          });
+      }
+  }, [fertilizers]);
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen);
+      };
+
+    const handleEditProfile = () => {
         navigate('/editProf');
-    };
+      };
+
+    const handlePriceChange = (event, fertilizerId) => {
+        const { value } = event.target;
+        console.log('Price value:', value);
+        console.log('Fertilizer ID:', fertilizerId);
+        setUpdatedPrice(prevState => ({
+          ...prevState,
+          [fertilizerId]: {
+            ...prevState[fertilizerId],
+            price: value
+          }
+        }));
+      };
+      
+    const handleQuantityChange = (event, fertilizerId) => {
+        const { value } = event.target;
+        console.log('Quantity value:', value);
+        console.log('Fertilizer ID:', fertilizerId);
+        setUpdatedQuantity(prevState => ({
+          ...prevState,
+          [fertilizerId]: {
+            ...prevState[fertilizerId],
+            quantity: value
+          }
+        }));
+      };
 
     const handleProductChange = (event) => {
         const selectedProduct = event.target.value;
@@ -137,7 +241,32 @@ const ManageShop = () => {
         setSelectedProductImage(imagePath);
       };
 
-      const handleAddProduct = async (dealerId) => {
+    const getFertilizerImage = (fertilizerName) => {
+        switch (fertilizerName) {
+            case 'NPKprime':
+                return npkprime;
+            case 'NPKbalanced':
+                return npkbalanced;
+            case 'MOP':
+                return mop;
+            case 'TSP':
+                return tsp;
+            case 'Urea':
+                return urea;
+            case 'Dolomite':
+                return dolomite;
+            case 'X-Fert':
+                return xfert;
+            case 'Recovery':
+                return recovery;
+            case 'Algaesolidstar':
+                return algae;
+            default:
+                return npkprime; // Provide a default image path if no match is found
+        }
+      };
+
+    const handleAddProduct = async (dealerId) => {
         try {
 
           console.log('Adding product...');
@@ -167,15 +296,73 @@ const ManageShop = () => {
         }
       };
 
-  const handleEditProduct = (productId) => {
-    // Redirect to the edit product page with the productId
-    navigate(`/edit-product/${productId}`);
-  };
+    
 
-  const handleDeleteProduct = (productId) => {
-    // Implement delete product functionality
-    // You can send a delete request to your backend to delete the product
-  };
+    const handleUpdateFertilizer = async (fertilizerId, updatedPrice, updatedQuantity) => {
+        try {
+          console.log('Updating fertilizer:', { fertilizerId, updatedPrice, updatedQuantity });
+
+          const price = updatedPrice[fertilizerId]?.price;
+          const quantity = updatedQuantity[fertilizerId]?.quantity;
+          console.log('Price:', price);
+          console.log('Quantity:', quantity);
+          // Send a request to update the fertilizer with the provided data
+          const response = await axios.put(`http://localhost:8070/dealer/updatefertilizers/${fertilizerId}`, {
+            price: price,
+            quantity: quantity
+          });
+          console.log('Fertilizer updated successfully:', response.data);
+          // You may want to update the local state with the updated fertilizer data here
+        } catch (error) {
+          console.error('Error updating fertilizer:', error);
+        }
+      };
+
+    const handleDeleteProduct = async (fertilizerId) => {
+        try {
+          console.log('Deleting fertilizer with ID:', fertilizerId);
+          // Send a DELETE request to the backend API to delete the fertilizer
+          const response = await axios.delete(`http://localhost:8070/dealer/deletefertilizer/${fertilizerId}`);
+          
+          console.log('Fertilizer deleted successfully:', response.data);
+      
+          // Remove the deleted fertilizer from the local state
+          setFertilizers(prevFertilizers => {
+            console.log('Updating local state...'); // Adding console log
+            return prevFertilizers.filter(fertilizer => fertilizer._id !== fertilizerId)
+          });
+        } catch (error) {
+          console.error('Error deleting fertilizer:', error);
+        }
+      };
+
+      const options = {
+        scales: {
+          x: {
+            grid: {
+              color: 'black' // Set x-axis gridline color to black
+            },
+            ticks: {
+              color: 'black',
+              font: {
+                size: 16,
+                weight: 'bold' // Set font size of x-axis labels
+              } // Set x-axis label color to black
+            }
+          },
+          y: {
+            grid: {
+              color: 'black' // Set y-axis gridline color to black
+            },
+            ticks: {
+              color: 'black',
+              font: {
+                size: 16 // Set font size of x-axis labels
+              } // Set y-axis label color to black
+            }
+          }
+        }
+      };
 
   return (
     <div className="container">
@@ -370,36 +557,128 @@ const ManageShop = () => {
   </div>
 </div>
 
-
-        
         <div className="section view-items-section light-green-bg">
           <Typography variant="h4"><StorefrontOutlinedIcon style={{ fontSize: 32, color: 'black', marginRight: 8 }}/>View All Items</Typography>
           {/* Add the component or list to view all items */}
-          <ul>
-            {/* Render a list of items */}
-            {/* Example: */}
-            <li>
-              Product 1
-              <button onClick={() => handleEditProduct()}>Edit</button>
-              <button onClick={() => handleDeleteProduct()}>Delete</button>
-            </li>
-            {/* Add more items */}
-          </ul>
+          <div className="fertilizer-list">
+    {fertilizers.map((fertilizer, index) => (
+      <div key={index} className="fertilizer-item">
+         <div className="image-container">
+          <img src={getFertilizerImage(fertilizer.name)} alt={fertilizer.name} />
         </div>
+        <div className="fertilizer-details">
+          <Typography variant="subtitle1" className="fertilizer-name" style={{ fontSize: '25px', color: 'white',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}><b>{fertilizer.name}</b></Typography>
+          <Typography variant="body1" className="fertilizer-quantity"><b>Item Code:</b> {fertilizer.itemcode}</Typography>
+          <Typography variant="body1" className="fertilizer-price"><b>Price:</b> {fertilizer.price}</Typography>
+          <Typography variant="body1" className="fertilizer-quantity"><b>Quantity:</b> {fertilizer.quantity}</Typography>
+          
+        </div>
+      </div>
+    ))}
+  </div>
+        </div>
+
+
         <div className="section update-listings-section dark-green-bg">
-          <Typography variant="h4"><UpdateOutlinedIcon style={{ fontSize: 32, color: 'black', marginRight: 8 }}/>Update Listings</Typography>
-          {/* Add the form or components for updating listings */}
-          {/* Example: */}
-          <input type="text" placeholder="Enter product ID" />
-          <button onClick={() => handleEditProduct()}>Edit Product</button>
+          <Typography variant="h4"><UpdateOutlinedIcon style={{ fontSize: 32, color: 'black', marginRight: 8 }}/>
+          Update Listings / <RemoveCircleOutlineOutlinedIcon style={{ fontSize: 32, color: 'black', marginRight: 8 }}/>Delete Listings</Typography>
+          
+          <div className="fertilizer-list">
+    {fertilizers.map((fertilizer, index) => (
+      <div key={index} className="fertilizer-item">
+         <div className="image-container">
+          <img src={getFertilizerImage(fertilizer.name)} alt={fertilizer.name} />
         </div>
-        <div className="section delete-listings-section green-bg">
-          <Typography variant="h4"><RemoveCircleOutlineOutlinedIcon style={{ fontSize: 32, color: 'black', marginRight: 8 }}/>Delete Listings</Typography>
-          {/* Add the form or components for deleting listings */}
-          {/* Example: */}
-          <input type="text" placeholder="Enter product ID" />
-          <button onClick={() => handleDeleteProduct()}>Delete Product</button>
+        <div className="fertilizer-details">
+          <Typography variant="subtitle1" className="fertilizer-name" style={{ fontSize: '25px', color: 'white',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}><b>{fertilizer.name}</b></Typography>
+          <Typography variant="body1" className="fertilizer-quantity"><b>Item Code:</b> {fertilizer.itemcode}</Typography>
+          <TextField
+  variant="outlined"
+  placeholder={fertilizer.price}
+  className="fertilizer-price"
+  value={(updatedPrice[fertilizer._id] || {}).price || ''}
+  onChange={(event) => handlePriceChange(event, fertilizer._id)}
+  InputProps={{
+    startAdornment: <b>Price:</b>,
+    sx: {
+      '& .MuiInputBase-input': {
+        color: 'black', // Input text color
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'black !important',
+        borderWidth: '2px',
+        boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)' // Outline border color
+      },
+      borderRadius: '20px',
+    },
+  }}
+  style={{ width: 'calc(80% - 8px)', marginRight: '8px', marginTop: '16px' }} // Set the width
+/>
+
+<TextField
+  variant="outlined"
+  placeholder={fertilizer.quantity}
+  className="fertilizer-quantity"
+  value={(updatedQuantity[fertilizer._id] || {}).quantity || ''}
+  onChange={(event) => handleQuantityChange(event, fertilizer._id)}
+  InputProps={{
+    startAdornment: <b>Quantity:</b>,
+    sx: {
+      '& .MuiInputBase-input': {
+        color: 'black', // Input text color
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'black !important',
+        borderWidth: '2px',
+        boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)' // Outline border color
+      },
+      borderRadius: '20px',
+    },
+  }}
+  style={{ width: 'calc(80% - 8px)', marginRight: '8px',  marginTop: '16px' }} // Set the width
+/>
+
+          <div className="button-container">
+          <ButtonGroup variant="contained" aria-label="Basic button group" sx={{ borderRadius: '20px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)',fontSize: '15px' }}>
+            <Button 
+            onClick={() => handleUpdateFertilizer(fertilizer._id, updatedPrice, updatedQuantity)} 
+            color="primary" 
+            sx={{ borderRadius: '20px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)',fontSize: '15px' }}>Update
+            </Button>
+
+            <Button 
+            onClick={() => handleDeleteProduct(fertilizer._id)} 
+            color="error" 
+            sx={{ borderRadius: '20px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)',fontSize: '15px' }}>Delete
+            </Button>
+          </ButtonGroup>
+          </div>
         </div>
+      </div>
+    ))}
+  </div>
+          
+        </div>
+
+
+        <div className="section update-listings-section light-green-bg">
+          <Typography variant="h4"><BarChartIcon style={{ fontSize: 36, color: 'black', marginRight: 8 }}/>
+          Quantity Available for each Category</Typography>
+          <div className="chart-container">
+    {console.log('Chart container rendered')}
+    {chartData && Object.keys(chartData).length > 0 && chartData.labels && chartData.datasets ? (
+      <Bar data={chartData} options={options} />
+    ) : (
+      <p>No data available for chart</p>
+    )}
+  </div>
+          
+          
+        </div>
+
+
+        
+
       </div>
       <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name} handleEditProfile={handleEditProfile} />
     </div>

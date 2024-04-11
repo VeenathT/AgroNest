@@ -227,3 +227,67 @@ router.post('/addProduct', async (req, res) => {
 });
 
 module.exports = router;
+
+router.get('/:dealerId/fertilizers', async (req, res) => {
+  try {
+    const { dealerId } = req.params;
+    const dealer = await Dealer.findById(dealerId).populate('fertilizers');
+    if (!dealer) {
+      return res.status(404).json({ message: 'Dealer not found' });
+    }
+    console.log('Fetching fertilizers for dealer:', dealerId);
+    // Fetch fertilizers from the database based on the dealerId
+    const fertilizers = dealer.fertilizers;
+    console.log('Fetched fertilizers:', fertilizers);
+    res.json(fertilizers);
+  } catch (error) {
+    console.error('Error fetching fertilizers:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
+
+router.put('/updatefertilizers/:fertilizerId', async (req, res) => {
+  const { fertilizerId } = req.params;
+  const { price, quantity } = req.body;
+
+  try {
+    // Find the fertilizer by ID and update its price and quantity
+    const updatedFertilizer = await Fertilizer.findByIdAndUpdate(fertilizerId, { price, quantity }, { new: true });
+
+    if (!updatedFertilizer) {
+      return res.status(404).json({ message: 'Fertilizer not found' });
+    }
+
+    res.json(updatedFertilizer);
+  } catch (error) {
+    console.error('Error updating fertilizer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
+
+router.delete('/deletefertilizer/:fertilizerId', async (req, res) => {
+  const { fertilizerId } = req.params;
+  console.log('Fertilizer ID to delete:', fertilizerId);
+
+  try {
+    console.log('Finding fertilizer to delete...');
+    // Find the fertilizer by ID and delete it
+    const deletedFertilizer = await Fertilizer.findByIdAndDelete(fertilizerId);
+    console.log('Deleted fertilizer:', deletedFertilizer);
+    if (!deletedFertilizer) {
+      console.log('Fertilizer not found');
+      return res.status(404).json({ message: 'Fertilizer not found' });
+    }
+    console.log('Fertilizer deleted successfully');
+    res.json({ message: 'Fertilizer deleted successfully', deletedFertilizer });
+  } catch (error) {
+    console.error('Error deleting fertilizer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
