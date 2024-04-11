@@ -25,13 +25,3 @@ to improve farming practices, boost production, and promote long-term farming co
 ##### System Manager
 ##### Laboratory 
 ##### User (visitor)
-
-## Collaborations:-
-##### Veenath G.D.T.          
-##### Semasingha W.A.L.D.    
-##### Thisaravi R.D.H.        
-##### Mihindukulasuriya O.S.   
-##### Rahul N.W.P.G.T.T.      
-##### Kandage T.P.           
-##### Dayarathna W.R.S.       
-##### Perera G.D.G.N.         
