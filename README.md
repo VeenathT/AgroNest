@@ -18,8 +18,7 @@ agricultural information and product promotion, attracting users and increasing 
 features like targeted distribution and promotional content management. Every facet of our 
 application, from dealer profile management to fertilizer analysis reports, is painstakingly crafted 
 to improve farming practices, boost production, and promote long-term farming community growth
-## Main Actors In Our System:-
-Farmer , Dealer , Company-Administrator , System-Manager , Laboratory , User(visitor)
+
 
 ## Libraries and Frameworks:–
 ##### • React :- A JavaScript library for building user interfaces, React can be used for developing the front-end components of our web application. Its component-based architecture and virtual DOM makes it well-suited for creating interactive and responsive UIs. 
