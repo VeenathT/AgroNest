@@ -36,5 +36,5 @@ const labSchema = new Schema({
     
 })
 
-const Lab = mongoose.model("Lab",labSchema);
+const Lab = mongoose.model("labAccount",labSchema);
 module.exports = Lab;
