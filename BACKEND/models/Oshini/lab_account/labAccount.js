@@ -23,7 +23,7 @@ const labSchema = new Schema({
         required : true
     },
 
-    username : {
+    userName : {
         type : String,
         required : true,
         unique : true

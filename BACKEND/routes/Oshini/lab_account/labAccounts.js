@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-let Lab = require('../../models/Oshini/lab_account/labAccount');
+let Lab = require('../../../models/Oshini/lab_account/labAccount');
 
 router.route("/add").post((req,res)=>{
 
