@@ -1,6 +1,4 @@
-// formPage.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,10 +13,30 @@ const FormPage = () => {
   const [area, setArea] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  useEffect(() => {
+    const fetchInquiryDetails = async () => {
+      try {
+        const inquiryId = new URLSearchParams(location.search).get('id');
+        const response = await axios.get(`http://localhost:8070/api/reports/${inquiryId}`);
+        const { name, topic, description, priority, area } = response.data;
+        setName(name);
+        setTopic(topic);
+        setDescription(description);
+        setPriority(priority);
+        setArea(area);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchInquiryDetails();
+  }, [location.search]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8070/api/reports', {
+      const inquiryId = new URLSearchParams(location.search).get('id');
+      await axios.put(`http://localhost:8070/api/reports/${inquiryId}`, {
         name,
         topic,
         description,
@@ -26,7 +44,7 @@ const FormPage = () => {
         category,
         area
       });
-      setSuccessMessage('Inquiry submitted successfully!');
+      setSuccessMessage('Inquiry updated successfully!');
       setTimeout(() => {
         setSuccessMessage('');
         navigate('/');
@@ -38,7 +56,7 @@ const FormPage = () => {
 
   return (
     <div>
-      <h1>Submit Inquiry</h1>
+      <h1>Update Inquiry</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
         <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Topic" required />
