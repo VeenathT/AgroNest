@@ -14,6 +14,7 @@ const Footer = ({ visible }) => {
         right: 0,
         opacity: visible ? 1 : 0,
         transition: 'opacity 0.3s ease-in-out',
+        backgroundColor: '#0f5132',
       }}
     >
       <Container maxWidth="md">

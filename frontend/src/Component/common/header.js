@@ -6,19 +6,19 @@ import { Box } from '@mui/system';
 
 const Header = ({ isLoggedIn, onLogout }) => {
   return (
-    <AppBar style={{ position: 'fixed', top: 0, zIndex: 1000 }}>
+    <AppBar style={{ position: 'fixed', top: 0, zIndex: 1000 }} sx={{ backgroundColor: '#0f5132' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h6">My App</Typography>
         <Box>
         {isLoggedIn ? (
           <>
-            <Button color="inherit" component={Link} to="/profile">Profile</Button>
+            <Button color="inherit" component={Link} to="/profiletype">Profile</Button>
             <Button color="inherit" onClick={onLogout}>Logout</Button>
           </>
         ) : (
           <>
-            <Button color="inherit" component={Link} to="/login">Login</Button>
-            <Button color="inherit" component={Link} to="/signup">Sign Up</Button>
+            <Button color="inherit" component={Link} to="/logintype">Login</Button>
+            <Button color="inherit" component={Link} to="/signuptype">Sign Up</Button>
           </>
         )}
         </Box>
