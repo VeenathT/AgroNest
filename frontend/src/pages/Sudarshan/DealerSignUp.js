@@ -16,11 +16,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import paddy from '../../images/common/paddy.jpg';
+import PopupMessage from '../common/PopUp';
 
 const greenTheme = createTheme({
   palette: {
     primary: {
-      main: '#0f5132', // Green color
+      main: '#0f5132', 
     },
   },
 });
@@ -35,6 +36,8 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [reEnteredPassword, setReEnteredPassword] = useState('');
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
+const [successMessage, setSuccessMessage] = useState('');
 
   const districts = [
     'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle', 'Gampaha', 'Hambantota',
@@ -59,14 +62,27 @@ const SignUp = () => {
       });
 
       console.log('Signup successful:', response.data);
-      navigate('/login');
+      setSuccessMessage('Signup successful');
+      setTimeout(() => {
+        navigate('/loginDealer');
+      }, 3000);
+      
+      
     } catch (error) {
         if (error.response && error.response.data) {
             console.error('Signup error:', error.response.data);
           } else {
             console.error('Signup error:', error.message); 
           }
+          setErrorMessage(error.response.data.error);
     }
+  };
+
+  const handleClosePopup = () => {
+    
+    setErrorMessage('');
+    setSuccessMessage('');
+    
   };
 
   return (
@@ -96,8 +112,8 @@ const SignUp = () => {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              height: '100%', // Adjusted to center content vertically
-              paddingTop: '2rem', // Added padding top to move content upper
+              height: '100%', 
+              paddingTop: '2rem', 
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
@@ -120,7 +136,7 @@ const SignUp = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <TextField
@@ -135,7 +151,7 @@ const SignUp = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <TextField
@@ -150,7 +166,7 @@ const SignUp = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <TextField
@@ -166,7 +182,7 @@ const SignUp = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <TextField
@@ -182,7 +198,7 @@ const SignUp = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <Select
@@ -214,7 +230,7 @@ const SignUp = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <TextField
@@ -229,7 +245,7 @@ const SignUp = () => {
                 value={reEnteredPassword}
                 onChange={(e) => setReEnteredPassword(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <FormControlLabel
@@ -261,6 +277,10 @@ const SignUp = () => {
           </Box>
         </Grid>
       </Grid>
+
+      {successMessage && <PopupMessage message={successMessage} type="success" onClose={handleClosePopup} />}
+      {errorMessage && <PopupMessage message={errorMessage} type="error" onClose={handleClosePopup} />}
+
     </ThemeProvider>
   );
 };

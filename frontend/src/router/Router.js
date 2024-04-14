@@ -32,14 +32,14 @@ const Router = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Clear any authentication tokens
-    setIsLoggedIn(false); // Update isLoggedIn state to false
-    navigate('/'); // Redirect to the landing page
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/'); 
   };
 
   return (
     <>
-      {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}  {/* Pass props to the Header component */}
+      {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
       <Routes>
         <Route
           path="/"

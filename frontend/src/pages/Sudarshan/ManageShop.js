@@ -11,7 +11,7 @@ import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOut
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import npkprime from '../../images/Sudarshan/fertilizer images/npkprime.png';
 import urea from '../../images/Sudarshan/fertilizer images/urea.png';
@@ -26,6 +26,7 @@ import { ButtonGroup } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 import "chart.js/auto";
 import BarChartIcon from '@mui/icons-material/BarChart';
+import PopupMessage from '../common/PopUp';
 
 const ManageShop = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -42,17 +43,19 @@ const ManageShop = () => {
     const [updatedPrice, setUpdatedPrice] = useState('');
     const [updatedQuantity, setUpdatedQuantity] = useState('');
     const [chartData, setChartData] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
 
     useEffect(() => {
-    // Fetch dealer's data from backend
-    const fetchDealerData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8070/dealer/dealers', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+    
+      const fetchDealerData = async () => {
+          try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:8070/dealer/dealers', {
+              headers: {
+                Authorization: `Bearer ${token}`
+            }
         });
         const data = response.data;
         console.log('Dealer data:', data);
@@ -73,8 +76,8 @@ const ManageShop = () => {
           }
       };
 
-    fetchDealerData();
-    }, []);
+      fetchDealerData();
+      }, []);
 
     const fetchFertilizerDataForChart = async () => {
       try {
@@ -98,14 +101,14 @@ const ManageShop = () => {
       } catch (error) {
           console.error('Error fetching data:', error);
       }
-  };
-
-  useEffect(() => {
-    fetchFertilizerDataForChart();
-}, []);
+    };
 
     useEffect(() => {
-      // Render chart when fertilizers data is available
+      fetchFertilizerDataForChart();
+    }, []);
+
+    useEffect(() => {
+      
       if (fertilizers && fertilizers.length > 0) {
           console.log("Fertilizers data:", fertilizers);
           const labels = fertilizers.map(fertilizer => fertilizer.name);
@@ -114,7 +117,7 @@ const ManageShop = () => {
           console.log("Labels:", labels);
           console.log("Quantities:", quantities);
   
-          // Set the data for the chart
+          
           console.log("Setting chart data...");
           setChartData({
               labels: labels,
@@ -129,22 +132,22 @@ const ManageShop = () => {
               ]
           });
       } else {
-          // If fertilizers data is not available, set an empty chartData
+          
           console.log("No fertilizers data available. Setting empty chart data.");
           setChartData({
               labels: [],
               datasets: []
           });
       }
-  }, [fertilizers]);
+    }, [fertilizers]);
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
-      };
+    };
 
     const handleEditProfile = () => {
         navigate('/editProf');
-      };
+    };
 
     const handlePriceChange = (event, fertilizerId) => {
         const { value } = event.target;
@@ -157,7 +160,7 @@ const ManageShop = () => {
             price: value
           }
         }));
-      };
+    };
       
     const handleQuantityChange = (event, fertilizerId) => {
         const { value } = event.target;
@@ -170,7 +173,7 @@ const ManageShop = () => {
             quantity: value
           }
         }));
-      };
+    };
 
     const handleProductChange = (event) => {
         const selectedProduct = event.target.value;
@@ -188,25 +191,25 @@ const ManageShop = () => {
         case 'MOP':
             selectedProductName = 'MOP';
             break;
-            case 'TSP':
+        case 'TSP':
             selectedProductName = 'TSP';
             break;
-            case 'Urea':
+        case 'Urea':
             selectedProductName = 'Urea';
             break;
-            case 'Dolomite':
+        case 'Dolomite':
             selectedProductName = 'Dolomite';
             break;
-            case 'X-Fert':
+        case 'X-Fert':
             selectedProductName = 'X-Fert';
             break;
-            case 'Recovery':
+        case 'Recovery':
             selectedProductName = 'Recovery';
             break;
-            case 'Algaesolidstar':
+        case 'Algaesolidstar':
             selectedProductName = 'Algaesolidstar';
             break;
-        // Add more cases for other products
+        
         default:
             selectedProductName = '';
     }
@@ -234,7 +237,7 @@ const ManageShop = () => {
         } else if (selectedProduct === 'Algaesolidstar') {
           imagePath = algae;
         }
-        // Add more conditions for other products
+        
         
         console.log('Selected product image path:', imagePath);
       
@@ -262,7 +265,7 @@ const ManageShop = () => {
             case 'Algaesolidstar':
                 return algae;
             default:
-                return npkprime; // Provide a default image path if no match is found
+                return npkprime; 
         }
       };
 
@@ -270,29 +273,34 @@ const ManageShop = () => {
         try {
 
           console.log('Adding product...');
-    console.log('Dealer ID:', dealerId);
-    console.log('Product details:', {
-      name: product,
-      price: price,
-      quantity: quantity,
-      itemcode: itemcode
+          console.log('Dealer ID:', dealerId);
+          console.log('Product details:', {
+            name: product,
+            price: price,
+            quantity: quantity,
+            itemcode: itemcode
     });
-          // Send a request to add the product with the selected data
+          
           const response = await axios.post('http://localhost:8070/dealer/addProduct', {
             id: dealerId,
-          name: product,
+            name: product,
             price: price,
             quantity: quantity,
             itemcode: itemcode
           });
           console.log('Product added successfully:', response.data);
-          // Clear input fields after successful addition
+          setSuccessMessage('Product added successfully');
+          setTimeout(() => {
+            window.location.reload(); 
+          }, 3000);
+          
           setitemcode('');
           setProduct('');
           setPrice('');
           setQuantity('');
         } catch (error) {
           console.error('Error adding product:', error);
+          setErrorMessage(error.response.data.error);
         }
       };
 
@@ -306,33 +314,43 @@ const ManageShop = () => {
           const quantity = updatedQuantity[fertilizerId]?.quantity;
           console.log('Price:', price);
           console.log('Quantity:', quantity);
-          // Send a request to update the fertilizer with the provided data
+          
           const response = await axios.put(`http://localhost:8070/dealer/updatefertilizers/${fertilizerId}`, {
             price: price,
             quantity: quantity
           });
           console.log('Fertilizer updated successfully:', response.data);
-          // You may want to update the local state with the updated fertilizer data here
-        } catch (error) {
+          setSuccessMessage('Product updated successfully');
+          setTimeout(() => {
+            window.location.reload(); 
+          }, 3000);
+          
+          } catch (error) {
           console.error('Error updating fertilizer:', error);
+          setErrorMessage(error.response.data.error);
         }
       };
 
     const handleDeleteProduct = async (fertilizerId) => {
         try {
           console.log('Deleting fertilizer with ID:', fertilizerId);
-          // Send a DELETE request to the backend API to delete the fertilizer
+          
           const response = await axios.delete(`http://localhost:8070/dealer/deletefertilizer/${fertilizerId}`);
           
           console.log('Fertilizer deleted successfully:', response.data);
+          setSuccessMessage('Product deleted successfulyl');
+          setTimeout(() => {
+            window.location.reload(); 
+          }, 3000);
       
-          // Remove the deleted fertilizer from the local state
+          
           setFertilizers(prevFertilizers => {
-            console.log('Updating local state...'); // Adding console log
+            console.log('Updating local state...'); 
             return prevFertilizers.filter(fertilizer => fertilizer._id !== fertilizerId)
           });
-        } catch (error) {
+          } catch (error) {
           console.error('Error deleting fertilizer:', error);
+          setErrorMessage(error.response.data.error);
         }
       };
 
@@ -340,28 +358,34 @@ const ManageShop = () => {
         scales: {
           x: {
             grid: {
-              color: 'black' // Set x-axis gridline color to black
+              color: 'black' 
             },
             ticks: {
               color: 'black',
               font: {
                 size: 16,
-                weight: 'bold' // Set font size of x-axis labels
-              } // Set x-axis label color to black
+                weight: 'bold' 
+              } 
             }
           },
           y: {
             grid: {
-              color: 'black' // Set y-axis gridline color to black
+              color: 'black' 
             },
             ticks: {
               color: 'black',
               font: {
-                size: 16 // Set font size of x-axis labels
-              } // Set y-axis label color to black
+                size: 16 
+              } 
             }
           }
         }
+      };
+
+      const handleClosePopup = () => {
+        
+        setErrorMessage('');
+        setSuccessMessage('');
       };
 
   return (
@@ -383,30 +407,30 @@ const ManageShop = () => {
         <FormControl fullWidth 
         sx={{
             '& .MuiSelect-iconOutlined': {
-                color: 'black' // Icon color
+                color: 'black' 
               },
               '& .MuiSelect-select': {
-                color: 'black', // Text color
+                color: 'black', 
                 '&:focus': {
-                  backgroundColor: 'transparent' // Remove focus background color
+                  backgroundColor: 'transparent' 
                 }
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Label color
+                color: 'black', 
                 '&.Mui-focused': {
-                  color: 'black' // Focused label color
+                  color: 'black' 
                 }
               },
             marginTop: 2,
             borderRadius: '20px',
             width: '51%',
-            '& .MuiOutlinedInput-root': { // Select the root element of the outlined input
+            '& .MuiOutlinedInput-root': { 
               borderRadius: '20px',
               '& .MuiOutlinedInput-notchedOutline': {
                 borderColor: 'black !important',
                 borderWidth: '2px',
-                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', // Border color
-              }, // Apply border radius to the root element
+                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)',
+              }, 
             }
           }}>
           <InputLabel id="product-label">Select Product</InputLabel>
@@ -415,7 +439,7 @@ const ManageShop = () => {
             id="product"
             value={product}
             InputProps={{
-              readOnly: true, // Make the input field read-only
+              readOnly: true, 
           }}
             onChange={(e) => handleProductChange(e)}
             label="Select Product"
@@ -429,7 +453,7 @@ const ManageShop = () => {
             <MenuItem value="Dolomite">Dolomite</MenuItem>
             <MenuItem value="X-Fert">X-Fert</MenuItem>
             <MenuItem value="Algaesolidstar">Algae Solid Star</MenuItem>
-            {/* Add more MenuItem components as needed */}
+            
           </Select>
         </FormControl>
         <TextField
@@ -441,30 +465,30 @@ const ManageShop = () => {
           onChange={(e) => setitemcode(e.target.value)}
           sx={{
             '& .MuiSelect-iconOutlined': {
-                color: 'black' // Icon color
+                color: 'black' 
               },
               '& .MuiSelect-select': {
-                color: 'white', // Text color
+                color: 'white', 
                 '&:focus': {
-                  backgroundColor: 'transparent' // Remove focus background color
+                  backgroundColor: 'transparent' 
                 }
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Label color
+                color: 'black', 
                 '&.Mui-focused': {
-                  color: 'black' // Focused label color
+                  color: 'black' 
                 }
               },
             marginTop: 2,
             borderRadius: '20px',
             width: '51%',
-            '& .MuiOutlinedInput-root': { // Select the root element of the outlined input
+            '& .MuiOutlinedInput-root': { 
               borderRadius: '20px',
               '& .MuiOutlinedInput-notchedOutline': {
                 borderColor: 'black !important',
                 borderWidth: '2px',
-                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', // Border color
-              }, // Apply border radius to the root element
+                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', 
+              }, 
             }
           }}
         />
@@ -477,30 +501,30 @@ const ManageShop = () => {
           onChange={(e) => setPrice(e.target.value)}
           sx={{
             '& .MuiSelect-iconOutlined': {
-                color: 'black' // Icon color
+                color: 'black' 
               },
               '& .MuiSelect-select': {
-                color: 'white', // Text color
+                color: 'white', 
                 '&:focus': {
-                  backgroundColor: 'transparent' // Remove focus background color
+                  backgroundColor: 'transparent' 
                 }
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Label color
+                color: 'black', 
                 '&.Mui-focused': {
-                  color: 'black' // Focused label color
+                  color: 'black' 
                 }
               },
             marginTop: 2,
             borderRadius: '20px',
             width: '51%',
-            '& .MuiOutlinedInput-root': { // Select the root element of the outlined input
+            '& .MuiOutlinedInput-root': { 
               borderRadius: '20px',
               '& .MuiOutlinedInput-notchedOutline': {
                 borderColor: 'black !important',
                 borderWidth: '2px',
-                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', // Border color
-              }, // Apply border radius to the root element
+                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', 
+              }, 
             }
           }}
         />
@@ -513,30 +537,30 @@ const ManageShop = () => {
           onChange={(e) => setQuantity(e.target.value)}
           sx={{
             '& .MuiSelect-iconOutlined': {
-                color: 'black' // Icon color
+                color: 'black' 
               },
               '& .MuiSelect-select': {
-                color: 'white', // Text color
+                color: 'white', 
                 '&:focus': {
-                  backgroundColor: 'transparent' // Remove focus background color
+                  backgroundColor: 'transparent' 
                 }
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Label color
+                color: 'black', 
                 '&.Mui-focused': {
-                  color: 'black' // Focused label color
+                  color: 'black' 
                 }
               },
             marginTop: 2,
             borderRadius: '20px',
             width: '51%',
-            '& .MuiOutlinedInput-root': { // Select the root element of the outlined input
+            '& .MuiOutlinedInput-root': { 
               borderRadius: '20px',
               '& .MuiOutlinedInput-notchedOutline': {
                 borderColor: 'black !important',
                 borderWidth: '2px',
-                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', // Border color
-              }, // Apply border radius to the root element
+                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', 
+              }, 
             }
           }}
         />
@@ -550,16 +574,16 @@ const ManageShop = () => {
             </Card>
           </div>
         
-        <div style={{ textAlign: 'center', marginTop: '30px' }}> {/* Container for the button */}
-    <Button variant="contained" onClick={() => handleAddProduct(dealerId)} sx={{ borderRadius: '20px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)',fontSize: '15px' }}>
+        <div style={{ textAlign: 'center', marginTop: '30px' }}> 
+        <Button variant="contained" onClick={() => handleAddProduct(dealerId)} sx={{ borderRadius: '20px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)',fontSize: '15px' }}>
       Add Product
-    </Button>
-  </div>
-</div>
+      </Button>
+      </div>
+    </div>
 
         <div className="section view-items-section light-green-bg">
           <Typography variant="h4"><StorefrontOutlinedIcon style={{ fontSize: 32, color: 'black', marginRight: 8 }}/>View All Items</Typography>
-          {/* Add the component or list to view all items */}
+          
           <div className="fertilizer-list">
     {fertilizers.map((fertilizer, index) => (
       <div key={index} className="fertilizer-item">
@@ -593,26 +617,26 @@ const ManageShop = () => {
           <Typography variant="subtitle1" className="fertilizer-name" style={{ fontSize: '25px', color: 'white',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}><b>{fertilizer.name}</b></Typography>
           <Typography variant="body1" className="fertilizer-quantity"><b>Item Code:</b> {fertilizer.itemcode}</Typography>
           <TextField
-  variant="outlined"
-  placeholder={fertilizer.price}
-  className="fertilizer-price"
-  value={(updatedPrice[fertilizer._id] || {}).price || ''}
-  onChange={(event) => handlePriceChange(event, fertilizer._id)}
-  InputProps={{
+              variant="outlined"
+              placeholder={fertilizer.price}
+              className="fertilizer-price"
+              value={(updatedPrice[fertilizer._id] || {}).price || ''}
+              onChange={(event) => handlePriceChange(event, fertilizer._id)}
+              InputProps={{
     startAdornment: <b>Price:</b>,
     sx: {
       '& .MuiInputBase-input': {
-        color: 'black', // Input text color
+        color: 'black', 
       },
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: 'black !important',
         borderWidth: '2px',
-        boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)' // Outline border color
+        boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)' 
       },
       borderRadius: '20px',
     },
   }}
-  style={{ width: 'calc(80% - 8px)', marginRight: '8px', marginTop: '16px' }} // Set the width
+  style={{ width: 'calc(80% - 8px)', marginRight: '8px', marginTop: '16px' }} 
 />
 
 <TextField
@@ -625,17 +649,17 @@ const ManageShop = () => {
     startAdornment: <b>Quantity:</b>,
     sx: {
       '& .MuiInputBase-input': {
-        color: 'black', // Input text color
+        color: 'black', 
       },
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: 'black !important',
         borderWidth: '2px',
-        boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)' // Outline border color
+        boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)' 
       },
       borderRadius: '20px',
     },
   }}
-  style={{ width: 'calc(80% - 8px)', marginRight: '8px',  marginTop: '16px' }} // Set the width
+  style={{ width: 'calc(80% - 8px)', marginRight: '8px',  marginTop: '16px' }} 
 />
 
           <div className="button-container">
@@ -681,6 +705,9 @@ const ManageShop = () => {
 
       </div>
       <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name} handleEditProfile={handleEditProfile} />
+
+      {successMessage && <PopupMessage message={successMessage} type="success" onClose={handleClosePopup} />}
+      {errorMessage && <PopupMessage message={errorMessage} type="error" onClose={handleClosePopup} />}
     </div>
   );
 };

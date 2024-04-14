@@ -14,23 +14,26 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import paddy from '../../images/common/paddy.jpg';
+import PopupMessage from '../common/PopUp';
 
-// Create a custom green theme
+
+
 const greenTheme = createTheme({
   palette: {
     primary: {
-      main: '#0f5132', // Green color
+      main: '#0f5132',
     },
   },
 });
 
 const DealerSignUp = ({ setIsLoggedIn }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+const [username, setUsername] = useState('');
+const [password, setPassword] = useState('');
+const [error, setError] = useState('');
+const navigate = useNavigate();
+const [errorMessage, setErrorMessage] = useState('');
+const [successMessage, setSuccessMessage] = useState('');
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -42,10 +45,21 @@ const DealerSignUp = ({ setIsLoggedIn }) => {
       });
       localStorage.setItem('token', response.data.token);
       setIsLoggedIn(true);
-      navigate('/');
+      setSuccessMessage('Login successful');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+      
     } catch (error) {
       setError('Invalid username or password');
+      setErrorMessage('Login failed. Invalid username or password.');
     }
+  };
+
+  const handleClosePopup = () => {
+    
+    setErrorMessage('');
+    setSuccessMessage('');
   };
 
   return (
@@ -75,8 +89,8 @@ const DealerSignUp = ({ setIsLoggedIn }) => {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              height: '100%', // Adjusted to center content vertically
-              paddingTop: '2rem', // Added padding top to move content upper
+              height: '100%', 
+              paddingTop: '2rem', 
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
@@ -100,7 +114,7 @@ const DealerSignUp = ({ setIsLoggedIn }) => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <TextField
@@ -115,7 +129,7 @@ const DealerSignUp = ({ setIsLoggedIn }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 InputProps={{
-                  sx: { borderRadius: '20px' } // Rounded corners style for the input
+                  sx: { borderRadius: '20px' } 
                 }}
               />
               <FormControlLabel
@@ -147,6 +161,10 @@ const DealerSignUp = ({ setIsLoggedIn }) => {
           </Box>
         </Grid>
       </Grid>
+
+      {successMessage && <PopupMessage message={successMessage} type="success" onClose={handleClosePopup} />}
+      {errorMessage && <PopupMessage message={errorMessage} type="error" onClose={handleClosePopup} />}
+
     </ThemeProvider>
   );
 };

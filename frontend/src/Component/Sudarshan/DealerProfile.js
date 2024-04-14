@@ -15,7 +15,7 @@ const DealerProfile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch dealer's data from backend
+    
     const fetchDealerData = async () => {
       try {
         const token = localStorage.getItem('token');
@@ -62,13 +62,13 @@ const DealerProfile = () => {
       <div className="profile-container">
         <Typography variant="h4" style={{ textAlign: 'center' }}>Welcome, {dealerData?.name}!</Typography>
         <Avatar
-  alt="Dealer"
-  src={dealerData?.image?.data ? `data:${dealerData?.image?.contentType};base64,${dealerData?.image?.data}` : ''}
-  className="avatar"
-  style={{ boxShadow: '0 0 10px green' }}
-  onLoad={() => console.log('Avatar image loaded successfully')}
-  onError={() => console.error('Error loading Avatar image')}
-/>
+          alt="Dealer"
+          src={dealerData?.image?.data ? `data:${dealerData?.image?.contentType};base64,${dealerData?.image?.data}` : ''}
+          className="avatar"
+          style={{ boxShadow: '0 0 10px green' }}
+          onLoad={() => console.log('Avatar image loaded successfully')}
+          onError={() => console.error('Error loading Avatar image')}
+        />
         <div className="details-container"> 
           {renderDetailItem('Username:', 'account_circle', dealerData?.username)}
           {renderDetailItem('Name:', 'person', dealerData?.name)}

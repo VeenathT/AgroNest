@@ -4,19 +4,19 @@
     align-items: center;
     justify-content: center;
     padding-top: 64px;
-    background-color: rgb(172, 105, 50); /* Adjust as needed to avoid overlapping with the app bar */
+    background-color: rgb(172, 105, 50);
   }
   
   .header {
     position: fixed;
     top: 0;
-    left: 0; /* Move the header button to the left corner */
-    width: 100%; /* Header background color */
-    color: white; /* Header text color */
+    left: 0; 
+    width: 100%; 
+    color: white;
     display: flex;
     justify-content: flex-start;
     margin-top: 80px;
-    margin-left: 30px; /* Align the button to the left */
+    margin-left: 30px; 
   }
   
   .content {
@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 800px; /* Adjust as needed */
+    max-width: 800px; 
     padding: 20px;
   }
   
@@ -48,23 +48,23 @@
   }
   
   .green-bg {
-    background-color: #4caf4f; /* Green background color */
-    color: white; /* Text color for green background */
+    background-color: #4caf4f;
+    color: white; 
   }
   
   .light-green-bg {
-    background-color: #8bc34a; /* Light green background color */
-    color: rgb(255, 255, 255); /* Text color for light green background */
+    background-color: #8bc34a; 
+    color: rgb(255, 255, 255); 
   }
   
   .dark-green-bg {
-    background-color: #388e3c; /* Dark green background color */
-    color: white; /* Text color for dark green background */
+    background-color: #388e3c; 
+    color: white; 
   }
   .fertilizer-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* Adjust as needed */
+    justify-content: space-between; 
   }
   
   .fertilizer-item {
@@ -72,7 +72,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px; /* Optional: Add margin between items */
+    margin-bottom: 20px; 
   }
 
   .fertilizer-details {
@@ -82,25 +82,25 @@
     justify-content: center;
     margin-bottom: 10px;
     margin-top: 10px;
-    color: black; /* Set font color to black */
-    font-size: 16px; /* Optional: Add margin between items */
+    color: black;
+    font-size: 16px; 
   }
   
   .button-container {
     display: flex;
-    gap: 10px; /* Adjust space between buttons */
+    gap: 10px; 
   }
   .image-container {
-    border: 3px solid #000; /* Add border around the image */
+    border: 3px solid #000; 
     padding: 5px;
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.6);
-    margin-top: 10px; /* Optional: Add padding for spacing */
+    margin-top: 10px; 
   }
   
   .image-container img {
-    width: 100%; /* Ensure the image fills the container */
+    width: 100%; 
   }
 
   .chart-container {
