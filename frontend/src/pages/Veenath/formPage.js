@@ -12,43 +12,60 @@ const FormPage = () => {
   const [category, setCategory] = useState(location.search.split('=')[1]);
   const [area, setArea] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const inquiryId = new URLSearchParams(location.search).get('id');
 
   useEffect(() => {
     const fetchInquiryDetails = async () => {
       try {
-        const inquiryId = new URLSearchParams(location.search).get('id');
-        const response = await axios.get(`http://localhost:8070/api/reports/${inquiryId}`);
-        const { name, topic, description, priority, area } = response.data;
-        setName(name);
-        setTopic(topic);
-        setDescription(description);
-        setPriority(priority);
-        setArea(area);
+        if (inquiryId) {
+          const response = await axios.get(`http://localhost:8070/api/reports/${inquiryId}`);
+          const { name, topic, description, priority, area } = response.data;
+          setName(name);
+          setTopic(topic);
+          setDescription(description);
+          setPriority(priority);
+          setArea(area);
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchInquiryDetails();
-  }, [location.search]);
+  }, [location.search, inquiryId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const inquiryId = new URLSearchParams(location.search).get('id');
-      await axios.put(`http://localhost:8070/api/reports/${inquiryId}`, {
-        name,
-        topic,
-        description,
-        priority,
-        category,
-        area
-      });
-      setSuccessMessage('Inquiry updated successfully!');
-      setTimeout(() => {
-        setSuccessMessage('');
-        navigate('/');
-      }, 3000);
+      if (inquiryId) {
+        await axios.put(`http://localhost:8070/api/reports/${inquiryId}`, {
+          name,
+          topic,
+          description,
+          priority,
+          category,
+          area
+        });
+        setSuccessMessage('Inquiry updated successfully!');
+        setTimeout(() => {
+          setSuccessMessage('');
+          navigate('/');
+        }, 3000);
+      } else {
+        await axios.post('http://localhost:8070/api/reports', {
+          name,
+          topic,
+          description,
+          priority,
+          category,
+          area
+        });
+        setSuccessMessage('Inquiry submitted successfully!');
+        setTimeout(() => {
+          setSuccessMessage('');
+          navigate('/');
+        }, 3000);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +73,7 @@ const FormPage = () => {
 
   return (
     <div>
-      <h1>Update Inquiry</h1>
+      <h1>{inquiryId ? 'Update Inquiry' : 'Submit Inquiry'}</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
         <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Topic" required />
