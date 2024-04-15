@@ -1,3 +1,4 @@
+// dealerInquiry.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Tabs from '@mui/material/Tabs';
@@ -22,7 +23,7 @@ const DealerInquiry = () => {
       try {
         const response = await axios.get('http://localhost:8070/api/reports');
         setInquiries(response.data);
-        setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending'));
+        setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending' && inquiry.category === 'Dealer'));
         setResolvedInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Dealer'));
       } catch (error) {
         console.error(error);
