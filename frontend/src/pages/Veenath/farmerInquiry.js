@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const FarmerInquiry = () => {
   const [inquiries, setInquiries] = useState([]);
   const [pendingInquiries, setPendingInquiries] = useState([]);
-  const [resolvedInquiries, setResolvedInquiries] = useState([]);
+  const [resolvedFarmerInquiries, setResolvedFarmerInquiries] = useState([]);
 
   useEffect(() => {
     const fetchInquiries = async () => {
@@ -14,7 +14,7 @@ const FarmerInquiry = () => {
         const response = await axios.get('http://localhost:8070/api/reports');
         setInquiries(response.data);
         setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending'));
-        setResolvedInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved'));
+        setResolvedFarmerInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Farmer'));
       } catch (error) {
         console.error(error);
       }
@@ -27,7 +27,7 @@ const FarmerInquiry = () => {
       await axios.delete(`http://localhost:8070/api/reports/${id}`);
       setInquiries(inquiries.filter(inquiry => inquiry._id !== id));
       setPendingInquiries(pendingInquiries.filter(inquiry => inquiry._id !== id));
-      setResolvedInquiries(resolvedInquiries.filter(inquiry => inquiry._id !== id));
+      setResolvedFarmerInquiries(resolvedFarmerInquiries.filter(inquiry => inquiry._id !== id));
     } catch (error) {
       console.error(error);
     }
@@ -50,13 +50,10 @@ const FarmerInquiry = () => {
       </div>
       <div>
         <h2>Resolved Inquiries</h2>
-        {resolvedInquiries.map((inquiry) => (
+        {resolvedFarmerInquiries.map((inquiry) => (
           <div key={inquiry._id}>
             <InquiryRow inquiry={inquiry} />
             <button onClick={() => handleDelete(inquiry._id)}>Delete</button>
-            <Link to={`/formPage?id=${inquiry._id}`}>
-              <button>Update</button>
-            </Link>
           </div>
         ))}
       </div>
