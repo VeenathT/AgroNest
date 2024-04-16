@@ -1,6 +1,9 @@
 const router = require("express").Router();
 let Farmer = require("../../models/Thisaravi/Farmer");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
+//signup
 router.route("/add").post((req,res)=>{
 
     const first_name = req.body.first_name;

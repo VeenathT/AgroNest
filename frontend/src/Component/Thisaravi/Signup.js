@@ -6,28 +6,26 @@ const Signup = () => {
     return (
         <Grid
             container
-            spacing={2}
-            sx={{
-                backgroundColor: '#ffffff',
-                marginBottom: '30px',
-            }}
+            spacing={0}
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '100vh' }}
         >
-            <Button 
-                sx={{
-                    margin: 'auto',
-                    marginBottom: '20px',
-                    backgroundColor: '#2DA771',
-                    color: '#000000',
-                    marginLeft: '15px',
-                    marginTop: '20px',
-                    '&:hover':{
-                        opacity: '0.7',
-                        backgroundColor: '#2DA771'
-                    }
-                }} 
+            <Grid item xs={12} sm={6} md={4}>
+                <Button 
+                    fullWidth
+                    sx={{
+                        backgroundColor: '#2DA771',
+                        color: '#000000',
+                        '&:hover':{
+                            opacity: '0.7',
+                            backgroundColor: '#2DA771'
+                        }
+                    }}  
                 component={Link} to="/RegForm">
                 Sign up
             </Button>
+            </Grid>
         </Grid>
     );
 }

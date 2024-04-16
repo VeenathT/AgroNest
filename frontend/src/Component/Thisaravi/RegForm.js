@@ -26,7 +26,7 @@ const RegForm = (props) => {
 const handleSubmit = async (e) => {
    e.preventDefault();
    try {
-       const response = await axios.post('/api/farmers/add', formData); // Make POST request to your backend API
+       const response = await axios.post('http://localhost:8070/farmer', formData); // Make POST request to your backend API
        console.log(response.data); // Log response from the backend
        setFormData({
            fName: '',
@@ -49,10 +49,16 @@ const handleSubmit = async (e) => {
         <Grid
             container
             spacing={2}
+            
             sx={{
-                backgroundColor: '#ffffff',
-                marginBottom: '30px',
-                display: 'block',
+               maxWidth: '900px',
+               margin: '-20px auto',
+               boxSizing: 'border-box',
+               backgroundColor: 'rgba(255, 255, 255, 0.8)',
+               borderRadius: '20px',
+               padding: '20px',
+               boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+               textAlign: 'center',
             }}
         >
             <Grid item xs={12}>

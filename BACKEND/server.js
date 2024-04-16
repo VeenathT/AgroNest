@@ -40,8 +40,12 @@ const suggestionRoutes = require("./routes/Veenath/suggestions.js");
 app.use("/api/suggestions", suggestionRoutes);
 //<<Veenath
 
+
 const farmerRouter = require("./routes/Thisaravi/farmers.js");
 app.use("/farmer", farmerRouter);
+
+const soilTestRouter = require("./routes/Thisaravi/soilTests.js");
+app.use("/soilTest", soilTestRouter);
 
 
 const FAnalysis = require("./routes/Kande/FAnalysis.js");
