@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { AccountCircle, FormatBold, FormatItalic, FormatUnderlined, FormatAlignLeft } from '@mui/icons-material';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar, Box, Snackbar, IconButton } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+import { styled } from '@mui/system';
+
+const StyledSnackbar = styled(Snackbar)({
+  position: 'fixed',
+  bottom: '20px',
+  left: '50%',
+  transform: 'translateX(-50%)',
+});
 
 const FormPage = () => {
   const navigate = useNavigate();
@@ -12,6 +23,7 @@ const FormPage = () => {
   const [category, setCategory] = useState(location.search.split('=')[1]);
   const [area, setArea] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const inquiryId = new URLSearchParams(location.search).get('id');
 
   useEffect(() => {
@@ -47,6 +59,7 @@ const FormPage = () => {
           area
         });
         setSuccessMessage('Inquiry updated successfully!');
+        setOpenSnackbar(true);
         setTimeout(() => {
           setSuccessMessage('');
           navigate('/');
@@ -61,6 +74,7 @@ const FormPage = () => {
           area
         });
         setSuccessMessage('Inquiry submitted successfully!');
+        setOpenSnackbar(true);
         setTimeout(() => {
           setSuccessMessage('');
           navigate('/');
@@ -71,50 +85,111 @@ const FormPage = () => {
     }
   };
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   return (
-    <div>
+    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '64px', overflowY: 'auto' }}>
       <h1>{inquiryId ? 'Update Inquiry' : 'Submit Inquiry'}</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
-        <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Topic" required />
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
-        <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
-          <option value="">Select Priority</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-        <input type="text" value={category} disabled />
-        <select value={area} onChange={(e) => setArea(e.target.value)} required>
-          <option value="">Select Area</option>
-          <option value="Area 1">Area 1</option>
-          <option value="Area 2">Area 2</option>
-          <option value="Area 3">Area 3</option>
-          <option value="Area 4">Area 4</option>
-          <option value="Area 5">Area 5</option>
-          <option value="Area 6">Area 6</option>
-          <option value="Area 7">Area 7</option>
-          <option value="Area 8">Area 8</option>
-          <option value="Area 9">Area 9</option>
-          <option value="Area 10">Area 10</option>
-          <option value="Area 11">Area 11</option>
-          <option value="Area 12">Area 12</option>
-          <option value="Area 13">Area 13</option>
-          <option value="Area 14">Area 14</option>
-          <option value="Area 15">Area 15</option>
-          <option value="Area 16">Area 16</option>
-          <option value="Area 17">Area 17</option>
-          <option value="Area 18">Area 18</option>
-          <option value="Area 19">Area 19</option>
-          <option value="Area 20">Area 20</option>
-          <option value="Area 21">Area 21</option>
-          <option value="Area 22">Area 22</option>
-          <option value="Area 23">Area 23</option>
-          <option value="Area 24">Area 24</option>
-        </select>
-        <button type="submit">Send</button>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px' }}>
+          <TextField  color="secondary" 
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            required
+            InputProps={{
+              startAdornment: <AccountCircle />,
+            }}
+          />
+          <TextField  
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Category"
+            disabled
+            variant="outlined"
+            style={{ marginLeft: '50px', color: '#fffff', backgroundColor: '#B2BEB5' }}
+          />
+          
+          <FormControl color="secondary" style={{ marginLeft: '70px', minWidth: '250px' }}>
+            <InputLabel>Select Area</InputLabel>
+            <Select value={area} onChange={(e) => setArea(e.target.value)} required>
+              <MenuItem value="">Select Area</MenuItem>
+              {[...Array(24)].map((_, index) => (
+                <MenuItem key={index} value={`Area ${index + 1}`}>
+                  Area {index + 1}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          
+        </Box>
+        <TextField label="Topic" color="secondary" 
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          placeholder="write your heading here"
+          required
+          fullWidth
+          style={{ marginBottom: '30px' }}
+        />
+        <TextField label="Description" color="secondary" 
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="write your issue here..."
+          required
+          fullWidth
+          multiline
+          variant="outlined"
+          maxRows={10}
+          InputProps={{
+            endAdornment: (
+              <Box sx={{ display: '-ms-flexbox', gap: '10px' ,height: '200px'}}>
+                <IconButton>
+                  <FormatBold />
+                </IconButton>
+                <IconButton>
+                  <FormatItalic />
+                </IconButton>
+                <IconButton>
+                  <FormatUnderlined />
+                </IconButton>
+                <IconButton>
+                  <FormatAlignLeft />
+                </IconButton>
+                <Button variant="outlined" component="label">
+                  Upload File
+                  <input type="file" hidden />
+                </Button>
+              </Box>
+            ),
+          }}
+          style={{ marginBottom: '50px' }}
+        />
+        <FormControl fullWidth style={{ marginBottom: '100px' }}>
+          <InputLabel>Select Priority</InputLabel>
+          <Select value={priority} onChange={(e) => setPriority(e.target.value)} required>
+            <MenuItem value="">Select Priority</MenuItem>
+            <MenuItem value="Low">
+              <Avatar  variant="rounded" sx={{ backgroundColor: 'green' }}>L</Avatar> Low
+            </MenuItem>
+            <MenuItem value="Medium">
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'orange' }}>M</Avatar> Medium
+            </MenuItem>
+            <MenuItem value="High">
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'red' }}>H</Avatar> High
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <Button type="submit" variant="contained" >
+          Send
+        </Button>
       </form>
-      {successMessage && <div>{successMessage}</div>}
+      <StyledSnackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <MuiAlert onClose={handleCloseSnackbar} variant="filled" severity="success" sx={{ width: '100%' }}>
+          {successMessage}
+        </MuiAlert>
+      </StyledSnackbar>
     </div>
   );
 }
