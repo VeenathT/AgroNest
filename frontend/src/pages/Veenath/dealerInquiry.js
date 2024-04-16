@@ -4,7 +4,6 @@ import InquiryRow from '../../Component/Veenath/InquiryRow';
 import { Link } from 'react-router-dom';
 
 const DealerInquiry = () => {
-  const [inquiries, setInquiries] = useState([]);
   const [pendingInquiries, setPendingInquiries] = useState([]);
   const [resolvedDealerInquiries, setResolvedDealerInquiries] = useState([]);
 
@@ -12,9 +11,11 @@ const DealerInquiry = () => {
     const fetchInquiries = async () => {
       try {
         const response = await axios.get('http://localhost:8070/api/reports');
-        setInquiries(response.data);
-        setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending'));
-        setResolvedDealerInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Dealer'));
+        const allInquiries = response.data;
+        const dealerPendingInquiries = allInquiries.filter(inquiry => inquiry.status === 'Pending' && inquiry.category === 'Dealer');
+        const dealerResolvedInquiries = allInquiries.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Dealer');
+        setPendingInquiries(dealerPendingInquiries);
+        setResolvedDealerInquiries(dealerResolvedInquiries);
       } catch (error) {
         console.error(error);
       }
@@ -25,7 +26,6 @@ const DealerInquiry = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8070/api/reports/${id}`);
-      setInquiries(inquiries.filter(inquiry => inquiry._id !== id));
       setPendingInquiries(pendingInquiries.filter(inquiry => inquiry._id !== id));
       setResolvedDealerInquiries(resolvedDealerInquiries.filter(inquiry => inquiry._id !== id));
     } catch (error) {

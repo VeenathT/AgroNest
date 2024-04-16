@@ -4,7 +4,6 @@ import InquiryRow from '../../Component/Veenath/InquiryRow';
 import { Link } from 'react-router-dom';
 
 const FarmerInquiry = () => {
-  const [inquiries, setInquiries] = useState([]);
   const [pendingInquiries, setPendingInquiries] = useState([]);
   const [resolvedFarmerInquiries, setResolvedFarmerInquiries] = useState([]);
 
@@ -12,9 +11,11 @@ const FarmerInquiry = () => {
     const fetchInquiries = async () => {
       try {
         const response = await axios.get('http://localhost:8070/api/reports');
-        setInquiries(response.data);
-        setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending'));
-        setResolvedFarmerInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Farmer'));
+        const allInquiries = response.data;
+        const farmerPendingInquiries = allInquiries.filter(inquiry => inquiry.status === 'Pending' && inquiry.category === 'Farmer');
+        const farmerResolvedInquiries = allInquiries.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Farmer');
+        setPendingInquiries(farmerPendingInquiries);
+        setResolvedFarmerInquiries(farmerResolvedInquiries);
       } catch (error) {
         console.error(error);
       }
@@ -25,7 +26,6 @@ const FarmerInquiry = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8070/api/reports/${id}`);
-      setInquiries(inquiries.filter(inquiry => inquiry._id !== id));
       setPendingInquiries(pendingInquiries.filter(inquiry => inquiry._id !== id));
       setResolvedFarmerInquiries(resolvedFarmerInquiries.filter(inquiry => inquiry._id !== id));
     } catch (error) {
