@@ -16,15 +16,23 @@ const FarmerInquiry = () => {
   const [inquiries, setInquiries] = useState([]);
   const [pendingInquiries, setPendingInquiries] = useState([]);
   const [resolvedInquiries, setResolvedInquiries] = useState([]);
+<<<<<<< HEAD
   const [value, setValue] = useState(0);
+=======
+>>>>>>> parent of e2331c0 (Correct the both resloved sections display only farmer resolved items.)
 
   useEffect(() => {
     const fetchInquiries = async () => {
       try {
         const response = await axios.get('http://localhost:8070/api/reports');
         setInquiries(response.data);
+<<<<<<< HEAD
         setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending' && inquiry.category === 'Farmer'));
         setResolvedInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Farmer'));
+=======
+        setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending'));
+        setResolvedInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved'));
+>>>>>>> parent of e2331c0 (Correct the both resloved sections display only farmer resolved items.)
       } catch (error) {
         console.error(error);
       }
@@ -49,6 +57,7 @@ const FarmerInquiry = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <Paper>
         <Typography variant="h4" gutterBottom>
           Farmer Inquiries
@@ -90,6 +99,33 @@ const FarmerInquiry = () => {
           </List>
         }
       </Paper>
+=======
+      <h1>Farmer Inquiries</h1>
+      <div>
+        <h2>Pending Inquiries</h2>
+        {pendingInquiries.map((inquiry) => (
+          <div key={inquiry._id}>
+            <InquiryRow inquiry={inquiry} />
+            <button onClick={() => handleDelete(inquiry._id)}>Delete</button>
+            <Link to={`/formPage?id=${inquiry._id}`}>
+              <button>Update</button>
+            </Link>
+          </div>
+        ))}
+      </div>
+      <div>
+        <h2>Resolved Inquiries</h2>
+        {resolvedInquiries.map((inquiry) => (
+          <div key={inquiry._id}>
+            <InquiryRow inquiry={inquiry} />
+            <button onClick={() => handleDelete(inquiry._id)}>Delete</button>
+            <Link to={`/formPage?id=${inquiry._id}`}>
+              <button>Update</button>
+            </Link>
+          </div>
+        ))}
+      </div>
+>>>>>>> parent of e2331c0 (Correct the both resloved sections display only farmer resolved items.)
     </div>
   );
 }

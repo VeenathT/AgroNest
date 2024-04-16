@@ -15,16 +15,15 @@ import { Link } from 'react-router-dom';
 const DealerInquiry = () => {
   const [inquiries, setInquiries] = useState([]);
   const [pendingInquiries, setPendingInquiries] = useState([]);
-  const [resolvedInquiries, setResolvedInquiries] = useState([]);
-  const [value, setValue] = useState(0);
+  const [resolvedDealerInquiries, setResolvedDealerInquiries] = useState([]);
 
   useEffect(() => {
     const fetchInquiries = async () => {
       try {
         const response = await axios.get('http://localhost:8070/api/reports');
         setInquiries(response.data);
-        setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending' && inquiry.category === 'Dealer'));
-        setResolvedInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Dealer'));
+        setPendingInquiries(response.data.filter(inquiry => inquiry.status === 'Pending'));
+        setResolvedDealerInquiries(response.data.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Dealer'));
       } catch (error) {
         console.error(error);
       }
@@ -49,47 +48,28 @@ const DealerInquiry = () => {
 
   return (
     <div>
-      <Paper>
-        <Typography variant="h4" gutterBottom>
-          Dealer Inquiries
-        </Typography>
-        <Tabs value={value} onChange={handleChange} aria-label="Inquiry Tabs" textColor="primary" indicatorColor="primary">
-          <Tab label="Pending" />
-          <Tab label="Resolved" />
-        </Tabs>
-        {value === 0 &&
-          <List>
-            {pendingInquiries.map((inquiry) => (
-              <div key={inquiry._id}>
-                <ListItem>
-                  <ListItemText primary={inquiry.name} secondary={inquiry.topic} />
-                  <Button onClick={() => handleDelete(inquiry._id)}>Delete</Button>
-                  <Link to={`/formPage?id=${inquiry._id}`}>
-                    <Button>Update</Button>
-                  </Link>
-                  <Link to={`/viewInquiry/${inquiry._id}`}>
-                    <Button>View</Button>
-                  </Link>
-                </ListItem>
-                <Divider />
-              </div>
-            ))}
-          </List>
-        }
-        {value === 1 &&
-          <List>
-            {resolvedInquiries.map((inquiry) => (
-              <div key={inquiry._id}>
-                <ListItem>
-                  <ListItemText primary={inquiry.name} secondary={inquiry.topic} />
-                  <Button onClick={() => handleDelete(inquiry._id)}>Delete</Button>
-                </ListItem>
-                <Divider />
-              </div>
-            ))}
-          </List>
-        }
-      </Paper>
+      <h1>Dealer Inquiries</h1>
+      <div>
+        <h2>Pending Inquiries</h2>
+        {pendingInquiries.map((inquiry) => (
+          <div key={inquiry._id}>
+            <InquiryRow inquiry={inquiry} />
+            <button onClick={() => handleDelete(inquiry._id)}>Delete</button>
+            <Link to={`/formPage?id=${inquiry._id}`}>
+              <button>Update</button>
+            </Link>
+          </div>
+        ))}
+      </div>
+      <div>
+        <h2>Resolved Inquiries</h2>
+        {resolvedDealerInquiries.map((inquiry) => (
+          <div key={inquiry._id}>
+            <InquiryRow inquiry={inquiry} />
+            <button onClick={() => handleDelete(inquiry._id)}>Delete</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
