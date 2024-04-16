@@ -26,7 +26,11 @@ const soilTestSchema = new Schema({
     laboratory: {
         type: Schema.Types.ObjectId,
         ref: 'Laboratory'
-    }
+    },
+    status: {
+        type: String,
+        default: "pending"
+    },
 });
 
 const SoilTest = mongoose.model("SoilTest", soilTestSchema);

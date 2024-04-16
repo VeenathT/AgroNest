@@ -1,4 +1,3 @@
-
 const router=require("express").Router();
 const SoilTest = require("../../models/Thisaravi/SoilTest");
 const Laboratory = require("../../models/Oshini/lab_account/labAccount");
@@ -20,7 +19,8 @@ router.post("/add", async (req, res) => {
             areaOfCultivation,
             district,
             city,
-            laboratory: laboratories[0]._id
+            laboratory: laboratories[0]._id,
+            status: "pending"
         });
 
         await newSoilTest.save();
