@@ -5,23 +5,23 @@ import axios from 'axios';
 const RegForm = (props) => {
 
    const [formData, setFormData] = useState({
-      fName: '',
-      lName: '',
-      email: '',
-      phone: '',
-      district: '',
-      city: '',
-      un: '',
-      pw: ''
+      first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    district: '',
+    city: '',
+    userName: '',
+    password: '',
   });
 
   const handleChange = (e) => {
    const { name, value } = e.target;
-   setFormData({
-       ...formData,
-       [name]: value
-   });
-};
+   setFormData((prevData) => ({
+     ...prevData,
+     [name]: value,
+   }));
+ };
 
 const handleSubmit = async (e) => {
    e.preventDefault();
@@ -29,14 +29,14 @@ const handleSubmit = async (e) => {
        const response = await axios.post('http://localhost:8070/Farmer/add', formData); // Make POST request to your backend API
        console.log(response.data); // Log response from the backend
        setFormData({
-           fName: '',
-           lName: '',
-           email: '',
-           phone: '',
-           district: '',
-           city: '',
-           un: '',
-           pw: ''
+         first_name: '',
+         last_name: '',
+         email: '',
+         phone: '',
+         district: '',
+         city: '',
+         userName: '',
+         password: '',
        });
    } catch (error) {
        console.error('Error:', error);
@@ -68,7 +68,7 @@ const handleSubmit = async (e) => {
             <Grid item xs={12} sm={6} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="fName"
+                 htmlForm="first_name"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -81,10 +81,10 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='fName'
-                    name="fName"
+                    id='first_name'
+                    name="first_name"
                     sx={{width:'400px'}}
-                    value={formData.fName}
+                    value={formData.first_name}
                     onChange={handleChange}
                  />
             </Grid>
@@ -92,7 +92,7 @@ const handleSubmit = async (e) => {
             <Grid item xs={12} sm={6} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="lName"
+                 htmlForm="last_name"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -105,10 +105,10 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='lName'
-                    name="lName"
+                    id='last_name'
+                    name="last_name"
                     sx={{width:'400px'}}
-                    value={formData.lName}
+                    value={formData.last_name}
                     onChange={handleChange}
                  />
             </Grid>
@@ -212,7 +212,7 @@ const handleSubmit = async (e) => {
             <Grid item xs={12} sm={6} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="un"
+                 htmlForm="userName"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -225,10 +225,10 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='un'
-                    name="un"
+                    id='userName'
+                    name="userName"
                     sx={{width:'400px'}}
-                    value={formData.un}
+                    value={formData.userName}
                     onChange={handleChange}
                  />
             </Grid>
@@ -236,7 +236,7 @@ const handleSubmit = async (e) => {
             <Grid item xs={12} sm={6} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="pw"
+                 htmlForm="password"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -249,10 +249,10 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='pw'
-                    name="pw"
+                    id='password'
+                    name="password"
                     sx={{width:'400px'}}
-                    value={formData.pw}
+                    value={formData.password}
                     onChange={handleChange}
                  />
             </Grid>

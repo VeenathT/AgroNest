@@ -31,6 +31,7 @@ router.route("/add").post((req,res)=>{
         res.json("Farmer Added")
     }).catch((err)=>{
         console.log(err);
+        res.status(400).json({ error: err.message });
     })
 
 })
