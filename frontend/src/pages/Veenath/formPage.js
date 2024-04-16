@@ -85,7 +85,33 @@ const FormPage = () => {
           <option value="High">High</option>
         </select>
         <input type="text" value={category} disabled />
-        <input type="text" value={area} onChange={(e) => setArea(e.target.value)} placeholder="Area" required />
+        <select value={area} onChange={(e) => setArea(e.target.value)} required>
+          <option value="">Select Area</option>
+          <option value="Area 1">Area 1</option>
+          <option value="Area 2">Area 2</option>
+          <option value="Area 3">Area 3</option>
+          <option value="Area 4">Area 4</option>
+          <option value="Area 5">Area 5</option>
+          <option value="Area 6">Area 6</option>
+          <option value="Area 7">Area 7</option>
+          <option value="Area 8">Area 8</option>
+          <option value="Area 9">Area 9</option>
+          <option value="Area 10">Area 10</option>
+          <option value="Area 11">Area 11</option>
+          <option value="Area 12">Area 12</option>
+          <option value="Area 13">Area 13</option>
+          <option value="Area 14">Area 14</option>
+          <option value="Area 15">Area 15</option>
+          <option value="Area 16">Area 16</option>
+          <option value="Area 17">Area 17</option>
+          <option value="Area 18">Area 18</option>
+          <option value="Area 19">Area 19</option>
+          <option value="Area 20">Area 20</option>
+          <option value="Area 21">Area 21</option>
+          <option value="Area 22">Area 22</option>
+          <option value="Area 23">Area 23</option>
+          <option value="Area 24">Area 24</option>
+        </select>
         <button type="submit">Send</button>
       </form>
       {successMessage && <div>{successMessage}</div>}
