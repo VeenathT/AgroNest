@@ -1,15 +1,6 @@
-// dealerInquiry.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import InquiryRow from '../../Component/Veenath/InquiryRow';
 import { Link } from 'react-router-dom';
 
 const DealerInquiry = () => {
@@ -36,14 +27,10 @@ const DealerInquiry = () => {
       await axios.delete(`http://localhost:8070/api/reports/${id}`);
       setInquiries(inquiries.filter(inquiry => inquiry._id !== id));
       setPendingInquiries(pendingInquiries.filter(inquiry => inquiry._id !== id));
-      setResolvedInquiries(resolvedInquiries.filter(inquiry => inquiry._id !== id));
+      setResolvedDealerInquiries(resolvedDealerInquiries.filter(inquiry => inquiry._id !== id));
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
   };
 
   return (
