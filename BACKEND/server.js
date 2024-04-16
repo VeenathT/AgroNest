@@ -5,9 +5,15 @@ const cors = require('cors');
 const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
+
 //rahul
 const dealerRoutes = require('./routes/Rahul/dealer.routes');
 const farmerRoutes =require('./routes/Rahul/farmer.routes');
+const dealerReportRouter = require('./routes/Rahul/dealersReport.js');
+const replyRoutess = require('./routes/Rahul/reply.js');
+
+
+
 
 const PORT = process.env.PORT || 8070;
 
@@ -53,6 +59,12 @@ app.use("/FAnalysis",FAnalysis);
 //Rahul
 app.use(dealerRoutes);
 app.use(farmerRoutes);
+app.use('/replies', replyRoutess);
+app.use("/farmerReport", dealerReportRouter);
+const labsRouter = require('./routes/Rahul/labs.js');
+app.use('/labs', labsRouter);
+
+
 //
 
 

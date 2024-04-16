@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const viewFarmer = require('../../models/Rahul/farmer.model');
+const Farmer = require('../../models/Thisaravi/Farmer');
 
-router.get('/farmers', async (req, res) => {
+router.get('/viewfarmers', async (req, res) => {
   try {
-    const farmers = await viewFarmer.find();
+    const farmers = await Farmer.find();
     res.json(farmers);
   } catch (error) {
     res.status(500).json({ message: error.message });

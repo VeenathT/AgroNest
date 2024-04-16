@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-swipeable-views": "^0.14.0",
+    "react-toastify": "^10.0.5"
+  }
+}

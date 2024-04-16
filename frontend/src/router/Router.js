@@ -1,26 +1,31 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; // Import BrowserRouter
 import DealerProf from '../pages/Sudarshan/DealerProf';
-import Signup from '../Component/Thisaravi/Signup'
-//Rahul
-import { BrowserRouter as  Link } from 'react-router-dom';
-import FarmerList from '../../src/Component/Rahul/FarmerList';
-import DealerList from '../../src/Component/Rahul/DealerList';
-import AdminHome from '../../src/pages/Rahul/AdminHome';
+import Signup from '../Component/Thisaravi/Signup';
+// Rahul
+import FarmerList from '../Component/Rahul/FarmerList';
+import DealerList from '../Component/Rahul/DealerList';
+import AdminHome from '../pages/Rahul/AdminHome';
+import LabCards from '../Component/Rahul/LabCard';
+import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 
-const Router = () => {
+const AppRouter = () => {
   return (
-    <Routes>
+    <Router> {/* Wrap the Routes in BrowserRouter */}
+      <Routes>
         <Route path="/" element={<Navigate to='/index' />} />
         <Route path="/DealerProf" element={<DealerProf />} />
         <Route path='/Signup' element={<Signup />} />
 
-        //Rahul
-          <Route path="/viewdealers" exact Component={DealerList} />
-          <Route path="/viewfarmers" exact Component={FarmerList} />
-          <Route path="/" exact Component={AdminHome} />
-
-    </Routes>
+        {/* Rahul */}
+        <Route path="/viewdealers" element={<DealerList />} />
+        <Route path="/viewfarmers" element={<FarmerList />} />
+        <Route path="/Admin" element={<AdminHome />} />
+        <Route path="/userreports" element={<FullWidthTabs />} />
+        <Route path="/labrotaryview" element={<LabCards />} />
+      </Routes>
+    </Router>
   );
 }
-export default Router;
+
+export default AppRouter;

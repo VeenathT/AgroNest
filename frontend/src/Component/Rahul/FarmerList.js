@@ -23,7 +23,7 @@ const FarmerList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/farmers');
+        const response = await axios.get('http://localhost:8070/viewfarmers');
         setFarmer(response.data);
         setLoading(false);
       } catch (error) {

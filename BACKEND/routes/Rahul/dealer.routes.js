@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const viewDealer = require('../../models/Rahul/dealer.model')
+const Dealer = require('../../models/Rahul/dealer.model'); // File path corrected
 
-router.get('/dealers', async (req, res) => {
+router.get('/viewdealers', async (req, res) => {
   try {
-    const dealers = await viewDealer.find();
+    const dealers = await Dealer.find(); // Model name remains 'Dealer'
     res.json(dealers);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -12,3 +12,5 @@ router.get('/dealers', async (req, res) => {
 });
 
 module.exports = router;
+
+

@@ -60,6 +60,9 @@ const farmerReportSchema = new mongoose.Schema({
     enum: ["Pending","Resolved"],
     default: "Pending",
   },
+  replyText: {
+    type: String,
+  },
 });
 
 const FarmerReport = mongoose.model("FarmerReport", farmerReportSchema);

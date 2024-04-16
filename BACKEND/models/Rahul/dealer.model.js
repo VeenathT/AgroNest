@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const viewDealerSchema = new mongoose.Schema({
+const DealerSchema = new mongoose.Schema({
     name: String,
     address: String,
     email: String,
@@ -9,4 +9,4 @@ const viewDealerSchema = new mongoose.Schema({
     username: String
 });
 
-module.exports = mongoose.model('viewDealer', viewDealerSchema);
+module.exports = mongoose.model('Dealer', DealerSchema);

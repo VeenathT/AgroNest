@@ -23,7 +23,7 @@ const DealerList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/dealers');
+        const response = await axios.get('http://localhost:8070/viewdealers');
         setDealers(response.data);
         setLoading(false);
       } catch (error) {
@@ -43,6 +43,15 @@ const DealerList = () => {
       header: 'Name',
       size: 120,
     }),
+
+    columnHelper.accessor('address', {
+      header: 'Address',
+      size: 120,
+    }),
+    
+    
+    
+   
     columnHelper.accessor('email', {
       header: 'Email',
       size: 200,
@@ -88,6 +97,7 @@ const DealerList = () => {
           gap: '16px',
           padding: '8px',
           flexWrap: 'wrap',
+          marginTop:'60px'
         }}
       >
         <Button
