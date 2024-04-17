@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import InquiryRow from '../../Component/Veenath/InquiryRow';
-import { Link } from 'react-router-dom';
+import InquiryDetailsPopup from '../../Component/Veenath/InquiryDetailsPopup'; // Assuming you have created this component for the popup
 
 const DealerInquiry = () => {
   const [pendingInquiries, setPendingInquiries] = useState([]);
   const [resolvedDealerInquiries, setResolvedDealerInquiries] = useState([]);
+  const [selectedInquiry, setSelectedInquiry] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     const fetchInquiries = async () => {
@@ -23,14 +25,14 @@ const DealerInquiry = () => {
     fetchInquiries();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8070/api/reports/${id}`);
-      setPendingInquiries(pendingInquiries.filter(inquiry => inquiry._id !== id));
-      setResolvedDealerInquiries(resolvedDealerInquiries.filter(inquiry => inquiry._id !== id));
-    } catch (error) {
-      console.error(error);
-    }
+  const handleViewInquiry = (inquiry) => {
+    setSelectedInquiry(inquiry);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedInquiry(null);
+    setIsPopupOpen(false);
   };
 
   return (
@@ -40,11 +42,10 @@ const DealerInquiry = () => {
         <h2>Pending Inquiries</h2>
         {pendingInquiries.map((inquiry) => (
           <div key={inquiry._id}>
-            <InquiryRow inquiry={inquiry} />
-            <button onClick={() => handleDelete(inquiry._id)}>Delete</button>
-            <Link to={`/formPage?id=${inquiry._id}`}>
-              <button>Update</button>
-            </Link>
+            <div>
+              <div>Topic: {inquiry.topic}</div>
+              <button onClick={() => handleViewInquiry(inquiry)}>View</button>
+            </div>
           </div>
         ))}
       </div>
@@ -52,11 +53,20 @@ const DealerInquiry = () => {
         <h2>Resolved Inquiries</h2>
         {resolvedDealerInquiries.map((inquiry) => (
           <div key={inquiry._id}>
-            <InquiryRow inquiry={inquiry} />
-            <button onClick={() => handleDelete(inquiry._id)}>Delete</button>
+            <div>
+              <div>Topic: {inquiry.topic}</div>
+              <button onClick={() => handleViewInquiry(inquiry)}>View</button>
+            </div>
           </div>
         ))}
       </div>
+      {isPopupOpen && (
+        <div className="popup-background">
+          <div className="popup">
+            <InquiryDetailsPopup inquiry={selectedInquiry} onClosePopup={handleClosePopup} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
