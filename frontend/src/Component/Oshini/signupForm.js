@@ -1,6 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStyles from '../../styles/Oshini/signupForm.css';
+import { TextField, Button, makeStyles } from '@mui/material';
+import axios from 'axios'; // Don't forget to import axios
+
+// Define your custom styles using makeStyles
+const useStyles = makeStyles((theme) => ({
+  formContainer: {
+    maxWidth: 400,
+    margin: 'auto',
+    padding: theme.spacing(2),
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadows[2],
+  },
+  formTitle: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(2),
+  },
+  inputField: {
+    marginBottom: theme.spacing(2),
+  },
+  submitButton: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const SignupForm = () => {
   const classes = useStyles();
@@ -26,96 +49,91 @@ const SignupForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/lab_account/labAccounts/add', formData);
-      console.log(response.data); // Log response from the backend
-      // Assuming response.data contains some confirmation message or data
-      // Display success message or perform other actions if needed
+      console.log(response.data);
       alert('Signup Successful!');
-      // Navigate to labLogin.js page after successful signup
-      navigate.push('/labLogin'); // Specify the path to labLogin.js
+      navigate.push('/labLogin');
     } catch (error) {
       console.error('Error:', error);
-      // Display error message or perform other actions if needed
       alert('Signup Failed! Please try again later.');
     }
   };
-  
 
   return (
-    <div className={classes.form-container}>
-      <h2 className={classes.form-title}>Sign Up</h2>
+    <div className={classes.formContainer}>
+      <h2 className={classes.formTitle}>Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        <div className={classes.input-field}>
-          <label className={classes.input-label}>Name</label>
+        <div className={classes.inputField}>
           <TextField
             name="name"
             value={formData.name}
             onChange={handleChange}
+            label="Name"
             fullWidth
             variant="outlined"
           />
         </div>
-        <div className={classes.input-field}>
-          <label className={classes.input-label}>Address</label>
+        <div className={classes.inputField}>
           <TextField
             name="address"
             value={formData.address}
             onChange={handleChange}
+            label="Address"
             fullWidth
             variant="outlined"
           />
         </div>
-        <div className={classes.input-field}>
-          <label className={classes.input-label}>Phone</label>
+        <div className={classes.inputField}>
           <TextField
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            label="Phone"
             fullWidth
             variant="outlined"
           />
         </div>
-        <div className={classes.input-field}>
-          <label className={classes.input-label}>District</label>
+        <div className={classes.inputField}>
           <TextField
             name="district"
             value={formData.district}
             onChange={handleChange}
+            label="District"
             fullWidth
             variant="outlined"
           />
         </div>
-        <div className={classes.input-field}>
-          <label className={classes.input-label}>City</label>
+        <div className={classes.inputField}>
           <TextField
             name="city"
             value={formData.city}
             onChange={handleChange}
+            label="City"
             fullWidth
             variant="outlined"
           />
         </div>
-        <div className={classes.input-field}>
-          <label className={classes.input-label}>Username</label>
+        <div className={classes.inputField}>
           <TextField
             name="userName"
             value={formData.userName}
             onChange={handleChange}
+            label="Username"
             fullWidth
             variant="outlined"
           />
         </div>
-        <div className={classes.input-field}>
-          <label className={classes.input-label}>Password</label>
+        <div className={classes.inputField}>
           <TextField
             name="password"
             value={formData.password}
             onChange={handleChange}
+            label="Password"
             fullWidth
             type="password"
             variant="outlined"
           />
         </div>
-        <Button type="submit" className={classes.submit-button} variant="contained">
+        <Button type="submit" className={classes.submitButton} variant="contained" color="primary">
           Sign Up
         </Button>
       </form>
@@ -124,4 +142,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
