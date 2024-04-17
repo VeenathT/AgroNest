@@ -22,7 +22,7 @@ const Signup = () => {
                             backgroundColor: '#2DA771'
                         }
                     }}  
-                component={Link} to="/RegForm">
+                component={Link} to="/RegisterForm">
                 Sign up
             </Button>
             </Grid>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Grid, Input, Typography } from "@mui/material";
 import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
 
 const RegForm = (props) => {
+   const Navigate= useNavigate();
 
    const [formData, setFormData] = useState({
       first_name: '',
@@ -38,6 +40,7 @@ const handleSubmit = async (e) => {
          userName: '',
          password: '',
        });
+       Navigate(`/farmer/${response.data.farmerID}`);
    } catch (error) {
        console.error('Error:', error);
    }

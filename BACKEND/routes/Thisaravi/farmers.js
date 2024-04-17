@@ -27,8 +27,8 @@ router.route("/add").post((req,res)=>{
         password
     })
 
-    newFarmer.save().then(()=>{
-        res.json("Farmer Added")
+    newFarmer.save().then((farmer)=>{
+        res.json({ status: "Farmer Added", farmerID: farmer._id });
     }).catch((err)=>{
         console.log(err);
         res.status(400).json({ error: err.message });
