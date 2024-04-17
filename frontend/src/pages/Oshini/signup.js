@@ -12,7 +12,7 @@ const Container = styled('div')({
   justifyContent: 'center',
   alignItems: 'center',
   height: '100vh', // Adjust height as needed
-  backgroundColor: 'rgba(255, 255, 255, 0.8)', // White with 80% opacity
+  backgroundColor: 'rgba(255, 255, 255, 0.7)', // White with 80% opacity
   position: 'fixed',
   bottom: '60px',
   top: '60px',
@@ -41,22 +41,51 @@ const SignupForm = () => {
     password: '',
   });
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [userNameError, setUserNameError] = useState('');
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+
+    if (formData.userName && name === 'userName') {
+      axios.get('http://localhost:8070/labAccount/checkUserName' , {userName: formData.userName})
+        .then((response) => {
+          if (response.data.status) {
+            setUserNameError('Username already exists');
+            setButtonDisabled(true);
+          } else {
+            setUserNameError('');
+            setButtonDisabled(false);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+    
   };
 
-  const handleSubmit = async (e) => {
+  
+
+
+
+  const handleSignup = async (e) => {
     e.preventDefault();
+    setButtonDisabled(true); 
     try {
-      const response = await axios.post('/api/lab_account/labAccounts/add', formData);
+      const response = await axios.post('http://localhost:8070/labAccount/add', formData);
       console.log(response.data);
       alert('Signup Successful!');
+      navigate('/labLogin');
     } catch (error) {
       console.error('Error:', error);
       alert('Signup Failed! Please try again later.');
+    } finally {
+      setButtonDisabled(false); // Re-enable the button after form submission
     }
   };
 
@@ -64,7 +93,7 @@ const SignupForm = () => {
     <Container>
       <FormContainer>
         <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSignup}>
           <div style={{ marginBottom: '20px' }}>
             <TextField
               name="name"
@@ -117,12 +146,14 @@ const SignupForm = () => {
           </div>
           <div style={{ marginBottom: '20px' }}>
             <TextField
-              name="userName"
-              value={formData.userName}
-              onChange={handleChange}
-              label="Username"
-              fullWidth
-              variant="outlined"
+               name="userName"
+               value={formData.userName}
+               onChange={handleChange}
+               label="Username"
+               fullWidth
+               variant="outlined"
+               error={!!userNameError}
+               helperText={userNameError}
             />
           </div>
           <div style={{ marginBottom: '20px' }}>
@@ -136,7 +167,7 @@ const SignupForm = () => {
               variant="outlined"
             />
           </div>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
+          <Button type="submit" variant="contained" color="primary" fullWidth disabled={buttonDisabled}>
             Sign Up
           </Button>
         </form>
