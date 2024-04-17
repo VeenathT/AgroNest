@@ -5,20 +5,25 @@ import axios from 'axios'; // Don't forget to import axios
 
 // Define your custom styles using styled
 const Container = styled('div')({
+  width: '100%',
+  maxWidth: 700,
+  margin: '0 auto',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   height: '100vh', // Adjust height as needed
   backgroundColor: 'rgba(255, 255, 255, 0.8)', // White with 80% opacity
   position: 'fixed',
-  bottom: '20px',
-  top: '20px',
+  bottom: '60px',
+  top: '60px',
   left: '50%',
   transform: 'translateX(-50%)',
 });
 
 const FormContainer = styled('div')({
-  maxWidth: 400,
+  width: '100%',
+  maxWidth: 500,
+  margin: '0 auto',
   padding: '20px',
   border: '1px solid #ccc', // Add border around the container
   borderRadius: '5px',
@@ -58,7 +63,7 @@ const SignupForm = () => {
   return (
     <Container>
       <FormContainer>
-        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h2>
+        <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h1>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '20px' }}>
             <TextField
