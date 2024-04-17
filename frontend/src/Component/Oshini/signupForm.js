@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, makeStyles } from '@mui/material';
+import { TextField, Button } from '@mui/material';
+import { styled } from '@mui/system';
 import axios from 'axios'; // Don't forget to import axios
 
 // Define your custom styles using makeStyles
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
   formContainer: {
     maxWidth: 400,
     margin: 'auto',
