@@ -5,6 +5,7 @@ import Signup from '../Component/Thisaravi/Signup'
 import LabSignUp from '../pages/Oshini/signup';
 import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
+import LabProfile from '../pages/Oshini/labProfile';
 
 
 const Router = () => {
@@ -16,6 +17,7 @@ const Router = () => {
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin />} />
         <Route path="/labDash" element={<LabDash />} />
+        <Route path="/labProfile" element={<LabProfile />} />
 
     </Routes>
   );

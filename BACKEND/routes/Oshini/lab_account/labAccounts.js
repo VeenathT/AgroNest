@@ -135,6 +135,21 @@ router.route("/checkUserName").get(async (req, res) => {
 
 
 
+// Route to retrieve lab details based on userName
+router.route('/retrieve').get(async (req, res) => {
+    const { userName } = req.query;
+    try {
+      const labDetails = await Lab.findOne({ userName });
+      if (!labDetails) {
+        return res.status(404).json({ message: 'Lab not found' });
+      }
+      res.status(200).json(labDetails);
+    } catch (error) {
+      console.error('Error retrieving lab details:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
 module.exports = router;
 
 
