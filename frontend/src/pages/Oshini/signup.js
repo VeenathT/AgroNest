@@ -42,7 +42,6 @@ const SignupForm = () => {
   });
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [userNameError, setUserNameError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -50,131 +49,126 @@ const SignupForm = () => {
       [e.target.name]: e.target.value,
     });
 
-
-    if (formData.userName && name === 'userName') {
-      axios.get('http://localhost:8070/labAccount/checkUserName' , {userName: formData.userName})
-        .then((response) => {
-          if (response.data.status) {
-            setUserNameError('Username already exists');
-            setButtonDisabled(true);
-          } else {
-            setUserNameError('');
-            setButtonDisabled(false);
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    }
     
   };
 
-  
-
-
-
   const handleSignup = async (e) => {
-    e.preventDefault();
-    setButtonDisabled(true); 
-    try {
-      const response = await axios.post('http://localhost:8070/labAccount/add', formData);
-      console.log(response.data);
-      alert('Signup Successful!');
-      navigate('/labLogin');
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Signup Failed! Please try again later.');
-    } finally {
-      setButtonDisabled(false); // Re-enable the button after form submission
+    e.preventDefault(); // Prevent the default form submission behavior
+    if (formData.userName) {
+      try {
+        const response = await axios.get('http://localhost:8070/labAccount/checkUserName', { params: { userName: formData.userName } });
+        if (response.data.status) {
+          alert('Username already exists');
+        } else {
+          try {
+            const response = await axios.post('http://localhost:8070/labAccount/add', formData);
+            console.log(response.data);
+            alert('Signup Successful!');
+            navigate('/labLogin');
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Signup Failed! Please try again later.');
+          } finally {
+            setButtonDisabled(false); // Re-enable the button after form submission
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
+  
+  
 
   return (
+    <form onSubmit={(e) => handleSignup(e)}>
     <Container>
       <FormContainer>
         <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h1>
-        <form onSubmit={handleSignup}>
-          <div style={{ marginBottom: '20px' }}>
-            <TextField
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              label="Name"
-              fullWidth
-              variant="outlined"
-            />
-          </div>
-          <div style={{ marginBottom: '20px' }}>
-            <TextField
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              label="Address"
-              fullWidth
-              variant="outlined"
-            />
-          </div>
-          <div style={{ marginBottom: '20px' }}>
-            <TextField
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              label="Phone"
-              fullWidth
-              variant="outlined"
-            />
-          </div>
-          <div style={{ marginBottom: '20px' }}>
-            <TextField
-              name="district"
-              value={formData.district}
-              onChange={handleChange}
-              label="District"
-              fullWidth
-              variant="outlined"
-            />
-          </div>
-          <div style={{ marginBottom: '20px' }}>
-            <TextField
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              label="City"
-              fullWidth
-              variant="outlined"
-            />
-          </div>
-          <div style={{ marginBottom: '20px' }}>
-            <TextField
-               name="userName"
-               value={formData.userName}
-               onChange={handleChange}
-               label="Username"
-               fullWidth
-               variant="outlined"
-               error={!!userNameError}
-               helperText={userNameError}
-            />
-          </div>
-          <div style={{ marginBottom: '20px' }}>
-            <TextField
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              label="Password"
-              fullWidth
-              type="password"
-              variant="outlined"
-            />
-          </div>
-          <Button type="submit" variant="contained" color="primary" fullWidth disabled={buttonDisabled}>
+        <div>
+          <TextField
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            label="Name"
+            fullWidth
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <TextField
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            label="Address"
+            fullWidth
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <TextField
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            label="Phone"
+            fullWidth
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <TextField
+            name="district"
+            value={formData.district}
+            onChange={handleChange}
+            label="District"
+            fullWidth
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <TextField
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            label="City"
+            fullWidth
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <TextField
+            name="userName"
+            value={formData.userName}
+            onChange={handleChange}
+            label="Username"
+            fullWidth
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <TextField
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            label="Password"
+            fullWidth
+            type="password"
+            variant="outlined"
+          />
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+          >
             Sign Up
           </Button>
-        </form>
+        </div>
       </FormContainer>
-    </Container>
+    </Container></form>
   );
 };
 
 export default SignupForm;
-

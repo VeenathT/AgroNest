@@ -9,13 +9,14 @@ const StyledContainer = styled(Container)({
 
 const Label = styled(Typography)({
   display: 'block',
-  marginBottom: '10px',
+  marginBottom: '2px', // Adjust the margin bottom here
   fontWeight: 'bold',
 });
 
 const ValueLabel = styled(Typography)({
   display: 'block',
-  marginBottom: '20px',
+  backgroundColor: 'rgba(169, 169, 169, 0.3)',
+  marginBottom: '10px',
   padding: '10px',
   border: '1px solid #ccc',
   borderRadius: '5px',
@@ -41,14 +42,19 @@ const LabProfile = () => {
   }, []);
 
   // Function to handle navigation to labEdit
-  const handleEdit = async (e) => {
+  const handleEdit = () => {
     navigate('/labEdit'); // Navigate to labEdit route
+  };
+
+  // Function to handle navigation to deleteAccount
+  const handleDelete = () => {
+    // Implement delete account functionality
   };
 
   return (
     <StyledContainer maxWidth="md">
-      <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.9)', width: '55%', position: 'fixed', left: '20%', right : '40%'}}>
-        <Typography variant="h4" gutterBottom >
+      <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.9)', width: '55%', position: 'fixed', left: '20%', right : '40%' }}>
+        <Typography variant="h4" gutterBottom>
           <center>Your Details</center>
         </Typography> <br></br>
         <div>
@@ -80,7 +86,7 @@ const LabProfile = () => {
           <Button variant="contained" color="primary" style={{ width: '48%' }} onClick={handleEdit}>
             Edit
           </Button>
-          <Button variant="contained" color="secondary" style={{ width: '48%' }}>
+          <Button variant="contained" color="secondary" style={{ width: '48%' }} onClick={handleDelete}>
             Delete Account
           </Button>
         </div>
@@ -90,3 +96,4 @@ const LabProfile = () => {
 };
 
 export default LabProfile;
+
