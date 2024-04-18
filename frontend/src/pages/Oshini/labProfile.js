@@ -25,6 +25,9 @@ const ValueLabel = styled(Typography)({
 const LabProfile = () => {
   const [labDetails, setLabDetails] = useState({});
   const navigate = useNavigate(); 
+  // Fetch userName from session
+  const storedUserName = sessionStorage.getItem('userName');
+    
 
   // Function to fetch lab details based on the userName from session
   const fetchLabDetails = async () => {
@@ -47,8 +50,16 @@ const LabProfile = () => {
   };
 
   // Function to handle navigation to deleteAccount
-  const handleDelete = () => {
-    // Implement delete account functionality
+  const handleDelete = async (userName) => {
+    try {
+      await axios.delete(`http://localhost:8070/labAccount/delete/${storedUserName}`);
+      alert('Account deleted successfully');
+      // Redirect the user to a different page after successful deletion
+      navigate('/labSignup'); // You can specify the route you want to navigate to
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to delete account. Please try again later.');
+    }
   };
 
   return (

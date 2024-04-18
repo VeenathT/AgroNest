@@ -71,17 +71,22 @@ router.route("/update/:userName").put(async (req, res) => {
 
 
 
-router.route("/delete/:labID").delete(async(req,res)=>{
-    let userId = req.params.labID;
-    
-    await newLab.findByIdAndDelete(userId)
-    .then(()=>{
-        res.status(200).send({status: "User Deleted"});
-    }).catch((err)=>{
-        console.log(err.message);
-        res.status(500).send({status: "Error in deleting user",error: err.message});
-    })
-})
+router.route("/delete/:userName").delete(async (req, res) => {
+    let userName = req.params.userName;
+
+    await Lab.findOneAndDelete({ userName: userName })
+        .then((deletedUser) => {
+            if (!deletedUser) {
+                // If no user was found with the specified userName
+                return res.status(404).send({ status: "User not found" });
+            }
+            res.status(200).send({ status: "User Deleted" });
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error in deleting user", error: err.message });
+        });
+});
+
 
 router.route("/get/:labID").get(async(req,res)=>{
     let userId = req.params.labID;
