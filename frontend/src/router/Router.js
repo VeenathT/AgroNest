@@ -6,6 +6,7 @@ import LabSignUp from '../pages/Oshini/signup';
 import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
 
+
 const Router = () => {
   return (
     <Routes>
@@ -15,6 +16,7 @@ const Router = () => {
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin />} />
         <Route path="/labDash" element={<LabDash />} />
+
     </Routes>
   );
 }

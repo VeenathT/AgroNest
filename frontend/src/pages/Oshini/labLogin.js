@@ -54,6 +54,7 @@ const LoginForm = () => {
           });
       
       if (response.data.success) {
+        sessionStorage.setItem('userName', formData.userName);
         // Login successful, redirect to dashboard
         navigate('/labDash');
       } else {

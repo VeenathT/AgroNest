@@ -5,6 +5,25 @@ const cors = require('cors');
 const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
+//new--------------------------------
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+const crypto = require('crypto');
+
+// Generate a random secret key
+const secretKey = crypto.randomBytes(32).toString('hex');
+
+console.log('Generated secret key:', secretKey);
+
+// Set up session middleware
+app.use(session({
+  secret: secretKey, // Change this to your own secret key
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest' }), // Adjust the MongoDB URL as needed
+}));
+//end---------------------------------
 
 const PORT = process.env.PORT || 8070;
 

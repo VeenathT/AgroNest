@@ -124,9 +124,6 @@ router.route("/checkUserName").get(async (req, res) => {
         // Compare the provided password with the password stored in the database
         return res.json({ success: false, message: 'Invalid username or password' });
       } else {
-        // If both username and password are correct, set up a session and store userName in it
-        //req.session.userName = userName;
-
         // Return success response
         res.json({ success: true, message: 'Login successful' });
       }
