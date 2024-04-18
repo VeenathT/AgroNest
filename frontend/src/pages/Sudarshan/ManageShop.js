@@ -68,9 +68,6 @@ const ManageShop = () => {
         console.log('Fertilizers response:', fertilizersResponse);
                 setFertilizers(fertilizersResponse.data);
                 console.log('Fertilizers:', fertilizersResponse.data);
-
-                 
-  
           } catch (error) {
               console.error('Error fetching data:', error);
           }
@@ -78,6 +75,9 @@ const ManageShop = () => {
 
       fetchDealerData();
       }, []);
+
+
+
 
     const fetchFertilizerDataForChart = async () => {
       try {
@@ -103,9 +103,13 @@ const ManageShop = () => {
       }
     };
 
+
+
     useEffect(() => {
       fetchFertilizerDataForChart();
     }, []);
+
+
 
     useEffect(() => {
       
@@ -141,13 +145,19 @@ const ManageShop = () => {
       }
     }, [fertilizers]);
 
+
+
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
+
+
     const handleEditProfile = () => {
         navigate('/editProf');
     };
+
+
 
     const handlePriceChange = (event, fertilizerId) => {
         const { value } = event.target;
@@ -161,6 +171,8 @@ const ManageShop = () => {
           }
         }));
     };
+
+
       
     const handleQuantityChange = (event, fertilizerId) => {
         const { value } = event.target;
@@ -174,6 +186,8 @@ const ManageShop = () => {
           }
         }));
     };
+
+
 
     const handleProductChange = (event) => {
         const selectedProduct = event.target.value;
@@ -244,6 +258,9 @@ const ManageShop = () => {
         setSelectedProductImage(imagePath);
       };
 
+
+
+
     const getFertilizerImage = (fertilizerName) => {
         switch (fertilizerName) {
             case 'NPKprime':
@@ -268,6 +285,9 @@ const ManageShop = () => {
                 return npkprime; 
         }
       };
+
+
+
 
     const handleAddProduct = async (dealerId) => {
         try {
@@ -304,6 +324,8 @@ const ManageShop = () => {
         }
       };
 
+
+
     
 
     const handleUpdateFertilizer = async (fertilizerId, updatedPrice, updatedQuantity) => {
@@ -331,6 +353,9 @@ const ManageShop = () => {
         }
       };
 
+
+
+
     const handleDeleteProduct = async (fertilizerId) => {
         try {
           console.log('Deleting fertilizer with ID:', fertilizerId);
@@ -353,6 +378,8 @@ const ManageShop = () => {
           setErrorMessage(error.response.data.error);
         }
       };
+
+
 
       const options = {
         scales: {
@@ -382,11 +409,15 @@ const ManageShop = () => {
         }
       };
 
+
+
       const handleClosePopup = () => {
         
         setErrorMessage('');
         setSuccessMessage('');
       };
+
+      
 
   return (
     <div className="container">
