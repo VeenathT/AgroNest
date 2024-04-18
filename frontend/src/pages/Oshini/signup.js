@@ -58,6 +58,7 @@ const SignupForm = () => {
       try {
         const response = await axios.get('http://localhost:8070/labAccount/checkUserName', { params: { userName: formData.userName } });
         if (response.data.status) {
+
           alert('Username already exists');
         } else {
           try {
@@ -85,7 +86,7 @@ const SignupForm = () => {
     <Container>
       <FormContainer>
         <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h1>
-        <div>
+        <div style={{ marginBottom: '5px' }}>
           <TextField
             name="name"
             value={formData.name}
@@ -95,7 +96,7 @@ const SignupForm = () => {
             variant="outlined"
           />
         </div>
-        <div>
+        <div style={{ marginBottom: '5px' }}>
           <TextField
             name="address"
             value={formData.address}
@@ -105,7 +106,7 @@ const SignupForm = () => {
             variant="outlined"
           />
         </div>
-        <div>
+        <div style={{ marginBottom: '5px' }}>
           <TextField
             name="phone"
             value={formData.phone}
@@ -115,7 +116,7 @@ const SignupForm = () => {
             variant="outlined"
           />
         </div>
-        <div>
+        <div style={{ marginBottom: '5px' }}>
           <TextField
             name="district"
             value={formData.district}
@@ -125,7 +126,7 @@ const SignupForm = () => {
             variant="outlined"
           />
         </div>
-        <div>
+        <div style={{ marginBottom: '5px' }}>
           <TextField
             name="city"
             value={formData.city}
@@ -135,7 +136,7 @@ const SignupForm = () => {
             variant="outlined"
           />
         </div>
-        <div>
+        <div style={{ marginBottom: '5px' }}>
           <TextField
             name="userName"
             value={formData.userName}
