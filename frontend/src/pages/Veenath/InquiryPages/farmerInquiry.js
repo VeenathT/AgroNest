@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Tabs, Tab, Typography, Badge, TextField, Button, Grid } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
-import InquiryRow from '../../Component/Veenath/InquiryRow';
-import InquiryDetailsPopup from '../../Component/Veenath/InquiryDetailsPopup';
+import InquiryRow from '../../../Component/Veenath/InquiryComp/InquiryRow';
+import InquiryDetailsPopup from '../../../Component/Veenath/InquiryComp/InquiryDetailsPopup';
 
 const FarmerInquiry = () => {
   const [pendingInquiries, setPendingInquiries] = useState([]);

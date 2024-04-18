@@ -2,10 +2,10 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import DealerProf from '../pages/Sudarshan/DealerProf';
 import Signup from '../Component/Thisaravi/Signup'
-import InquiryCategory from '../pages/Veenath/inquiryCategory';
-import FormPage from '../pages/Veenath/formPage';
-import FarmerInquiry from '../pages/Veenath/farmerInquiry';
-import DealerInquiry from '../pages/Veenath/dealerInquiry';
+import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
+import FormPage from '../pages/Veenath/InquiryPages/formPage';
+import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
+import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
 
 const Router = () => {
   return (
