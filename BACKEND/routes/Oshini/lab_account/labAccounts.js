@@ -41,28 +41,34 @@ router.route("/").get((req,res)=>{
 
 
 
-router.route("/update/:labID").put(async(req,res)=>{
-    let userId = req.params.labID;
-    const{name, address, phone, district, city, userName, password} = req.body;
+router.route("/update/:userName").put(async (req, res) => {
+    try {
+        const userName = req.params.userName;
+        const { name, address, phone, district, city, password } = req.body;
 
-    const updateLab ={
-        name,
-        address,
-        phone,
-        district,
-        city,
-        userName,
-        password
+        const updateLab = {
+            name,
+            address,
+            phone,
+            district,
+            city,
+            password
+        };
+
+        // Assuming Lab is your Mongoose model
+        const updatedLab = await Lab.findOneAndUpdate({ userName }, updateLab, { new: true });
+
+        if (!updatedLab) {
+            return res.status(404).send({ status: "Lab not found" });
+        }
+
+        res.status(200).send({ status: "User Updated", data: updatedLab });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ status: "Error with updating data", error: err.message });
     }
+});
 
-    const update = await Lab.findByIdAndUpdate(userId,updateLab).then(()=>{
-        res.status(200).send({status: "User Updated"})
-    }).catch((err)=>{
-        console.log(err);
-        res.status(500).send({status: "Error with updating data",error: err.message});
-    })
-
-})
 
 
 router.route("/delete/:labID").delete(async(req,res)=>{

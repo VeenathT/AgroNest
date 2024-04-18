@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Paper, Button, styled } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const StyledContainer = styled(Container)({
@@ -22,6 +23,7 @@ const ValueLabel = styled(Typography)({
 
 const LabProfile = () => {
   const [labDetails, setLabDetails] = useState({});
+  const navigate = useNavigate(); 
 
   // Function to fetch lab details based on the userName from session
   const fetchLabDetails = async () => {
@@ -38,9 +40,14 @@ const LabProfile = () => {
     fetchLabDetails();
   }, []);
 
+  // Function to handle navigation to labEdit
+  const handleEdit = async (e) => {
+    navigate('/labEdit'); // Navigate to labEdit route
+  };
+
   return (
     <StyledContainer maxWidth="md">
-      <Paper style={{ padding: '20px' }}>
+      <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.9)', width: '55%', position: 'fixed', left: '20%', right : '40%'}}>
         <Typography variant="h4" gutterBottom >
           <center>Your Details</center>
         </Typography> <br></br>
@@ -70,7 +77,7 @@ const LabProfile = () => {
         </div>
         {/* Add buttons for editing and deleting accounts */}
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-          <Button variant="contained" color="primary" style={{ width: '48%' }}>
+          <Button variant="contained" color="primary" style={{ width: '48%' }} onClick={handleEdit}>
             Edit
           </Button>
           <Button variant="contained" color="secondary" style={{ width: '48%' }}>
@@ -83,4 +90,3 @@ const LabProfile = () => {
 };
 
 export default LabProfile;
-
