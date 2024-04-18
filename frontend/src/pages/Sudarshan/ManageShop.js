@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../../Component/Sudarshan/Sidebar';
@@ -8,7 +7,7 @@ import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField,Button } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +26,9 @@ import { Bar } from 'react-chartjs-2';
 import "chart.js/auto";
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PopupMessage from '../common/PopUp';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import { Typography, Table, TableHead, TableBody, TableRow, TableCell} from '@material-ui/core';
+import { PDFExport } from '@progress/kendo-react-pdf';
 
 const ManageShop = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -45,6 +47,9 @@ const ManageShop = () => {
     const [chartData, setChartData] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [sortBy, setSortBy] = useState(null);
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [pdfExportComponent, setPdfExportComponent] = useState(null);
 
 
     useEffect(() => {
@@ -155,6 +160,57 @@ const ManageShop = () => {
 
     const handleEditProfile = () => {
         navigate('/editProf');
+    };
+
+
+    const handleSort = (property) => {
+      const isAsc = sortBy === property && sortOrder === 'asc';
+      setSortBy(property);
+      setSortOrder(isAsc ? 'desc' : 'asc');
+    };
+
+
+    const stableSort = (array, comparator) => {
+      const stabilizedThis = array.map((el, index) => [el, index]);
+      stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        return a[1] - b[1];
+      });
+      return stabilizedThis.map((el) => el[0]);
+    };
+
+
+    const getComparator = (order, sortBy) => {
+      return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, sortBy)
+        : (a, b) => -descendingComparator(a, b, sortBy);
+    };
+
+
+    const descendingComparator = (a, b, orderBy) => {
+      if (b[orderBy] < a[orderBy]) {
+        return -1;
+      }
+      if (b[orderBy] > a[orderBy]) {
+        return 1;
+      }
+      return 0;
+    };
+
+
+    const headCells = [
+      { id: 'itemcode', label: 'Item Code' },
+      { id: 'name', label: 'Name' },
+      { id: 'quantity', label: 'Quantity' },
+      { id: 'price', label: 'Price' },
+    ];
+
+
+    const exportToPdf = () => {
+      if (pdfExportComponent) {
+          pdfExportComponent.save();
+      }
     };
 
 
@@ -726,9 +782,47 @@ const ManageShop = () => {
     ) : (
       <p>No data available for chart</p>
     )}
-  </div>
-          
-          
+  </div>    
+        </div>
+
+        <div className="section update-listings-section light-green-bg">
+          <Typography variant="h4"><SummarizeIcon style={{ fontSize: 36, color: 'black', marginRight: 8 }}/>
+          Generate Stock Reports</Typography>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+    <Button onClick={exportToPdf} variant="contained" color="primary">
+        Export to PDF
+    </Button>
+</div>
+            <PDFExport ref={(component) => setPdfExportComponent(component)}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            {headCells.map((headCell) => (
+                                <TableCell key={headCell.id}>
+                                    <Button onClick={() => handleSort(headCell.id)} style={{ fontSize: '1.1rem' }}>
+                                        {headCell.label}
+                                        {sortBy === headCell.id && (
+                                            sortOrder === 'asc' ? ' ▲' : ' ▼'
+                                        )}
+                                    </Button>
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+          {stableSort(fertilizers, getComparator(sortOrder, sortBy)).map((fertilizer, index) => (
+            <TableRow key={index}>
+              <TableCell>{fertilizer.itemcode}</TableCell>
+              <TableCell>{fertilizer.name}</TableCell>
+              <TableCell>{fertilizer.quantity}</TableCell>
+              <TableCell>{fertilizer.price}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+                </Table>
+            </PDFExport>
+
+
         </div>
 
 
