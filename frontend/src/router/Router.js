@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import DealerProf from '../pages/Sudarshan/DealerProf';
 import Signup from '../Component/Thisaravi/Signup'
 
-
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
