@@ -13,7 +13,8 @@ router.post('/addTestRequest', async (req, res) => {
       labID: labID,
       testType: testType,
       date: date,
-      startTime: startTime
+      startTime: startTime,
+      status: "pending"
     });
 
     // Save the TestRequest document to the database
@@ -57,19 +58,55 @@ router.delete('/deleteTestRequest/:requestID', async (req, res) => {
   }
 });
 
-// Retrieve Test Requests by LabID and Date
-router.get('/retrieveTestRequests/:labID/:date', async (req, res) => {
-  try {
-    const { labID, date } = req.params;
+// Retrieve Test Requests by LabID and Date with Pending Status
+router.get('/retrievePendingTestRequests/:labID/:date', async (req, res) => {
+    try {
+      const { labID, date } = req.params;
+  
+      // Find test requests by labID, date, and pending status
+      const testRequests = await TestRequest.find({ labID: labID, date: date, status: 'pending' });
+  
+      res.status(200).json({ testRequests: testRequests });
+    } catch (error) {
+      console.error('Error retrieving test requests:', error);
+      res.status(500).json({ message: 'Failed to retrieve test requests. Please try again later.' });
+    }
+  });
 
-    // Find test requests by labID and date
-    const testRequests = await TestRequest.find({ labID: labID, date: date });
-
-    res.status(200).json({ testRequests: testRequests });
-  } catch (error) {
-    console.error('Error retrieving test requests:', error);
-    res.status(500).json({ message: 'Failed to retrieve test requests. Please try again later.' });
-  }
+  router.get('/retrievePendingTestRequests/:labID', async (req, res) => {
+    try {
+      const labID = req.params.labID; // Access the labID parameter
+      
+      // Find test requests by labID, date, and pending status
+      const testRequests = await TestRequest.find({ labID: labID, status: 'pending' });
+  
+      res.status(200).json({ testRequests: testRequests });
+    } catch (error) {
+      console.error('Error retrieving test requests:', error);
+      res.status(500).json({ message: 'Failed to retrieve test requests. Please try again later.' });
+    }
 });
 
+// Backend route to update the status of a test request
+router.put('/updateStatus/:requestId', async (req, res) => {
+    try {
+      const { requestId } = req.params;
+      const { status } = req.body;
+  
+      // Find the test request by ID and update its status
+      const updatedRequest = await TestRequest.findByIdAndUpdate(
+        requestId,
+        { status: status },
+        { new: true }
+      );
+  
+      res.status(200).json({ message: 'Test request status updated successfully', updatedRequest });
+    } catch (error) {
+      console.error('Error updating test request status:', error);
+      res.status(500).json({ message: 'Failed to update test request status. Please try again later.' });
+    }
+  });
+  
+
+  
 module.exports = router;

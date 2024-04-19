@@ -161,6 +161,22 @@ router.route('/retrieve').get(async (req, res) => {
     }
   });
 
+  router.get('/getLabIdByUsername/:userName', async (req, res) => {
+    try {
+      const { userName } = req.params;
+      // Find the lab by userName
+      const lab = await Lab.findOne({ userName });
+      if (!lab) {
+        return res.status(404).json({ message: 'Lab not found' });
+      }
+      // Return the labID
+      res.status(200).json({ labId: lab._id });
+    } catch (error) {
+      console.error('Error retrieving labID by username:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
 module.exports = router;
 
 
