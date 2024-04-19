@@ -76,6 +76,9 @@ app.use("/labAccount", labRouter);
 const labSlotRouter = require("./routes/Oshini/lab_account/labSlots.js");
 app.use("/labSlot", labSlotRouter);
 
+const testRequestRouter = require("./routes/Oshini/test_request/testRequests.js");
+app.use("/testRequest", testRequestRouter);
+
 //------------------------------------------------------------------------------------------------------------------
 // Cron job to add time slots for the next day
 cron.schedule('0 0 * * *', async () => {
