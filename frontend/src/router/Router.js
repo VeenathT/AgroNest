@@ -13,7 +13,6 @@ import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
-import Signup from '../Component/Thisaravi/Signup'
 import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
 import FormPage from '../pages/Veenath/InquiryPages/formPage';
 import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
@@ -70,17 +69,12 @@ const Router = () => {
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
+        <Route path="/inquiryCategory" element={<InquiryCategory />} />
+        <Route path="/farmerInquiry" element={<FarmerInquiry />} />
+        <Route path="/dealerInquiry" element={<DealerInquiry />} />
+        <Route path="/formPage" element={<FormPage />} />
       </Routes>
     </>
-    <Routes>
-        <Route path="/" element={<Navigate to='/index' />} />
-        <Route path="/DealerProf" element={<DealerProf />} />
-        <Route path='/Signup' element={<Signup />} />
-        <Route path="/inquiryCategory" element={<InquiryCategory />} />
-      <Route path="/farmerInquiry" element={<FarmerInquiry />} />
-      <Route path="/dealerInquiry" element={<DealerInquiry />} />
-      <Route path="/formPage" element={<FormPage />} />
-    </Routes>
   );
 };
 
