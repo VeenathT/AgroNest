@@ -5,7 +5,7 @@ import LandingPage from '../pages/common/LandingPage';
 import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
-import EditProfile from '../pages/Sudarshan/editProf';
+import EditProfile from '../pages/Sudarshan/EditProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Inquiries from '../pages/Sudarshan/Inquries';
@@ -13,7 +13,6 @@ import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
-
 import SignUp from '../pages/Thisaravi/SignUp';
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
@@ -76,11 +75,7 @@ const Router = () => {
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
-      </Routes>
-    </>
-    <Routes>
-        <Route path="/" element={<Navigate to='/index' />} />
-        <Route path="/DealerProf" element={<DealerProf />} />
+
         <Route path='/SignUp' element={<SignUp />} />
         <Route path='/RegisterForm' element={<RegisterForm />}/>
         <Route path='/Profile' element={<Profile/>}/>
@@ -91,9 +86,9 @@ const Router = () => {
         <Route path='/pending-requests' element={<ViewRequests/>}/>
         <Route path='/soil-test/:requestId' element={<RequestDetails/>}/>
         <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
-
-    </Routes>
+      </Routes>
+    </>
   );
 };
 
-export default Router;
+export default Router;
