@@ -5,10 +5,10 @@ import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, T
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-function LabDash() {
+function AcceptedRequests() {
   const [userName, setUserName] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [pendingRequests, setPendingRequests] = useState([]);
+  const [acceptedRequests, setAcceptedRequests] = useState([]);
   const [tabValue, setTabValue] = useState(0); // Define tabValue state variable
   const [farmerNames, setFarmerNames] = useState({});
 
@@ -19,13 +19,13 @@ function LabDash() {
     }
 
     // Fetch pending requests
-    const fetchPendingRequests = async () => {
+    const fetchAcceptedRequests = async () => {
       try {
         const labIdResponse = await axios.get(`http://localhost:8070/labAccount/getLabIdByUsername/${storedUserName}`);
         const labId = labIdResponse.data.labId;
         
-        const response = await axios.get(`http://localhost:8070/testRequest/retrievePendingTestRequests/${labId}`);
-        setPendingRequests(response.data.testRequests);
+        const response = await axios.get(`http://localhost:8070/testRequest/retrieveAcceptedTestRequests/${labId}`);
+        setAcceptedRequests(response.data.testRequests);
 
         // Fetch farmer names for each request
         const names = {};
@@ -35,11 +35,11 @@ function LabDash() {
         }));
         setFarmerNames(names);
       } catch (error) {
-        console.error('Error fetching pending requests:', error);
+        console.error('Error fetching accepted requests:', error);
       }
     };
 
-    fetchPendingRequests();
+    fetchAcceptedRequests();
   }, []);
 
   const handleTabChange = (event, newValue) => {
@@ -94,9 +94,9 @@ function LabDash() {
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Pending" disabled={tabValue === 0} />
+            <Tab label="Pending" component={Link} to="/labDash" />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Accepted" component={Link} to="/accepted" />
+            <Tab label="Accepted" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="Completed" component={Link} to="/completed" />
             <Tab label="" disabled={tabValue === 0} />
@@ -141,7 +141,7 @@ function LabDash() {
       </TableRow>
     </TableHead>
     <TableBody>
-      {pendingRequests.map((request) => (
+      {acceptedRequests.map((request) => (
         <TableRow key={request._id}>
           <TableCell>{request._id}</TableCell>
           <TableCell>{farmerNames[request.farmerID]}</TableCell>
@@ -150,7 +150,7 @@ function LabDash() {
           <TableCell>{request.startTime}</TableCell>
           <TableCell>
             <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
-              <option value="pending" selected>Pending</option>
+              <option value="Pending">Pending</option>
               <option value="accepted">Accepted</option>
               <option value="rejected">Rejected</option>
             </select>
@@ -166,4 +166,4 @@ function LabDash() {
   );
 }
 
-export default LabDash;
+export default AcceptedRequests;

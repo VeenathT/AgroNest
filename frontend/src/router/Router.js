@@ -7,6 +7,8 @@ import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
 import LabProfile from '../pages/Oshini/labProfile';
 import LabEdit from '../pages/Oshini/labEdit';
+import TestAccept from '../pages/Oshini/accepted';
+import TestComplete from '../pages/Oshini/completed';
 
 
 const Router = () => {
@@ -20,6 +22,8 @@ const Router = () => {
         <Route path="/labDash" element={<LabDash />} />
         <Route path="/labProfile" element={<LabProfile />} />
         <Route path="/labEdit" element={<LabEdit />} />
+        <Route path="/accepted" element={<TestAccept />} />
+        <Route path="/completed" element={<TestComplete />} />
 
     </Routes>
   );
