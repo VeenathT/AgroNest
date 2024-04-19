@@ -56,13 +56,15 @@ const LabEdit = () => {
       };
   
       await axios.put(`http://localhost:8070/labAccount/update/${userName}`, updateData);
-      
-      // Redirect to lab profile page after updating
-      navigate('/labProfile');
+      alert("User Updated");
     } catch (error) {
       console.error('Error updating lab details:', error);
     }
   };
+
+  const handleNavigate = () => {
+    navigate('/labProfile');
+  }
   
 
   return (
@@ -129,11 +131,16 @@ const LabEdit = () => {
             onChange={(e) => setLabDetails({ ...labDetails, password: e.target.value })}
           />
         </div>
-        <br></br>
         {/* Add button to update lab details */}
-        <Button variant="contained" color="primary" fullWidth onClick={handleUpdate}>
-          Update
-        </Button>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+          <Button variant="contained" color="primary" style={{ width: '48%' }} onClick={handleUpdate}>
+            Update
+          </Button>
+          <Button variant="contained" color="secondary" style={{ width: '48%' }} onClick={handleNavigate}>
+            Back
+          </Button>
+        </div>
+
       </Paper>
     </StyledContainer>
   );

@@ -62,6 +62,10 @@ const LabProfile = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate('/labDash');
+  }
+
   return (
     <StyledContainer maxWidth="md">
       <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.9)', width: '55%', position: 'fixed', left: '20%', right : '40%' }}>
@@ -94,11 +98,14 @@ const LabProfile = () => {
         </div>
         {/* Add buttons for editing and deleting accounts */}
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-          <Button variant="contained" color="primary" style={{ width: '48%' }} onClick={handleEdit}>
+          <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={handleEdit}>
             Edit
           </Button>
-          <Button variant="contained" color="secondary" style={{ width: '48%' }} onClick={handleDelete}>
+          <Button variant="contained" color="secondary" style={{ width: '30%' }} onClick={handleDelete}>
             Delete Account
+          </Button>
+          <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={handleBack}>
+            Back
           </Button>
         </div>
       </Paper>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; 
 import { TextField, Button, styled } from '@mui/material';
 import axios from 'axios'; // Don't forget to import axios
 
@@ -97,6 +97,9 @@ const LoginForm = () => {
             Login
           </Button>
         </form>
+        <p style={{ marginTop: '20px', textAlign: 'center' }}>
+          Don't have an account? <Link to="/labSignup">Sign up</Link>
+        </p>
       </FormContainer>
     </Container>
   );
