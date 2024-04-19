@@ -12,6 +12,7 @@ const crypto = require('crypto');
 const cron = require('node-cron');
 const moment = require('moment');
 const Lab = require('./models/Oshini/lab_account/labAccount.js');
+const LabSlot = require('./models/Oshini/lab_account/labSlot');
 
 // Generate a random secret key
 const secretKey = crypto.randomBytes(32).toString('hex');
@@ -72,6 +73,9 @@ app.use("/FAnalysis",FAnalysis);
 const labRouter = require("./routes/Oshini/lab_account/labAccounts.js");
 app.use("/labAccount", labRouter);
 
+const labSlotRouter = require("./routes/Oshini/lab_account/labSlots.js");
+app.use("/labSlot", labSlotRouter);
+
 //------------------------------------------------------------------------------------------------------------------
 // Cron job to add time slots for the next day
 cron.schedule('0 0 * * *', async () => {
@@ -84,7 +88,7 @@ cron.schedule('0 0 * * *', async () => {
   
       // Fetch all existing labs from the database
       const labs = await Lab.find({}, '_id'); // Only fetch the _id field
-      const addTimeSlots = require('./routes/Oshini/lab_account/labSlots');
+      const addTimeSlots = require('./routes/Oshini/lab_account/labSlotsUtility.js');
       // Iterate over each lab and add time slots for the target date
       for (const lab of labs) {
         await addTimeSlots(targetDate, lab._id);
