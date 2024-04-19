@@ -47,6 +47,14 @@ const DealerInquiry = () => {
     setSearchQuery(e.target.value);
   };
 
+  const filteredPendingInquiries = pendingInquiries.filter(inquiry =>
+    inquiry.topic.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredResolvedInquiries = resolvedDealerInquiries.filter(inquiry =>
+    inquiry.topic.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '50px' }}>
       <Typography variant="h3" gutterBottom>Dealer Inquiries</Typography>
@@ -59,14 +67,14 @@ const DealerInquiry = () => {
       >
         <Tab
           label={
-            <Badge badgeContent={pendingInquiries.length} color="error">
+            <Badge badgeContent={filteredPendingInquiries.length} color="error">
               Pending
             </Badge>
           }
         />
         <Tab
           label={
-            <Badge badgeContent={resolvedDealerInquiries.length} color="error">
+            <Badge badgeContent={filteredResolvedInquiries.length} color="error">
               Resolved
             </Badge>
           }
@@ -91,7 +99,7 @@ const DealerInquiry = () => {
       {tabValue === 0 ? (
         <div>
           <Typography variant="h4" gutterBottom>Pending Inquiries</Typography>
-          {pendingInquiries.map((inquiry) => (
+          {filteredPendingInquiries.map((inquiry) => (
             <Grid container key={inquiry._id} alignItems="center">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
@@ -105,7 +113,7 @@ const DealerInquiry = () => {
       ) : (
         <div>
           <Typography variant="h4" gutterBottom>Resolved Inquiries</Typography>
-          {resolvedDealerInquiries.map((inquiry) => (
+          {filteredResolvedInquiries.map((inquiry) => (
             <Grid container key={inquiry._id} alignItems="center">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
