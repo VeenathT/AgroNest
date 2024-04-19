@@ -14,6 +14,7 @@ import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
 
+
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
