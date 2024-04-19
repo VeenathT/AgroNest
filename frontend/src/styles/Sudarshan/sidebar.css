@@ -1,0 +1,57 @@
+
+
+.sidebar-container {
+  height: 80vh; 
+  background-color: rgba(248, 249, 250, 0.8); 
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-top-right-radius: 20px; 
+  border-bottom-right-radius: 20px;
+  height: 200vh;
+  margin-top: 80px;
+   
+}
+  
+  .avatarSide {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 20px auto;
+  display: block;
+  }
+  
+  .menu-option {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #06580a; 
+    margin: 10px 0; 
+  }
+
+  .menu-items {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu-items li {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .menu-link {
+    color: green; 
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  .menu-icon {
+    margin-right: 10px;
+    margin-left: 20px; 
+  }
+  
