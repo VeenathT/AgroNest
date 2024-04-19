@@ -10,6 +10,28 @@ import {
   LinearProgress,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    padding: 10,
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  detail: {
+    fontSize: 14,
+    marginBottom: 5,
+  },
+});
 
 const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
@@ -33,6 +55,21 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
     }
   };
 
+  const MyDocument = () => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <Text style={styles.title}>Inquiry Details</Text>
+          <Text style={styles.detail}>Name: {inquiry.name}</Text>
+          <Text style={styles.detail}>Topic: {inquiry.topic}</Text>
+          <Text style={styles.detail}>Description: {inquiry.description}</Text>
+          <Text style={styles.detail}>Priority: {inquiry.priority}</Text>
+          <Text style={styles.detail}>Area: {inquiry.area}</Text>
+        </View>
+      </Page>
+    </Document>
+  );
+
   return (
     <Dialog open onClose={onClosePopup}>
       <DialogTitle>Inquiry Details</DialogTitle>
@@ -46,20 +83,31 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button
-          variant="contained"
-          color="error"
-          startIcon={<DeleteIcon />}
-          onClick={() => setIsDeleteConfirmationOpen(true)}
-        >
-          Delete
-        </Button>
-        <a href={`/formPage?id=${inquiry._id}`}>
-          <Button variant="contained" color="primary">
-            Update
-          </Button>
-        </a>
+        {inquiry.status === 'Pending' && (
+          <>
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<DeleteIcon />}
+              onClick={() => setIsDeleteConfirmationOpen(true)}
+            >
+              Delete
+            </Button>
+            <a href={`/formPage?id=${inquiry._id}`}>
+              <Button variant="contained" color="primary">
+                Update
+              </Button>
+            </a>
+          </>
+        )}
         <Button onClick={onClosePopup}>Close</Button>
+        {inquiry.status === 'Resolved' && (
+          <PDFDownloadLink document={<MyDocument />} fileName="inquiry_details.pdf">
+            {({ blob, url, loading, error }) =>
+              loading ? 'Loading document...' : 'Download PDF'
+            }
+          </PDFDownloadLink>
+        )}
       </DialogActions>
 
       <Dialog
