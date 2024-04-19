@@ -5,11 +5,13 @@ const router = express.Router();
 
 router.route('/add').post((req, res) => {
     const name = req.body.name;
+    const itemcode = Number(req.body.itemcode);
     const price = Number(req.body.price);
     const quantity = Number(req.body.quantity);
 
     const newItem = new Item({
         name,
+        itemcode,
         price,
         quantity,
     });
@@ -32,11 +34,13 @@ router.route('/displayAll').get((req, res) => {
 router.route('/update/:id').put(async (req, res) => {
     let id = req.params.id;
     const name = req.body.name;
+    const itemcode = req.body.itemcode;
     const price = req.body.price;
     const quantity = req.body.quantity;
 
     const updatedItem = {
         name,
+        itemcode,
         price,
         quantity,
     };

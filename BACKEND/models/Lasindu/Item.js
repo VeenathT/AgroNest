@@ -7,9 +7,14 @@ const itemSchema = new schema({
         type: String,
         required: true
     },
+    itemcode: {
+        type: Number,
+        required: true
+    },
     price: {
         type: Number,
         required: true
+    
     },
     quantity: {
         type: Number,
@@ -17,5 +22,5 @@ const itemSchema = new schema({
     }
 });
 
-const Item = mongoose.model('fertilizerTB', itemSchema);
+const Item = mongoose.model('fertilizers', itemSchema);
 module.exports = Item;
