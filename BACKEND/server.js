@@ -54,6 +54,10 @@ app.use("/FAnalysis",FAnalysis);
 const labRouter = require("./routes/Oshini/lab_account/labAccounts.js");
 app.use("/labAccount", labRouter);
 
+//Lasindu
+const ItemRouter = require('./routes/Lasindu/ItemR');
+app.use('/item', ItemRouter);
+//Lasindu
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
