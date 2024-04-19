@@ -54,8 +54,9 @@ const handleSubmit = async (e) => {
             spacing={2}
             
             sx={{
-               maxWidth: '900px',
+               maxWidth: '600px',
                margin: '-20px auto',
+               marginTop: '2cm',
                boxSizing: 'border-box',
                backgroundColor: 'rgba(255, 255, 255, 0.8)',
                borderRadius: '20px',
@@ -68,7 +69,7 @@ const handleSubmit = async (e) => {
                 <Typography component={'h1'} sx={{color: '#000000'}}>Create Account</Typography>
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="first_name"
@@ -92,7 +93,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="last_name"
@@ -116,7 +117,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="email"
@@ -140,7 +141,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="phone"
@@ -164,7 +165,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="district"
@@ -188,7 +189,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="city"
@@ -212,7 +213,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="userName"
@@ -236,7 +237,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="password"
@@ -260,23 +261,21 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Button
-               type='submit'
-                sx={{
-                    margin: 'auto',
-                    marginBottom: '20px',
-                    backgroundColor: '#2DA771',
-                    color: '#000000',
-                    marginLeft: '15px',
-                    marginTop: '20px',
-                    '&:hover':{
-                        opacity: '0.7',
-                        backgroundColor: '#2DA771'
-                    }
-                }}
-            >
-                Sign Up
-            </Button>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          type='submit'
+          sx={{
+            backgroundColor: '#2DA771',
+            color: '#000000',
+            '&:hover': {
+              opacity: '0.7',
+              backgroundColor: '#2DA771'
+            }
+          }}
+        >
+          Sign Up
+        </Button>
+      </Grid>
         </Grid>
         </form>
     );

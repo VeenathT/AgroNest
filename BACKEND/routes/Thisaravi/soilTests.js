@@ -5,7 +5,7 @@ const Laboratory = require("../../models/Oshini/lab_account/labAccount");
 //add
 router.post("/add", async (req, res) => {
     try {
-        const { soilTestType, cropType, areaOfCultivation, district, city } = req.body;
+        const { soilTestType, cropType, date, district, city } = req.body;
 
         const laboratories = await Laboratory.find({ district, city });
 
@@ -13,13 +13,15 @@ router.post("/add", async (req, res) => {
             return res.status(400).json({ error: "No laboratories found in the specified district and city." });
         }
 
+        const selectedLaboratory = laboratories[0];
+
         const newSoilTest = new SoilTest({
             soilTestType,
             cropType,
-            areaOfCultivation,
+            date,
             district,
             city,
-            laboratory: laboratories[0]._id,
+            laboratory: selectedLaboratory._id,
             status: "pending"
         });
 
@@ -58,12 +60,15 @@ router.get("/laboratories/:district/:city", async (req, res) => {
 router.put("/update/:requestID", async (req, res) => {
     try {
         const { requestID } = req.params;
-        const { soilTestType, cropType, areaOfCultivation } = req.body;
+        const { soilTestType, cropType, date,district,city,laboratory } = req.body;
 
         const updatedRequest = await SoilTest.findByIdAndUpdate(requestID, {
             soilTestType,
             cropType,
-            areaOfCultivation
+            date,
+            district,
+            city,
+            laboratory
         });
 
         res.json("Soil Testing Request Updated");
@@ -93,6 +98,16 @@ router.get("/get/:requestID", async (req, res) => {
         const { requestID } = req.params;
         const soilTest = await SoilTest.findById(requestID);
         res.json(soilTest);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.get("/getPendingRequests", async (req, res) => {
+    try {
+        const pendingRequests = await SoilTest.find({ status: "pending" });
+        res.json(pendingRequests);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });

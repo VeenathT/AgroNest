@@ -11,8 +11,8 @@ const soilTestSchema = new Schema({
         type: String,
         required: true
     },
-    areaOfCultivation: {
-        type: Number,
+    date: {
+        type: Date,
         required: true
     },
     district: {

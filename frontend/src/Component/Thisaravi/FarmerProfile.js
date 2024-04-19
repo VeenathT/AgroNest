@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid } from '@mui/material';
+import Sidebar from '../../Component/Thisaravi/Sidebar';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -22,6 +23,25 @@ const FarmerProfile = () => {
   }, [farmerID]);
 
   return (
+    <Grid
+            container
+            spacing={2}
+            
+            sx={{
+               maxWidth: '600px',
+               margin: '-20px auto',
+               marginTop: '2cm',
+               boxSizing: 'border-box',
+               backgroundColor: 'rgba(255, 255, 255, 0.8)',
+               borderRadius: '20px',
+               padding: '20px',
+               boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+               textAlign: 'center',
+            }}
+        >
+    <Grid item xs={3}>
+        <Sidebar />
+      </Grid>
     <Container maxWidth="md">
       <Typography variant="h4" align="center" gutterBottom>
         Farmer Profile
@@ -56,6 +76,7 @@ const FarmerProfile = () => {
         </Grid>
       )}
     </Container>
+    </Grid>
   );
 };
 
