@@ -7,7 +7,7 @@ import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
-import { FormControl, InputLabel, MenuItem, Select, TextField,Button } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField,Button, List, ListItem, ListItemText } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,7 @@ import PopupMessage from '../common/PopUp';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Typography, Table, TableHead, TableBody, TableRow, TableCell} from '@material-ui/core';
 import { PDFExport } from '@progress/kendo-react-pdf';
+import SearchIcon from '@mui/icons-material/Search';
 
 const ManageShop = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -50,6 +51,9 @@ const ManageShop = () => {
     const [sortBy, setSortBy] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
     const [pdfExportComponent, setPdfExportComponent] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
+    const [selectedFertilizer, setSelectedFertilizer] = useState(null);
 
 
     useEffect(() => {
@@ -151,6 +155,50 @@ const ManageShop = () => {
     }, [fertilizers]);
 
 
+    const handleSearchChange = (event,dealerId) => {
+      const { value } = event.target;
+      setSearchTerm(value);
+      console.log('Searching for suggestions with term:', value);
+      console.log('Dealer ID:', dealerId);
+      // Call your backend API to fetch suggestions based on the search term
+      axios.get(`http://localhost:8070/dealer/fertilizers/search?dealerId=${dealerId}&term=${value}`)
+          .then(response => {
+              console.log('Suggestions fetched successfully:', response.data);
+              setSuggestions(response.data);
+          })
+          .catch(error => {
+              console.error('Error fetching suggestions:', error);
+          });
+    };
+
+
+    const handleSearch = (dealerId) => {
+
+      console.log('Searching for fertilizer details with term:', searchTerm);
+      console.log('Dealer ID:', dealerId);
+      // Call your backend API to fetch details of the selected fertilizer
+      axios.get(`http://localhost:8070/dealer/fertilizers/search?dealerId=${dealerId}&term=${searchTerm}`)
+          .then(response => {
+            console.log('Fertilizer details fetched successfully:', response.data);
+              setSelectedFertilizer(response.data);
+              setSuccessMessage('Fertilizer found');
+          })
+          .catch(error => {
+              console.error('Error fetching fertilizer details:', error);
+              setErrorMessage(error.response.data.error);
+              
+          });
+  };
+
+
+  const handleSuggestionClick = (fertilizer) => {
+    // Assuming you have access to the dealerId variable here
+    handleSearch(dealerId, fertilizer);
+};
+
+
+
+
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -210,6 +258,7 @@ const ManageShop = () => {
     const exportToPdf = () => {
       if (pdfExportComponent) {
           pdfExportComponent.save();
+          setSuccessMessage('PDF Exported');
       }
     };
 
@@ -484,6 +533,76 @@ const ManageShop = () => {
       </div>
       <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name || ''} />
       <div className="content">
+
+      <div className="section view-items-section light-green-bg">
+            <Typography variant="h4"><SearchIcon style={{ fontSize: 32, color: 'black', marginRight: 8 }}/>Search Fertilizers</Typography>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+                <TextField
+                    label="Search"
+                    variant="outlined"
+                    value={searchTerm}
+                    onChange={(event) => handleSearchChange(event, dealerId)}
+                    style={{ marginRight: '10px' }}
+                    sx={{
+                      '& .MuiSelect-iconOutlined': {
+                          color: 'black' 
+                        },
+                        '& .MuiSelect-select': {
+                          color: 'white', 
+                          '&:focus': {
+                            backgroundColor: 'transparent' 
+                          }
+                        },
+                        '& .MuiInputLabel-root': {
+                          color: 'black', 
+                          '&.Mui-focused': {
+                            color: 'black' 
+                          }
+                        },
+                      marginTop: 2,
+                      borderRadius: '20px',
+                      width: '51%',
+                      '& .MuiOutlinedInput-root': { 
+                        borderRadius: '20px',
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'black !important',
+                          borderWidth: '2px',
+                          boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', 
+                        }, 
+                      }
+                    }}
+                />
+                <Button variant="contained" color="primary" onClick={() => handleSearch(dealerId)} sx={{ borderRadius: '20px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)',fontSize: '15px',marginTop: '10px' }}>Search</Button>
+            </div>
+            { suggestions.length > 0 && (
+    <List>
+        {suggestions.map((fertilizer, index) => (
+            <ListItem 
+            key={index} 
+            button 
+            onClick={() => handleSuggestionClick(fertilizer,dealerId)}
+        >
+            <ListItemText primary={fertilizer.name} secondary={`Item Code: ${fertilizer.itemcode}`} />
+        </ListItem>
+        
+        ))}
+    </List>
+)}
+            {selectedFertilizer && (
+    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+        <div className="img-container">
+            <img src={getFertilizerImage(selectedFertilizer[0].name)} alt={selectedFertilizer[0].name} />
+        </div>
+        <div className="fertilizer-details" style={{ marginLeft: '20px' }}>
+            <Typography variant="subtitle1" className="fertilizer-name" style={{ fontSize: '25px', color: 'white', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}><b>{selectedFertilizer[0].name}</b></Typography>
+            <Typography variant="body1" className="fertilizer-quantity"><b>Item Code:</b> {selectedFertilizer[0].itemcode}</Typography>
+            <Typography variant="body1" className="fertilizer-price"><b>Price:</b> {selectedFertilizer[0].price}</Typography>
+            <Typography variant="body1" className="fertilizer-quantity"><b>Quantity:</b> {selectedFertilizer[0].quantity}</Typography>
+        </div>
+    </div>
+)}
+
+        </div>
 
 
       <div className="section add-items-section green-bg" style={{ position: 'relative', padding: '20px' }}>
