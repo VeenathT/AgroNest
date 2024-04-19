@@ -26,7 +26,7 @@ const testRequestSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected'], // Status can be one of these values
+    enum: ['pending', 'approved', 'rejected' , 'completed'], // Status can be one of these values
     default: 'pending' // Default status is 'pending'
   }
 });

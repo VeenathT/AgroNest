@@ -87,6 +87,20 @@ router.get('/retrievePendingTestRequests/:labID/:date', async (req, res) => {
     }
   });
 
+  router.get('/retrieveCompletedTestRequests/:labID', async (req, res) => {
+    try {
+      const labID = req.params.labID; // Access the labID parameter
+      
+      // Find test requests by labID, date, and pending status
+      const testRequests = await TestRequest.find({ labID: labID, status: 'completed' });
+  
+      res.status(200).json({ testRequests: testRequests });
+    } catch (error) {
+      console.error('Error retrieving test requests:', error);
+      res.status(500).json({ message: 'Failed to retrieve test requests. Please try again later.' });
+    }
+  });
+
   router.get('/retrievePendingTestRequests/:labID', async (req, res) => {
     try {
       const labID = req.params.labID; // Access the labID parameter

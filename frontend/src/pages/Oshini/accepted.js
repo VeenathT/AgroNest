@@ -150,8 +150,9 @@ function AcceptedRequests() {
           <TableCell>{request.startTime}</TableCell>
           <TableCell>
             <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
-              <option value="Pending">Pending</option>
+              <option value="pending">Pending</option>
               <option value="accepted">Accepted</option>
+              <option value="completed">Completed</option>
               <option value="rejected">Rejected</option>
             </select>
           </TableCell>
