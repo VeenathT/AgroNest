@@ -203,6 +203,12 @@ router.post('/addProduct', async (req, res) => {
     const { name, price, quantity, itemcode } = req.body;
     console.log('Product details:', { name, price, quantity, itemcode });
 
+    const existingFertilizer = await Fertilizer.findOne({ name });
+    if (existingFertilizer) {
+      // If fertilizer with the same name exists, send an error response
+      return res.status(400).json({ error: 'Fertilizer with this name already exists' });
+    }
+
     // Create a new fertilizer document
     const newFertilizer = new Fertilizer({
       name,
@@ -290,4 +296,47 @@ router.delete('/deletefertilizer/:fertilizerId', async (req, res) => {
   }
 });
 
+module.exports = router;
+
+router.get('/fertilizers/search', async (req, res) => {
+  try {
+    const dealerId = req.query.dealerId; // Assuming you pass the dealerId as a query parameter
+    const searchTerm = req.query.term;
+
+    console.log('Searching for fertilizers with term:', searchTerm, 'for dealer ID:', dealerId);
+
+    // Find the dealer by ID
+    const dealer = await Dealer.findById(dealerId);
+    console.log('Dealer found');
+    if (!dealer) {
+      console.log('Dealer not found');
+      return res.status(404).json({ error: 'Dealer not found' });
+    }
+
+    const itemcodeSearch = parseInt(searchTerm);
+
+    // Search for fertilizers based on the searchTerm and the associated dealer
+    let fertilizers;
+    if (!isNaN(searchTerm)) {
+      // If the searchTerm is a number, search by itemcode directly
+      fertilizers = await Fertilizer.find({
+        _id: { $in: dealer.fertilizers }, // Filter fertilizers associated with the dealer
+        itemcode: searchTerm // Search for itemcode as a number
+      });
+    } else {
+      // Otherwise, search by name
+      fertilizers = await Fertilizer.find({
+        _id: { $in: dealer.fertilizers }, // Filter fertilizers associated with the dealer
+        name: { $regex: searchTerm, $options: 'i' } // Case-insensitive search by name
+      });
+    }
+
+    console.log('Fertilizers found:', fertilizers);
+
+    res.status(200).json(fertilizers);
+  } catch (error) {
+    console.error('Error searching fertilizers:', error);
+    res.status(500).json({ error: 'Fertilizer not found' });
+  }
+});
 module.exports = router;
