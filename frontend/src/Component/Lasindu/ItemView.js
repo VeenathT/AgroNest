@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import { Container, Typography, Grid, Button, Paper, Box } from '@mui/material';
+import { Container, Typography, Grid, Button, Paper, Box, TextField } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 const ItemView = () => {
@@ -8,6 +8,7 @@ const ItemView = () => {
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     axios.get(`http://localhost:8070/item/get/${id}`)
@@ -30,10 +31,39 @@ const ItemView = () => {
       });
   }, [id]);
 
-  console.log("Item:", item); // Check if the item is received
+  const handleQuantityChange = (event) => {
+    const value = parseInt(event.target.value);
+    setQuantity(value >= 1 ? value : 1);
+  };
+
+  const getTotalPrice = () => {
+    if (item) {
+      return item.price * quantity;
+    }
+    return 0;
+  };
+
+  const handleBuyNow = () => {
+    const orderDetails = {
+      name: item.name,
+      itemcode: item.itemcode,
+      quantity: quantity,
+      price: getTotalPrice(),
+    };
+  
+    // Send orderDetails to backend for order placement
+    axios.post('http://localhost:8070/order/add', orderDetails)
+      .then((response) => {
+        console.log("Order placed successfully:", response);
+      })
+      .catch((error) => {
+        console.error("Error placing order:", error);
+      });
+  };
+  
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: 'rgba(255, 255, 255, 0.6)' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: 'rgba(144, 238, 144, 0.6)' }}>
       <Container maxWidth="md">
         {loading ? (
           <div>Loading...</div>
@@ -49,14 +79,30 @@ const ItemView = () => {
                 <Typography variant="h4" gutterBottom>
                   {item.name}
                 </Typography>
+                <Typography variant="h5" gutterBottom>
+                  Item Code: {item.itemcode}
+                </Typography>
                 <Typography variant="h6" gutterBottom>
                   Rs. {item.price}
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  Quantity: {item.quantity}
+                  Available Quantity: {item.quantity}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Quantity: 
+                  <TextField
+                    type="number"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    inputProps={{ min: 1 }}
+                    style={{ width: '70px', marginLeft: '10px' }}
+                  />
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Total Price: Rs. {getTotalPrice()}
                 </Typography>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={handleBuyNow}>
                     Buy Now
                   </Button>
                   <Typography variant="body2">
