@@ -25,6 +25,43 @@ mongoose.connect(URL, {
 const fertilizerRouter = require('./routes/inventory_mgmt/fertilizers.js');
 app.use('/fertilizer', fertilizerRouter);
 
+<<<<<<< Updated upstream
+=======
+
+const dealerRouter = require('./routes/Sudarshan/dealer_acc_mgmt/dealers.js');
+app.use('/dealer', dealerRouter);
+
+//Veenath>>
+const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
+app.use("/api/feedbacks", farmerFeedbackRoutes);
+
+const farmerReportRoutes = require("./routes/Veenath/farmerReports.js");
+app.use("/api/reports", farmerReportRoutes);
+
+const suggestionRoutes = require("./routes/Veenath/suggestions.js");
+app.use("/api/suggestions", suggestionRoutes);
+//<<Veenath
+
+const farmerRouter = require("./routes/Thisaravi/farmers.js");
+app.use("/farmer", farmerRouter);
+
+
+const FAnalysis = require("./routes/Kande/FAnalysis.js");
+app.use("/FAnalysis",FAnalysis);
+
+
+const labRouter = require("./routes/Oshini/lab_account/labAccounts.js");
+app.use("/labAccount", labRouter);
+
+//Lasindu
+const ItemRouter = require('./routes/Lasindu/ItemR');
+app.use('/item', ItemRouter);
+
+const OrderRouter = require('./routes/Lasindu/OrderR');
+app.use('/order', OrderRouter);
+//Lasindu
+
+>>>>>>> Stashed changes
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
 });
