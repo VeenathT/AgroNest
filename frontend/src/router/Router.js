@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import DealerProf from '../pages/Sudarshan/DealerProf';
 import Signup from '../Component/Thisaravi/Signup'
 import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
@@ -8,6 +8,28 @@ import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
 import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
 
 const Router = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    localStorage.setItem('isLoggedIn', 'true');
+    setIsLoggedIn(true);
+    navigate('/');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/'); 
+  };
+
   return (
     <Routes>
         <Route path="/" element={<Navigate to='/index' />} />
@@ -19,5 +41,6 @@ const Router = () => {
       <Route path="/formPage" element={<FormPage />} />
     </Routes>
   );
-}
+};
+
 export default Router;
