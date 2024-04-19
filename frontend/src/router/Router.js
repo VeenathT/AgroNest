@@ -5,7 +5,7 @@ import LandingPage from '../pages/common/LandingPage';
 import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
-import EditProfile from '../pages/Sudarshan/EditProf';
+import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Inquiries from '../pages/Sudarshan/Inquries';
