@@ -8,18 +8,23 @@ import Header from '../Component/common/header';
 import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
-import Inquiries from '../pages/Sudarshan/Inquries';
 import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
+import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
+import FormPage from '../pages/Veenath/InquiryPages/formPage';
+import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
+import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
 
 //Rahul
+
 import FarmerList from '../Component/Rahul/FarmerList';
 import DealerList from '../Component/Rahul/DealerList';
-import AdminHome from '../pages/Rahul/AdminHome';
+
 import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
+
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,6 +34,8 @@ const Router = () => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
+    }else {
+      setIsLoggedIn(false); 
     }
   }, []);
 
@@ -67,19 +74,21 @@ const Router = () => {
         <Route path="/editProf" element={<EditProfile />} />
         <Route path="/manageShop" element={<ManageShop />} />
         <Route path="/feedbacks" element={<Feedbacks />} />
-        <Route path="/inquiries" element={<Inquiries />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
-        
+        <Route path="/inquiryCategory" element={<InquiryCategory />} />
+        <Route path="/farmerInquiry" element={<FarmerInquiry />} />
+        <Route path="/dealerInquiry" element={<DealerInquiry />} />
+        <Route path="/formPage" element={<FormPage />} />
+
         {/* Rahul */}
         <Route path="/viewdealers" element={<DealerList />} />
         <Route path="/viewfarmers" element={<FarmerList />} />
-        <Route path="/Admin" element={<AdminHome />} />
+       
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/labrotaryview" element={<LabCards />} />
-
       </Routes>
     </>
   );

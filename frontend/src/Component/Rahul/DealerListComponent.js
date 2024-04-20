@@ -113,11 +113,11 @@ const DealerListComponent = () => {
     <Box bgcolor='#cde3c3'>
       <Tabs value={tabValue} onChange={handleTabChange}>
         <Tab 
-          label="Pending Dealers" 
+          label="Pending" 
           sx={{ color: 'green', '&.Mui-selected': { color: 'green' } }}
         />
         <Tab 
-          label="Resolved Dealers" 
+          label="Resolved" 
           sx={{ color: 'green', '&.Mui-selected': { color: 'green' } }}
         />
       </Tabs>

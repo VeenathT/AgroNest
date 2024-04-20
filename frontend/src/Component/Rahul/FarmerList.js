@@ -6,6 +6,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 const columnHelper = createMRTColumnHelper();
 
 const theme = createTheme({
@@ -85,6 +86,8 @@ const FarmerList = () => {
           gap: '16px',
           padding: '8px',
           flexWrap: 'wrap',
+          marginTop:'60px',
+          justifyContent: 'flex-end',
         }}
       >
         <Button
