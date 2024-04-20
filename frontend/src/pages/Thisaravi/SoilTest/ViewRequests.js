@@ -88,7 +88,7 @@ const ViewRequests = () => {
   return (
     <div>
       <Sidebar />
-      <div style={{ maxWidth: 600, paddingLeft: '500px' }}>
+      <div style={{ maxWidth: 600, paddingLeft: '500px', marginTop:'100px' }}>
         <h2>Soil Test Requests</h2>
         <TableContainer component={Paper}>
           <Table aria-label="customized table">

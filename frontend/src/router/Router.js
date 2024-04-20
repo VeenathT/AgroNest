@@ -5,7 +5,7 @@ import LandingPage from '../pages/common/LandingPage';
 import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
-import EditProfile from '../pages/Sudarshan/EditProf';
+import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Inquiries from '../pages/Sudarshan/Inquries';
@@ -13,7 +13,7 @@ import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
-import SignUp from '../pages/Thisaravi/SignUp';
+
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
 import FarmerProfile from '../Component/Thisaravi/FarmerProfile';
@@ -23,6 +23,8 @@ import TestServices from '../pages/Thisaravi/SoilTest/TestServices';
 import ViewRequests from '../pages/Thisaravi/SoilTest/ViewRequests';
 import RequestDetails from '../pages/Thisaravi/SoilTest/RequestDetails';
 import UpdateRequest from '../pages/Thisaravi/SoilTest/UpdateRequest';
+import Login from '../pages/Thisaravi/Login';
+import TestType from '../pages/Thisaravi/SoilTest/TestType';
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -76,7 +78,6 @@ const Router = () => {
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
 
-        <Route path='/SignUp' element={<SignUp />} />
         <Route path='/RegisterForm' element={<RegisterForm />}/>
         <Route path='/Profile' element={<Profile/>}/>
         <Route path="/farmer/:farmerID" element={<FarmerProfile />}/>
@@ -86,6 +87,8 @@ const Router = () => {
         <Route path='/pending-requests' element={<ViewRequests/>}/>
         <Route path='/soil-test/:requestId' element={<RequestDetails/>}/>
         <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
+        <Route path='/Login' element={<Login onLogin={handleLogin} />}/>
+        <Route path='/test-types' element={<TestType />}/>
       </Routes>
     </>
   );

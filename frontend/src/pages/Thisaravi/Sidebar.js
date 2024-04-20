@@ -11,9 +11,6 @@ import BiotechIcon from '@mui/icons-material/Biotech';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import ForumIcon from '@mui/icons-material/Forum';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Link } from 'react-router-dom';
-import SoilTestRequest from '../../pages/Thisaravi/SoilTest/SoilTestRequest';
-import { useParams } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -25,13 +22,11 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     marginTop: '64px',
-    backgroundColor: '#90EE90 !important ',
   },
 }));
 
-const Sidebar = ({farmerID}) => {
+const Sidebar = () => {
   const classes = useStyles();
-  //const { farmerID } = useParams();
 
   return (
     <Drawer
@@ -43,7 +38,7 @@ const Sidebar = ({farmerID}) => {
       anchor="left"
     >
       <List>
-        <ListItem button component={Link} to={`/farmer/${farmerID}`}>
+        <ListItem button>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
@@ -55,7 +50,7 @@ const Sidebar = ({farmerID}) => {
           </ListItemIcon>
           <ListItemText primary="Orders" />
         </ListItem>
-        <ListItem button component={Link} to={`/soil-test`}>
+        <ListItem button>
           <ListItemIcon>
             <BiotechIcon />
           </ListItemIcon>

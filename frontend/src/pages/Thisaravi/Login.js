@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { TextField, Button, Grid, Typography } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,18 +22,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8070/Farmer/login', formData);
-        const { token } = response.data;
-        localStorage.setItem('token', token);
-        console.log('Token:', token);
-    } catch (error) {    
-        console.error('Login error:', error);
+      const response = await axios.post('http://localhost:8070/Farmer/login', formData);
+      const { user } = response.data;
+      navigate(`/farmer/${user._id}`); // Directly navigate to the profile page
+    } catch (error) {
+      console.error('Login error:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+    <form onSubmit={handleSubmit} style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ maxWidth: 500 }}>
         <Grid item xs={12}>
           <Typography variant="h5" align="center">Login</Typography>
         </Grid>
@@ -55,8 +57,8 @@ const Login = () => {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary" type="submit" fullWidth>Login</Button>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button variant="contained" sx={{ bgcolor: '#388e3c', color: '#ffffff', '&:hover': { bgcolor: '#388e3c' }, width: '100%', maxWidth: '200px' }} type="submit">Login</Button>
         </Grid>
       </Grid>
     </form>

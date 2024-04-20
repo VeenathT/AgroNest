@@ -25,6 +25,8 @@ const RegForm = (props) => {
    }));
  };
 
+ const [errorMessage, setErrorMessage] = useState('');
+
 const handleSubmit = async (e) => {
    e.preventDefault();
    try {
@@ -42,7 +44,8 @@ const handleSubmit = async (e) => {
        });
        Navigate(`/farmer/${response.data.farmerID}`);
    } catch (error) {
-       console.error('Error:', error);
+       console.error('Error:' , error.response.data);
+        setErrorMessage(error.response.data.error);
    }
 };
 
@@ -236,7 +239,9 @@ const handleSubmit = async (e) => {
                     onChange={handleChange}
                  />
             </Grid>
-
+            {errorMessage && (
+            <Typography sx={{ color: 'red' }}>{errorMessage}</Typography>
+        )}
             <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}

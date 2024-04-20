@@ -13,21 +13,26 @@ const TestServices = () => {
             Soil Test
           </Typography>
           <Grid container spacing={3} justifyContent="center" alignItems="center">
-            <Grid item sx={{ marginLeft: '20px',marginTop:'300px' }}>
-              <Button component={Link} to="/soil-test-request" variant="contained" color="primary">
+          <Grid item xs={12} sx={{ textAlign: 'center', marginTop:'100px' }}>
+              <Button component={Link} to="/soil-test-request" variant="contained" style={{ backgroundColor: '#0f5132', color: 'white', width: '300px', marginBottom: '10px' }}>
                 Request for a Soil Test
               </Button>
-            </Grid>
-            <Grid item sx={{ marginLeft: '20px',marginTop:'300px' }}>
-              <Button component={Link} to="/pending-requests" variant="contained" color="primary">
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: 'center' }}>
+              <Button component={Link} to="/pending-requests" variant="contained" style={{ backgroundColor: '#0f5132', color: 'white', width: '300px', marginBottom: '10px' }}>
                 Pending Requests
               </Button>
-            </Grid>
-            <Grid item sx={{ marginLeft: '20px',marginTop:'300px' }}>
-              <Button component={Link} to="/resolved-requests" variant="contained" color="primary">
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: 'center' }}>
+              <Button component={Link} to="/resolved-requests" variant="contained" style={{ backgroundColor: '#0f5132', color: 'white', width: '300px', marginBottom: '10px' }}>
                 Resolved Requests
               </Button>
-            </Grid>
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: 'center' }}>
+              <Button component={Link} to="/test-types" variant="contained" style={{ backgroundColor: '#0f5132', color: 'white', width: '300px', marginBottom: '10px' }}>
+                Soil Test Types
+              </Button>
+          </Grid>
           </Grid>
         </Container>
       </div>

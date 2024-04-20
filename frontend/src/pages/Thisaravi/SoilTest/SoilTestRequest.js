@@ -3,6 +3,7 @@ import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Box } fro
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import Sidebar from '../../../Component/Thisaravi/Sidebar';
+import { useNavigate } from 'react-router-dom';
 
 const districts = {
   Puttlam: ['Wennappuwa', 'Katuneriya', 'City7'],
@@ -29,6 +30,7 @@ const SoilTestRequest = () => {
   const [laboratory, setLaboratory] = useState('');
   const [availableLaboratories, setAvailableLaboratories] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLaboratories = async () => {
@@ -73,6 +75,7 @@ const SoilTestRequest = () => {
           city,
           laboratory,
         }),
+
       });
   
       if (!response.ok) {
@@ -88,6 +91,7 @@ const SoilTestRequest = () => {
     setAvailableLaboratories([]);
 
     console.log('Form data submitted successfully');
+    navigate('/pending-requests');
   } catch (error) {
     console.error('Error submitting form data:', error);
   }
