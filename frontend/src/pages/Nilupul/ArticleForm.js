@@ -10,6 +10,8 @@ const ArticleForm = () => {
   const [content, setContent] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [articles, setArticles] = useState([]);
+  const [selectedArticle, setSelectedArticle] = useState(null);
+  const [formError, setFormError] = useState(null);
 
   useEffect(() => {
     fetchArticles();
@@ -26,14 +28,24 @@ const ArticleForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!title || title.length > 30 || /\d/.test(title)) {
+      setFormError('Title should be less than 31 characters and cannot contain numbers.');
+      return;
+    }
     try {
-      await axios.post('http://localhost:8070/api/articles', { title, content });
+      if (selectedArticle) {
+        await axios.put(`http://localhost:8070/api/articles/${selectedArticle._id}`, { title, content });
+      } else {
+        await axios.post('http://localhost:8070/api/articles', { title, content });
+      }
       setTitle('');
       setContent('');
-      alert('Article added successfully!');
-      fetchArticles(); // Update the articles after adding a new one
+      setSelectedArticle(null);
+      setFormError(null);
+      alert(selectedArticle ? 'Article updated successfully!' : 'Article added successfully!');
+      fetchArticles(); // Update the articles after adding or updating
     } catch (err) {
-      console.error('Error adding article:', err);
+      console.error('Error adding/updating article:', err);
     }
   };
 
@@ -47,8 +59,23 @@ const ArticleForm = () => {
     }
   };
 
+  const handleUpdate = (article) => {
+    setTitle(article.title);
+    setContent(article.content);
+    setSelectedArticle(article);
+  };
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+    if (e.target.value.length > 30 || /\d/.test(e.target.value)) {
+      setFormError('Title should be less than 31 characters and cannot contain numbers.');
+    } else {
+      setFormError(null);
+    }
   };
 
   const filteredArticles = articles.filter(article =>
@@ -58,7 +85,7 @@ const ArticleForm = () => {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <TextField
           label="Search"
           value={searchTerm}
@@ -76,9 +103,11 @@ const ArticleForm = () => {
         <TextField
           label="Title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleTitleChange}
           fullWidth
           margin="normal"
+          error={formError && !title}
+          helperText={formError && <span style={{ color: 'red' }}>{formError}</span>}
         />
         <TextField
           label="Content"
@@ -90,14 +119,12 @@ const ArticleForm = () => {
           rows={4}
         />
         <Button type="submit" variant="contained" color="primary">
-          Add
+          {selectedArticle ? 'Update' : 'Add'}
         </Button>
       </form>
       <h2>Articles:</h2>
       {filteredArticles.map((article) => (
-        
         <Card key={article._id} style={{ marginBottom: '20px' }}>
-           
           <CardContent>
             <Typography variant="h5" component="h2">
               {article.title}
@@ -108,9 +135,14 @@ const ArticleForm = () => {
             <Typography variant="body2" component="p">
               {article.content}
             </Typography>
-            <IconButton aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
-              <DeleteIcon />
-            </IconButton>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+              <IconButton aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
+                <DeleteIcon />
+              </IconButton>
+              <Button variant="outlined" color="primary" onClick={() => handleUpdate(article)}>
+                Update
+              </Button>
+            </div>
           </CardContent>
         </Card>
       ))}
