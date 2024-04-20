@@ -8,7 +8,9 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import { DialogActions} from '@mui/material';
+import { DialogActions } from '@mui/material';
+import LabPDFGenerator from './LabPDFGenerator'; // Import the PDF generator component
+import AllLabsPDFGenerator from './AllLabsPDFGenerator'; // Import the All Labs PDF generator component
 
 import labBackground from '../../images/Rahul/but2.jpg'; // Importing the background image
 import buttonBackground from '../../images/Rahul/but2.jpg';
@@ -74,22 +76,9 @@ const LabCards = () => {
     document.body.removeChild(link);
   };
 
-  const handleExportLabCSV = (lab) => {
-    // Convert lab data to CSV format and trigger download
-    const csvContent = Object.values(lab).join(',');
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${lab.name}_details.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div>
-      <div style={{ marginTop:'30px', marginBottom: '20px', display: 'flex', justifyContent: 'flex-end', paddingRight: '50px' }}>
+      <div style={{ marginTop:'110px', marginBottom: '20px', display: 'flex', justifyContent: 'flex-end', paddingRight: '50px' }}>
         <FormControl variant="outlined" style={{ marginRight: '10px', minWidth: '100px', minHeight:'10px' }}>
           <InputLabel id="filter-by-label">Filter By</InputLabel>
           <Select
@@ -132,7 +121,7 @@ const LabCards = () => {
         </div>
 
         {/* Cards */}
-        <div style={{ display: 'flex', flexWrap: 'wrap' ,marginLeft:'80px'}}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' ,marginLeft:'80px', marginTop:'20px'}}>
           {filteredLabs.map((lab, index) => (
             <Card key={lab._id} sx={{ width: 200, margin: '25px', position: 'relative', backgroundImage: `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url(${labBackground})`, backgroundSize: 'cover', borderRadius: '15px' }}>
               <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '93%' }}>
@@ -143,7 +132,7 @@ const LabCards = () => {
                   {lab.name}
                 </Typography>
                 <CardContent sx={{ p: 1, border: '0px solid lightgrey', marginTop: 'auto' }}>
-                <Button variant="contained" size="small" onClick={() => handleViewClick(lab._id)} sx={{ backgroundColor: 'green' }}>
+                  <Button variant="contained" size="small" onClick={() => handleViewClick(lab._id)} sx={{ backgroundColor: 'green' }}>
                     View
                   </Button>
                 </CardContent>
@@ -159,15 +148,16 @@ const LabCards = () => {
           <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>Phone: {selectedLab?.phone}</Typography>
           <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>District: {selectedLab?.district}</Typography>
           <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>City: {selectedLab?.city}</Typography>
-          {/* Individual lab export button inside popup */}
-          <Button  size="small" onClick={() => handleExportLabCSV(selectedLab)} sx={{backgroundColor: 'green' ,color:'white', marginTop: '10px' }}>
-            Export
-          </Button>
+          {/* Include the PDF export button */}
+          {selectedLab && <LabPDFGenerator lab={selectedLab} />}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose}  sx={{ backgroundColor: 'white', color: 'green' }}>Close</Button>
         </DialogActions>
       </Dialog>
+
+      {/* Render AllLabsPDFGenerator component */}
+      <AllLabsPDFGenerator labs={labs} />
     </div>
   );
 };
