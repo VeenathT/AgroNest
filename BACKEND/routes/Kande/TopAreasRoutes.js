@@ -1,19 +1,21 @@
-const router = require("express").Router();
-const FAnalysis = require("../../models/FAnalysis/FAnalysis");
+const express = require("express");
+const router = express.Router();
+const TopAreas = require("../../models/Kande/TopAreas.js");
+
+router.use(express.json()); // Middleware to parse JSON data
 
 router.route("/add").post((req, res) => {
-    const { name, gmail, age, address } = req.body;
+    const { fertilizername, area, noofsales } = req.body;
 
-    const addUser = new FAnalysis({
-        name,
-        gmail,
-        age,
-        address
+    const addTopAreas = new TopAreas({
+        fertilizername,
+        area,
+        noofsales
     });
 
-    addUser.save()
+    addTopAreas.save()
         .then(() => {
-            res.status(200).json("User Added");
+            res.status(200).json("Top selling area Added");
         })
         .catch(err => {
             console.log(err);
@@ -22,9 +24,9 @@ router.route("/add").post((req, res) => {
 });
 
 router.route("/").get((req, res) => {
-    FAnalysis.find()
-        .then(users => {
-            res.status(200).json(users);
+    TopAreas.find()
+        .then(topAreas => {
+            res.status(200).json(topAreas);
         })
         .catch(err => {
             console.log(err);
@@ -33,19 +35,18 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/update/:id").put(async (req, res) => {
-    const userId = req.params.id;
-    const { name, gmail, age, address } = req.body;
+    const fId = req.params.id;
+    const { fertilizername,area, noofsales } = req.body;
 
-    const updateUser = {
-        name,
-        gmail,
-        age,
-        address
+    const updateTopAreas = {
+        fertilizername,
+        area,
+        noofsales
     };
 
     try {
-        await FAnalysis.findByIdAndUpdate(userId, updateUser);
-        res.status(200).json({ status: "User Updated" });
+        await TopAreas.findByIdAndUpdate(fId, updateTopAreas);
+        res.status(200).json({ status: "Fertilizer Updated" });
     } catch (err) {
         console.log(err);
         res.status(500).json({ status: "Error with updating data", error: err.message });
@@ -53,11 +54,11 @@ router.route("/update/:id").put(async (req, res) => {
 });
 
 router.route("/delete/:id").delete(async (req, res) => {
-    const userId = req.params.id;
+    const fId = req.params.id;
 
     try {
-        await FAnalysis.findByIdAndDelete(userId);
-        res.status(200).json({ status: "User Deleted" });
+        await TopAreas.findByIdAndDelete(fId);
+        res.status(200).json({ status: "Fertilizer Deleted" });
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ status: "Error with delete user", error: err.message });
@@ -65,10 +66,10 @@ router.route("/delete/:id").delete(async (req, res) => {
 });
 
 router.route("/get/:id").get(async (req, res) => {
-    const userId = req.params.id;
+    const fId = req.params.id;
 
     try {
-        const user = await FAnalysis.findById(userId);
+        const user = await TopAreas.findById(fId);
         res.status(200).json({ status: "User fetched", user });
     } catch (err) {
         console.log(err.message);

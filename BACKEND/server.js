@@ -44,8 +44,16 @@ const farmerRouter = require("./routes/Thisaravi/farmers.js");
 app.use("/farmer", farmerRouter);
 
 // kande
-const FAnalysis = require("./routes/Kande/FAnalysis.js");
-app.use("/FAnalysis",FAnalysis);
+const TopFertilizer = require("./routes/Kande/TopFertilizerRoutes.js");
+app.use("/topfertilizercategory",TopFertilizer);
+
+const topsellingSchema = require("./routes/Kande/TopSellingRoutes.js");
+app.use("/topdealer",topsellingSchema);
+
+const topareasSchema = require("./routes/Kande/TopAreasRoutes.js");
+app.use("/toparea",topareasSchema);
+
+
 
 
 app.listen(PORT, () => {
