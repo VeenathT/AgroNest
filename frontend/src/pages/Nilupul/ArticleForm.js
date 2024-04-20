@@ -28,8 +28,8 @@ const ArticleForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || title.length > 30 || /\d/.test(title)) {
-      setFormError('Title should be less than 31 characters and cannot contain numbers.');
+    if (!title || title.length > 70 || /\d/.test(title)) {
+      setFormError('Title should be less than 71 characters and cannot contain numbers.');
       return;
     }
     try {
@@ -71,8 +71,8 @@ const ArticleForm = () => {
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
-    if (e.target.value.length > 30 || /\d/.test(e.target.value)) {
-      setFormError('Title should be less than 31 characters and cannot contain numbers.');
+    if (e.target.value.length > 70 || /\d/.test(e.target.value)) {
+      setFormError('Title should be less than 71 characters and cannot contain numbers.');
     } else {
       setFormError(null);
     }
@@ -127,7 +127,7 @@ const ArticleForm = () => {
         {filteredArticles.map((article) => (
           <Card key={article._id} style={{ marginBottom: '20px', backgroundColor: '#FFFFFF' }}>
             <CardContent>
-              <Typography variant="h5" component="h2" style={{ color: '#4CAF50' }}>
+              <Typography variant="h5" component="h2" style={{ color: '#4CAF50', maxWidth: '100%' }}>
                 {article.title}
               </Typography>
               <Typography color="textSecondary">
