@@ -110,21 +110,19 @@ router.route("/get/:userName").get(async (req, res) => {
 
 
 router.route("/checkUserName").get(async (req, res) => {
-    try {
-      
-      const { userName } = req.body;
+  try {
+    const { userName } = req.query; 
   
-      
-      const existingUser = await Lab.findOne({ userName });
+    const existingUser = await Lab.findOne({ userName });
 
-      const status = !!existingUser;
-  
-      res.status(200).json({ status });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error checking username existence" });
-    }
-  });
+    const status = !!existingUser;
+
+    res.status(200).json({ status });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error checking username existence" });
+  }
+});
 
 
   

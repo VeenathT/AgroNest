@@ -62,7 +62,11 @@ const SignupForm = () => {
 
     if (e.target.name === 'userName') {
       try {
-        const response = await axios.get('http://localhost:8070/labAccount/checkUserName', { userName: e.target.value });
+        const response = await axios.get('http://localhost:8070/labAccount/checkUserName', {
+          params: {
+            userName: e.target.value
+          }
+        });
         if (response.data.status) {
           setUsernameError('Username already exists');
         } else {
@@ -73,6 +77,7 @@ const SignupForm = () => {
         alert('Error in fetching usernames.');
       }
     }
+    
   };
 
   const handleSignup = async (e) => {
