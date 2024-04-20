@@ -56,60 +56,87 @@ const DealerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: 'white', width: "1000px", margin: "auto", marginTop: '100px' }}>
-    <Typography variant="h3" gutterBottom>Dealer Inquiries</Typography>
-    <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
-      <Tab  label={
-        <Badge badgeContent={filteredPendingInquiries.length} color="error">
-          Pending
-        </Badge>
-      } />
-      <Tab label={
-        <Badge badgeContent={filteredResolvedInquiries.length} color="success">
-          Resolved
-        </Badge>
-      } />
-    </Tabs>
-    <TextField
-    sx={{ mt: "10px", width: "500px", ml: "250px" }}
-      variant="outlined"
-      placeholder="Search"
-      size="small"
-      value={searchQuery}
-      onChange={handleSearchChange}
-      InputProps={{
-        endAdornment: (
-          <Button variant="contained" color="success" size="small">
-            <SearchIcon />
-          </Button>
-        )
-      }}
-      style={{ marginBottom: '20px' }}
-    />
+    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '100px' }}>
+      <Typography variant="h3" gutterBottom align="center">Welcome to AgroNest Support Services !</Typography>
+      <Tabs
+        value={tabValue}
+        onChange={handleTabChange}
+        variant="fullWidth"
+        indicatorColor="primary"
+        textColor="primary"
+        sx={{ marginBottom: '20px' }}
+      >
+        <Tab sx={{ marginTop: '20px' ,backgroundColor:'#FEF9E7' }}
+          label={
+            <Badge badgeContent={filteredPendingInquiries.length} color="error">
+              <Typography variant="h6" sx={{ color: 'black' }}>Pending</Typography>
+            </Badge>
+          }
+        />
+         <Tab sx={{ marginTop: '20px' ,backgroundColor:'#EAFAF1' }}
+          label={
+            <Badge badgeContent={filteredResolvedInquiries.length} color="success">
+              <Typography variant="h6" sx={{ color: 'black' }}>Resolved</Typography>
+            </Badge>
+          }
+        />
+      </Tabs> 
       {tabValue === 0 ? (
-        <div>
-          <Typography variant="h4" gutterBottom>Pending Inquiries</Typography>
+        <div> 
+          <Typography variant="h5" gutterBottom align="center">Pending Issues</Typography>
+          <TextField 
+            sx={{backgroundColor: '#FFFF', width: "500px", margin: "auto", marginBottom: '20px', ml:'260px' }}
+            variant="outlined"
+            placeholder="Search"
+            size="small"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            InputProps={{
+              endAdornment: (
+                <Button variant="contained" color="info" size="small">
+                  <SearchIcon />
+                </Button>
+              )
+            }}
+            style={{ marginBottom: '20px' }}
+          />
           {filteredPendingInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>
               <Grid item xs={2}>
-                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="primary" style={{ marginBottom: '20px' }}>View</Button>
+                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="success" style={{ marginBottom: '20px' }}>View</Button>
               </Grid>
             </Grid>
           ))}
         </div>
       ) : (
         <div>
-          <Typography variant="h4" gutterBottom>Resolved Inquiries</Typography>
+          <Typography variant="h5" gutterBottom align="center">Resolved Issues</Typography>
+          <TextField
+            sx={{backgroundColor: '#FFFF', width: "500px", margin: "auto", marginBottom: '20px', ml:'260px' }}
+            variant="outlined"
+            placeholder="Search"
+            size="small"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            InputProps={{
+              endAdornment: (
+                <Button variant="contained" color="info" size="small">
+                  <SearchIcon />
+                </Button>
+              )
+            }}
+            style={{ marginBottom: '20px' }}
+          />
           {filteredResolvedInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>
               <Grid item xs={2}>
-                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="primary" style={{ marginBottom: '20px' }}>View</Button>
+                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="success" style={{ marginBottom: '20px' }}>Open Reply</Button>
               </Grid>
             </Grid>
           ))}
