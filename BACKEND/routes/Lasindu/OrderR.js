@@ -63,7 +63,7 @@ router.route('/delete/:id').delete(async (req, res) => {
 
 router.route('/get/:id').get(async (req, res) => {
     let id = req.params.id;
-    await Item.findById(id).then((item) => {
+    await Order.findById(id).then((item) => {
         res.status(200).send({ status: "Item Fetched", item });
     }).catch((err) => {
         console.log(err);

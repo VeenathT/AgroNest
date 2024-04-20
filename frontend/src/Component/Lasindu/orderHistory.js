@@ -1,13 +1,14 @@
+// OrderHistoryPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Divider } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { Container, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
+import CookiesBanner from '../Lasindu/Popup/OrderPopUp'; // Import the CookiesBanner component
 
 const OrderHistoryPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedOrderId, setSelectedOrderId] = useState(null); // State to store the selected order ID
 
   useEffect(() => {
     // Fetch order history from the backend
@@ -22,14 +23,13 @@ const OrderHistoryPage = () => {
       });
   }, []);
 
-  const handleUpdateOrder = (orderId) => {
-    // Handle update logic here
-    console.log('Updating order with ID:', orderId);
+  const handleViewOrder = (orderId) => {
+    setSelectedOrderId(orderId); // Set the selected order ID
+    console.log('View order:', orderId);
   };
 
-  const handleDeleteOrder = (orderId) => {
-    // Handle delete logic here
-    console.log('Deleting order with ID:', orderId);
+  const handleCloseBanner = () => {
+    setSelectedOrderId(null); // Reset selected order ID when the banner is closed
   };
 
   return (
@@ -60,20 +60,14 @@ const OrderHistoryPage = () => {
                     </>
                   }
                 />
-                <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="edit" onClick={() => handleUpdateOrder(order._id)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteOrder(order._id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                <Button variant="contained" onClick={() => handleViewOrder(order._id)} sx={{ background:'green'}}>View</Button>
               </ListItem>
               <Divider />
             </div>
           ))}
         </List>
       )}
+      {selectedOrderId && <CookiesBanner onClose={handleCloseBanner} orderId={selectedOrderId} />} {/* Render the banner component if selectedOrderId is not null */}
     </Container>
   );
 };

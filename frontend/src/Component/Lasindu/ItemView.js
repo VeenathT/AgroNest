@@ -94,7 +94,7 @@ const ItemView = () => {
                     type="number"
                     value={quantity}
                     onChange={handleQuantityChange}
-                    inputProps={{ min: 1 }}
+                    inputProps={{ min: 1, max: item.quantity}}
                     style={{ width: '70px', marginLeft: '10px' }}
                   />
                 </Typography>
