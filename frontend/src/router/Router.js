@@ -6,7 +6,6 @@ import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
 import EditProfile from '../pages/Sudarshan/editProf';
-import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Orders from '../pages/Sudarshan/Orders';
@@ -17,9 +16,9 @@ import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
 import FormPage from '../pages/Veenath/InquiryPages/formPage';
 import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
 import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
-
 import ItemView from '../Component/Lasindu/ItemView';
 import OrderHistoryPage from '../Component/Lasindu/orderHistory';
+
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
