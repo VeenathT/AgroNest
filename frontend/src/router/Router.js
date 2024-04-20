@@ -8,7 +8,6 @@ import Header from '../Component/common/header';
 import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
-import Inquiries from '../pages/Sudarshan/Inquries';
 import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
@@ -67,7 +66,6 @@ const Router = () => {
         <Route path="/editProf" element={<EditProfile />} />
         <Route path="/manageShop" element={<ManageShop />} />
         <Route path="/feedbacks" element={<Feedbacks />} />
-        <Route path="/inquiries" element={<Inquiries />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
