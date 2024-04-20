@@ -26,6 +26,7 @@ const FormPage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const inquiryId = new URLSearchParams(location.search).get('id');
+  const emailRegex = /\S+@\S+\.\S+/; // Regex for email format
 
   useEffect(() => {
     const fetchInquiryDetails = async () => {
@@ -53,6 +54,11 @@ const FormPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!emailRegex.test(name)) {
+        alert('Please enter a valid email address with the format example@gmail.com');
+        return;
+      }
+
       if (inquiryId) {
         await axios.put(`http://localhost:8070/api/reports/${inquiryId}`, {
           name,
