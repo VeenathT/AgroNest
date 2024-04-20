@@ -94,9 +94,22 @@ function AcceptedRequests() {
   };
 
   // Filter acceptedRequests based on searchQuery
-  const filteredRequests = acceptedRequests.filter(request =>
+  const filteredRequests = acceptedRequests
+  .filter(request =>
     farmerNames[request.farmerID] && farmerNames[request.farmerID].toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  )
+  .sort((a, b) => {
+    // Compare dates first
+    const dateComparison = new Date(a.date) - new Date(b.date);
+    
+    // If dates are equal, compare start times
+    if (dateComparison === 0) {
+      return new Date(`1970-01-01T${a.startTime}`) - new Date(`1970-01-01T${b.startTime}`);
+    }
+    
+    // Otherwise, return the date comparison result
+    return dateComparison;
+  });
 
   return (
     <div>
