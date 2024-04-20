@@ -5,6 +5,8 @@ const cors = require('cors');
 const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
+const fs = require('fs');
+
 
 //Nilupul
 const articleRoutes = require('./routes/Nilupul/articleRoutes.js');

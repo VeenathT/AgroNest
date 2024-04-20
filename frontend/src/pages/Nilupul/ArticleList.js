@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography, Grid, Container } from '@material-ui/core';
 import SearchBar from './SearchBar';
 
 const ArticleList = () => {
@@ -20,25 +20,31 @@ const ArticleList = () => {
   );
 
   return (
-    <div>
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <h2>Articles:</h2>
-      {filteredArticles.map(article => (
-        <Card key={article._id} style={{ marginBottom: '20px', maxWidth: '600px' }}>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {article.title}
-            </Typography>
-            <Typography color="textSecondary">
-              {new Date(article.date).toLocaleString()}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {article.content}
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+    <Container>
+      <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Typography variant="h4" style={{ marginBottom: '20px', color: '#4CAF50' }}>Articles</Typography>
+        <Grid container spacing={3}>
+          {filteredArticles.map(article => (
+            <Grid item key={article._id} xs={12} sm={6} md={4}>
+              <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#FFFFFF' }}>
+                <CardContent style={{ flexGrow: 1 }}>
+                  <Typography variant="h6" gutterBottom style={{ color: '#4CAF50' }}>
+                    {article.title}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    {new Date(article.date).toLocaleString()}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    {article.content}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+    </Container>
   );
 };
 

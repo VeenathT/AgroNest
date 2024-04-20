@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Button, Card, CardContent, Typography, IconButton } from '@material-ui/core';
+import { TextField, Button, Card, CardContent, Typography, IconButton, Container } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
 import SearchBar from './SearchBar';
@@ -83,70 +83,72 @@ const ArticleForm = () => {
   );
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <TextField
-          label="Search"
-          value={searchTerm}
-          onChange={handleSearch}
-          margin="normal"
-          variant="outlined"
-          size="small"
-          InputProps={{
-            endAdornment: <SearchIcon />,
-          }}
-        />
+    <Container>
+      <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <TextField
+            label="Search"
+            value={searchTerm}
+            onChange={handleSearch}
+            margin="normal"
+            variant="outlined"
+            size="small"
+            InputProps={{
+              endAdornment: <SearchIcon />,
+            }}
+          />
+        </div>
+        <h2 style={{ color: '#4CAF50' }}>Add Article</h2>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Title"
+            value={title}
+            onChange={handleTitleChange}
+            fullWidth
+            margin="normal"
+            error={formError && !title}
+            helperText={formError && <span style={{ color: 'red' }}>{formError}</span>}
+          />
+          <TextField
+            label="Content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            fullWidth
+            margin="normal"
+            multiline
+            rows={4}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            {selectedArticle ? 'Update' : 'Add'}
+          </Button>
+        </form>
+        <h2 style={{ color: '#4CAF50', marginTop: '20px' }}>Articles</h2>
+        {filteredArticles.map((article) => (
+          <Card key={article._id} style={{ marginBottom: '20px', backgroundColor: '#FFFFFF' }}>
+            <CardContent>
+              <Typography variant="h5" component="h2" style={{ color: '#4CAF50' }}>
+                {article.title}
+              </Typography>
+              <Typography color="textSecondary">
+                {new Date(article.date).toLocaleString()}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {article.content}
+              </Typography>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+                <IconButton aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
+                  <DeleteIcon />
+                </IconButton>
+                <Button variant="outlined" color="primary" onClick={() => handleUpdate(article)}>
+                  Update
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-      <h2>Add Article</h2>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Title"
-          value={title}
-          onChange={handleTitleChange}
-          fullWidth
-          margin="normal"
-          error={formError && !title}
-          helperText={formError && <span style={{ color: 'red' }}>{formError}</span>}
-        />
-        <TextField
-          label="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          fullWidth
-          margin="normal"
-          multiline
-          rows={4}
-        />
-        <Button type="submit" variant="contained" color="primary">
-          {selectedArticle ? 'Update' : 'Add'}
-        </Button>
-      </form>
-      <h2>Articles:</h2>
-      {filteredArticles.map((article) => (
-        <Card key={article._id} style={{ marginBottom: '20px' }}>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {article.title}
-            </Typography>
-            <Typography color="textSecondary">
-              {new Date(article.date).toLocaleString()}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {article.content}
-            </Typography>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-              <IconButton aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
-                <DeleteIcon />
-              </IconButton>
-              <Button variant="outlined" color="primary" onClick={() => handleUpdate(article)}>
-                Update
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+    </Container>
   );
 };
 
