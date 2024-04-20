@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const testRequestSchema = new Schema({
   farmerID: {
     type: Schema.Types.ObjectId,
-    ref: 'Farmer', // Reference to the Farmer model
+    ref: 'Farmer',
     required: true
   },
   labID: {
     type: Schema.Types.ObjectId,
-    ref: 'Lab', // Reference to the Lab model
+    ref: 'Lab', 
     required: true
   },
   testType: {
@@ -26,8 +26,8 @@ const testRequestSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected' , 'completed'], // Status can be one of these values
-    default: 'pending' // Default status is 'pending'
+    enum: ['pending', 'approved', 'rejected' , 'completed'], 
+    default: 'pending' 
   }
 });
 

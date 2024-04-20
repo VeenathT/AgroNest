@@ -36,11 +36,15 @@ const labSchema = new Schema({
 
     completed: {
         type: Number,
-        default: 0 // Default value for completed requests
+        default: 0 
     },
     rejected: {
         type: Number,
-        default: 0 // Default value for rejected requests
+        default: 0 
+    },
+    level: {
+        type: Number,
+        default: 0
     }
     
 })

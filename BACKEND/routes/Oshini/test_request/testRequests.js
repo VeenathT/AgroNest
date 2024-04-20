@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const TestRequest = require('../../../models/Oshini/test_requests/testRequest');
 
-// Add Test Request
+
 router.post('/addTestRequest', async (req, res) => {
   try {
     const { farmerID, labID, testType, date, startTime } = req.body;
 
-    // Create a new TestRequest document
+    
     const testRequest = new TestRequest({
       farmerID: farmerID,
       labID: labID,
@@ -17,7 +17,6 @@ router.post('/addTestRequest', async (req, res) => {
       status: "pending"
     });
 
-    // Save the TestRequest document to the database
     await testRequest.save();
 
     res.status(201).json({ message: 'Test request added successfully' });
@@ -27,13 +26,13 @@ router.post('/addTestRequest', async (req, res) => {
   }
 });
 
-// Update Test Request Status
+
 router.put('/updateTestRequestStatus/:requestID', async (req, res) => {
   try {
     const { requestID } = req.params;
     const { status } = req.body;
 
-    // Find the TestRequest document by requestID and update the status
+    
     await TestRequest.findByIdAndUpdate(requestID, { status: status });
 
     res.status(200).json({ message: 'Test request status updated successfully' });
@@ -43,12 +42,12 @@ router.put('/updateTestRequestStatus/:requestID', async (req, res) => {
   }
 });
 
-// Delete Test Request
+
 router.delete('/deleteTestRequest/:requestID', async (req, res) => {
   try {
     const { requestID } = req.params;
 
-    // Find and delete the TestRequest document by requestID
+    
     await TestRequest.findByIdAndDelete(requestID);
 
     res.status(200).json({ message: 'Test request deleted successfully' });
@@ -58,12 +57,12 @@ router.delete('/deleteTestRequest/:requestID', async (req, res) => {
   }
 });
 
-// Retrieve Test Requests by LabID and Date with Pending Status
+
 router.get('/retrievePendingTestRequests/:labID/:date', async (req, res) => {
     try {
       const { labID, date } = req.params;
   
-      // Find test requests by labID, date, and pending status
+      
       const testRequests = await TestRequest.find({ labID: labID, date: date, status: 'pending' });
   
       res.status(200).json({ testRequests: testRequests });
@@ -75,9 +74,9 @@ router.get('/retrievePendingTestRequests/:labID/:date', async (req, res) => {
 
   router.get('/retrieveAcceptedTestRequests/:labID', async (req, res) => {
     try {
-      const labID = req.params.labID; // Access the labID parameter
+      const labID = req.params.labID; 
       
-      // Find test requests by labID, date, and pending status
+      
       const testRequests = await TestRequest.find({ labID: labID, status: 'accepted' });
   
       res.status(200).json({ testRequests: testRequests });
@@ -89,9 +88,9 @@ router.get('/retrievePendingTestRequests/:labID/:date', async (req, res) => {
 
   router.get('/retrieveCompletedTestRequests/:labID', async (req, res) => {
     try {
-      const labID = req.params.labID; // Access the labID parameter
+      const labID = req.params.labID; 
       
-      // Find test requests by labID, date, and pending status
+      
       const testRequests = await TestRequest.find({ labID: labID, status: 'completed' });
   
       res.status(200).json({ testRequests: testRequests });
@@ -103,9 +102,9 @@ router.get('/retrievePendingTestRequests/:labID/:date', async (req, res) => {
 
   router.get('/retrievePendingTestRequests/:labID', async (req, res) => {
     try {
-      const labID = req.params.labID; // Access the labID parameter
+      const labID = req.params.labID; 
       
-      // Find test requests by labID, date, and pending status
+      
       const testRequests = await TestRequest.find({ labID: labID, status: 'pending' });
   
       res.status(200).json({ testRequests: testRequests });
@@ -115,13 +114,12 @@ router.get('/retrievePendingTestRequests/:labID/:date', async (req, res) => {
     }
 });
 
-// Backend route to update the status of a test request
+
 router.put('/updateStatus/:requestId', async (req, res) => {
     try {
       const { requestId } = req.params;
       const { status } = req.body;
-  
-      // Find the test request by ID and update its status
+       
       const updatedRequest = await TestRequest.findByIdAndUpdate(
         requestId,
         { status: status },

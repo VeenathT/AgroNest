@@ -11,7 +11,7 @@ router.route("/add").post((req,res)=>{
   const userName = req.body.userName;
   const password = req.body.password;
 
-  // Assign default values of 0 to the new fields
+
   const newLab = new Lab({ 
       name,
       address,
@@ -21,7 +21,8 @@ router.route("/add").post((req,res)=>{
       userName,
       password,
       completed: 0,
-      rejected: 0
+      rejected: 0,
+      level: 0
   })
 
   newLab.save().then(()=>{
@@ -59,7 +60,6 @@ router.route("/update/:userName").put(async (req, res) => {
             password
         };
 
-        // Assuming Lab is your Mongoose model
         const updatedLab = await Lab.findOneAndUpdate({ userName }, updateLab, { new: true });
 
         if (!updatedLab) {
@@ -81,7 +81,7 @@ router.route("/delete/:userName").delete(async (req, res) => {
     await Lab.findOneAndDelete({ userName: userName })
         .then((deletedUser) => {
             if (!deletedUser) {
-                // If no user was found with the specified userName
+                
                 return res.status(404).send({ status: "User not found" });
             }
             res.status(200).send({ status: "User Deleted" });
@@ -111,14 +111,12 @@ router.route("/get/:userName").get(async (req, res) => {
 
 router.route("/checkUserName").get(async (req, res) => {
     try {
-      // Extract the username from the request parameters
+      
       const { userName } = req.body;
   
-      // Query the database to find if any user exists with that username
+      
       const existingUser = await Lab.findOne({ userName });
-  
-      // If a user with the given username is found, return status true
-      // Otherwise, return status false
+
       const status = !!existingUser;
   
       res.status(200).json({ status });
@@ -135,16 +133,16 @@ router.route("/checkUserName").get(async (req, res) => {
     const { userName, password } = req.body;
 
     try {
-      // Check if the username exists in the database
+
       const user = await Lab.findOne({ userName });
 
       if (!user) {
         return res.json({ success: false, message: 'Invalid username or password' });
       } else if (user.password !== password) {
-        // Compare the provided password with the password stored in the database
+
         return res.json({ success: false, message: 'Invalid username or password' });
       } else {
-        // Return success response
+    
         res.json({ success: true, message: 'Login successful' });
       }
     } catch (error) {
@@ -155,7 +153,7 @@ router.route("/checkUserName").get(async (req, res) => {
 
 
 
-// Route to retrieve lab details based on userName
+
 router.route('/retrieve').get(async (req, res) => {
     const { userName } = req.query;
     try {
@@ -173,12 +171,12 @@ router.route('/retrieve').get(async (req, res) => {
   router.get('/getLabIdByUsername/:userName', async (req, res) => {
     try {
       const { userName } = req.params;
-      // Find the lab by userName
+ 
       const lab = await Lab.findOne({ userName });
       if (!lab) {
         return res.status(404).json({ message: 'Lab not found' });
       }
-      // Return the labID
+   
       res.status(200).json({ labId: lab._id });
     } catch (error) {
       console.error('Error retrieving labID by username:', error);
@@ -190,10 +188,10 @@ router.route('/retrieve').get(async (req, res) => {
     try {
         const userName = req.body.userName;
         
-        // Find the laboratory by userName and update the completed field
+
         await Lab.findOneAndUpdate(
             { userName: userName }, 
-            { $inc: { completed: 1 } } // Increment the completed field by 1
+            { $inc: { completed: 1 } } 
         );
 
         res.status(200).json({ status: "Completed value incremented" });
@@ -207,7 +205,7 @@ router.route('/incrementRejected').put(async (req, res) => {
   try {
     const userName = req.body.userName;
 
-    // Find the laboratory by userName and update the rejected value
+
     await Lab.findOneAndUpdate({ userName: userName }, { $inc: { rejected: 1 } });
 
     res.status(200).json({ message: 'Rejected value incremented successfully' });

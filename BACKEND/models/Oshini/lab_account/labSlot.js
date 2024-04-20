@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Define the LabSlot schema
+
 const labSlotSchema = new Schema({
   labId: {
     type: Schema.Types.ObjectId,
-    ref: 'Lab', // Reference to the Lab model
+    ref: 'Lab', 
     required: true
   },
   date: {
@@ -26,7 +26,7 @@ const labSlotSchema = new Schema({
   ]
 });
 
-// Create the LabSlot model
+
 const LabSlot = mongoose.model('LabSlot', labSlotSchema);
 
 module.exports = LabSlot;

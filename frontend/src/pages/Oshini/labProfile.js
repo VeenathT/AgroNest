@@ -83,7 +83,8 @@ const LabProfile = () => {
         { label: 'District', value: laboratory.district },
         { label: 'City', value: laboratory.city },
         { label: 'Completed Tests', value: laboratory.completed },
-        { label: 'Rejected Tests', value: laboratory.rejected }
+        { label: 'Rejected Tests', value: laboratory.rejected },
+        { label: 'Level', value: laboratory.level }
       ];
 
       doc.autoTable({
@@ -107,10 +108,6 @@ const LabProfile = () => {
           <ArrowBackIcon />
         </Link>
         <div>
-          <Label>User Name:</Label>
-          <ValueLabel>{labDetails.userName}</ValueLabel>
-        </div>
-        <div>
           <Label>Name:</Label>
           <ValueLabel>{labDetails.name}</ValueLabel>
         </div>
@@ -129,6 +126,10 @@ const LabProfile = () => {
         <div>
           <Label>City:</Label>
           <ValueLabel>{labDetails.city}</ValueLabel>
+        </div>
+        <div>
+          <Label>Level:</Label>
+          <ValueLabel>{labDetails.level}</ValueLabel>
         </div>
         {/* Add buttons for editing and deleting accounts */}
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>

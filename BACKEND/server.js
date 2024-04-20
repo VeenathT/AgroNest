@@ -80,19 +80,16 @@ const testRequestRouter = require("./routes/Oshini/test_request/testRequests.js"
 app.use("/testRequest", testRequestRouter);
 
 //------------------------------------------------------------------------------------------------------------------
-// Cron job to add time slots for the next day
+
 cron.schedule('0 0 * * *', async () => {
     try {
-      // Get the current date
       const currentDate = moment().startOf('day');
-  
-      // Calculate the date 3 days ahead
+ 
       const targetDate = currentDate.clone().add(3, 'days').toDate();
-  
-      // Fetch all existing labs from the database
-      const labs = await Lab.find({}, '_id'); // Only fetch the _id field
+
+      const labs = await Lab.find({}, '_id'); 
       const addTimeSlots = require('./routes/Oshini/lab_account/labSlotsUtility.js');
-      // Iterate over each lab and add time slots for the target date
+
       for (const lab of labs) {
         await addTimeSlots(targetDate, lab._id);
       }
@@ -106,13 +103,13 @@ cron.schedule('0 0 * * *', async () => {
   //---------------------------------------------------------------------------------------------
   cron.schedule('0 * * * *', async () => {
     try {
-      // Get the current date and time
+   
       const currentDateTime = moment();
   
-      // Find and delete expired time slots from the database
+      
       await LabSlot.updateMany(
-        { 'timeSlots.endTime': { $lt: currentDateTime.toDate() } }, // Match condition for expired time slots
-        { $pull: { timeSlots: { endTime: { $lt: currentDateTime.toDate() } } } } // Update operation
+        { 'timeSlots.endTime': { $lt: currentDateTime.toDate() } }, 
+        { $pull: { timeSlots: { endTime: { $lt: currentDateTime.toDate() } } } } 
       );
   
       console.log('Expired time slots deleted');

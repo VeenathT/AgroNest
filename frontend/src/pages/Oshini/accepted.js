@@ -9,7 +9,7 @@ function AcceptedRequests() {
   const [userName, setUserName] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [acceptedRequests, setAcceptedRequests] = useState([]);
-  const [tabValue, setTabValue] = useState(0); // Define tabValue state variable
+  const [tabValue, setTabValue] = useState(0); 
   const [farmerNames, setFarmerNames] = useState({});
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function AcceptedRequests() {
       setUserName(storedUserName);
     }
 
-    // Fetch accepted requests
+
     const fetchAcceptedRequests = async () => {
       try {
         const labIdResponse = await axios.get(`http://localhost:8070/labAccount/getLabIdByUsername/${storedUserName}`);
@@ -27,7 +27,7 @@ function AcceptedRequests() {
         const response = await axios.get(`http://localhost:8070/testRequest/retrieveAcceptedTestRequests/${labId}`);
         setAcceptedRequests(response.data.testRequests);
 
-        // Fetch farmer names for each request
+        
         const names = {};
         await Promise.all(response.data.testRequests.map(async (request) => {
           const name = await getFarmerName(request.farmerID);
