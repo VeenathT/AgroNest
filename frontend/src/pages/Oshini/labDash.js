@@ -83,21 +83,18 @@ function LabDash() {
     return date.toISOString().split('T')[0];
   };
 
-  // Filter pendingRequests based on searchQuery
   const filteredRequests = pendingRequests
   .filter(request =>
     farmerNames[request.farmerID] && farmerNames[request.farmerID].toLowerCase().includes(searchQuery.toLowerCase())
   )
   .sort((a, b) => {
-    // Compare dates first
+
     const dateComparison = new Date(a.date) - new Date(b.date);
-    
-    // If dates are equal, compare start times
+
     if (dateComparison === 0) {
       return new Date(`1970-01-01T${a.startTime}`) - new Date(`1970-01-01T${b.startTime}`);
     }
-    
-    // Otherwise, return the date comparison result
+
     return dateComparison;
   });
 
@@ -131,8 +128,8 @@ function LabDash() {
           </Link>
         </Toolbar>
       </AppBar>
-      <Toolbar /> {/* Spacer for the app bar */}
-      <div style={{ marginTop: '20px' }} /> {/* Spacer for the content */}
+      <Toolbar /> 
+      <div style={{ marginTop: '20px' }} /> 
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '20px', marginBottom: '30px' }}>
         <IconButton>
           <SearchIcon sx={{ color: 'white' }}  />

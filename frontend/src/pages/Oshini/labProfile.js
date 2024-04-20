@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Paper, Button, styled } from '@mui/material';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { useNavigate, Link } from 'react-router-dom'; 
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBack icon
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
 const StyledContainer = styled(Container)({
   marginTop: '50px',
 });
@@ -103,7 +102,7 @@ const LabProfile = () => {
         <Typography variant="h4" gutterBottom>
           <center>Your Details</center>
         </Typography> <br></br>
-        {/* Add the back icon with Link to navigate to labDash */}
+        
         <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '30px', left: '10px' }}>
           <ArrowBackIcon />
         </Link>
@@ -131,7 +130,7 @@ const LabProfile = () => {
           <Label>Level:</Label>
           <ValueLabel>{labDetails.level}</ValueLabel>
         </div>
-        {/* Add buttons for editing and deleting accounts */}
+       
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
           <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={handleEdit}>
             Edit

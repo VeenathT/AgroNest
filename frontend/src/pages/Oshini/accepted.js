@@ -56,16 +56,16 @@ function AcceptedRequests() {
       await axios.put(`http://localhost:8070/testRequest/updateStatus/${requestId}`, { status: newStatus });
       
   
-      // Check if the new status is 'completed' or 'rejected'
+      
       if (newStatus === 'completed') {
-        // Increment the 'completed' value of the laboratory
+        
         await axios.put('http://localhost:8070/labAccount/incrementCompleted', { userName: sessionStorage.getItem('userName') });
       } else if (newStatus === 'rejected') {
-        // Increment the 'rejected' value of the laboratory
+        
         await axios.put('http://localhost:8070/labAccount/incrementRejected', { userName: sessionStorage.getItem('userName') });
       }
   
-      // Update the acceptedRequests state
+      
       setAcceptedRequests(acceptedRequests.map(request => {
         if (request._id === requestId) {
           return { ...request, status: newStatus };
@@ -93,21 +93,21 @@ function AcceptedRequests() {
     return date.toISOString().split('T')[0];
   };
 
-  // Filter acceptedRequests based on searchQuery
+  
   const filteredRequests = acceptedRequests
   .filter(request =>
     farmerNames[request.farmerID] && farmerNames[request.farmerID].toLowerCase().includes(searchQuery.toLowerCase())
   )
   .sort((a, b) => {
-    // Compare dates first
+    
     const dateComparison = new Date(a.date) - new Date(b.date);
     
-    // If dates are equal, compare start times
+   
     if (dateComparison === 0) {
       return new Date(`1970-01-01T${a.startTime}`) - new Date(`1970-01-01T${b.startTime}`);
     }
     
-    // Otherwise, return the date comparison result
+    
     return dateComparison;
   });
 
@@ -141,8 +141,8 @@ function AcceptedRequests() {
           </Link>
         </Toolbar>
       </AppBar>
-      <Toolbar /> {/* Spacer for the app bar */}
-      <div style={{ marginTop: '20px' }} /> {/* Spacer for the content */}
+      <Toolbar /> 
+      <div style={{ marginTop: '20px' }} /> 
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '20px', marginBottom: '30px' }}>
         <IconButton>
           <SearchIcon sx={{ color: 'white' }}  />
@@ -164,7 +164,7 @@ function AcceptedRequests() {
                 <TableCell>Test Type</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Start Time</TableCell>
-                <TableCell>Status</TableCell> {/* Add a new column for the status dropdown */}
+                <TableCell>Status</TableCell> 
               </TableRow>
             </TableHead>
             <TableBody>

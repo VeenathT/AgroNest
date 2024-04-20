@@ -9,7 +9,7 @@ const StyledContainer = styled(Container)({
 
 const Label = styled(Typography)({
     display: 'block',
-    marginBottom: '2px', // Adjust the margin bottom here
+    marginBottom: '2px', 
     fontWeight: 'bold',
   });
 
@@ -26,7 +26,7 @@ const LabEdit = () => {
   const [labDetails, setLabDetails] = useState({});
   const navigate = useNavigate();
 
-  // Function to fetch lab details based on the userName from session
+ 
   const fetchLabDetails = async () => {
     try {
       const userName = sessionStorage.getItem('userName');
@@ -41,7 +41,7 @@ const LabEdit = () => {
     fetchLabDetails();
   }, []);
 
-  // Function to handle updating lab details
+  
   const handleUpdate = async () => {
     try {
       const { userName, name, address, phone, district, city, password } = labDetails;
@@ -131,7 +131,7 @@ const LabEdit = () => {
             onChange={(e) => setLabDetails({ ...labDetails, password: e.target.value })}
           />
         </div>
-        {/* Add button to update lab details */}
+        
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
           <Button variant="contained" color="primary" style={{ width: '48%' }} onClick={handleUpdate}>
             Update

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, styled } from '@mui/material';
-import axios from 'axios'; // Don't forget to import axios
+import axios from 'axios'; 
 
-// Define your custom styles using styled
+
 const Container = styled('div')({
   width: '100%',
   maxWidth: 700,
@@ -11,8 +11,8 @@ const Container = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  height: '100vh', // Adjust height as needed
-  backgroundColor: 'rgba(255, 255, 255, 0.7)', // White with 80% opacity
+  height: '100vh', 
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
   position: 'fixed',
   bottom: '60px',
   top: '60px',
@@ -25,7 +25,7 @@ const FormContainer = styled('div')({
   maxWidth: 500,
   margin: '0 auto',
   padding: '20px',
-  border: '1px solid #ccc', // Add border around the container
+  border: '1px solid #ccc', 
   borderRadius: '5px',
 });
 
@@ -52,7 +52,7 @@ const SignupForm = () => {
     });
 
     if (e.target.name === 'phone') {
-      // Validate phone number
+      
       if (!/^[0-9]{10}$/.test(e.target.value)) {
         setPhoneError('Invalid phone number');
       } else {
@@ -76,7 +76,7 @@ const SignupForm = () => {
   };
 
   const handleSignup = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault(); 
     if (formData.userName && !phoneError && !usernameError) {
       try {
         const response = await axios.post('http://localhost:8070/labAccount/add', formData);
@@ -87,7 +87,7 @@ const SignupForm = () => {
         console.error('Error:', error);
         alert('Signup Failed! Please try again later.');
       } finally {
-        setButtonDisabled(false); // Re-enable the button after form submission
+        setButtonDisabled(false); 
       }
     }
   };
