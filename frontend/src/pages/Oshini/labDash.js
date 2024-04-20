@@ -9,7 +9,7 @@ function LabDash() {
   const [userName, setUserName] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [pendingRequests, setPendingRequests] = useState([]);
-  const [tabValue, setTabValue] = useState(0); // Define tabValue state variable
+  const [tabValue, setTabValue] = useState(0);
   const [farmerNames, setFarmerNames] = useState({});
 
   useEffect(() => {
@@ -18,7 +18,6 @@ function LabDash() {
       setUserName(storedUserName);
     }
 
-    // Fetch pending requests
     const fetchPendingRequests = async () => {
       try {
         const labIdResponse = await axios.get(`http://localhost:8070/labAccount/getLabIdByUsername/${storedUserName}`);
@@ -27,7 +26,6 @@ function LabDash() {
         const response = await axios.get(`http://localhost:8070/testRequest/retrievePendingTestRequests/${labId}`);
         setPendingRequests(response.data.testRequests);
 
-        // Fetch farmer names for each request
         const names = {};
         await Promise.all(response.data.testRequests.map(async (request) => {
           const name = await getFarmerName(request.farmerID);
@@ -55,13 +53,10 @@ function LabDash() {
     try {
       await axios.put(`http://localhost:8070/testRequest/updateStatus/${requestId}`, { status: newStatus });
   
-      // Check if the new status is 'rejected'
       if (newStatus === 'rejected') {
-        // Increment the 'rejected' value of the laboratory
         await axios.put(`http://localhost:8070/labAccount/incrementRejected/${userName}`);
       }
   
-      // Update the pendingRequests state
       setPendingRequests(pendingRequests.map(request => {
         if (request._id === requestId) {
           return { ...request, status: newStatus };
@@ -72,7 +67,6 @@ function LabDash() {
       console.error('Error updating status:', error);
     }
   };
-  
 
   const getFarmerName = async (farmerId) => {
     try {
@@ -89,7 +83,11 @@ function LabDash() {
     return date.toISOString().split('T')[0];
   };
 
-
+  // Filter pendingRequests based on searchQuery
+  const filteredRequests = pendingRequests.filter(request =>
+    farmerNames[request.farmerID] && farmerNames[request.farmerID].toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
 
   return (
     <div>
@@ -110,11 +108,10 @@ function LabDash() {
             <Tab label="Completed" component={Link} to="/completed" />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-                
           </Tabs>
           <Typography variant="body1" style={{ marginRight: '10px', color: 'white'}}>
-          Hello {userName}
-        </Typography>
+            Hello {userName}
+          </Typography>
           <Link to="/labProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
             <IconButton>
               <AccountCircleIcon />
@@ -125,7 +122,6 @@ function LabDash() {
       <Toolbar /> {/* Spacer for the app bar */}
       <div style={{ marginTop: '20px' }} /> {/* Spacer for the content */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '20px', marginBottom: '30px' }}>
-      
         <IconButton>
           <SearchIcon sx={{ color: 'white' }}  />
         </IconButton>
@@ -137,40 +133,39 @@ function LabDash() {
         />
       </div>
       <div>
-      <TableContainer component={Paper}>
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>Request ID</TableCell>
-        <TableCell>Name</TableCell>
-        <TableCell>Test Type</TableCell>
-        <TableCell>Date</TableCell>
-        <TableCell>Start Time</TableCell>
-        <TableCell>Status</TableCell> {/* Add a new column for the status dropdown */}
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {pendingRequests.map((request) => (
-        <TableRow key={request._id}>
-          <TableCell>{request._id}</TableCell>
-          <TableCell>{farmerNames[request.farmerID]}</TableCell>
-          <TableCell>{request.testType}</TableCell>
-          <TableCell>{formatDate(request.date)}</TableCell>
-          <TableCell>{request.startTime}</TableCell>
-          <TableCell>
-            <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
-              <option value="pending" selected>Pending</option>
-              <option value="accepted">Accepted</option>
-              <option value="completed">Completed</option>
-              <option value="rejected">Rejected</option>
-            </select>
-          </TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-</TableContainer>
-
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Request ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Test Type</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Start Time</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredRequests.map((request) => (
+                <TableRow key={request._id}>
+                  <TableCell>{request._id}</TableCell>
+                  <TableCell>{farmerNames[request.farmerID]}</TableCell>
+                  <TableCell>{request.testType}</TableCell>
+                  <TableCell>{formatDate(request.date)}</TableCell>
+                  <TableCell>{request.startTime}</TableCell>
+                  <TableCell>
+                    <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
+                      <option value="pending" selected>Pending</option>
+                      <option value="accepted">Accepted</option>
+                      <option value="completed">Completed</option>
+                      <option value="rejected">Rejected</option>
+                    </select>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </div>
   );

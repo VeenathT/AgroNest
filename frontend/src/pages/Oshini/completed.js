@@ -18,7 +18,7 @@ function CompletedRequests() {
       setUserName(storedUserName);
     }
 
-    // Fetch pending requests
+    // Fetch completed requests
     const fetchCompletedRequests = async () => {
       try {
         const labIdResponse = await axios.get(`http://localhost:8070/labAccount/getLabIdByUsername/${storedUserName}`);
@@ -35,7 +35,7 @@ function CompletedRequests() {
         }));
         setFarmerNames(names);
       } catch (error) {
-        console.error('Error fetching accepted requests:', error);
+        console.error('Error fetching completed requests:', error);
       }
     };
 
@@ -60,8 +60,8 @@ function CompletedRequests() {
         await axios.put(`http://localhost:8070/labAccount/incrementRejected/${userName}`);
       }
   
-      // Update the pendingRequests state
-      setPendingRequests(pendingRequests.map(request => {
+      // Update the completedRequests state
+      setCompletedRequests(completedRequests.map(request => {
         if (request._id === requestId) {
           return { ...request, status: newStatus };
         }
@@ -87,7 +87,9 @@ function CompletedRequests() {
     return date.toISOString().split('T')[0];
   };
 
-
+  const filteredRequests = completedRequests.filter(request =>
+    farmerNames[request.farmerID] && farmerNames[request.farmerID].toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div>
@@ -108,11 +110,10 @@ function CompletedRequests() {
             <Tab label="Completed" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-              
           </Tabs>
           <Typography variant="body1" style={{ marginRight: '10px', color: 'white'}}>
-          Hello {userName}
-        </Typography>
+            Hello {userName}
+          </Typography>
           <Link to="/labProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
             <IconButton>
               <AccountCircleIcon />
@@ -123,7 +124,6 @@ function CompletedRequests() {
       <Toolbar /> {/* Spacer for the app bar */}
       <div style={{ marginTop: '20px' }} /> {/* Spacer for the content */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '20px', marginBottom: '30px' }}>
-      
         <IconButton>
           <SearchIcon sx={{ color: 'white' }}  />
         </IconButton>
@@ -135,40 +135,39 @@ function CompletedRequests() {
         />
       </div>
       <div>
-      <TableContainer component={Paper}>
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>Request ID</TableCell>
-        <TableCell>Name</TableCell>
-        <TableCell>Test Type</TableCell>
-        <TableCell>Date</TableCell>
-        <TableCell>Start Time</TableCell>
-        <TableCell>Status</TableCell> {/* Add a new column for the status dropdown */}
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {completedRequests.map((request) => (
-        <TableRow key={request._id}>
-          <TableCell>{request._id}</TableCell>
-          <TableCell>{farmerNames[request.farmerID]}</TableCell>
-          <TableCell>{request.testType}</TableCell>
-          <TableCell>{formatDate(request.date)}</TableCell>
-          <TableCell>{request.startTime}</TableCell>
-          <TableCell>
-            <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
-              <option value="pending">Pending</option>
-              <option value="accepted">Accepted</option>
-              <option value="completed">Completed</option>
-              <option value="rejected">Rejected</option>
-            </select>
-          </TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-</TableContainer>
-
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Request ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Test Type</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Start Time</TableCell>
+                <TableCell>Status</TableCell> {/* Add a new column for the status dropdown */}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredRequests.map((request) => (
+                <TableRow key={request._id}>
+                  <TableCell>{request._id}</TableCell>
+                  <TableCell>{farmerNames[request.farmerID]}</TableCell>
+                  <TableCell>{request.testType}</TableCell>
+                  <TableCell>{formatDate(request.date)}</TableCell>
+                  <TableCell>{request.startTime}</TableCell>
+                  <TableCell>
+                    <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
+                      <option value="pending">Pending</option>
+                      <option value="accepted">Accepted</option>
+                      <option value="completed">Completed</option>
+                      <option value="rejected">Rejected</option>
+                    </select>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </div>
   );
