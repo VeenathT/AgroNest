@@ -32,6 +32,15 @@ const labSchema = new Schema({
     password : {
         type : String,
         required : true
+    },
+
+    completed: {
+        type: Number,
+        default: 0 // Default value for completed requests
+    },
+    rejected: {
+        type: Number,
+        default: 0 // Default value for rejected requests
     }
     
 })

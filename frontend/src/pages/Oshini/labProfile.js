@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Paper, Button, styled } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBack icon
 
 const StyledContainer = styled(Container)({
   marginTop: '50px',
@@ -9,7 +12,7 @@ const StyledContainer = styled(Container)({
 
 const Label = styled(Typography)({
   display: 'block',
-  marginBottom: '2px', // Adjust the margin bottom here
+  marginBottom: '2px',
   fontWeight: 'bold',
 });
 
@@ -25,11 +28,8 @@ const ValueLabel = styled(Typography)({
 const LabProfile = () => {
   const [labDetails, setLabDetails] = useState({});
   const navigate = useNavigate(); 
-  // Fetch userName from session
   const storedUserName = sessionStorage.getItem('userName');
     
-
-  // Function to fetch lab details based on the userName from session
   const fetchLabDetails = async () => {
     try {
       const userName = sessionStorage.getItem('userName');
@@ -44,18 +44,15 @@ const LabProfile = () => {
     fetchLabDetails();
   }, []);
 
-  // Function to handle navigation to labEdit
   const handleEdit = () => {
-    navigate('/labEdit'); // Navigate to labEdit route
+    navigate('/labEdit');
   };
 
-  // Function to handle navigation to deleteAccount
   const handleDelete = async (userName) => {
     try {
       await axios.delete(`http://localhost:8070/labAccount/delete/${storedUserName}`);
       alert('Account deleted successfully');
-      // Redirect the user to a different page after successful deletion
-      navigate('/labSignup'); // You can specify the route you want to navigate to
+      navigate('/labSignup');
     } catch (error) {
       console.error('Error:', error);
       alert('Failed to delete account. Please try again later.');
@@ -66,12 +63,46 @@ const LabProfile = () => {
     navigate('/labDash');
   }
 
+  const generatePDF = async () => {
+    try {
+      const storedUserName = sessionStorage.getItem('userName');
+      const response = await axios.get(`http://localhost:8070/labAccount/get/${storedUserName}`);
+      const laboratory = response.data.labAccount;
+  
+      const doc = new jsPDF();
+      const imgData = '../../../images/Oshini/logo.jpeg';
+      doc.addImage(imgData, 'JPEG', 170, 10, 40, 40);
+  
+      const data = [
+        { label: 'Lab Name', value: laboratory.name },
+        { label: 'Address', value: laboratory.address },
+        { label: 'Phone', value: laboratory.phone },
+        { label: 'District', value: laboratory.district },
+        { label: 'City', value: laboratory.city },
+        { label: 'Completed Tests', value: laboratory.completed },
+        { label: 'Rejected Tests', value: laboratory.rejected }
+      ];
+
+      doc.autoTable({
+        body: data.map(row => [row.label, row.value]),
+      });
+  
+      doc.save('laboratory_details.pdf');
+    } catch (error) {
+      console.error('Error fetching laboratory details:', error);
+    }
+  };
+  
   return (
     <StyledContainer maxWidth="md">
       <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.9)', width: '55%', position: 'fixed', left: '20%', right : '40%' }}>
         <Typography variant="h4" gutterBottom>
           <center>Your Details</center>
         </Typography> <br></br>
+        {/* Add the back icon with Link to navigate to labDash */}
+        <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '30px', left: '10px' }}>
+          <ArrowBackIcon />
+        </Link>
         <div>
           <Label>User Name:</Label>
           <ValueLabel>{labDetails.userName}</ValueLabel>
@@ -104,8 +135,8 @@ const LabProfile = () => {
           <Button variant="contained" color="secondary" style={{ width: '30%' }} onClick={handleDelete}>
             Delete Account
           </Button>
-          <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={handleBack}>
-            Back
+          <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={generatePDF}>
+            Download Statistics
           </Button>
         </div>
       </Paper>

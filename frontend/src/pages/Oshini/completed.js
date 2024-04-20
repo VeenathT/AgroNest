@@ -54,6 +54,13 @@ function CompletedRequests() {
     const newStatus = event.target.value;
     try {
       await axios.put(`http://localhost:8070/testRequest/updateStatus/${requestId}`, { status: newStatus });
+  
+      if (newStatus === 'rejected') {
+        // Increment the 'rejected' value of the laboratory
+        await axios.put(`http://localhost:8070/labAccount/incrementRejected/${userName}`);
+      }
+  
+      // Update the pendingRequests state
       setPendingRequests(pendingRequests.map(request => {
         if (request._id === requestId) {
           return { ...request, status: newStatus };
@@ -64,7 +71,7 @@ function CompletedRequests() {
       console.error('Error updating status:', error);
     }
   };
-
+  
   const getFarmerName = async (farmerId) => {
     try {
       const response = await axios.get(`http://localhost:8070/farmer/getName/${farmerId}`);
@@ -101,7 +108,7 @@ function CompletedRequests() {
             <Tab label="Completed" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="" disabled={tabValue === 0} />          
+              
           </Tabs>
           <Typography variant="body1" style={{ marginRight: '10px', color: 'white'}}>
           Hello {userName}

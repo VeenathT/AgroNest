@@ -3,31 +3,35 @@ let Lab = require("../../../models/Oshini/lab_account/labAccount");
 
 router.route("/add").post((req,res)=>{
 
-    const name = req.body.name;
-    const address = req.body.address;
-    const phone = Number(req.body.phone);
-    const district = req.body.district;
-    const city = req.body.city;
-    const userName = req.body.userName;
-    const password = req.body.password;
+  const name = req.body.name;
+  const address = req.body.address;
+  const phone = Number(req.body.phone);
+  const district = req.body.district;
+  const city = req.body.city;
+  const userName = req.body.userName;
+  const password = req.body.password;
 
-    const newLab = new Lab({ 
-        name,
-        address,
-        phone,
-        district,
-        city,
-        userName,
-        password
-    })
+  // Assign default values of 0 to the new fields
+  const newLab = new Lab({ 
+      name,
+      address,
+      phone,
+      district,
+      city,
+      userName,
+      password,
+      completed: 0,
+      rejected: 0
+  })
 
-    newLab.save().then(()=>{
-        res.json("Laboratory Added")
-    }).catch((err)=>{
-        console.log(err);
-    })
+  newLab.save().then(()=>{
+      res.json("Laboratory Added")
+  }).catch((err)=>{
+      console.log(err);
+  })
 
 })
+
 
 
 router.route("/").get((req,res)=>{
@@ -88,16 +92,21 @@ router.route("/delete/:userName").delete(async (req, res) => {
 });
 
 
-router.route("/get/:labID").get(async(req,res)=>{
-    let userId = req.params.labID;
-    const user = await Lab.findById(userId)
-    .then((labAccount)=>{
-        res.status(200).send({status: "User fetched", labAccount})
-    }).catch((err)=>{
-        console.log(err.message);
-        res.status(500).send({status: "Error with get user",error: err.message});
-    })
-})
+router.route("/get/:userName").get(async (req, res) => {
+  try {
+    const userName = req.params.userName;
+    const labAccount = await Lab.findOne({ userName: userName });
+    
+    if (labAccount) {
+      res.status(200).send({ status: "User fetched", labAccount });
+    } else {
+      res.status(404).send({ status: "User not found" });
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ status: "Error with get user", error: err.message });
+  }
+});
 
 
 router.route("/checkUserName").get(async (req, res) => {
@@ -176,6 +185,39 @@ router.route('/retrieve').get(async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+  router.route("/incrementCompleted/:userName").put(async (req, res) => {
+    try {
+        const userName = req.params.userName;
+        
+        // Find the laboratory by userName and update the completed field
+        await Lab.findOneAndUpdate(
+            { userName: userName }, 
+            { $inc: { completed: 1 } } // Increment the completed field by 1
+        );
+
+        res.status(200).json({ status: "Completed value incremented" });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ status: "Error incrementing completed value", error: err.message });
+    }
+});
+
+router.put('/labAccount/incrementRejected/:userName', async (req, res) => {
+  try {
+    const userName = req.params.userName;
+
+    // Find the laboratory by userName and update the rejected value
+    await Lab.findOneAndUpdate({ userName: userName }, { $inc: { rejected: 1 } });
+
+    res.status(200).json({ message: 'Rejected value incremented successfully' });
+  } catch (error) {
+    console.error('Error incrementing rejected value:', error);
+    res.status(500).json({ error: 'Failed to increment rejected value' });
+  }
+});
+
+
 
 module.exports = router;
 
