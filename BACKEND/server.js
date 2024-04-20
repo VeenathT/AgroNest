@@ -47,6 +47,10 @@ app.use("/farmer", farmerRouter);
 const FAnalysis = require("./routes/Kande/FAnalysis.js");
 app.use("/FAnalysis",FAnalysis);
 
+const articlerouter = require("./routes/Nilupul/articleRoutes.js");
+app.use("/articleModel.js", articlerouter);
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
