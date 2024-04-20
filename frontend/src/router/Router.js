@@ -5,7 +5,7 @@ import LandingPage from '../pages/common/LandingPage';
 import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
-import EditProfile from '../pages/Sudarshan/editProf';
+import EditProfile from '../pages/Sudarshan/EditProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Inquiries from '../pages/Sudarshan/Inquries';
@@ -13,13 +13,12 @@ import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
-
-import Signup from '../Component/Thisaravi/Signup';
 import TopFertilizer from  '../pages/Kande/TopfertilizerScreen'
 import AddTopSelling from  '../pages/Kande/TopSellingScreen'
 import AddTopAreas from '../pages/Kande/TopAreaScreen';
 import SysManagerDashboard from '../pages/Kande/SysManagerDashboard';
 import ViewTopFertilizer from '../pages/Kande/ViewTopFertilizer';
+
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -72,27 +71,16 @@ const Router = () => {
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
-      </Routes>
-    </>
-    <Routes>
-        <Route path="/" element={<Navigate to='/index' />} />
-        <Route path="/DealerProf" element={<DealerProf />} />
-        <Route path='/Signup' element={<Signup />} />
-
+        
         {/* Kande Routes */}
         <Route path='/addtopfertilizers' element={<TopFertilizer />} />
         <Route path='/viewtopfertilizers' element={<ViewTopFertilizer />} />
-
         <Route path='/addtopsellingfertilizers' element={<AddTopSelling />} />
         <Route path='/addtopareas' element={<AddTopAreas />} />
         <Route path='/managerdashboard' element={<SysManagerDashboard />} />
-
-
-
-
-    </Routes>
+      </Routes>
+    </>
   );
 };
 
 export default Router;
-
