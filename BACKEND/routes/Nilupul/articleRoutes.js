@@ -1,79 +1,54 @@
-// BACKEND/routes/Nilupul/articleRoutes.js
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Article = require("../../models/Nilupul/article");
-
-// Create article
-router.post("/", async (req, res) => {
-  try {
-    const { heading, description } = req.body;
-    const newArticle = new Article({
-      heading,
-      description,
-    });
-    const savedArticle = await newArticle.save();
-    res.status(201).json(savedArticle);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
-  }
-});
+const Article = require('../../models/Nilupul/Article');
 
 // Get all articles
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const articles = await Article.find();
+    const articles = await Article.find().sort({ date: -1 });
     res.json(articles);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Get article by ID
-router.get("/:id", async (req, res) => {
+// Create a new article
+router.post('/', async (req, res) => {
+  const article = new Article({
+    title: req.body.title,
+    content: req.body.content
+  });
   try {
-    const article = await Article.findById(req.params.id);
+    const newArticle = await article.save();
+    res.status(201).json(newArticle);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Update an article
+router.put('/:id', async (req, res) => {
+  try {
+    const article = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!article) {
-      return res.status(404).json({ error: "Article not found" });
+      return res.status(404).json({ message: 'Article not found' });
     }
     res.json(article);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    res.status(400).json({ message: err.message });
   }
 });
 
-// Update article by ID
-router.put("/:id", async (req, res) => {
+// Delete an article
+router.delete('/:id', async (req, res) => {
   try {
-    const { heading, description } = req.body;
-    const updatedArticle = await Article.findByIdAndUpdate(
-      req.params.id,
-      { heading, description },
-      { new: true }
-    );
-    if (!updatedArticle) {
-      return res.status(404).json({ error: "Article not found" });
+    const article = await Article.findByIdAndDelete(req.params.id);
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' });
     }
-    res.json(updatedArticle);
+    res.json({ message: 'Article deleted successfully' });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
-// Delete article by ID
-router.delete("/:id", async (req, res) => {
-  try {
-    const deletedArticle = await Article.findByIdAndDelete(req.params.id);
-    if (!deletedArticle) {
-      return res.status(404).json({ error: "Article not found" });
-    }
-    res.json({ message: "Article deleted successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ message: err.message });
   }
 });
 

@@ -6,6 +6,10 @@ const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
 
+//Nilupul
+const articleRoutes = require('./routes/Nilupul/articleRoutes.js');
+
+
 const PORT = process.env.PORT || 8070;
 
 app.use(cors());
@@ -47,8 +51,10 @@ app.use("/farmer", farmerRouter);
 const FAnalysis = require("./routes/Kande/FAnalysis.js");
 app.use("/FAnalysis",FAnalysis);
 
-const articlerouter = require("./routes/Nilupul/articleRoutes.js");
-app.use("/articleModel.js", articlerouter);
+// const articlerouter = require("./routes/Nilupul/articleRoutes.js")
+// app.use("/articleModel.js", articlerouter);
+
+app.use('/api/articles', articleRoutes);
 
 
 
