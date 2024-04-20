@@ -54,10 +54,9 @@ function CompletedRequests() {
     const newStatus = event.target.value;
     try {
       await axios.put(`http://localhost:8070/testRequest/updateStatus/${requestId}`, { status: newStatus });
-  
-      if (newStatus === 'rejected') {
+   if (newStatus === 'rejected') {
         // Increment the 'rejected' value of the laboratory
-        await axios.put(`http://localhost:8070/labAccount/incrementRejected/${userName}`);
+        await axios.put('http://localhost:8070/labAccount/incrementRejected', { userName: sessionStorage.getItem('userName') });
       }
   
       // Update the completedRequests state

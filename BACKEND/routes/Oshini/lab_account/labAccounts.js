@@ -186,9 +186,9 @@ router.route('/retrieve').get(async (req, res) => {
     }
   });
 
-  router.route("/incrementCompleted/:userName").put(async (req, res) => {
+  router.route("/incrementCompleted/").put(async (req, res) => {
     try {
-        const userName = req.params.userName;
+        const userName = req.body.userName;
         
         // Find the laboratory by userName and update the completed field
         await Lab.findOneAndUpdate(
@@ -203,9 +203,9 @@ router.route('/retrieve').get(async (req, res) => {
     }
 });
 
-router.put('/labAccount/incrementRejected/:userName', async (req, res) => {
+router.route('/incrementRejected').put(async (req, res) => {
   try {
-    const userName = req.params.userName;
+    const userName = req.body.userName;
 
     // Find the laboratory by userName and update the rejected value
     await Lab.findOneAndUpdate({ userName: userName }, { $inc: { rejected: 1 } });
