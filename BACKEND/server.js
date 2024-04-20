@@ -104,15 +104,14 @@ cron.schedule('0 0 * * *', async () => {
   });
   
   //---------------------------------------------------------------------------------------------
-  // Cron job to delete expired time slots every hour
-cron.schedule('0 * * * *', async () => {
+  cron.schedule('0 * * * *', async () => {
     try {
       // Get the current date and time
       const currentDateTime = moment();
   
       // Find and delete expired time slots from the database
       await LabSlot.updateMany(
-        { 'timeSlots.endTime': { $lt: currentDateTime.toDate() } }, // Match condition
+        { 'timeSlots.endTime': { $lt: currentDateTime.toDate() } }, // Match condition for expired time slots
         { $pull: { timeSlots: { endTime: { $lt: currentDateTime.toDate() } } } } // Update operation
       );
   
@@ -121,6 +120,7 @@ cron.schedule('0 * * * *', async () => {
       console.error('Error deleting expired time slots:', error);
     }
   });
+  
   //--------------------------------------------------------------------------------------------------------------------------
   
 
