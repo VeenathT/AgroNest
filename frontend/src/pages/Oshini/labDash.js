@@ -54,7 +54,7 @@ function LabDash() {
       await axios.put(`http://localhost:8070/testRequest/updateStatus/${requestId}`, { status: newStatus });
   
       if (newStatus === 'rejected') {
-        await axios.put(`http://localhost:8070/labAccount/incrementRejected/${userName}`);
+        await axios.put('http://localhost:8070/labAccount/incrementRejected', { userName: sessionStorage.getItem('userName') });
       }
   
       setPendingRequests(pendingRequests.map(request => {

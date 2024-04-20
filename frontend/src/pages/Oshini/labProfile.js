@@ -70,7 +70,7 @@ const LabProfile = () => {
       const laboratory = response.data.labAccount;
   
       const doc = new jsPDF();
-      const imgData = '../../images/Oshini/logo.jpeg';
+      const imgData = '../../../images/Oshini/logo.jpeg';
       doc.addImage(imgData, 'JPEG', 170, 10, 40, 40);
 
       // Add title to the PDF
