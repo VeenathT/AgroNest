@@ -148,7 +148,7 @@ const FormPage = () => {
           maxRows={10}
           InputProps={{
             endAdornment: (
-              <Box sx={{ display: '-ms-flexbox', gap: '10px' ,height: '200px'}}>
+              <Box sx={{ display: '-ms-flexbox', gap: '10px' ,height: '200px',width:'500px'}}>
                 <IconButton>
                   <FormatBold />
                 </IconButton>
@@ -181,11 +181,11 @@ const FormPage = () => {
             </MenuItem>
           </Select>
         </FormControl>
-        <Button type="submit" variant="contained" sx={{ width: "300px", height: "50px", backgroundColor: "green", ml: "460px" }}>
+        <Button type="submit" variant="contained" sx={{ width: "200px", height: "50px", backgroundColor: "green", ml: "500px" }}>
         {inquiryId ? 'Update' : 'Send'}
         </Button>
       </form>
-      <StyledSnackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+      <StyledSnackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <MuiAlert onClose={handleCloseSnackbar} variant="filled" severity="success" sx={{ width: '100%' }}>
           {successMessage}
         </MuiAlert>
