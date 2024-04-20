@@ -56,7 +56,7 @@ const FarmerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '50px', width: "1000px", margin: "auto" }}>
+    <div style={{ backgroundColor: 'white', width: "1000px", margin: "auto", marginTop: '100px' }}>
       <Typography variant="h3" gutterBottom>Farmer Inquiries</Typography>
       <Tabs value={selectedTab} onChange={handleTabChange} variant="fullWidth">
         <Tab  label={

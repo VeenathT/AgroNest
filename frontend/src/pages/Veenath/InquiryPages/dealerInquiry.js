@@ -56,46 +56,36 @@ const DealerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '50px' }}>
-      <Typography variant="h3" gutterBottom>Dealer Inquiries</Typography>
-      <Tabs
-        value={tabValue}
-        onChange={handleTabChange}
-        variant="fullWidth"
-        textColor="primary"
-        indicatorColor="primary"
-      >
-        <Tab
-          label={
-            <Badge badgeContent={filteredPendingInquiries.length} color="error">
-              Pending
-            </Badge>
-          }
-        />
-        <Tab
-          label={
-            <Badge badgeContent={filteredResolvedInquiries.length} color="error">
-              Resolved
-            </Badge>
-          }
-        />
-      </Tabs>
-      <TextField
-        variant="outlined"
-        placeholder="Search"
-        size="small"
-        fullWidth
-        value={searchQuery}
-        onChange={handleSearchChange}
-        InputProps={{
-          endAdornment: (
-            <Button variant="contained" color="primary" size="small">
-              <SearchIcon />
-            </Button>
-          )
-        }}
-        style={{ marginBottom: '20px' }}
-      />
+    <div style={{ backgroundColor: 'white', width: "1000px", margin: "auto", marginTop: '100px' }}>
+    <Typography variant="h3" gutterBottom>Dealer Inquiries</Typography>
+    <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
+      <Tab  label={
+        <Badge badgeContent={filteredPendingInquiries.length} color="error">
+          Pending
+        </Badge>
+      } />
+      <Tab label={
+        <Badge badgeContent={filteredResolvedInquiries.length} color="success">
+          Resolved
+        </Badge>
+      } />
+    </Tabs>
+    <TextField
+    sx={{ mt: "10px", width: "500px", ml: "250px" }}
+      variant="outlined"
+      placeholder="Search"
+      size="small"
+      value={searchQuery}
+      onChange={handleSearchChange}
+      InputProps={{
+        endAdornment: (
+          <Button variant="contained" color="success" size="small">
+            <SearchIcon />
+          </Button>
+        )
+      }}
+      style={{ marginBottom: '20px' }}
+    />
       {tabValue === 0 ? (
         <div>
           <Typography variant="h4" gutterBottom>Pending Inquiries</Typography>
