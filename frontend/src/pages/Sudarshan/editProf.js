@@ -1,5 +1,5 @@
 import React from 'react';
-import EditProfile from '../../Component/Sudarshan/EditProfile';
+import EditProfile from '../../Component/Sudarshan/editProfile';
 import '../../styles/Sudarshan/dealer_profile.css';
 
 const DealerProfilePage = () => {
