@@ -95,7 +95,7 @@ const FarmerInquiry = () => {
                 <InquiryRow inquiry={inquiry} />
               </Grid>
               <Grid item xs={2}>
-                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="primary">View</Button>
+                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="primary" style={{ marginBottom: '20px' }}>View</Button>
               </Grid>
             </Grid>
           ))}
@@ -109,7 +109,7 @@ const FarmerInquiry = () => {
                 <InquiryRow inquiry={inquiry} />
               </Grid>
               <Grid item xs={2}>
-                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="primary">View</Button>
+                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="primary" style={{ marginBottom: '20px' }}>View</Button>
               </Grid>
             </Grid>
           ))}

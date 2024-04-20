@@ -20,6 +20,7 @@ const FormPage = () => {
   const [topic, setTopic] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('');
+  const [categoryValue, setCategoryValue] = useState(location.search.split('=')[1]);
   const [category, setCategory] = useState(location.search.split('=')[1]);
   const [area, setArea] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -31,12 +32,15 @@ const FormPage = () => {
       try {
         if (inquiryId) {
           const response = await axios.get(`http://localhost:8070/api/reports/${inquiryId}`);
-          const { name, topic, description, priority, area } = response.data;
+          const { name, topic, description, priority, area ,category } = response.data;
+          console.log('Fetched inquiry details:', response.data);
           setName(name);
           setTopic(topic);
           setDescription(description);
           setPriority(priority);
           setArea(area);
+          console.log('Category ID:', category);
+          setCategoryValue(category);
         }
       } catch (error) {
         console.error(error);
@@ -55,7 +59,7 @@ const FormPage = () => {
           topic,
           description,
           priority,
-          category,
+          categoryValue,
           area
         });
         setSuccessMessage('Inquiry updated successfully!');
@@ -104,7 +108,7 @@ const FormPage = () => {
             }}
           />
           <TextField  
-            value={category}
+            value={categoryValue || ''}
             onChange={(e) => setCategory(e.target.value)}
             placeholder="Category"
             disabled
