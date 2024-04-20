@@ -56,7 +56,7 @@ const FarmerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '50px' }}>
+    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '50px', width: "1000px", margin: "auto" }}>
       <Typography variant="h3" gutterBottom>Farmer Inquiries</Typography>
       <Tabs value={selectedTab} onChange={handleTabChange} variant="fullWidth">
         <Tab  label={
@@ -65,21 +65,21 @@ const FarmerInquiry = () => {
           </Badge>
         } />
         <Tab label={
-          <Badge badgeContent={filteredResolvedInquiries.length} color="error">
+          <Badge badgeContent={filteredResolvedInquiries.length} color="success">
             Resolved
           </Badge>
         } />
       </Tabs>
       <TextField
+      sx={{ mt: "10px", width: "500px", ml: "250px" }}
         variant="outlined"
         placeholder="Search"
         size="small"
-        fullWidth
         value={searchQuery}
         onChange={handleSearchChange}
         InputProps={{
           endAdornment: (
-            <Button variant="contained" color="primary" size="small">
+            <Button variant="contained" color="success" size="small">
               <SearchIcon />
             </Button>
           )
@@ -95,7 +95,7 @@ const FarmerInquiry = () => {
                 <InquiryRow inquiry={inquiry} />
               </Grid>
               <Grid item xs={2}>
-                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="primary" style={{ marginBottom: '20px' }}>View</Button>
+                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="success" style={{ marginBottom: '20px' }}>View</Button>
               </Grid>
             </Grid>
           ))}

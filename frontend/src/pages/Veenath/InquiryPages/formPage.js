@@ -161,10 +161,6 @@ const FormPage = () => {
                 <IconButton>
                   <FormatAlignLeft />
                 </IconButton>
-                <Button variant="outlined" component="label">
-                  Upload File
-                  <input type="file" hidden />
-                </Button>
               </Box>
             ),
           }}
@@ -185,8 +181,8 @@ const FormPage = () => {
             </MenuItem>
           </Select>
         </FormControl>
-        <Button type="submit" variant="contained" >
-          Send
+        <Button type="submit" variant="contained" sx={{ width: "300px", height: "50px", backgroundColor: "green", ml: "460px" }}>
+        {inquiryId ? 'Update' : 'Send'}
         </Button>
       </form>
       <StyledSnackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
