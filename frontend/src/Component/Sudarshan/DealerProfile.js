@@ -1,3 +1,4 @@
+// DealerProfile.js
 import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -6,41 +7,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from './Sidebar';
 import '../../styles/Sudarshan/dealer_profile.css';
 import { Icon } from '@mui/material';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const DealerProfile = () => {
-  const [dealerData, setDealerData] = useState(null);
+  const [dealerName, setDealerName] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    
-    const fetchDealerData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        console.log('Authorization Token:', token);
-        const response = await axios.get('http://localhost:8070/dealer/dealers', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        console.log('Response from backend:', response.data);
-        setDealerData(response.data);
-      } catch (error) {
-        console.error('Error fetching dealer data:', error);
-      }
-    };
-
-    fetchDealerData();
+    // Fetch dealer's name from backend
+    // Example: const dealerName = fetchDealerName();
+    setDealerName("Dealer's Name"); // Set the fetched name here
   }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
-  };
-
-  const handleEditProfile = () => {
-    navigate('/editProf');
   };
 
   const renderDetailItem = (title, icon, content) => (
@@ -60,25 +39,18 @@ const DealerProfile = () => {
         </IconButton>
       </div>
       <div className="profile-container">
-        <Typography variant="h4" style={{ textAlign: 'center' }}>Welcome, {dealerData?.name}!</Typography>
-        <Avatar
-          alt="Dealer"
-          src={dealerData?.image?.data ? `data:${dealerData?.image?.contentType};base64,${dealerData?.image?.data}` : ''}
-          className="avatar"
-          style={{ boxShadow: '0 0 10px green' }}
-          onLoad={() => console.log('Avatar image loaded successfully')}
-          onError={() => console.error('Error loading Avatar image')}
-        />
+        <Typography variant="h4" style={{ textAlign: 'center' }}>Welcome, {dealerName}!</Typography>
+        <Avatar alt="Dealer" src="" className="avatar" style={{ boxShadow: '0 0 10px green' }} />
         <div className="details-container"> 
-          {renderDetailItem('Username:', 'account_circle', dealerData?.username)}
-          {renderDetailItem('Name:', 'person', dealerData?.name)}
-          {renderDetailItem('Email:', 'email', dealerData?.email)}
-          {renderDetailItem('Contact:', 'phone', dealerData?.phone)}
-          {renderDetailItem('Store Location:', 'location_on', dealerData?.storeLocation)}
-          {renderDetailItem('Address:', 'home', dealerData?.address)}
+          {renderDetailItem('Username:', 'account_circle', 'Blitz')}
+          {renderDetailItem('Name:', 'person', "Dealer's Name")}
+          {renderDetailItem('Email:', 'email', 'dealer@example.com')}
+          {renderDetailItem('Contact:', 'phone', '113456789')}
+          {renderDetailItem('Store Location:', 'location_on', 'Malabe')}
+          {renderDetailItem('Address:', 'home', 'Malabe')}
         </div>
       </div>
-      <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name} handleEditProfile={handleEditProfile} />
+      <Sidebar open={sidebarOpen} onClose={toggleSidebar} />
     </div>
   );
 };

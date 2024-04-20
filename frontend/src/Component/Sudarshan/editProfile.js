@@ -1,195 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from './Sidebar';
-import DeleteIcon from '@mui/icons-material/Delete';
-import UpdateIcon from '@mui/icons-material/Update';
-import '../../styles/Sudarshan/edit_profile.css';
+import '../../styles/Sudarshan/dealer_profile.css';
 import { Icon } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import axios from 'axios';
-import PopupMessage from '../../pages/common/PopUp';
 
-const EditProfile = () => {
+const DealerProfile = () => {
+  const [dealerName, setDealerName] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [dealerData, setDealerData] = useState({});
-  const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [storeLocation, setStoreLocation] = useState('');
-  const [address, setAddress] = useState('');
-  const [image, setImage] = useState(null);
-  const [password, setPassword] = useState('');
-  const [reEnteredPassword, setReEnteredPassword] = useState('');
-  const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    
-    const fetchDealerData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8070/dealer/dealers', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        const data = response.data;
-        setDealerData(data);
-        setUsername(data.username || '');
-        setName(data.name || '');
-        setEmail(data.email || '');
-        setPhone(data.phone || '');
-        setStoreLocation(data.storeLocation || '');
-        setAddress(data.address || '');
-        setImage(data.image || null);
-        setPassword(data.password || '');
-        setReEnteredPassword(data.reEnteredPassword || '');
-        setSuccessMessage('Dealer data fetch successful');
-      } catch (error) {
-        console.error('Error fetching dealer data:', error);
-        setErrorMessage(error.response.data.error);
-      }
-    };
-
-    fetchDealerData();
+    // Fetch dealer's name from backend
+    // Example: const dealerName = fetchDealerName();
+    setDealerName("Dealer's Name"); // Set the fetched name here
   }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const MAX_FILE_SIZE_MB = 2;
-
-  const handleChooseFile = async (event) => {
-    const files = event.target.files;
-    const file = files[0]; 
-  
-    if (file) {
-      console.log('Selected File:', file);
-      // Check file size
-      const fileSizeInMB = file.size / (1024 * 1024); 
-      if (fileSizeInMB > MAX_FILE_SIZE_MB) {
-        console.error('File size exceeds the maximum allowed size.');
-        
-        return;
-      }
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-      if (!allowedTypes.includes(file.type)) {
-        console.error('Invalid file type. Please select a JPG, JPEG, or PNG image.');
-        
-        return;
-      }
-  
-      
-      const blob = new Blob([file]);
-  
-      
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage({
-          data: reader.result,
-          contentType: file.type
-        });
-      };
-      reader.readAsDataURL(blob);
-    }
-  };
-
-  const handleUpdateProfile = async () => {
-    try {
-      console.log('Password:', password);
-      console.log('Re-entered Password:', reEnteredPassword);
-      console.log('Updating Profile...');
-      console.log('Profile Data:', {
-        username,
-        name,
-        email,
-        phone,
-        storeLocation,
-        address,
-        password,
-        reEnteredPassword,
-        image 
-      });
-      
-      if (password !== reEnteredPassword) {
-        console.error("Passwords do not match");
-        
-        return;
-      }
-  
-      
-      const updatedDetails = {
-        id: dealerData._id,
-        username,
-        name,
-        email,
-        phone,
-        storeLocation,
-        address,
-        password,
-        reEnteredPassword,
-        image 
-      };
-  
-      
-      const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:8070/dealer/updateDealer/${dealerData._id}`, updatedDetails, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-      });
-      console.log('Update successful');
-      setSuccessMessage('Login successful');
-      setTimeout(() => {
-        navigate('/profileDealer');
-      }, 3000);
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      setErrorMessage(error.response.data.error);
-    }
-  };
-
-  const handleDeleteProfile = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8070/dealer/delete/${dealerData._id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-      });
-      console.log('Profile deleted successfully');
-      
-      localStorage.removeItem('token');
-      localStorage.removeItem('isLoggedIn');
-      setSuccessMessage('Deletion successful');
-      setTimeout(() => {
-        navigate('/signupDealer');
-      }, 3000);
-    } catch (error) {
-      console.error('Error deleting profile:', error);
-      setErrorMessage(error.response.data.error);
-    }
-  };
-  
-  const handleClosePopup = () => {
-    
-    setErrorMessage('');
-    setSuccessMessage('');
   };
 
   return (
@@ -200,122 +29,45 @@ const EditProfile = () => {
         </IconButton>
       </div>
       <div className="profile-container">
-        <Typography variant="h4" style={{ textAlign: 'center' }}>Here you can edit your details, {dealerData?.name || 'User'}!</Typography>
-        <Avatar
-          alt="Dealer"
-          src={image ? image.data : ''}
-          className="avatar"
-          style={{ boxShadow: '0 0 10px green' }}
-        />
-        <div style={{ marginTop: '20px', display: 'inline-block' }}></div>
-        <Button variant="contained" color="primary" startIcon={<CloudUploadIcon />} style={{ borderRadius: '20px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.4)' }} className="edit-button" onClick={() => document.getElementById('fileInput').click()} >
-          Choose Image
-        </Button>
-        <input type="file" id="fileInput" style={{ display: 'none' }} accept=".jpg, .jpeg" onChange={handleChooseFile} />
+        <Typography variant="h4" style={{ textAlign: 'center' }}>Welcome, {dealerName}!</Typography>
+        <Avatar alt="Dealer" src="" className="avatar" style={{ boxShadow: '0 0 10px green' }} />
         <div className="details-container"> 
           <div className="detail-item">
+            
             <Typography variant="subtitle1" className="detail-title">Username:</Typography>
-            <input
-              type="text"
-              className="detail-content"
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder={dealerData.username || 'Username'}
-            />
+            <Typography variant="subtitle1" className="detail-content"><Icon className="icon">account_circle</Icon>Blitz</Typography>
           </div>
-
           <div className="detail-item">
+          
             <Typography variant="subtitle1" className="detail-title">Name:</Typography>
-            <input
-              type="text"
-              className="detail-content"
-              onChange={(e) => setName(e.target.value)}
-              placeholder={dealerData.name || 'Name'}
-            />
+            <Typography variant="subtitle1" className="detail-content"><Icon className="icon">person</Icon>Dealer's Name</Typography>
           </div>
-
           <div className="detail-item">
+           
             <Typography variant="subtitle1" className="detail-title">Email:</Typography>
-            <input
-              type="text"
-              className="detail-content"
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={dealerData.email || 'Email'}
-            />
+            <Typography variant="subtitle1" className="detail-content"><Icon className="icon">email</Icon>dealer@example.com</Typography>
           </div>
-
           <div className="detail-item">
+           
             <Typography variant="subtitle1" className="detail-title">Contact:</Typography>
-            <input
-              type="text"
-              className="detail-content"
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder={dealerData.phone || 'Contact'}
-            />
+            <Typography variant="subtitle1" className="detail-content"><Icon className="icon">phone</Icon>113456789</Typography>
           </div>
-
           <div className="detail-item">
+           
             <Typography variant="subtitle1" className="detail-title">Store Location:</Typography>
-            <input
-              type="text"
-              className="detail-content"
-              onChange={(e) => setStoreLocation(e.target.value)}
-              placeholder={dealerData.storeLocation || 'Store Location'}
-            />
+            <Typography variant="subtitle1" className="detail-content"><Icon className="icon">location_on</Icon>Malabe</Typography>
           </div>
-
           <div className="detail-item">
+           
             <Typography variant="subtitle1" className="detail-title">Address:</Typography>
-            <input
-              type="text"
-              className="detail-content"
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder={dealerData.address || 'Address'}
-            />
+            <Typography variant="subtitle1" className="detail-content"><Icon className="icon">home</Icon>Malabe</Typography>
           </div>
-          <div className="detail-item">
-            <Typography variant="subtitle1" className="detail-title">Password:</Typography>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                className="detail-content"
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder={dealerData.reEnteredPassword || 'Password'}
-              />
-              <IconButton onClick={togglePasswordVisibility}>
-                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </div>
-          </div>
-
-          <div className="detail-item">
-            <Typography variant="subtitle1" className="detail-title">Re-enter Password:</Typography>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                className="detail-content"
-                onChange={(e) => setReEnteredPassword(e.target.value)}
-                placeholder={dealerData.reEnteredPassword || 'Re-enter Password'}
-              />
-              <IconButton onClick={togglePasswordVisibility}>
-                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </div>
-          </div>
-        </div>
-        <div className="button-container">
-          <Button variant="contained" color="success" startIcon={<UpdateIcon />} style={{ marginRight: '10px', borderRadius: '20px', fontSize: '16px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.4)' }} className="edit-button" onClick={handleUpdateProfile}>
-            Edit Profile
-          </Button>
-          <Button variant="contained" color="error" startIcon={<DeleteIcon />} style={{ marginLeft: '10px', borderRadius: '20px', fontSize: '16px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.4)' }} className="delete-button" onClick={handleDeleteProfile}>
-            Delete Profile
-          </Button>
+         
         </div>
       </div>
-      <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name || ''} />
-      {successMessage && <PopupMessage message={successMessage} type="success" onClose={handleClosePopup} />}
-      {errorMessage && <PopupMessage message={errorMessage} type="error" onClose={handleClosePopup} />}
+      <Sidebar open={sidebarOpen} onClose={toggleSidebar} />
     </div>
   );
 };
 
-export default EditProfile;
+export default DealerProfile;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Drawer from '@mui/material/Drawer';
 import Avatar from '@mui/material/Avatar';
-import { List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { List, ListItem, ListItemIcon, ListItemText, Typography, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import StoreIcon from '@mui/icons-material/Store';
 import FeedbackIcon from '@mui/icons-material/Feedback';
@@ -11,37 +11,39 @@ import '../../styles/Sudarshan/sidebar.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-const Sidebar = ({ open, onClose, dealerName, handleEditProfile }) => {
-
-
+const Sidebar = ({ open, onClose }) => {
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
       <div className="sidebar-container">
         
         <Avatar alt="Dealer" src="" className="avatar" style={{ marginTop: '30px', boxShadow: '0 0 10px green' }} />
-        <Typography variant="h6" align="center">{dealerName}</Typography>
+        <Typography variant="h6" align="center">Dealer's Name</Typography>
         <hr />
         <List>
-          <ListItemButton onClick={handleEditProfile}>
+          <ListItem button component="a" href="/edit-profile">
             <ListItemIcon><EditIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Edit Profile" />
-          </ListItemButton>
-          <ListItemButton component="a" href="/manageShop">
+          </ListItem>
+          <ListItem button component="a" href="/manage-shop">
             <ListItemIcon><StoreIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Manage Shop" />
-          </ListItemButton>
-          <ListItemButton component="a" href="/feedbacks">
+          </ListItem>
+          <ListItem button component="a" href="/feedbacks">
             <ListItemIcon><FeedbackIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Feedbacks" />
-          </ListItemButton>
-          <ListItemButton component="a" href="/inquiries">
+          </ListItem>
+          <ListItem button component="a" href="/inquiries">
             <ListItemIcon><QuestionAnswerIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Inquiries" />
-          </ListItemButton>
-          <ListItemButton component="a" href="/orders">
+          </ListItem>
+          <ListItem button component="a" href="/orders">
             <ListItemIcon><ShoppingCartIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Orders" />
-          </ListItemButton>
+          </ListItem>
+          <ListItem button component="a" href="/logout">
+            <ListItemIcon><ExitToAppIcon style={{ color: 'green' }} /></ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
           
         </List>
         
