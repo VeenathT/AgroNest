@@ -85,7 +85,7 @@ const FarmerInquiry = () => {
         <div>
           <Typography variant="h5" gutterBottom align="center">Pending Issues</Typography>
           <TextField
-             sx={{backgroundColor: '#FFFF', width: "500px", margin: "auto", marginBottom: '20px', ml:'260px' }}
+             sx={{backgroundColor: '#FFFF', width: "500px", margin: "auto", marginBottom: '20px', ml:'250px' }}
             variant="outlined"
             placeholder="Search"
             size="small"
@@ -93,7 +93,7 @@ const FarmerInquiry = () => {
             onChange={handleSearchChange}
             InputProps={{
               endAdornment: (
-                <Button variant="contained" color="info" size="small">
+                <Button variant="contained" color="inherit" size="small">
                   <SearchIcon />
                 </Button>
               )
@@ -115,7 +115,7 @@ const FarmerInquiry = () => {
         <div>
           <Typography variant="h5" gutterBottom align="center">Resolved Issues</Typography>
           <TextField
-            sx={{backgroundColor: '#FFFF', width: "500px", margin: "auto", marginBottom: '20px', ml:'260px' }}
+            sx={{backgroundColor: '#FFFF', width: "500px", margin: "auto", marginBottom: '20px', ml:'250px' }}
             variant="outlined"
             placeholder="Search"
             size="small"
@@ -123,7 +123,7 @@ const FarmerInquiry = () => {
             onChange={handleSearchChange}
             InputProps={{
               endAdornment: (
-                <Button variant="contained" color="info" size="small">
+                <Button variant="contained" color="inherit" size="small">
                   <SearchIcon />
                 </Button>
               )
