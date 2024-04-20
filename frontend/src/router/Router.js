@@ -5,7 +5,7 @@ import LandingPage from '../pages/common/LandingPage';
 import LoginPage from '../pages/Sudarshan/DealerLogin';
 import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
-import EditProfile from '../pages/Sudarshan/EditProf';
+import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
 import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Inquiries from '../pages/Sudarshan/Inquries';
@@ -71,7 +71,7 @@ const Router = () => {
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
-        
+
         {/* Kande Routes */}
         <Route path='/addtopfertilizers' element={<TopFertilizer />} />
         <Route path='/viewtopfertilizers' element={<ViewTopFertilizer />} />
