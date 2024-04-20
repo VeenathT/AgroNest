@@ -8,6 +8,7 @@ const Login = () => {
     username: '',
     password: '',
   });
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const Login = () => {
       navigate(`/farmer/${user._id}`); // Directly navigate to the profile page
     } catch (error) {
       console.error('Login error:', error);
+      setError('Incorrect username or password');
     }
   };
 
@@ -57,6 +59,13 @@ const Login = () => {
             onChange={handleChange}
           />
         </Grid>
+        {error && (
+          <Grid item xs={12}>
+            <Typography variant="body2" color="error" align="center">
+              {error}
+            </Typography>
+          </Grid>
+        )}
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button variant="contained" sx={{ bgcolor: '#388e3c', color: '#ffffff', '&:hover': { bgcolor: '#388e3c' }, width: '100%', maxWidth: '200px' }} type="submit">Login</Button>
         </Grid>
