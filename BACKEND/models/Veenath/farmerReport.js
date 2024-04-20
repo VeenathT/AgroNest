@@ -22,7 +22,7 @@ const farmerReportSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["Farmer", "Dealer", "Lab"],
+    enum: ["Farmer", "Dealer"],
     required: true,
   },
   area: {

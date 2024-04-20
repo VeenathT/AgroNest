@@ -31,8 +31,8 @@ const Sidebar = ({ open, onClose }) => {
           <ListItem button component="a" href="/feedbacks">
             <ListItemIcon><FeedbackIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Feedbacks" />
-          </ListItem>
-          <ListItem button component="a" href="/inquiries">
+          </ListItemButton>
+          <ListItemButton component="a" href="/dealerInquiry">
             <ListItemIcon><QuestionAnswerIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Inquiries" />
           </ListItem>
