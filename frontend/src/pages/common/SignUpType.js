@@ -24,7 +24,7 @@ const Signuptype = () => {
           variant="contained"
           color="primary"
           component={Link}
-          to="/farmers"
+          to="/RegisterForm"
         >
           Farmers
         </Button>

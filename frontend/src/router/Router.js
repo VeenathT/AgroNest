@@ -24,6 +24,17 @@ import LabEdit from '../pages/Oshini/labEdit';
 import TestAccept from '../pages/Oshini/accepted';
 import TestComplete from '../pages/Oshini/completed';
 
+import RegisterForm from '../pages/Thisaravi/RegisterForm';
+import Profile from '../pages/Thisaravi/Profile';
+import FarmerProfile from '../Component/Thisaravi/FarmerProfile';
+import Sidebar from '../Component/Thisaravi/Sidebar';
+import SoilTestRequest from '../pages/Thisaravi/SoilTest/SoilTestRequest';
+import TestServices from '../pages/Thisaravi/SoilTest/TestServices';
+import ViewRequests from '../pages/Thisaravi/SoilTest/ViewRequests';
+import RequestDetails from '../pages/Thisaravi/SoilTest/RequestDetails';
+import UpdateRequest from '../pages/Thisaravi/SoilTest/UpdateRequest';
+import Login from '../pages/Thisaravi/Login';
+import TestType from '../pages/Thisaravi/SoilTest/TestType';
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -81,6 +92,18 @@ const Router = () => {
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
+
+        <Route path='/RegisterForm' element={<RegisterForm />}/>
+        <Route path='/Profile' element={<Profile/>}/>
+        <Route path="/farmer/:farmerID" element={<FarmerProfile />}/>
+        <Route path='/Sidebar' element={<Sidebar/>}/>
+        <Route path='/soil-test-request' element={<SoilTestRequest/>}/>
+        <Route path='/soil-test' element={<TestServices/>}/>
+        <Route path='/pending-requests' element={<ViewRequests/>}/>
+        <Route path='/soil-test/:requestId' element={<RequestDetails/>}/>
+        <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
+        <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
+        <Route path='/test-types' element={<TestType />}/>
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin />} />
         <Route path="/labDash" element={<LabDash />} />
