@@ -57,7 +57,6 @@ function LabDash() {
         await axios.put('http://localhost:8070/labAccount/incrementRejected', { userName: sessionStorage.getItem('userName') });
       }
   
-     
       setPendingRequests(pendingRequests.filter(request => request._id !== requestId));
     } catch (error) {
       console.error('Error updating status:', error);
@@ -96,10 +95,10 @@ function LabDash() {
   });
 
   return (
-    <div>
-      <AppBar position="fixed">
+    <div style={{ paddingTop: '70px' }}>
+      <AppBar position="fixed" style={{ marginTop: "75px",backgroundColor: '#0F5132' }}>
         <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 0 }}>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 0, color: 'white' }}>
             Lab Dashboard
           </Typography>
           <Tabs value={tabValue} onChange={handleTabChange}>
@@ -129,26 +128,26 @@ function LabDash() {
       <div style={{ marginTop: '20px' }} /> 
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '20px', marginBottom: '30px' }}>
         <IconButton>
-          <SearchIcon sx={{ color: 'white' }}  />
+        <SearchIcon sx={{ color: '#0F5132' }}  />
         </IconButton>
         <InputBase
           placeholder="  Search..."
           value={searchQuery}
           onChange={handleSearchChange}
-          sx={{ backgroundColor: 'white', marginLeft: '10px', color: 'black' }}
+          sx={{ backgroundColor: 'white', marginLeft: '10px', color: 'black', border: '2px solid #0F5132' }}
         />
       </div>
-      <div>
-        <TableContainer component={Paper}>
+      <div style={{ margin: '0 20px', borderRadius: '10px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
+        <TableContainer component={Paper} style={{ backgroundColor: '#E8F5E9' }}>
           <Table>
             <TableHead>
-              <TableRow>
-                <TableCell>Request ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Test Type</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Start Time</TableCell>
-                <TableCell>Status</TableCell>
+            <TableRow style={{ backgroundColor: '#90EE90' }}>
+                <TableCell style={{ color: '#0F5132' }}>Request ID</TableCell>
+                <TableCell style={{ color: '#0F5132' }}>Name</TableCell>
+                <TableCell style={{ color: '#0F5132' }}>Test Type</TableCell>
+                <TableCell style={{ color: '#0F5132' }}>Date</TableCell>
+                <TableCell style={{ color: '#0F5132' }}>Start Time</TableCell>
+                <TableCell style={{ color: '#0F5132' }}>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

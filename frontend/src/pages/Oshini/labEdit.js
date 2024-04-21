@@ -69,7 +69,7 @@ const LabEdit = () => {
 
   return (
     <StyledContainer maxWidth="md">
-      <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.9)', width: '55%', position: 'fixed', left: '20%', right: '40%' }}>
+      <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', position: 'fixed', left: '20%', right: '40%' }}>
         <Typography variant="h4" gutterBottom>
           <center>Edit Your Details</center>
         </Typography> 

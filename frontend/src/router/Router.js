@@ -16,8 +16,6 @@ import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
 import FormPage from '../pages/Veenath/InquiryPages/formPage';
 import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
 import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
-
-import Signup from '../Component/Thisaravi/Signup'
 import LabSignUp from '../pages/Oshini/signup';
 import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
@@ -83,12 +81,6 @@ const Router = () => {
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
-      </Routes>
-    </>
-    <Routes>
-        <Route path="/" element={<Navigate to='/index' />} />
-        <Route path="/DealerProf" element={<DealerProf />} />
-        <Route path='/Signup' element={<Signup />} />
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin />} />
         <Route path="/labDash" element={<LabDash />} />
@@ -96,8 +88,8 @@ const Router = () => {
         <Route path="/labEdit" element={<LabEdit />} />
         <Route path="/accepted" element={<TestAccept />} />
         <Route path="/completed" element={<TestComplete />} />
-
-    </Routes>
+      </Routes>
+    </>
   );
 };
 

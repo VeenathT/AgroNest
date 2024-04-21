@@ -5,8 +5,10 @@ import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
+
 const StyledContainer = styled(Container)({
   marginTop: '50px',
+  backgroundColor: '#90EE90', // Setting background color
 });
 
 const Label = styled(Typography)({
@@ -73,7 +75,7 @@ const LabProfile = () => {
       doc.addImage(imgData, 'JPEG', 170, 10, 40, 40);
 
       // Add title to the PDF
-    doc.text('Laboratory Details', 10, 10);
+      doc.text('Laboratory Details', 10, 10);
   
       const data = [
         { label: 'Lab Name', value: laboratory.name },
@@ -98,7 +100,7 @@ const LabProfile = () => {
   
   return (
     <StyledContainer maxWidth="md">
-      <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.9)', width: '55%', position: 'fixed', left: '20%', right : '40%' }}>
+      <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', position: 'fixed', left: '20%', right : '40%' , top : '50px'}}>
         <Typography variant="h4" gutterBottom>
           <center>Your Details</center>
         </Typography> <br></br>
@@ -148,4 +150,3 @@ const LabProfile = () => {
 };
 
 export default LabProfile;
-
