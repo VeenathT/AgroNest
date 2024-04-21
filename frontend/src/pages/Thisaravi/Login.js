@@ -29,7 +29,7 @@ const Login = ({setIsLoggedIn}) => {
       navigate(`/farmer/${user._id}`);
     } catch (error) {
       console.error('Login error:', error);
-      setError('Incorrect username or password');
+      setError('Incorrect username or password'); //login validation
     }
   };
 

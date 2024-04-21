@@ -22,18 +22,20 @@ const RequestDetails = () => {
 
   const generatePDF = () => (
     <Document>
-      <Page size="A4">
-        <View style={styles.section}>
-          <Text style={{ color: 'red' }}>Soil Test Request Details</Text>
-          <Text><strong>Soil Test Type:</strong> {soilTest?.soilTestType}</Text>
-          <Text><strong>Crop Type:</strong> {soilTest?.cropType}</Text>
-          <Text><strong>Date:</strong> {soilTest?.date}</Text>
-          <Text><strong>District:</strong> {soilTest?.district}</Text>
-          <Text><strong>City:</strong> {soilTest?.city}</Text>
-          <Text><strong>Status:</strong> {soilTest?.status}</Text>
-        </View>
-      </Page>
-    </Document>
+  <Page size="A4">
+    <View style={styles.section}>
+      <Text style={{ color: 'red', fontWeight: 'bold' }}>Soil Test Request Details</Text>
+      <Text>{`Soil Test Type: ${soilTest?.soilTestType}`}</Text>
+      <Text>{`Crop Type: ${soilTest?.cropType}`}</Text>
+      <Text>{`Date: ${soilTest?.date}`}</Text>
+      <Text>{`District: ${soilTest?.district}`}</Text>
+      <Text>{`City: ${soilTest?.city}`}</Text>
+      <Text>{`Status: ${soilTest?.status}`}</Text>
+    </View>
+  </Page>
+</Document>
+
+
   );
 
   return (
