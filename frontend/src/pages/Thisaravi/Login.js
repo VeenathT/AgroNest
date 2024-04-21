@@ -26,7 +26,7 @@ const Login = ({setIsLoggedIn}) => {
       const response = await axios.post('http://localhost:8070/Farmer/login', formData);
       const { user } = response.data;
       setIsLoggedIn(true);
-      navigate(`/farmer/${user._id}`); // Directly navigate to the profile page
+      navigate(`/farmer/${user._id}`);
     } catch (error) {
       console.error('Login error:', error);
       setError('Incorrect username or password');
@@ -35,6 +35,22 @@ const Login = ({setIsLoggedIn}) => {
 
   return (
     <form onSubmit={handleSubmit} style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Grid
+            container
+            spacing={2}
+            
+            sx={{
+               maxWidth: '600px',
+               margin: '-20px auto',
+               marginTop: '2cm',
+               boxSizing: 'border-box',
+               backgroundColor: 'rgba(255, 255, 255, 0.8)',
+               borderRadius: '20px',
+               padding: '20px',
+               boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+               textAlign: 'center',
+            }}
+        >
       <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ maxWidth: 500 }}>
         <Grid item xs={12}>
           <Typography variant="h5" align="center">Login</Typography>
@@ -70,6 +86,7 @@ const Login = ({setIsLoggedIn}) => {
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button variant="contained" sx={{ bgcolor: '#388e3c', color: '#ffffff', '&:hover': { bgcolor: '#388e3c' }, width: '100%', maxWidth: '200px' }} type="submit">Login</Button>
         </Grid>
+      </Grid>
       </Grid>
     </form>
   );
