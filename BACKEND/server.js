@@ -15,6 +15,7 @@ const replyRoutess = require('./routes/Rahul/reply.js');
 
 
 
+
 const PORT = process.env.PORT || 8070;
 
 app.use(cors());
@@ -64,6 +65,7 @@ app.use("/farmerReport", dealerReportRouter);
 
 const labsRouter = require('./routes/Rahul/labs.js');
 app.use('/labs', labsRouter);
+
 
 
 //

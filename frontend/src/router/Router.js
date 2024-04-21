@@ -26,6 +26,8 @@ import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 
 
+
+
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -89,6 +91,7 @@ const Router = () => {
        
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/labrotaryview" element={<LabCards />} />
+        
       </Routes>
     </>
   );

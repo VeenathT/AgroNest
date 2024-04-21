@@ -1,4 +1,3 @@
-// labAccount.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -23,16 +22,32 @@ const labSchema = new Schema({
         type : String,
         required : true
     },
+
     userName : {
         type : String,
         required : true,
         unique : true
     },
+
     password : {
         type : String,
         required : true
-    }
-});
+    },
 
-const Lab = mongoose.model("labAccount", labSchema);
+    completed: {
+        type: Number,
+        default: 0 
+    },
+    rejected: {
+        type: Number,
+        default: 0 
+    },
+    level: {
+        type: Number,
+        default: 0
+    }
+    
+})
+
+const Lab = mongoose.model("labAccount",labSchema);
 module.exports = Lab;

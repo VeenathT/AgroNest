@@ -7,6 +7,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Sidebar from './Sidebar';
+
 // import AdminHome from '../../pages/AdminHome';
 import DealerListComponent from '../Rahul/DealerListComponent';
 // import FarmerListComponent from './FarmerListComponent';
@@ -57,8 +60,12 @@ export default function FullWidthTabs() {
   };
 
   return (
-    <Box sx={{display: 'flex', justifyContent: 'center', marginTop:'150px', height: '100vh'}}>
-    <Box sx={{ bgcolor: '#cde3c3', width: 1000,height:720 }}>
+    <div>
+      <Grid item xs={3}>
+        <Sidebar />
+      </Grid>
+    <Box sx={{display: 'flex', justifyContent: 'center', marginTop:'80px', marginLeft:'200px', height: '100vh',left:'200px'}}>
+    <Box sx={{ bgcolor: '#cde3c3', width: 1130,height:720 }}>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -90,5 +97,6 @@ export default function FullWidthTabs() {
       </SwipeableViews>
     </Box>
     </Box>
+    </div>
   );
 }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MaterialReactTable, createMRTColumnHelper, useMaterialReactTable } from 'material-react-table';
-import { Box, Button } from '@mui/material';
+import { Box, Button , Grid} from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Sidebar from './Sidebar';
 
 
 const columnHelper = createMRTColumnHelper();
@@ -36,10 +37,7 @@ const FarmerList = () => {
   }, []);
 
   const columns = [
-    columnHelper.accessor('_id', {
-      header: 'ID',
-      size: 40,
-    }),
+    
     columnHelper.accessor('first_name', {
       header: 'Name',
       size: 120,
@@ -88,6 +86,7 @@ const FarmerList = () => {
           flexWrap: 'wrap',
           marginTop:'60px',
           justifyContent: 'flex-end',
+          
         }}
       >
         <Button
@@ -126,10 +125,17 @@ const FarmerList = () => {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <MaterialReactTable table={table} />
-    </ThemeProvider>
+    <Grid container>
+      <Grid item xs={3}>
+        <Sidebar />
+      </Grid>
+      <Grid item xs={9}>
+        <ThemeProvider theme={theme}>
+          <MaterialReactTable table={table} />
+        </ThemeProvider>
+      </Grid>
+    </Grid>
   );
-};
-
+  
+}
 export default FarmerList;

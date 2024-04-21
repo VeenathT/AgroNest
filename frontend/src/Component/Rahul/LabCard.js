@@ -8,13 +8,13 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import { DialogActions } from '@mui/material';
-import LabPDFGenerator from './LabPDFGenerator'; // Import the PDF generator component
-import AllLabsPDFGenerator from './AllLabsPDFGenerator'; // Import the All Labs PDF generator component
+import { DialogActions,Grid } from '@mui/material';
+import LabPDFGenerator from './LabPDFGenerator'; 
+import AllLabsPDFGenerator from './AllLabsPDFGenerator'; 
 
-import labBackground from '../../images/Rahul/but2.jpg'; // Importing the background image
+import labBackground from '../../images/Rahul/but2.jpg'; 
 import buttonBackground from '../../images/Rahul/but2.jpg';
-
+import Sidebar from './Sidebar';
 const LabCards = () => {
   const [labs, setLabs] = useState([]);
   const [filteredLabs, setFilteredLabs] = useState([]);
@@ -39,11 +39,17 @@ const LabCards = () => {
   
     fetchLabs();
   }, []);
+  
 
   const handleViewClick = (labId) => {
     const labToView = labs.find(lab => lab._id === labId);
     setSelectedLab(labToView);
     setOpenDialog(true);
+  };
+
+   const handleUpdateLabLevel = () => {
+    // Open the update dialog for laboratory level
+    
   };
 
   const handleDialogClose = () => {
@@ -78,6 +84,9 @@ const LabCards = () => {
 
   return (
     <div>
+      <Grid item xs={3}>
+        <Sidebar />
+      </Grid>
       <div style={{ marginTop:'110px', marginBottom: '20px', display: 'flex', justifyContent: 'flex-end', paddingRight: '50px' }}>
         <FormControl variant="outlined" style={{ marginRight: '10px', minWidth: '100px', minHeight:'10px' }}>
           <InputLabel id="filter-by-label">Filter By</InputLabel>
@@ -110,12 +119,12 @@ const LabCards = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', marginLeft: '95px', width: '1100px' }}>
         
-        {/* Export all labs button */}
+                        {/* Export all labs */}
         <div style={{ position: 'absolute', top: '-10px', right: '-110px', zIndex: '1' }}>
           <Button width="200px" onClick={handleExportCSV} sx={{ color: 'green' }} >Export All Labs</Button>
         </div>
         
-        {/* Displaying total lab count */}
+                    {/* lab count */}
         <div style={{ position: 'absolute',  height:'18px', top: '-80px', right: '420px',backgroundImage: `url(${buttonBackground}`, padding: '20px', borderRadius: '12px', zIndex: '1' }}>
           <Typography  variant="h5" style={{ color: 'white',textAlign:'center', textDecoration:'line' }}>Total Labs: {labCount}</Typography>
         </div>
@@ -156,7 +165,7 @@ const LabCards = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Render AllLabsPDFGenerator component */}
+     
       <AllLabsPDFGenerator labs={labs} />
     </div>
   );

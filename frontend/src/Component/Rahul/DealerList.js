@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MaterialReactTable, createMRTColumnHelper, useMaterialReactTable } from 'material-react-table';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import Sidebar from './Sidebar'; // Import Sidebar component here
 
 const columnHelper = createMRTColumnHelper();
 
@@ -35,10 +37,7 @@ const DealerList = () => {
   }, []);
 
   const columns = [
-    columnHelper.accessor('_id', {
-      header: 'ID',
-      size: 40,
-    }),
+    
     columnHelper.accessor('name', {
       header: 'Name',
       size: 120,
@@ -48,10 +47,7 @@ const DealerList = () => {
       header: 'Address',
       size: 120,
     }),
-    
-    
-    
-   
+
     columnHelper.accessor('email', {
       header: 'Email',
       size: 200,
@@ -92,13 +88,14 @@ const DealerList = () => {
     positionToolbarAlertBanner: 'bottom',
     renderTopToolbarCustomActions: ({ table }) => (
       <Box
-        sx={{
-          display: 'flex',
-          gap: '16px',
-          padding: '8px',
-          flexWrap: 'wrap',
-          marginTop:'60px'
-        }}
+      sx={{
+        display: 'flex',
+        gap: '12px',
+        padding: '8px',
+        flexWrap: 'wrap',
+        marginTop: '90px',
+        justifyContent: 'flex-start', 
+      }}
       >
         <Button
           onClick={handleExportData}
@@ -136,12 +133,17 @@ const DealerList = () => {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <MaterialReactTable table={table} />
-    </ThemeProvider>
+    <Grid container>
+      <Grid item xs={3}>
+        <Sidebar />
+      </Grid>
+      <Grid item xs={9}>
+        <ThemeProvider theme={theme}>
+          <MaterialReactTable table={table} />
+        </ThemeProvider>
+      </Grid>
+    </Grid>
   );
 };
 
 export default DealerList;
-
-
