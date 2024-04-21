@@ -12,15 +12,18 @@ const Header = ({ isLoggedIn, onLogout }) => {
           AgroNest
         </Typography>
         <Box>
+        <Button color="inherit" component={Link} to="/inquiryCategory">Help</Button>
+          <Button color="inherit" component={Link} to="/soiltest">Soil Test</Button>
+          <Button color="inherit" component={Link} to="/shop">Shop</Button>
           {isLoggedIn ? (
             <>
-              <Button color="inherit" component={Link} to="/profiletype">Profile</Button>
-              <Button color="inherit" onClick={onLogout}>Logout</Button>
+              <Button variant="contained" color="success" sx={{ marginRight: 1 }} component={Link} to="/profiletype">Profile</Button>
+              <Button variant="contained" color="error" onClick={onLogout}>Logout</Button>
             </>
           ) : (
             <>
-              <Button color="inherit" component={Link} to="/logintype">Login</Button>
-              <Button color="inherit" component={Link} to="/signuptype">Sign Up</Button>
+              <Button variant="contained" color="success" sx={{ marginRight: 1 }} component={Link} to="/logintype">Login</Button>
+              <Button variant="contained" color="success" component={Link} to="/signuptype">Sign Up</Button>
             </>
           )}
         </Box>

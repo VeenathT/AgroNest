@@ -13,6 +13,20 @@
 //   transform: 'translateX(-50%)',
 // });
 
+const FormPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [name, setName] = useState('');
+  const [topic, setTopic] = useState('');
+  const [description, setDescription] = useState('');
+  const [priority, setPriority] = useState('');
+  const [categoryValue, setCategoryValue] = useState(location.search.split('=')[1]);
+  const [category, setCategory] = useState(location.search.split('=')[1]);
+  const [area, setArea] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const inquiryId = new URLSearchParams(location.search).get('id');
+  const emailRegex = /\S+@\S+\.\S+/; // Regex for email format
 // const FormPage = () => {
 //   const navigate = useNavigate();
 //   const location = useLocation();
@@ -50,6 +64,49 @@
 //     fetchInquiryDetails();
 //   }, [location.search, inquiryId]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!emailRegex.test(name)) {
+        alert('Please enter a valid email address with the format example@gmail.com');
+        return;
+      }
+
+      if (inquiryId) {
+        await axios.put(`http://localhost:8070/api/reports/${inquiryId}`, {
+          name,
+          topic,
+          description,
+          priority,
+          categoryValue,
+          area
+        });
+        setSuccessMessage('Inquiry updated successfully!');
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          setSuccessMessage('');
+          navigate('/');
+        }, 3000);
+      } else {
+        await axios.post('http://localhost:8070/api/reports', {
+          name,
+          topic,
+          description,
+          priority,
+          category,
+          area
+        });
+        setSuccessMessage('Inquiry submitted successfully!');
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          setSuccessMessage('');
+          navigate('/');
+        }, 3000);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
@@ -128,6 +185,71 @@
 //             </Select>
 //           </FormControl>
           
+        </Box>
+        <TextField label="Topic" color="secondary" 
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          placeholder="write your heading here"
+          required
+          fullWidth
+          style={{ marginBottom: '30px' }}
+        />
+        <TextField label="Description" color="secondary" 
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="write your issue here..."
+          required
+          fullWidth
+          multiline
+          variant="outlined"
+          maxRows={10}
+          InputProps={{
+            endAdornment: (
+              <Box sx={{ display: '-ms-flexbox', gap: '10px' ,height: '200px',width:'500px'}}>
+                <IconButton>
+                  <FormatBold />
+                </IconButton>
+                <IconButton>
+                  <FormatItalic />
+                </IconButton>
+                <IconButton>
+                  <FormatUnderlined />
+                </IconButton>
+                <IconButton>
+                  <FormatAlignLeft />
+                </IconButton>
+              </Box>
+            ),
+          }}
+          style={{ marginBottom: '50px' }}
+        />
+        <FormControl fullWidth style={{ marginBottom: '100px' }}>
+          <InputLabel>Select Priority</InputLabel>
+          <Select value={priority} onChange={(e) => setPriority(e.target.value)} required>
+            <MenuItem value="">Select Priority</MenuItem>
+            <MenuItem value="Low">
+              <Avatar  variant="rounded" sx={{ backgroundColor: 'green' }}>L</Avatar> Low
+            </MenuItem>
+            <MenuItem value="Medium">
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'orange' }}>M</Avatar> Medium
+            </MenuItem>
+            <MenuItem value="High">
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'red' }}>H</Avatar> High
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <Button type="submit" variant="contained" sx={{ width: "200px", height: "50px", backgroundColor: "green", ml: "500px" }}>
+        {inquiryId ? 'Update' : 'Send'}
+        </Button>
+      </form>
+      <StyledSnackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <MuiAlert onClose={handleCloseSnackbar} variant="filled" severity="success" sx={{ width: '100%' }}>
+          {successMessage}
+        </MuiAlert>
+      </StyledSnackbar>
+    </div>
+  );
+}
 //         </Box>
 //         <TextField label="Topic" color="secondary" 
 //           value={topic}

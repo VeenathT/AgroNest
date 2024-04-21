@@ -8,8 +8,10 @@ import {
   DialogTitle,
   Button,
   LinearProgress,
+  Typography, // Add Typography import
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -71,16 +73,29 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
   );
 
   return (
-    <Dialog open onClose={onClosePopup}>
+    <Dialog open onClose={onClosePopup} maxWidth="md" fullWidth>
       <DialogTitle>Inquiry Details</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <div>Name: {inquiry.name}</div>
-          <div>Topic: {inquiry.topic}</div>
-          <div>Description: {inquiry.description}</div>
-          <div>Priority: {inquiry.priority}</div>
-          <div>Area: {inquiry.area}</div>
-        </DialogContentText>
+      <DialogContent dividers>
+        <div>
+          <Typography variant="subtitle1">Name:</Typography>
+          <Typography>{inquiry.name}</Typography>
+        </div>
+        <div>
+          <Typography variant="subtitle1">Topic:</Typography>
+          <Typography>{inquiry.topic}</Typography>
+        </div>
+        <div>
+          <Typography variant="subtitle1">Description:</Typography>
+          <Typography>{inquiry.description}</Typography>
+        </div>
+        <div>
+          <Typography variant="subtitle1">Priority:</Typography>
+          <Typography>{inquiry.priority}</Typography>
+        </div>
+        <div>
+          <Typography variant="subtitle1">Area:</Typography>
+          <Typography>{inquiry.area}</Typography>
+        </div>
       </DialogContent>
       <DialogActions>
         {inquiry.status === 'Pending' && (
@@ -94,7 +109,7 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
               Delete
             </Button>
             <a href={`/formPage?id=${inquiry._id}`}>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="info" startIcon={<EditIcon />}>
                 Update
               </Button>
             </a>
@@ -104,7 +119,7 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
         {inquiry.status === 'Resolved' && (
           <PDFDownloadLink document={<MyDocument />} fileName="inquiry_details.pdf">
             {({ blob, url, loading, error }) =>
-              loading ? 'Loading document...' : 'Download PDF'
+              loading ? 'Loading document...' : 'Download'
             }
           </PDFDownloadLink>
         )}
