@@ -111,4 +111,21 @@ router.route("/login").post(async (req, res) => {
 });
 
 
+//Oshini
+router.route("/getName/:farmerID").get(async (req, res) => {
+    try {
+      const userId = req.params.farmerID;
+      const farmer = await Farmer.findById(userId);
+      if (!farmer) {
+        return res.status(404).json({ message: "Farmer not found" });
+      }
+      const fullName = `${farmer.first_name} ${farmer.last_name}`;
+      res.status(200).json({ fullName });
+    } catch (error) {
+      console.error("Error fetching farmer name:", error);
+      res.status(500).json({ message: "Failed to fetch farmer name. Please try again later." });
+    }
+  });
+  
+
 module.exports = router;
