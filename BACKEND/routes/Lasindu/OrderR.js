@@ -41,7 +41,7 @@ router.route('/update/:id').put(async (req, res) => {
         quantity,
     };
 
-    const update = await Item.findByIdAndUpdate(id, updatedItem)
+    const update = await Order.findByIdAndUpdate(id, updatedItem)
     .then(() => {
         res.status(200).send({ status: "Item Updated"});
     }).catch((err) => {
@@ -53,7 +53,7 @@ router.route('/update/:id').put(async (req, res) => {
 
 router.route('/delete/:id').delete(async (req, res) => {
     let id = req.params.id;
-    Item.findByIdAndDelete(id).then(() => {
+    Order.findByIdAndDelete(id).then(() => {
         res.status(200).send({ status: "Order Deleted" });
     }).catch((err) => {
         console.log(err);

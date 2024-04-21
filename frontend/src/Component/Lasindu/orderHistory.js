@@ -1,4 +1,3 @@
-// OrderHistoryPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
@@ -42,30 +41,34 @@ const OrderHistoryPage = () => {
       ) : error ? (
         <div>Error: {error}</div>
       ) : (
-        <List sx={{ backgroundColor: 'rgba(144, 238, 144, 0.5)', marginTop: '50px' }}>
-          {orders.map((order) => (
-            <div key={order._id}>
-              <ListItem>
-                <ListItemText 
-                  primary={`Name: ${order.name}`}
-                  secondary={
-                    <>
-                      <Typography component="span" variant="body2" color="textPrimary">
-                        Order ID: {order._id}
-                      </Typography>
-                      <br />
-                      Item Code: {order.itemcode} | 
-                      Price: Rs. {order.price} | 
-                      Quantity: {order.quantity}
-                    </>
-                  }
-                />
-                <Button variant="contained" onClick={() => handleViewOrder(order._id)} sx={{ background:'green'}}>View</Button>
-              </ListItem>
-              <Divider />
-            </div>
-          ))}
-        </List>
+        Array.isArray(orders) && orders.length > 0 ? (
+          <List sx={{ backgroundColor: 'rgba(144, 238, 144, 0.5)', marginTop: '50px' }}>
+            {orders.map((order) => (
+              <div key={order._id}>
+                <ListItem>
+                  <ListItemText 
+                    primary={`Name: ${order.name}`}
+                    secondary={
+                      <>
+                        <Typography component="span" variant="body2" color="textPrimary">
+                          Order ID: {order._id}
+                        </Typography>
+                        <br />
+                        Item Code: {order.itemcode} | 
+                        Price: Rs. {order.price} | 
+                        Quantity: {order.quantity}
+                      </>
+                    }
+                  />
+                  <Button variant="contained" onClick={() => handleViewOrder(order._id)} sx={{ background:'green'}}>View</Button>
+                </ListItem>
+                <Divider />
+              </div>
+            ))}
+          </List>
+        ) : (
+          <div>No orders found</div>
+        )
       )}
       {selectedOrderId && <CookiesBanner onClose={handleCloseBanner} orderId={selectedOrderId} />} {/* Render the banner component if selectedOrderId is not null */}
     </Container>

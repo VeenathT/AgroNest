@@ -18,6 +18,8 @@ import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
 import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
 import ItemView from '../Component/Lasindu/ItemView';
 import OrderHistoryPage from '../Component/Lasindu/orderHistory';
+import UpdateOrderDialog from '../Component/Lasindu/orderUpdate';
+import ItemList from '../Component/Lasindu/Itemlist';
 
 
 const Router = () => {
@@ -76,8 +78,10 @@ const Router = () => {
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
+        <Route path="/Itemlist" element={<ItemList />} />
         <Route path="/Item/:id" element={<ItemView />}/>
         <Route path="/Order-History" element={<OrderHistoryPage />}/>
+        <Route path="/update-order/:id" element={<UpdateOrderDialog open={true} />} />
       </Routes>
     </>
   );
