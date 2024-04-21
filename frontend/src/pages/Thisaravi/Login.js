@@ -3,7 +3,7 @@ import { TextField, Button, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -25,6 +25,7 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8070/Farmer/login', formData);
       const { user } = response.data;
+      setIsLoggedIn(true);
       navigate(`/farmer/${user._id}`); // Directly navigate to the profile page
     } catch (error) {
       console.error('Login error:', error);

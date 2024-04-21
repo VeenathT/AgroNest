@@ -87,7 +87,7 @@ const Router = () => {
         <Route path='/pending-requests' element={<ViewRequests/>}/>
         <Route path='/soil-test/:requestId' element={<RequestDetails/>}/>
         <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
-        <Route path='/Login' element={<Login onLogin={handleLogin} />}/>
+        <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/test-types' element={<TestType />}/>
       </Routes>
     </>

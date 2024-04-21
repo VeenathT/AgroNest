@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
          userName: '',
          password: '',
        });
-       Navigate(`/farmer/${response.data.farmerID}`);
+       Navigate(`/Login`);
    } catch (error) {
        console.error('Error:' , error.response.data);
         setErrorMessage(error.response.data.error);
