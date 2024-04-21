@@ -103,20 +103,19 @@ cron.schedule('0 0 * * *', async () => {
   //---------------------------------------------------------------------------------------------
   cron.schedule('0 * * * *', async () => {
     try {
-   
       const currentDateTime = moment();
-  
-      
+    
       await LabSlot.updateMany(
-        { 'timeSlots.endTime': { $lt: currentDateTime.toDate() } }, 
+        { timeSlots: { $elemMatch: { endTime: { $lt: currentDateTime.toDate() } } } }, 
         { $pull: { timeSlots: { endTime: { $lt: currentDateTime.toDate() } } } } 
       );
-  
+    
       console.log('Expired time slots deleted');
     } catch (error) {
       console.error('Error deleting expired time slots:', error);
     }
   });
+  
   
   //--------------------------------------------------------------------------------------------------------------------------
   

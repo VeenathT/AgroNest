@@ -57,16 +57,13 @@ function LabDash() {
         await axios.put('http://localhost:8070/labAccount/incrementRejected', { userName: sessionStorage.getItem('userName') });
       }
   
-      setPendingRequests(pendingRequests.map(request => {
-        if (request._id === requestId) {
-          return { ...request, status: newStatus };
-        }
-        return request;
-      }));
+     
+      setPendingRequests(pendingRequests.filter(request => request._id !== requestId));
     } catch (error) {
       console.error('Error updating status:', error);
     }
   };
+  
 
   const getFarmerName = async (farmerId) => {
     try {
