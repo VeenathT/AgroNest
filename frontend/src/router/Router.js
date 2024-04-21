@@ -35,10 +35,9 @@ import RequestDetails from '../pages/Thisaravi/SoilTest/RequestDetails';
 import UpdateRequest from '../pages/Thisaravi/SoilTest/UpdateRequest';
 import Login from '../pages/Thisaravi/Login';
 import TestType from '../pages/Thisaravi/SoilTest/TestType';
-import Signup from '../Component/Thisaravi/Signup'
-// import Articlespage from '../pages/Nilupul/articlespage';
 import ArticleList from '../pages/Nilupul/ArticleList';
 import ArticleForm from '../pages/Nilupul/ArticleForm';
+
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -115,17 +114,10 @@ const Router = () => {
         <Route path="/labEdit" element={<LabEdit />} />
         <Route path="/accepted" element={<TestAccept />} />
         <Route path="/completed" element={<TestComplete />} />
-      </Routes>
-    </>
-    <Routes>
-        <Route path="/" element={<Navigate to='/index' />} />
-        <Route path="/DealerProf" element={<DealerProf />} />
-        <Route path='/Signup' element={<Signup />} />
-        {/* <Route path='/articlespage' element={<Articlespage/>} /> */}
         <Route path='/articles' element={<ArticleList/>} />
         <Route path='/addarticle' element={<ArticleForm/>} />
-
-    </Routes>
+      </Routes>
+    </>
   );
 };
 
