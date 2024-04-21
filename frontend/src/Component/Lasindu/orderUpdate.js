@@ -62,7 +62,7 @@ const UpdateOrderDialog = ({ open, onClose }) => {
     try {
       // Send a PUT request to update the order in the database
       await axios.put(`http://localhost:8070/order/update/${id}`, updatedOrder);
-      alert('Order updated successfully');
+      window.location.href='/Order-History'
       onClose(); // Close the dialog after successful update
     } catch (error) {
       console.log('Error updating order:', error);
