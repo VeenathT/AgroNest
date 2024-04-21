@@ -7,13 +7,13 @@ import { styled } from '@mui/material/styles';
 
 const images = [
   {
-    url: '/static/images/farmer_button.jpg',
+    url: 'https://as2.ftcdn.net/v2/jpg/02/99/14/71/1000_F_299147134_m5TaoaJ0iwfT0sDDAuvHfGUqdCQ8m5yO.jpg',
     title: 'Farmer',
     width: '40%',
     link: '/formPage?category=Farmer',
   },
   {
-    url: '/static/images/dealer_button.jpg',
+    url: 'https://img.freepik.com/premium-vector/farmer-man-hold-tablet-online-buy-fresh-vegetable-grocery_48369-5371.jpg?w=1060',
     title: 'Dealer',
     width: '40%',
     link: '/formPage?category=Dealer',
