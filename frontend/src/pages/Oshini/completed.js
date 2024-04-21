@@ -98,12 +98,12 @@ function CompletedRequests() {
 
   return (
     <div style={{ paddingTop: '70px' }}>
-      <AppBar position="fixed" style={{ marginTop: "75px", backgroundColor: '#0F5132' }}>
+      <AppBar position="fixed" style={{ marginTop: "75px",backgroundColor: '#0F5132' }}>
         <Toolbar>
           <Typography variant="h5" component="div" sx={{ flexGrow: 0, color: 'white' }}>
             Lab Dashboard
           </Typography>
-          <Tabs value={tabValue} onChange={handleTabChange}>
+          <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="transparent">
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
@@ -116,7 +116,7 @@ function CompletedRequests() {
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
           </Tabs>
-          <Typography variant="body1" style={{ marginRight: '10px', color: 'white' }}>
+          <Typography variant="body1" style={{ marginRight: '10px', color: 'white'}}>
             Hello {userName}
           </Typography>
           <Link to="/labProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -126,7 +126,7 @@ function CompletedRequests() {
           </Link>
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      <Toolbar /> 
       <div style={{ marginTop: '20px' }} />
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '20px', marginBottom: '30px' }}>
         <IconButton>
