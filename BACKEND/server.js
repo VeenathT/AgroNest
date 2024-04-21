@@ -73,6 +73,11 @@ app.use("/FAnalysis",FAnalysis);
 const labRouter = require("./routes/Oshini/lab_account/labAccounts.js");
 app.use("/labAccount", labRouter);
 
+//Lasindu
+const ItemRouter = require('./routes/Lasindu/ItemR');
+app.use('/item', ItemRouter);
+//Lasindu
+
 const labSlotRouter = require("./routes/Oshini/lab_account/labSlots.js");
 app.use("/labSlot", labSlotRouter);
 
