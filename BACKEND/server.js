@@ -27,6 +27,12 @@ app.use(session({
   store: MongoStore.create({ mongoUrl: 'mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest' }), // Adjust the MongoDB URL as needed
 }));
 //end---------------------------------
+const fs = require('fs');
+
+
+//Nilupul
+const articleRoutes = require('./routes/Nilupul/articleRoutes.js');
+
 
 const PORT = process.env.PORT || 8070;
 
@@ -127,6 +133,13 @@ cron.schedule('0 0 * * *', async () => {
   
   //--------------------------------------------------------------------------------------------------------------------------
   
+
+// const articlerouter = require("./routes/Nilupul/articleRoutes.js")
+// app.use("/articleModel.js", articlerouter);
+
+app.use('/api/articles', articleRoutes);
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
