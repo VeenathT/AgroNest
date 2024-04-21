@@ -15,6 +15,19 @@ import Typography from '@mui/material/Typography';
 import { MdConfirmationNumber, MdShoppingBasket, MdCode, MdAttachMoney, MdRemoveShoppingCart } from 'react-icons/md';
 import axios from 'axios';
 import DeleteOrderButton from '../OrderDelete';
+import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+
+// Create styles for PDF document
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    marginBottom: 10,
+  },
+});
 
 const CookiesBanner = ({ onClose, orderId }) => {
   const [bannerOpen, setBannerOpen] = React.useState(true);
@@ -48,11 +61,12 @@ const CookiesBanner = ({ onClose, orderId }) => {
   };
 
   const handleUpdateOrder = () => {
-    const orderId = order.item._id; // Assuming order ID is stored in order._id
-    // Navigate to the update-order route with the order ID
-    window.location.href = `/update-order/${orderId}`;
+    if (order && order.item && order.item._id) {
+      const orderId = order.item._id; // Assuming order ID is stored in order._id
+      // Navigate to the update-order route with the order ID
+      window.location.href = `/update-order/${orderId}`;
+    }
   };
-
 
   return (
     <React.Fragment>
@@ -82,23 +96,13 @@ const CookiesBanner = ({ onClose, orderId }) => {
               <Typography>Error: {error}</Typography>
             ) : (
               order && ( // Check if order exists before rendering
-                <Typography variant="body2">
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <MdConfirmationNumber style={{ marginRight: '0.5rem' }} /> Order ID: {order.item._id}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <MdShoppingBasket style={{ marginRight: '0.5rem' }} /> Item: {order.item.name}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <MdCode style={{ marginRight: '0.5rem' }} /> Item Code: {order.item.itemcode}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <MdRemoveShoppingCart style={{ marginRight: '0.5rem' }} /> Quantity: {order.item.quantity}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <MdAttachMoney style={{ marginRight: '0.5rem' }} /> Total Price: Rs. {order.item.price}
-                  </div>
-                </Typography>
+                <View style={styles.page}>
+                  <Text style={styles.text}><MdConfirmationNumber />Order ID: {order.item._id}</Text><br />
+                  <Text style={styles.text}><MdShoppingBasket /> Item: {order.item.name}</Text><br />
+                  <Text style={styles.text}><MdCode /> Item Code: {order.item.itemcode}</Text><br />
+                  <Text style={styles.text}><MdRemoveShoppingCart /> Quantity: {order.item.quantity}</Text><br />
+                  <Text style={styles.text}><MdAttachMoney /> Total Price: Rs. {order.item.price}</Text>
+                </View>
               )
             )}
           </DialogContent>
@@ -107,13 +111,40 @@ const CookiesBanner = ({ onClose, orderId }) => {
               Update
             </Button>
             {order && order.item && order.item._id && (
+              <PDFDownloadLink document={<InvoiceDocument order={order} />} fileName="invoice.pdf">
+                {({ blob, url, loading, error }) =>
+                  loading ? 'Loading document...' : (
+                    <Button variant="contained" style={{ backgroundColor: 'green', color: 'white' }}>
+                      Download Invoice
+                    </Button>
+                  )
+                }
+              </PDFDownloadLink>
+            )}
+            {order && order.item && order.item._id && (
               <DeleteOrderButton orderId={order.item._id} onClose={closeBanner} />
             )}
+            <Button onClick={closeBanner} color="secondary">
+              Close
+            </Button>
           </DialogActions>
         </Dialog>
       </TrapFocus>
     </React.Fragment>
   );
 }
+
+// Define PDF document component
+const InvoiceDocument = ({ order }) => (
+  <Document>
+    <Page style={styles.page}>
+      <Text style={styles.text}><MdConfirmationNumber /> Order ID: {order.item._id}</Text>
+      <Text style={styles.text}><MdShoppingBasket /> Item: {order.item.name}</Text>
+      <Text style={styles.text}><MdCode /> Item Code: {order.item.itemcode}</Text>
+      <Text style={styles.text}><MdRemoveShoppingCart /> Quantity: {order.item.quantity}</Text>
+      <Text style={styles.text}><MdAttachMoney /> Total Price: Rs. {order.item.price}</Text>
+    </Page>
+  </Document>
+);
 
 export default CookiesBanner;
