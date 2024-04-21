@@ -21,9 +21,15 @@ const ItemList = () => {
   }, []);
 
   return (
-    <div style={{ background: 'linear-gradient(to bottom, #f3e7e9, #a6c0fe)', minHeight: '100vh', padding: '20px' }}>
+    <div style={{
+        backgroundImage: `url('/paddy.jpg')`, 
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        padding: '20px'
+    }}>
       <Container maxWidth="md" style={{ marginTop: '100px'}}>
-        <Typography variant="h4" gutterBottom style={{ color: 'black' }}>
+        <Typography variant="h4" gutterBottom style={{ color: 'black', textAlign: 'center' }}>
           Available Items
         </Typography>
         <Grid container spacing={3}>
@@ -34,9 +40,9 @@ const ItemList = () => {
           ) : (
             items.map(item => (
               <Grid item key={item._id} xs={12} sm={6} md={4}>
-                <Paper style={{ padding: '20px', textAlign: 'center', cursor: 'pointer', backgroundColor: 'rgba(0, 255, 0, 0.4)', color: 'white' }}>
+                <Paper style={{ padding: '20px', textAlign: 'center', cursor: 'pointer', backgroundColor: '#00563F', color: 'white' }}>
                   <Link to={`/item/${item._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <Typography variant="h6" gutterBottom style={{ color: 'black'}}>
+                    <Typography variant="h6" gutterBottom style={{ color: 'white'}}>
                       {item.name}
                     </Typography>
                     <Typography variant="body1" gutterBottom style={{ color: 'black'}}>
