@@ -48,7 +48,10 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
     try {
       await axios.delete(`http://localhost:8070/api/reports/${inquiry._id}`);
       setIsDeleteSuccess(true);
-      onClosePopup(); // Close the popup after deleting the inquiry
+      onClosePopup(); 
+      setTimeout(() => {
+        window.location.reload(); 
+      }, 1000);
     } catch (error) {
       console.error(error);
     } finally {
