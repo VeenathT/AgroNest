@@ -25,8 +25,8 @@ const ArticleList = () => {
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Typography variant="h4" style={{ marginBottom: '20px', color: '#4CAF50' }}>Articles</Typography>
         <Grid container spacing={3}>
-          {filteredArticles.map(article => (
-            <Grid item key={article._id} xs={12}>
+          {filteredArticles.map((article, index) => (
+            <Grid item key={article._id} xs={12} sm={6} md={6} lg={6}>
               <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#FFFFFF' }}>
                 <CardContent style={{ flexGrow: 1 }}>
                   <Typography variant="h6" gutterBottom style={{ color: '#4CAF50' }}>
