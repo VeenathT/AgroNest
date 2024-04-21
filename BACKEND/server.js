@@ -53,6 +53,10 @@ app.use("/topdealer",topsellingSchema);
 const topareasSchema = require("./routes/Kande/TopAreasRoutes.js");
 app.use("/toparea",topareasSchema);
 
+const userSchema = require("./routes/Kande/managerloginRoutes.js");
+app.use(userSchema);
+
+
 
 
 

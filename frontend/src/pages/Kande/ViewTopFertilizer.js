@@ -3,13 +3,21 @@ import { Table, Button, Modal, Form, FormControl } from "react-bootstrap";
 import axios from "axios";
 import { PDFDocument} from '@react-pdf/renderer';
 import { AiOutlineSearch } from "react-icons/ai";
-import { PDFDownloadLink, Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
+import { PDFDownloadLink, Document, Page, View, Text, StyleSheet , Image} from "@react-pdf/renderer";
+import Swal from 'sweetalert2';
+import agronestLogo from '../../images/common/agronestlogo.jpg';
+
+
 
 const MyDocument = ({ data }) => (
+
+    
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
+      <Image style={styles.logo} src={agronestLogo} />
         <Text style={styles.title}>Top Fertilizers</Text>
+        
         <View style={styles.tableContainer}>
           <Table style={styles.table} fixed>
             <View style={styles.tableHeader}>
@@ -23,15 +31,22 @@ const MyDocument = ({ data }) => (
                   <Text style={styles.cell}>{index + 1}</Text>
                   <Text style={styles.cell}>{fertilizer.fertilizername}</Text>
                   <Text style={styles.cell}>{fertilizer.noofsales}</Text>
+
                 </View>
               ))}
             </View>
           </Table>
+          <Text>   </Text>
+          <Text style={styles.companyAddress}>AGRONEST,Yaya4,Anuradhapura</Text> {/* Add company address */}
+          <Text style={styles.dateTime}>{currentDate} {currentTime}</Text> {/* Add current date and time */}
         </View>
       </View>
     </Page>
   </Document>
 );
+
+    const currentDate = new Date().toLocaleDateString()
+    const currentTime = new Date().toLocaleTimeString();
 
 const styles = StyleSheet.create({
   page: {
@@ -86,6 +101,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000",
     flex: 1,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
+    alignSelf: 'center',
   },
 });
   
@@ -144,17 +165,36 @@ const ViewTopFertilizer = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this fertilizer?")) {
-      try {
-        await axios.delete(`http://localhost:8070/topfertilizercategory/delete/${id}`);
-        // Remove the deleted fertilizer from the state
-        setTopFertilizers(topFertilizers.filter(fertilizer => fertilizer._id !== id));
-        console.log("Fertilizer deleted successfully:", id);
-      } catch (error) {
-        console.error("Error deleting fertilizer:", error);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this fertilizer!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:8070/topfertilizercategory/delete/${id}`);
+          // Remove the deleted fertilizer from the state
+          setTopFertilizers(topFertilizers.filter(fertilizer => fertilizer._id !== id));
+          console.log("Fertilizer deleted successfully:", id);
+          // Show success message with OK button
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your fertilizer has been deleted successfully.",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK",
+          });
+        } catch (error) {
+          console.error("Error deleting fertilizer:", error);
+        }
       }
-    }
+    });
   };
+  
   // Generate PDF report
   const generateReport = () => {
     const fileName = "Top_Fertilizers_Report.pdf";
@@ -177,7 +217,7 @@ const ViewTopFertilizer = () => {
   return (
     <div className="container">
       <h1 style={{ color: "white" }}>Top Fertilizer List</h1>
-      <Button variant="primary" onClick={() => window.history.back()}>
+      <Button variant="primary" onClick={() => window.history.back()} style={{marginLeft:"-90%"}}>
         Go Back
       </Button>
       <FormControl

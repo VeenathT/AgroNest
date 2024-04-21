@@ -67,10 +67,15 @@ const AddTopfertilizer = () => {
                 </div>
             </div>
 
+           
+
             {/* form  */}
             <FertilizerForm >
+           
                 <h1>Add Top Fertlizer</h1>
-                <Form onSubmit={submitHandler}>
+               
+                <Form onSubmit={submitHandler} >
+                <div style={{width:"1000px"}}>
 
                     <Form.Group className="my-2" controlId="name">
                         <Form.Label>Fertilizer Name:</Form.Label>
@@ -80,7 +85,7 @@ const AddTopfertilizer = () => {
                             placeholder="Fertilizer Name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            style={{ padding: "10px" }}
+                            style={{ padding: "10px", width:"300px" }}
                         />
                     </Form.Group>
 
@@ -91,8 +96,9 @@ const AddTopfertilizer = () => {
                             required={true}
                             placeholder="Enter No of Sales"
                             value={sales}
+                            min={1}
                             onChange={(e) => setSales(e.target.value)}
-                            style={{ padding: "10px" }}
+                            style={{ padding: "10px",  width:"300px" }}
                         />
                     </Form.Group>
 
@@ -100,8 +106,11 @@ const AddTopfertilizer = () => {
                     <Button type='submit' variant="primary" style={{ maxWidth: "100%", height: "50px" }}>
                         Submit
                     </Button>
+                    </div>
                 </Form>
+              
             </FertilizerForm>
+            
             <br />
         </>
     )

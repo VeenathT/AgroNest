@@ -18,6 +18,7 @@ import AddTopSelling from  '../pages/Kande/TopSellingScreen'
 import AddTopAreas from '../pages/Kande/TopAreaScreen';
 import SysManagerDashboard from '../pages/Kande/SysManagerDashboard';
 import ViewTopFertilizer from '../pages/Kande/ViewTopFertilizer';
+import Login from '../Component/Kande/login/Login';
 
 
 const Router = () => {
@@ -78,6 +79,9 @@ const Router = () => {
         <Route path='/addtopsellingfertilizers' element={<AddTopSelling />} />
         <Route path='/addtopareas' element={<AddTopAreas />} />
         <Route path='/managerdashboard' element={<SysManagerDashboard />} />
+        <Route path='/Login' element={<Login />} />
+        
+
       </Routes>
     </>
   );
