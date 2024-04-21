@@ -86,9 +86,9 @@ const ImageMarked = styled('span')(({ theme }) => ({
 
 const InquiryCategory = () => {
   return (
-    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '64px' }}>
+    <div style={{ backgroundColor: '#FCF3CF', padding: '100px', marginTop: '20px' }}>
       <h1>Select Category</h1>
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '80px',marginBottom: '100px' }}>
         {images.map((image) => (
           <ImageButton
             key={image.title}
@@ -103,13 +103,13 @@ const InquiryCategory = () => {
             <Image>
               <Typography
                 component="span"
-                variant="subtitle1"
+                variant="h4"
                 color="inherit"
                 sx={{
                   position: 'relative',
                   p: 4,
                   pt: 2,
-                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 10px)`,
                 }}
               >
                 {image.title}
