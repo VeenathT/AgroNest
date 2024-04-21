@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StyledContainer = styled(Container)({
   marginTop: '50px',
-  backgroundColor: '#90EE90', // Setting background color
+  backgroundColor: 'rgba(169, 169, 169, 0.1)' // Setting background color
 });
 
 const Label = styled(Typography)({
@@ -74,7 +74,7 @@ const LabProfile = () => {
       const imgData = '../../../images/Oshini/logo.jpeg';
       doc.addImage(imgData, 'JPEG', 170, 10, 40, 40);
 
-      // Add title to the PDF
+
       doc.text('Laboratory Details', 10, 10);
   
       const data = [

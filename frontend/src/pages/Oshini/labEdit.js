@@ -63,7 +63,7 @@ const LabEdit = () => {
   }
 
   return (
-    <StyledContainer maxWidth="md" style={{ overflowY: 'scroll' }}>
+    <StyledContainer maxWidth="md">
       <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', margin: '50px auto' }}>
         <Typography variant="h4" gutterBottom>
           <center>Edit Your Details</center>
