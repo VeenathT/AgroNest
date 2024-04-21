@@ -14,6 +14,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
+const buttonStyle = {
+  padding: '10px 20px',
+  backgroundColor: '#007bff',
+  color: 'white',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  textDecoration: 'none',
+};
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
@@ -48,7 +57,10 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
     try {
       await axios.delete(`http://localhost:8070/api/reports/${inquiry._id}`);
       setIsDeleteSuccess(true);
-      onClosePopup(); // Close the popup after deleting the inquiry
+      onClosePopup(); 
+      setTimeout(() => {
+        window.location.reload(); 
+      }, 1000);
     } catch (error) {
       console.error(error);
     } finally {
@@ -118,10 +130,17 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
         <Button onClick={onClosePopup}>Close</Button>
         {inquiry.status === 'Resolved' && (
           <PDFDownloadLink document={<MyDocument />} fileName="inquiry_details.pdf">
-            {({ blob, url, loading, error }) =>
-              loading ? 'Loading document...' : 'Download'
-            }
-          </PDFDownloadLink>
+          {({ blob, url, loading, error }) => (
+            <a
+              style={buttonStyle}
+              href={url}
+              download="inquiry_details.pdf"
+              onClick={loading ? (e) => e.preventDefault() : null}
+            >
+              {loading ? 'Loading document...' : 'Download'}
+            </a>
+          )}
+        </PDFDownloadLink>
         )}
       </DialogActions>
 
