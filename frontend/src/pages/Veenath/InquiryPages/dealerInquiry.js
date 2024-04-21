@@ -56,7 +56,7 @@ const DealerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '100px' }}>
+    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '100px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
       <Typography variant="h3" gutterBottom align="center">Welcome to AgroNest Support Services !</Typography>
       <Tabs
         value={tabValue}
@@ -82,7 +82,7 @@ const DealerInquiry = () => {
         />
       </Tabs> 
       {tabValue === 0 ? (
-        <div> 
+        <div > 
           <Typography variant="h5" gutterBottom align="center">Pending Issues</Typography>
           <TextField 
             sx={{backgroundColor: '#FFFF', width: "500px", margin: "auto", marginBottom: '20px', ml:'250px' }}
@@ -101,7 +101,7 @@ const DealerInquiry = () => {
             style={{ marginBottom: '20px' }}
           />
           {filteredPendingInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center" marginLeft="40px">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>
@@ -131,7 +131,7 @@ const DealerInquiry = () => {
             style={{ marginBottom: '20px' }}
           />
           {filteredResolvedInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center" marginLeft="40px">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>
