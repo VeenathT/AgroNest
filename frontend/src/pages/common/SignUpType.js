@@ -44,7 +44,7 @@ const Signuptype = () => {
           variant="contained"
           color="primary"
           component={Link}
-          to="/laboratories"
+          to="/labSignup"
         >
           Laboratories
         </Button>

@@ -29,7 +29,7 @@ const FormContainer = styled('div')({
   borderRadius: '5px',
 });
 
-const LoginForm = () => {
+const LoginForm = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userName: '',
@@ -55,6 +55,7 @@ const LoginForm = () => {
       
       if (response.data.success) {
         sessionStorage.setItem('userName', formData.userName);
+        setIsLoggedIn(true);
        
         navigate('/labDash');
       } else {

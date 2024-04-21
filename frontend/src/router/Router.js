@@ -105,7 +105,7 @@ const Router = () => {
         <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/test-types' element={<TestType />}/>
         <Route path="/labSignup" element={<LabSignUp />} />
-        <Route path="/labLogin" element={<LabLogin />} />
+        <Route path="/labLogin" element={<LabLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/labDash" element={<LabDash />} />
         <Route path="/labProfile" element={<LabProfile />} />
         <Route path="/labEdit" element={<LabEdit />} />
