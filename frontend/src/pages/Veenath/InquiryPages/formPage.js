@@ -26,6 +26,7 @@ const FormPage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const inquiryId = new URLSearchParams(location.search).get('id');
+  const emailRegex = /\S+@\S+\.\S+/; // Regex for email format
 
   useEffect(() => {
     const fetchInquiryDetails = async () => {
@@ -53,6 +54,11 @@ const FormPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!emailRegex.test(name)) {
+        alert('Please enter a valid email address with the format example@gmail.com');
+        return;
+      }
+
       if (inquiryId) {
         await axios.put(`http://localhost:8070/api/reports/${inquiryId}`, {
           name,
@@ -148,7 +154,7 @@ const FormPage = () => {
           maxRows={10}
           InputProps={{
             endAdornment: (
-              <Box sx={{ display: '-ms-flexbox', gap: '10px' ,height: '200px'}}>
+              <Box sx={{ display: '-ms-flexbox', gap: '10px' ,height: '200px',width:'500px'}}>
                 <IconButton>
                   <FormatBold />
                 </IconButton>
@@ -161,10 +167,6 @@ const FormPage = () => {
                 <IconButton>
                   <FormatAlignLeft />
                 </IconButton>
-                <Button variant="outlined" component="label">
-                  Upload File
-                  <input type="file" hidden />
-                </Button>
               </Box>
             ),
           }}
@@ -185,11 +187,11 @@ const FormPage = () => {
             </MenuItem>
           </Select>
         </FormControl>
-        <Button type="submit" variant="contained" >
-          Send
+        <Button type="submit" variant="contained" sx={{ width: "200px", height: "50px", backgroundColor: "green", ml: "500px" }}>
+        {inquiryId ? 'Update' : 'Send'}
         </Button>
       </form>
-      <StyledSnackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+      <StyledSnackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <MuiAlert onClose={handleCloseSnackbar} variant="filled" severity="success" sx={{ width: '100%' }}>
           {successMessage}
         </MuiAlert>

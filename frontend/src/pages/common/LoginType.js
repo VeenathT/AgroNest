@@ -24,7 +24,7 @@ const Logintype = () => {
           variant="contained"
           color="primary"
           component={Link}
-          to="/farmers"
+          to="/Login"
         >
           Farmers
         </Button>
