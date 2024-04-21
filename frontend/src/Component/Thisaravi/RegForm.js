@@ -1,23 +1,81 @@
+import React, { useState } from 'react';
 import { Button, Grid, Input, Typography } from "@mui/material";
-const RegForm = props => {
+import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
+
+const RegForm = (props) => {
+   const Navigate= useNavigate();
+
+   const [formData, setFormData] = useState({
+      first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    district: '',
+    city: '',
+    userName: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+   const { name, value } = e.target;
+   setFormData((prevData) => ({
+     ...prevData,
+     [name]: value,
+   }));
+ };
+
+ const [errorMessage, setErrorMessage] = useState('');
+
+const handleSubmit = async (e) => {
+   e.preventDefault();
+   try {
+       const response = await axios.post('http://localhost:8070/Farmer/add', formData); // Make POST request to your backend API
+       console.log(response.data); // Log response from the backend
+       setFormData({
+         first_name: '',
+         last_name: '',
+         email: '',
+         phone: '',
+         district: '',
+         city: '',
+         userName: '',
+         password: '',
+       });
+       Navigate(`/Login`);
+   } catch (error) {
+       console.error('Error:' , error.response.data);
+        setErrorMessage(error.response.data.error);
+   }
+};
+
+
     return (
+      <form onSubmit={handleSubmit}>
         <Grid
             container
             spacing={2}
+            
             sx={{
-                backgroundColor: '#ffffff',
-                marginBottom: '30px',
-                display: 'block',
+               maxWidth: '600px',
+               margin: '-20px auto',
+               marginTop: '2cm',
+               boxSizing: 'border-box',
+               backgroundColor: 'rgba(255, 255, 255, 0.8)',
+               borderRadius: '20px',
+               padding: '20px',
+               boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+               textAlign: 'center',
             }}
         >
             <Grid item xs={12}>
                 <Typography component={'h1'} sx={{color: '#000000'}}>Create Account</Typography>
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="first_name"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -30,18 +88,18 @@ const RegForm = props => {
                  </Typography>
                  <Input
                     type="text"
-                    id='fName'
-                    name="Fname"
+                    id='first_name'
+                    name="first_name"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.first_name}
+                    onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="last_name"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -54,18 +112,18 @@ const RegForm = props => {
                  </Typography>
                  <Input
                     type="text"
-                    id='lName'
-                    name="lName"
+                    id='last_name'
+                    name="last_name"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.last_name}
+                    onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="email"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -81,15 +139,15 @@ const RegForm = props => {
                     id='email'
                     name="email"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.email}
+                    onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="phone"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -105,15 +163,15 @@ const RegForm = props => {
                     id='phone'
                     name="phone"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.phone}
+                    onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="district"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -129,15 +187,15 @@ const RegForm = props => {
                     id='district'
                     name="district"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.district}
+                    onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="city"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -153,15 +211,15 @@ const RegForm = props => {
                     id='city'
                     name="city"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.city}
+                    onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="userName"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -174,18 +232,20 @@ const RegForm = props => {
                  </Typography>
                  <Input
                     type="text"
-                    id='un'
-                    name="un"
+                    id='userName'
+                    name="userName"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.userName}
+                    onChange={handleChange}
                  />
             </Grid>
-
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            {errorMessage && (
+            <Typography sx={{ color: 'red' }}>{errorMessage}</Typography>
+        )}
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="id"
+                 htmlForm="password"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -198,31 +258,31 @@ const RegForm = props => {
                  </Typography>
                  <Input
                     type="text"
-                    id='pw'
-                    name="pw"
+                    id='password'
+                    name="password"
                     sx={{width:'400px'}}
-                    value={''}
-                    onChange={e => {}}
+                    value={formData.password}
+                    onChange={handleChange}
                  />
             </Grid>
 
-            <Button
-                sx={{
-                    margin: 'auto',
-                    marginBottom: '20px',
-                    backgroundColor: '#2DA771',
-                    color: '#000000',
-                    marginLeft: '15px',
-                    marginTop: '20px',
-                    '&:hover':{
-                        opacity: '0.7',
-                        backgroundColor: '#2DA771'
-                    }
-                }}
-            >
-                Sign Up
-            </Button>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          type='submit'
+          sx={{
+            backgroundColor: '#2DA771',
+            color: '#000000',
+            '&:hover': {
+              opacity: '0.7',
+              backgroundColor: '#2DA771'
+            }
+          }}
+        >
+          Sign Up
+        </Button>
+      </Grid>
         </Grid>
+        </form>
     );
 }
 
