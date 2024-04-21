@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 // Define the data for soil test types
 const TestType = [
@@ -39,15 +40,50 @@ function SoilTestPage() {
   );
   
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px', marginTop:'70px', marginLeft:'20px' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px', marginTop:'70px', marginLeft:'20px', marginRight:'20px' }}>
     <div>
       <h1 style={{ textAlign: 'center' }}>Soil Test Types</h1>
-      <input
-        type="text"
-        placeholder="Search for a soil test type"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <TextField
+          sx={{
+            '& .MuiSelect-iconOutlined': {
+                color: 'black' 
+              },
+              '& .MuiSelect-select': {
+                color: 'white', 
+                '&:focus': {
+                  backgroundColor: 'transparent' 
+                }
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', 
+                '&.Mui-focused': {
+                  color: 'black' 
+                }
+              },
+            marginTop: 2,
+            marginLeft: '350px',
+            borderRadius: '20px',
+            width: '51%',
+            '& .MuiOutlinedInput-root': { 
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'black !important',
+                borderWidth: '2px',
+                boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)', 
+              }, 
+            }
+          }}
+          placeholder="Search for a soil test type"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
       <ul>
         {filteredTestType.map((test, index) => (
           <li key={index}>
