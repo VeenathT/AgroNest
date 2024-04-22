@@ -14,7 +14,7 @@ const Header = ({ isLoggedIn, onLogout }) => {
         <Box>
         <Button color="inherit" component={Link} to="/inquiryCategory">Help</Button>
           <Button color="inherit" component={Link} to="/soiltest">Soil Test</Button>
-          <Button color="inherit" component={Link} to="/shop">Shop</Button>
+          <Button color="inherit" component={Link} to="/Itemlist">Shop</Button>
           {isLoggedIn ? (
             <>
               <Button variant="contained" color="success" sx={{ marginRight: 1 }} component={Link} to="/profiletype">Profile</Button>
