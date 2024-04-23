@@ -40,20 +40,13 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFF',
     textAlign: 'center',
   },
-  videoContainer: {
+  videoPlayer: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-  },
-  video: {
-    width: '80%',
-    maxHeight: '80%',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '60%',
+    height: 'auto',
   },
 }));
 
@@ -96,6 +89,10 @@ const ArticleList = () => {
     setShowVideo(true);
   };
 
+  const handleVideoClose = () => {
+    setShowVideo(false);
+  };
+
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
   };
@@ -121,26 +118,28 @@ const ArticleList = () => {
           </Select>
         </FormControl>
 
-        {/* Image and Video Overlay */}
+        {/* Image added below the page heading */}
         <div className={classes.imageContainer}>
           <img src="https://res.cloudinary.com/ds3n13gyv/image/upload/v1713824971/AgroNest/ghhdgotwunlm9l6t60fc.jpg" alt="Cloudinary Image" className={classes.image} />
           <Fade in={true} timeout={500}>
             <div className={classes.imageOverlay}>
-              <div className={classes.overlayContent}>
-                {!showVideo ? (
-                  <>
-                    <Typography variant="h5">Watch Now</Typography>
-                    <Button variant="contained" color="primary" onClick={handleWatchNow}>Watch</Button>
-                  </>
-                ) : (
-                  <div className={classes.videoContainer}>
-                    <video controls autoPlay className={classes.video}>
-                      <source src="https://res.cloudinary.com/ds3n13gyv/video/upload/v1713826245/AgroNest/lebuodtnrh6mcbhtimt3.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                )}
-              </div>
+              {showVideo ? (
+                <video
+                  className={classes.videoPlayer}
+                  controls
+                  autoPlay
+                  loop
+                  onClick={handleVideoClose}
+                >
+                  <source src="https://res.cloudinary.com/ds3n13gyv/video/upload/v1713826245/AgroNest/lebuodtnrh6mcbhtimt3.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <div className={classes.overlayContent}>
+                  <Typography variant="h5">A short reference</Typography>
+                  <Button variant="contained" color="primary" onClick={handleWatchNow}>Watch now</Button>
+                </div>
+              )}
             </div>
           </Fade>
         </div>
