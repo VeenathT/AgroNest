@@ -1,4 +1,3 @@
-// ArticleForm.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Card, CardContent, Typography, IconButton, Container, Grid } from '@material-ui/core';

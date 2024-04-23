@@ -1,12 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography, Grid, Container, Button } from '@material-ui/core';
+import { Card, CardContent, Typography, Grid, Container, Button, makeStyles, Fade, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import SearchBar from './SearchBar';
 import { PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer';
 
+const useStyles = makeStyles((theme) => ({
+  imageContainer: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(4),
+    position: 'relative',
+    '&:hover $imageOverlay': {
+      opacity: 1,
+      visibility: 'visible',
+    },
+    '&:hover $image': {
+      filter: 'brightness(50%)',
+    },
+  },
+  image: {
+    width: '40%',
+    borderRadius: theme.spacing(1),
+    transition: 'filter 0.3s ease',
+  },
+  imageOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    opacity: 0,
+    visibility: 'hidden',
+    transition: 'opacity 0.3s ease, visibility 0.3s ease',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlayContent: {
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  videoContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  video: {
+    width: '80%',
+    maxHeight: '80%',
+  },
+}));
+
 const ArticleList = () => {
+  const classes = useStyles();
   const [articles, setArticles] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('date');
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
     axios.get('http://localhost:8070/api/articles')
@@ -20,6 +76,14 @@ const ArticleList = () => {
     article.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const sortedArticles = filteredArticles.sort((a, b) => {
+    if (sortBy === 'wordCount') {
+      return a.content.split(/\s+/).length - b.content.split(/\s+/).length;
+    } else {
+      return new Date(b.date) - new Date(a.date);
+    }
+  });
+
   const ArticlePDF = ({ title, content }) => (
     <Document>
       <Page>
@@ -28,13 +92,61 @@ const ArticleList = () => {
     </Document>
   );
 
+  const handleWatchNow = () => {
+    setShowVideo(true);
+  };
+
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+  };
+
   return (
     <Container>
       <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Typography variant="h4" style={{ marginBottom: '20px', color: '#4CAF50' }}>Articles</Typography>
+        
+        {/* Sorting Section */}
+        <FormControl variant="outlined" style={{ marginBottom: '20px' }}>
+          <InputLabel id="sort-by-label">Sort By</InputLabel>
+          <Select
+            labelId="sort-by-label"
+            id="sort-by-select"
+            value={sortBy}
+            onChange={handleSortChange}
+            label="Sort By"
+          >
+            <MenuItem value="date">Date</MenuItem>
+            <MenuItem value="wordCount">Word Count</MenuItem>
+          </Select>
+        </FormControl>
+
+        {/* Image and Video Overlay */}
+        <div className={classes.imageContainer}>
+          <img src="https://res.cloudinary.com/ds3n13gyv/image/upload/v1713824971/AgroNest/ghhdgotwunlm9l6t60fc.jpg" alt="Cloudinary Image" className={classes.image} />
+          <Fade in={true} timeout={500}>
+            <div className={classes.imageOverlay}>
+              <div className={classes.overlayContent}>
+                {!showVideo ? (
+                  <>
+                    <Typography variant="h5">Watch Now</Typography>
+                    <Button variant="contained" color="primary" onClick={handleWatchNow}>Watch</Button>
+                  </>
+                ) : (
+                  <div className={classes.videoContainer}>
+                    <video controls autoPlay className={classes.video}>
+                      <source src="https://res.cloudinary.com/ds3n13gyv/video/upload/v1713826245/AgroNest/lebuodtnrh6mcbhtimt3.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Fade>
+        </div>
+
         <Grid container spacing={3}>
-          {filteredArticles.map((article, index) => (
+          {sortedArticles.map((article, index) => (
             <Grid item key={article._id} xs={12} sm={6} md={6} lg={6}>
               <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardContent style={{ flexGrow: 1 }}>
