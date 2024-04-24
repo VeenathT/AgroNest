@@ -12,10 +12,16 @@ import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
+//Veenath>>
 import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
 import FormPage from '../pages/Veenath/InquiryPages/formPage';
 import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
 import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
+import FeedbackForm from '../pages/Veenath/FeedbackPages/FeedbackForm';
+import PastFeedbackList from '../pages/Veenath/FeedbackPages/PastFeedbackList';
+import FeedbackCardView from '../pages/Veenath/FeedbackPages/FeedbackCardView';
+import DealerRating from '../pages/Veenath/FeedbackPages/DealerRating';
+//Veenath<<
 import LabSignUp from '../pages/Oshini/signup';
 import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
@@ -27,7 +33,6 @@ import ItemView from '../Component/Lasindu/ItemView';
 import OrderHistoryPage from '../Component/Lasindu/orderHistory';
 import UpdateOrderDialog from '../Component/Lasindu/orderUpdate';
 import ItemList from '../Component/Lasindu/Itemlist';
-
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
 import FarmerProfile from '../Component/Thisaravi/FarmerProfile';
@@ -95,10 +100,15 @@ const Router = () => {
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
+        
         <Route path="/inquiryCategory" element={<InquiryCategory />} />
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
+        <Route path='/FeedbackForm' element={<FeedbackForm />} />
+        <Route path='/PastFeedbackList' element={<PastFeedbackList />} />
+        <Route path='/FeedbackCardView' element={<FeedbackCardView />} />
+        <Route path='/DealerRating' element={<DealerRating />} />
 
         <Route path='/RegisterForm' element={<RegisterForm />}/>
         <Route path='/Profile' element={<Profile/>}/>
