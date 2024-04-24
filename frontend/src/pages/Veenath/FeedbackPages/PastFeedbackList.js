@@ -45,12 +45,7 @@ const PastFeedbackList = () => {
             <ListItemText primary={feedback.description} />
             <Button
               component={Link}
-              to={{
-                pathname: '/FeedbackForm',
-                state: {
-                  feedbackToEdit: feedback,
-                },
-              }}
+              to={`/FeedbackForm/${feedback._id}`} // Pass feedback ID as URL parameter
             >
               Edit
             </Button>
