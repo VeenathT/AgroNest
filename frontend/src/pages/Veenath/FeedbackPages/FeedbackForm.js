@@ -145,7 +145,7 @@ const FeedbackForm = () => {
               value={rating}
               onChange={(event, newValue) => setRating(newValue)}
               onChangeActive={(event, newHover) => setHover(newHover)}
-              sx={{ fontSize: 40 }}
+              sx={{ fontSize: 50 }}
             />
             <Box sx={{ ml: 2 }}>{rating !== null && (hover !== -1 ? hover : rating)}</Box>
           </Grid>
