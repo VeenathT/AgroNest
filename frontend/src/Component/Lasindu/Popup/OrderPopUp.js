@@ -17,7 +17,6 @@ import axios from 'axios';
 import DeleteOrderButton from '../OrderDelete';
 import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
-// Create styles for PDF document
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
@@ -40,7 +39,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
       setLoading(true);
       try {
         const response = await axios.get(`http://localhost:8070/order/get/${orderId}`);
-        setOrder(response.data); // Set the order object
+        setOrder(response.data);
         setLoading(false);
       } catch (error) {
         setError('Error fetching order details');
@@ -52,8 +51,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
       fetchOrderDetails();
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderId]); // Fetch order details when orderId changes
+  }, [orderId]);
 
   const closeBanner = () => {
     setBannerOpen(false);
@@ -62,8 +60,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
 
   const handleUpdateOrder = () => {
     if (order && order.item && order.item._id) {
-      const orderId = order.item._id; // Assuming order ID is stored in order._id
-      // Navigate to the update-order route with the order ID
+      const orderId = order.item._id;
       window.location.href = `/update-order/${orderId}`;
     }
   };
@@ -95,7 +92,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
             ) : error ? (
               <Typography>Error: {error}</Typography>
             ) : (
-              order && ( // Check if order exists before rendering
+              order && (
                 <View style={styles.page}>
                   <Text style={styles.text}><MdConfirmationNumber />Order ID: {order.item._id}</Text><br />
                   <Text style={styles.text}><MdShoppingBasket /> Item: {order.item.name}</Text><br />
@@ -134,7 +131,6 @@ const CookiesBanner = ({ onClose, orderId }) => {
   );
 }
 
-// Define PDF document component
 const InvoiceDocument = ({ order }) => (
   <Document>
     <Page style={styles.page}>
