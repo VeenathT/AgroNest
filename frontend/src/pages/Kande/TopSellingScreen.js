@@ -1,16 +1,17 @@
 import React from 'react';
-import AddTopSelling from '../../Component/Kande/AddTopSelling';
+import AddTopfertilizer from '../../Component/Kande/AddTopfertilizer';
+import backgroundImage from '../../images/common/background.avif'; 
 import '../../styles/Sudarshan/dealer_profile.css';
 
-const TopSelling = () => {
+const Topfertilizer = () => {
   return (
-    <div className="profile-page-container">
+    <div className="profile-page-container" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundAttachment: 'fixed', minHeight: '100vh'}}>
       <header />
       <div className="profile-page-content">
-        <AddTopSelling />
+        <AddTopfertilizer />
       </div>
     </div>
   );
 };
 
-export default TopSelling;
+export default Topfertilizer;

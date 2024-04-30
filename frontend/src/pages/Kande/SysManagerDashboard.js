@@ -1,13 +1,14 @@
 import React from "react";
 import { Nav } from "react-bootstrap"; // Import Nav component from react-bootstrap
 import { useNavigate } from "react-router-dom";
+import backgroundImage from '../../images/common/background.avif'; 
 
 const SysManagerDashboard = () => {
   const navigate = useNavigate(); // useNavigate hook from react-router-dom
 
   return (
     <div >
-      
+      <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', minHeight: '100vh' }}>
         <div className="row mt-5" style={{marginLeft:'400px'}} >
           <div className="col">
             <button
@@ -61,6 +62,7 @@ const SysManagerDashboard = () => {
           {/* Add your content here */}
         </div>
       </div>
+    </div>
     </div>
   );
 };

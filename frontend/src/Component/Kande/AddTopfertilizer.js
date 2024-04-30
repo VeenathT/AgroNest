@@ -96,7 +96,7 @@ const AddTopfertilizer = () => {
                             required={true}
                             placeholder="Enter No of Sales"
                             value={sales}
-                            min={1}
+                            min={1}                                         //validation
                             onChange={(e) => setSales(e.target.value)}
                             style={{ padding: "10px",  width:"300px" }}
                         />

@@ -73,7 +73,7 @@ export default function Login() {
                           className="form-outline mb-4"
                         >
                           <input
-                            type="email"
+                            type="email"                                       //validation
                             id="form2Example17"
                             className="form-control form-control-lg"
                             value={username}
