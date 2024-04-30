@@ -23,6 +23,10 @@ import LabProfile from '../pages/Oshini/labProfile';
 import LabEdit from '../pages/Oshini/labEdit';
 import TestAccept from '../pages/Oshini/accepted';
 import TestComplete from '../pages/Oshini/completed';
+import ItemView from '../Component/Lasindu/ItemView';
+import OrderHistoryPage from '../Component/Lasindu/orderHistory';
+import UpdateOrderDialog from '../Component/Lasindu/orderUpdate';
+import ItemList from '../Component/Lasindu/Itemlist';
 
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
@@ -116,6 +120,10 @@ const Router = () => {
         <Route path="/completed" element={<TestComplete />} />
         <Route path='/articles' element={<ArticleList/>} />
         <Route path='/addarticle' element={<ArticleForm/>} />
+        <Route path="/Itemlist" element={<ItemList />} />
+        <Route path="/Item/:id" element={<ItemView />}/>
+        <Route path="/Order-History" element={<OrderHistoryPage />}/>
+        <Route path="/update-order/:id" element={<UpdateOrderDialog open={true} />} />
       </Routes>
     </>
   );

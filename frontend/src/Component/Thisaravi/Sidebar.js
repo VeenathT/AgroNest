@@ -49,7 +49,7 @@ const Sidebar = ({farmerID}) => {
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to={'/Order-History'}>
           <ListItemIcon>
             <ShoppingCartIcon />
           </ListItemIcon>
@@ -67,7 +67,7 @@ const Sidebar = ({farmerID}) => {
           </ListItemIcon>
           <ListItemText primary="Feedbacks" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to={'/farmerInquiry'}>
           <ListItemIcon>
             <ForumIcon />
           </ListItemIcon>

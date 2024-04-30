@@ -26,7 +26,7 @@ const FormPage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const inquiryId = new URLSearchParams(location.search).get('id');
-  const emailRegex = /\S+@\S+\.\S+/; // Regex for email format
+  const emailRegex = /\S+@\S+\.\S+/; 
 
   useEffect(() => {
     const fetchInquiryDetails = async () => {
