@@ -42,6 +42,11 @@ import TestType from '../pages/Thisaravi/SoilTest/TestType';
 import ArticleList from '../pages/Nilupul/ArticleList';
 import ArticleForm from '../pages/Nilupul/ArticleForm';
 
+//Rahul
+import DealerList from '../Component/Rahul/DealerList';
+import FarmerList from '../Component/Rahul/FarmerList';
+import LabCards from '../Component/Rahul/LabCard';
+import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -124,6 +129,11 @@ const Router = () => {
         <Route path="/Item/:id" element={<ItemView />}/>
         <Route path="/Order-History" element={<OrderHistoryPage />}/>
         <Route path="/update-order/:id" element={<UpdateOrderDialog open={true} />} />
+        <Route path="/viewdealers" element={<DealerList />}  />
+        <Route path="/viewfarmers" element={<FarmerList />} />
+        <Route path="/labrotaryview" element={<LabCards />} />
+        <Route path="/userreports" element={<FullWidthTabs />} />
+
       </Routes>
     </>
   );
