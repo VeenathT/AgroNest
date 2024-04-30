@@ -26,6 +26,27 @@ const FormPage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const inquiryId = new URLSearchParams(location.search).get('id');
+  const emailRegex = /\S+@\S+\.\S+/; 
+
+  useEffect(() => {
+    const fetchInquiryDetails = async () => {
+      try {
+        if (inquiryId) {
+          const response = await axios.get(`http://localhost:8070/api/reports/${inquiryId}`);
+          const { name, topic, description, priority, area ,category } = response.data;
+          console.log('Fetched inquiry details:', response.data);
+          setName(name);
+          setTopic(topic);
+          setDescription(description);
+          setPriority(priority);
+          setArea(area);
+          console.log('Category ID:', category);
+          setCategoryValue(category);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
   const emailRegex = /\S+@\S+\.\S+/; // Regex for email format
 // const FormPage = () => {
 //   const navigate = useNavigate();

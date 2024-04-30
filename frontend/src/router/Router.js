@@ -23,6 +23,10 @@ import LabProfile from '../pages/Oshini/labProfile';
 import LabEdit from '../pages/Oshini/labEdit';
 import TestAccept from '../pages/Oshini/accepted';
 import TestComplete from '../pages/Oshini/completed';
+import ItemView from '../Component/Lasindu/ItemView';
+import OrderHistoryPage from '../Component/Lasindu/orderHistory';
+import UpdateOrderDialog from '../Component/Lasindu/orderUpdate';
+import ItemList from '../Component/Lasindu/Itemlist';
 
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
@@ -35,6 +39,9 @@ import RequestDetails from '../pages/Thisaravi/SoilTest/RequestDetails';
 import UpdateRequest from '../pages/Thisaravi/SoilTest/UpdateRequest';
 import Login from '../pages/Thisaravi/Login';
 import TestType from '../pages/Thisaravi/SoilTest/TestType';
+import ArticleList from '../pages/Nilupul/ArticleList';
+import ArticleForm from '../pages/Nilupul/ArticleForm';
+
 
 //Rahul
 
@@ -122,6 +129,12 @@ const Router = () => {
         <Route path="/labEdit" element={<LabEdit />} />
         <Route path="/accepted" element={<TestAccept />} />
         <Route path="/completed" element={<TestComplete />} />
+        <Route path='/articles' element={<ArticleList/>} />
+        <Route path='/addarticle' element={<ArticleForm/>} />
+        <Route path="/Itemlist" element={<ItemList />} />
+        <Route path="/Item/:id" element={<ItemView />}/>
+        <Route path="/Order-History" element={<OrderHistoryPage />}/>
+        <Route path="/update-order/:id" element={<UpdateOrderDialog open={true} />} />
 
         {/* Rahul */}
         <Route path="/viewdealers" element={<DealerList />} />

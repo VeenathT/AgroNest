@@ -27,6 +27,12 @@ app.use(session({
   store: MongoStore.create({ mongoUrl: 'mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest' }), // Adjust the MongoDB URL as needed
 }));
 //end---------------------------------
+const fs = require('fs');
+
+
+//Nilupul
+const articleRoutes = require('./routes/Nilupul/articleRoutes.js');
+
 
 //rahul
 const dealerRoutes = require('./routes/Rahul/dealer.routes');
@@ -85,6 +91,14 @@ app.use("/FAnalysis",FAnalysis);
 //Oshini
 const labRouter = require("./routes/Oshini/lab_account/labAccounts.js");
 app.use("/labAccount", labRouter);
+
+//Lasindu
+const ItemRouter = require('./routes/Lasindu/ItemR');
+app.use('/item', ItemRouter);
+
+const OrderRouter = require('./routes/Lasindu/OrderR');
+app.use('/order', OrderRouter);
+//Lasindu
 //Rahul
 app.use(dealerRoutes);
 app.use(farmerRoutes);
@@ -145,6 +159,20 @@ cron.schedule('0 0 * * *', async () => {
   
   //--------------------------------------------------------------------------------------------------------------------------
   
+
+// const articlerouter = require("./routes/Nilupul/articleRoutes.js")
+// app.use("/articleModel.js", articlerouter);
+
+app.use('/api/articles', articleRoutes);
+
+
+
+// const articlerouter = require("./routes/Nilupul/articleRoutes.js")
+// app.use("/articleModel.js", articlerouter);
+
+app.use('/api/articles', articleRoutes);
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`);
