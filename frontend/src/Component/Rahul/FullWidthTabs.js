@@ -12,7 +12,7 @@ import Sidebar from './Sidebar';
 
 // import AdminHome from '../../pages/AdminHome';
 import DealerListComponent from '../Rahul/DealerListComponent';
-// import FarmerListComponent from './FarmerListComponent';
+import FarmerListComponent from './FarmerListComponent';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -91,7 +91,7 @@ export default function FullWidthTabs() {
          <DealerListComponent/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          {/* <FarmerListComponent/> */}
+          <FarmerListComponent/>
         </TabPanel>
         
       </SwipeableViews>

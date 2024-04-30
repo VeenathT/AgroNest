@@ -13,7 +13,7 @@ const columnHelper = createMRTColumnHelper();
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', 
+      main: '#1976d2',
     },
   },
 });
@@ -36,31 +36,64 @@ const DealerList = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8070/dealers/${id}`);
+      const updatedDealers = dealers.filter(dealer => dealer.id !== id);
+      setDealers(updatedDealers);
+    } catch (error) {
+      console.error('Error deleting dealer:', error);
+    }
+  };
+
   const columns = [
-    
     columnHelper.accessor('name', {
       header: 'Name',
       size: 120,
     }),
-
+  
     columnHelper.accessor('address', {
       header: 'Address',
       size: 120,
     }),
-
+  
     columnHelper.accessor('email', {
       header: 'Email',
       size: 200,
     }),
+  
     columnHelper.accessor('phone', {
       header: 'Phone',
       size: 150,
     }),
+  
     columnHelper.accessor('storeLocation', {
       header: 'Store Location',
-      size: 200,
+      size: 150,
     }),
+  
+// Custom action column
+{
+  id: 'actions',
+  header: 'Actions',
+  size: 200, // Increased size to accommodate buttons
+  // Define the render function to render custom content in the action column
+  render: (row) => (
+    <Box>
+      <Button onClick={() => handleDelete(row.id)} variant="contained" color="error">
+        Delete
+      </Button>
+      <Button variant="contained" color="primary">
+        Edit
+      </Button>
+    </Box>
+  ),
+},
+
+
+
   ];
+  
 
   const csvConfig = mkConfig({
     fieldSeparator: ',',
@@ -88,19 +121,13 @@ const DealerList = () => {
     positionToolbarAlertBanner: 'bottom',
     renderTopToolbarCustomActions: ({ table }) => (
       <Box
-      sx={{
-        display: 'flex',
-        gap: '12px',
-        padding: '8px',
-        flexWrap: 'wrap',
-        marginTop: '90px',
-        justifyContent: 'flex-start', 
-      }}
+        sx={{
+          gap: '12px',
+          padding: '8px',
+          marginTop: '90px',
+        }}
       >
-        <Button
-          onClick={handleExportData}
-          startIcon={<FileDownloadIcon />}
-        >
+        <Button onClick={handleExportData} startIcon={<FileDownloadIcon />}>
           Export All Data
         </Button>
         <Button
@@ -135,13 +162,16 @@ const DealerList = () => {
   return (
     <Grid container>
       <Grid item xs={3}>
-        <Sidebar />
+        <Sidebar/>
       </Grid>
-      <Grid item xs={9}>
-        <ThemeProvider theme={theme}>
-          <MaterialReactTable table={table} />
-        </ThemeProvider>
-      </Grid>
+      <Grid item xs={9} style={{ marginLeft: '180px' }}>
+  <div style={{ width: 'calc(100% + 150px)', overflowX: 'hidden' }}>
+    <ThemeProvider theme={theme}>
+      <MaterialReactTable table={table} />
+    </ThemeProvider>
+  </div>
+</Grid>
+
     </Grid>
   );
 };

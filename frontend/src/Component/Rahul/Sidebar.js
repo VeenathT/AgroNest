@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
   drawerPaper: {
-    width: 200,
+    width: 180,
     marginTop: '80px',
-    backgroundColor: '#ffffff',
+    backgroundColor: 'red',
   },
 }));
 
@@ -42,7 +42,7 @@ const Sidebar = ({ farmerID }) => {
       anchor="left"
     >
       <List>
-        <ListItem button component={Link} to={`/farmer/${farmerID}`}>
+        <ListItem button component={Link} to={``}>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>

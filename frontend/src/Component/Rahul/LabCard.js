@@ -130,7 +130,7 @@ const LabCards = () => {
         </div>
 
         {/* Cards */}
-        <div style={{ display: 'flex', flexWrap: 'wrap' ,marginLeft:'80px', marginTop:'20px'}}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' ,marginLeft:'140px', marginTop:'20px'}}>
           {filteredLabs.map((lab, index) => (
             <Card key={lab._id} sx={{ width: 200, margin: '25px', position: 'relative', backgroundImage: `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url(${labBackground})`, backgroundSize: 'cover', borderRadius: '15px' }}>
               <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '93%' }}>

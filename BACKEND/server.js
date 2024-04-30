@@ -111,6 +111,9 @@ app.use("/farmerReport", dealerReportRouter);
 const replyRoutess = require('./routes/Rahul/reply.js');
 app.use('/replies', replyRoutess);
 
+const farmerReport = require('./routes/Rahul/farmerReport.js')
+app.use("/farmerReport",farmerReport)
+
 
 
 //------------------------------------------------------------------------------------------------------------------

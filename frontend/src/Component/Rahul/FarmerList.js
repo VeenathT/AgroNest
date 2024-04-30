@@ -81,10 +81,10 @@ const FarmerList = () => {
       <Box
         sx={{
           display: 'flex',
-          gap: '16px',
+          gap: '12px',
           padding: '8px',
           flexWrap: 'wrap',
-          marginTop:'60px',
+          marginTop:'90px',
           justifyContent: 'flex-end',
           
         }}
@@ -129,10 +129,12 @@ const FarmerList = () => {
       <Grid item xs={3}>
         <Sidebar />
       </Grid>
-      <Grid item xs={9}>
-        <ThemeProvider theme={theme}>
-          <MaterialReactTable table={table} />
-        </ThemeProvider>
+      <Grid item xs={9} style={{ marginLeft: '180px' }}>
+      <div style={{ width: 'calc(100% + 150px)', overflowX: 'hidden' }}>
+    <ThemeProvider theme={theme}>
+      <MaterialReactTable table={table} />
+    </ThemeProvider>
+  </div>
       </Grid>
     </Grid>
   );
