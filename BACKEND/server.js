@@ -114,6 +114,18 @@ app.use('/replies', replyRoutess);
 const farmerReport = require('./routes/Rahul/farmerReport.js')
 app.use("/farmerReport",farmerReport)
 
+const adminRoutes = require('./routes/Rahul/adminRoutes.js');
+app.use('/admin', adminRoutes);
+
+const countDealer = require('./routes/Rahul/countCealer.js')
+app.use(countDealer);
+
+const inquiryCount = require('./routes/Rahul/inquiryCount.js');
+app.use(inquiryCount);
+
+app.use('/api/auth', adminRoutes);
+
+
 
 
 //------------------------------------------------------------------------------------------------------------------

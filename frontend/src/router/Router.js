@@ -47,6 +47,8 @@ import DealerList from '../Component/Rahul/DealerList';
 import FarmerList from '../Component/Rahul/FarmerList';
 import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
+import AdminLogin from '../Component/Rahul/AdminLogin';
+import AdminDashboard from '../pages/Rahul/AdminDashboard'
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -133,6 +135,8 @@ const Router = () => {
         <Route path="/viewfarmers" element={<FarmerList />} />
         <Route path="/labrotaryview" element={<LabCards />} />
         <Route path="/userreports" element={<FullWidthTabs />} />
+        <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path='/admin/home' element={<AdminDashboard/>} />
 
       </Routes>
     </>

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: 180,
     marginTop: '80px',
-    backgroundColor: 'red',
+    backgroundColor: 'purewhite',
   },
 }));
 
@@ -42,7 +42,7 @@ const Sidebar = ({ farmerID }) => {
       anchor="left"
     >
       <List>
-        <ListItem button component={Link} to={``}>
+        <ListItem button component={Link} to={`/admin/home`}>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
