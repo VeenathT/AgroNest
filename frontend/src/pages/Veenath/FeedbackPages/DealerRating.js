@@ -32,7 +32,7 @@ const DealerRating = () => {
         {averageRating.toFixed(1)}
       </Typography>
       <Box display="flex" justifyContent="center" mb={3}>
-        <Rating value={averageRating} precision={0.5} readOnly />
+        <Rating value={averageRating} precision={0.25} readOnly />
       </Box>
     </Container>
   );
