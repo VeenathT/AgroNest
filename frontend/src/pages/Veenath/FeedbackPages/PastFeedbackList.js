@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ListItemText, Button, Typography, Container, Accordion, AccordionSummary, AccordionDetails, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { DeleteOutline, Edit } from '@mui/icons-material';
+import { DeleteOutline, Edit, SentimentVeryDissatisfied, SentimentDissatisfied, SentimentSatisfied, SentimentSatisfiedAltOutlined, SentimentVerySatisfied } from '@mui/icons-material';
 import axios from 'axios';
 
 const PastFeedbackList = () => {
@@ -48,6 +48,23 @@ const PastFeedbackList = () => {
     setEditDialogOpen(false);
   };
 
+  const getFaceIcon = (rating) => {
+    switch (rating) {
+      case 1:
+        return <SentimentVeryDissatisfied style={{ color: '#E66060' , fontSize: 35 }} />;
+      case 2:
+        return <SentimentDissatisfied style={{ color: '	#FFA500', fontSize: 35 }} />;
+      case 3:
+        return <SentimentSatisfied style={{ color: '#FFEA00', fontSize: 35 }} />;
+      case 4:
+        return <SentimentSatisfiedAltOutlined style={{ color: '#8FD547', fontSize: 35 }} />;
+      case 5:
+        return <SentimentVerySatisfied style={{ color: '#06CB00' , fontSize: 35 }} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <Container style={{ marginTop: '100px', backgroundColor: '#F5F5F5', padding: '20px' }} maxWidth="md">
       <Typography variant="h4" align="center" gutterBottom>
@@ -57,13 +74,14 @@ const PastFeedbackList = () => {
         <div key={feedback._id} style={{ marginBottom: '20px' }}>
           {index !== 0 && <Divider />}
           <Accordion>
-            <AccordionSummary>
+            <AccordionSummary style={{ justifyContent: 'space-between' }}>
               <ListItemText primary={`Item Code: ${feedback.itemcode}`} secondary={`Rating: ${feedback.starRating}`} />
+              {getFaceIcon(feedback.starRating)}
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{feedback.description}</Typography>
-              <Button onClick={() => handleEdit(feedback._id)}><Edit />Edit</Button>
-              <Button onClick={() => { setDeleteDialogOpen(true); setSelectedFeedbackId(feedback._id); }}><DeleteOutline />Delete</Button>
+              <Button style={{ marginTop:'10px', marginRight:'10px' }} variant="contained" color="success" onClick={() => handleEdit(feedback._id)}><Edit /></Button>
+              <Button style={{ marginTop:'10px' }} variant="contained" color="error" onClick={() => { setDeleteDialogOpen(true); setSelectedFeedbackId(feedback._id); }}><DeleteOutline /></Button>
             </AccordionDetails>
           </Accordion>
         </div>
