@@ -1,4 +1,6 @@
 # AgroNest - Fertilizer Management System
+![AgroNest ](https://github.com/VeenathT/AgroNest/assets/159011911/29158cd5-7f91-4b94-bff7-5a5ce60d634b)
+Welcome to AgroNest! , Our comprehensive solution for fertilizer management. This project aims to streamline various aspects of farming, including Fertilizer Buying & Selling, Laboratory Management, Soil Quality Guidance, Promotions Handling, Fertilizer Data Analysis, Feedback Collection, and more.
 ## About Our Web Application:-
 Our web application stands at the forefront of agricultural innovation, offering a holistic solution 
 to streamline fertilizer management practices and empower stakeholders across the agricultural 
@@ -18,20 +20,12 @@ agricultural information and product promotion, attracting users and increasing 
 features like targeted distribution and promotional content management. Every facet of our 
 application, from dealer profile management to fertilizer analysis reports, is painstakingly crafted 
 to improve farming practices, boost production, and promote long-term farming community growth
-## Main Actors In Our System:-
-##### Farmer
-##### Dealer 
-##### Company Administrator 
-##### System Manager
-##### Laboratory 
-##### User (visitor)
 
-## Collaborations:-
-##### Veenath G.D.T.          - Feedback and Inquiry Management 
-##### Semasingha W.A.L.D.     - Order Management
-##### Thisaravi R.D.H.        - Farmer Profile and Soil Quality Management
-##### Mihindukulasuriya O.S.  - Laboratory Management 
-##### Rahul N.W.P.G.T.T.      -  Manage Admin Dashboard
-##### Kandage T.P.            - System Data Analysis
-##### Dayarathna W.R.S.       - Dealer Profile and Inventory Management
-##### Perera G.D.G.N.         - Article and Promotion Management
+
+## Libraries and Frameworks:–
+##### • **React** :- A JavaScript library for building user interfaces, React can be used for developing the front-end components of our web application. Its component-based architecture and virtual DOM makes it well-suited for creating interactive and responsive UIs. 
+##### • **Node.js** :- As a server-side runtime environment, Node.js allows us to run JavaScript code on the server, enabling the development of scalable and efficient backend services. It provides a non-blocking, event-driven architecture, making it suitable for handling asynchronous operations. 
+##### • **Express.js** :- A minimalist web framework for Node.js, Express.js simplifies the process of building web applications and APIs by providing a robust set of features for routing, middleware, and HTTP utilities. It's lightweight and highly extensible, making it ideal for building RESTful APIs. 
+##### • **MongoDB** :- A popular NoSQL database, MongoDB is known for its flexibility, scalability, and performance. It stores data in a flexible, JSON-like format called BSON and supports features like sharding and replication, making it suitable for handling large volumes of data. 
+ ##### • **Mongoose** :- A MongoDB object modeling tool designed for Node.js, Mongoose provides a straightforward way to work with MongoDB databases by providing a schema-based solution for modeling application data. It simplifies tasks such as validation, querying, and data manipulation. 
+ ##### • **Twilio** :- For integrating SMS functionality into our application. These APIs allow us to send and receive text messages programmatically, enabling features like SMS notifications and two-factor authentication.

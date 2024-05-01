@@ -14,6 +14,10 @@ router.post('/registerDealer', async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
         const reEnteredPassword = req.body.reEnteredPassword;
+
+      if (!name || !address || !email || !phone || !storeLocation || !username || !password || !reEnteredPassword) {
+          return res.status(400).json({ error: 'All fields are required' });
+      }  
       
       if (password !== reEnteredPassword) {
         return res.status(400).json({ error: 'Passwords do not match' });
@@ -68,13 +72,13 @@ router.post('/registerDealer', async (req, res) => {
 
         
         if (!dealer) {
-            return res.status(404).json({ error: 'Dealer not found' });
+            return res.status(404).json({ error: 'Dealer not found! Invalid username' });
         }
 
         
         const isPasswordValid = await bcrypt.compare(password, dealer.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid username or password' });
+            return res.status(401).json({ error: 'Password Incorrect' });
         }
 
         // Create and send JWT token
@@ -106,6 +110,7 @@ router.get('/dealers', async (req, res) => {
     }
 
     console.log('Dealer data:', dealer);
+    
 
     res.status(200).json(dealer);
   } catch (error) {
@@ -121,11 +126,10 @@ module.exports = router;
 router.put('/updateDealer/:id', async (req, res) => {
   try {
     const dealerId = req.params.id;
-    const { username, name, email, phone, storeLocation, address, password, reEnteredPassword, image } = req.body;
+    const { username, name, email, phone, storeLocation, address, password, reEnteredPassword} = req.body;
 
     console.log('Received Update Request for Dealer:', req.params.id);
     console.log('Request Body:', req.body);
-    console.log('Image Data:', image);
 
     // Check if the dealer exists
     const dealer = await Dealer.findById(dealerId);
@@ -148,13 +152,6 @@ router.put('/updateDealer/:id', async (req, res) => {
     dealer.phone = phone;
     dealer.storeLocation = storeLocation;
     dealer.address = address;
-    if (image) {
-      console.log('Updating Image...');
-      console.log('Image Data:', image);
-      dealer.image.data = image.data;
-      dealer.image.contentType = image.contentType;
-      console.log('Dealer Image Data:', dealer.image);
-    }
     dealer.password = hashedPassword; // Store hashed password in the database
     dealer.reEnteredPassword = reEnteredPassword;
 
