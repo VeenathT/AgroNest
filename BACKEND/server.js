@@ -61,10 +61,12 @@ const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
 app.use("/api/feedbacks", farmerFeedbackRoutes);
 
 const farmerReportRoutes = require("./routes/Veenath/farmerReports.js");
-app.use("/api/reports", farmerReportRoutes);
+app.use("/api/reports/", farmerReportRoutes);
 
 const suggestionRoutes = require("./routes/Veenath/suggestions.js");
 app.use("/api/suggestions", suggestionRoutes);
+const replyRoutes = require('./routes/Veenath/getReplyDealer.js');
+app.use('/api/repo', replyRoutes);
 //<<Veenath
 
 
@@ -119,12 +121,10 @@ app.use('/admin', adminRoutes);
 
 const countDealer = require('./routes/Rahul/countCealer.js')
 app.use(countDealer);
-
 const inquiryCount = require('./routes/Rahul/inquiryCount.js');
 app.use(inquiryCount);
 
 app.use('/api/auth', adminRoutes);
-
 
 
 
