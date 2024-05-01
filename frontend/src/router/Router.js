@@ -46,6 +46,7 @@ import Login from '../pages/Thisaravi/Login';
 import TestType from '../pages/Thisaravi/SoilTest/TestType';
 import ArticleList from '../pages/Nilupul/ArticleList';
 import ArticleForm from '../pages/Nilupul/ArticleForm';
+import ShopAnalysis from '../pages/Sudarshan/Analysis';
 
 
 const Router = () => {
@@ -100,6 +101,7 @@ const Router = () => {
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
+        <Route path="/analysis" element={<ShopAnalysis />} />
         
         <Route path="/inquiryCategory" element={<InquiryCategory />} />
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
