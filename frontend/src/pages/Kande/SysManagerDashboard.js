@@ -2,6 +2,9 @@ import React from "react";
 import { Nav } from "react-bootstrap"; // Import Nav component from react-bootstrap
 import { useNavigate } from "react-router-dom";
 import backgroundImage from '../../images/common/background.avif'; 
+import TopSellerChart from "../../pages/Kande/TopSellerChart";
+
+
 
 const SysManagerDashboard = () => {
   const navigate = useNavigate(); // useNavigate hook from react-router-dom
@@ -32,8 +35,12 @@ const SysManagerDashboard = () => {
             >
               Add Areas With Highest Registrations
             </button>
+
+            
           </div>
         </div>
+
+     
      
      <div>
         <section className="col-3" style={{ backgroundColor: "#fff" }}>
@@ -62,7 +69,9 @@ const SysManagerDashboard = () => {
           {/* Add your content here */}
         </div>
       </div>
+      <TopSellerChart/>
     </div>
+   
     </div>
   );
 };

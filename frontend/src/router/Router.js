@@ -14,11 +14,15 @@ import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
 import TopFertilizer from  '../pages/Kande/TopfertilizerScreen'
-import AddTopSelling from  '../pages/Kande/TopSellingScreen'
 import AddTopAreas from '../pages/Kande/TopAreaScreen';
 import SysManagerDashboard from '../pages/Kande/SysManagerDashboard';
 import ViewTopFertilizer from '../pages/Kande/ViewTopFertilizer';
 import Login from '../Component/Kande/login/Login';
+import TopArea from '../pages/Kande/TopAreaScreen';
+import AddTopfertilizer from'../Component/Kande/AddTopSelling'
+import ViewTopSellers from '../pages/Kande/ViewTopSelling';
+import  ViewTopRegisterdArea from'../pages/Kande/ViewTopAreas'
+
 
 
 const Router = () => {
@@ -76,10 +80,17 @@ const Router = () => {
         {/* Kande Routes */}
         <Route path='/addtopfertilizers' element={<TopFertilizer />} />
         <Route path='/viewtopfertilizers' element={<ViewTopFertilizer />} />
-        <Route path='/addtopsellingfertilizers' element={<AddTopSelling />} />
+        <Route path='/addtopsellingfertilizers' element={<AddTopfertilizer />} />
         <Route path='/addtopareas' element={<AddTopAreas />} />
         <Route path='/managerdashboard' element={<SysManagerDashboard />} />
         <Route path='/Login' element={<Login />} />
+        <Route path='/TopArea' element={<TopArea />} />
+        <Route path='/TopSellers'element={< ViewTopSellers/>} ></Route>
+        <Route path='/ViewTopRegisterdArea'element={<  ViewTopRegisterdArea/>} ></Route>
+
+       
+        
+
         
 
       </Routes>

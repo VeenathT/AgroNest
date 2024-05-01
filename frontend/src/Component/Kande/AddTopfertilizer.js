@@ -77,8 +77,8 @@ const AddTopfertilizer = () => {
                 <Form onSubmit={submitHandler} >
                 <div style={{width:"1000px"}}>
 
-                    <Form.Group className="my-2" controlId="name">
-                        <Form.Label>Fertilizer Name:</Form.Label>
+                    <Form.Group className="my-2" controlId="name2">
+                        <Form.Label>Fertilizer NAme:</Form.Label>
                         <Form.Control
                             type='text'
                             required={true}

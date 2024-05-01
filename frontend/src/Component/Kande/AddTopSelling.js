@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import FertilizerForm from "./FormCntainer/FertilizerForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios"; 
 
 
 
@@ -20,7 +21,7 @@ const AddTopSelling = () => {
 
     const handleviewClick = () => {
         // Navigate to the Service Record List screen
-        navigate("");
+        navigate("/TopSellers");
     };
 
 
@@ -30,25 +31,31 @@ const AddTopSelling = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         if (!isNaN(parseInt(name.trim()))) {
-            toast.error('Name cannot be a number.');
+            alert('Name cannot be a number.');
         } else {
-            // try {
-            //     const res = await insertfertlizer({ 
-            //         name,
-            //         sales
-            //     }).unwrap();
-            //     if (res) {
-            //         toast.success('Fertilizer added successfully!');
-                    
-            //         setName('');
-            //         setSales('');
-            //     }
-            // } catch (err) {
-            //     console.error(err);
-            //     toast.error(err?.data?.message || err.message || 'An error occurred');
-            // }
+            try {
+                // Make a POST request to the backend API endpoint
+                const response = await axios.post('http://localhost:8070/topdealer/add', {
+                    dealername: name,
+                    noofsales: sales
+                });
+
+                // Check if the request was successful
+                if (response.status === 200){
+                    alert('Top Fertilizer Added Successfully');
+                    // Clear the form fields after successful submission
+                    setName('');
+                    setSales('');
+                } else {
+                    alert('Failed to add top fertilizer. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error adding top fertilizer:', error);
+                alert('Failed to add top fertilizer. Please try again.');
+            }
         }
     }
+
 
 
     return (
@@ -70,11 +77,11 @@ const AddTopSelling = () => {
                 <Form onSubmit={submitHandler}>
 
                     <Form.Group className="my-2" controlId="name">
-                        <Form.Label>Fertilizer Name:</Form.Label>
+                        <Form.Label>Dealer Name:</Form.Label>
                         <Form.Control
                             type='text'
                             required={true}
-                            placeholder="Fertilizer Name"
+                            placeholder="Dealer Name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             style={{ padding: "10px" }}
@@ -94,7 +101,7 @@ const AddTopSelling = () => {
                     </Form.Group>
 
 
-                    <Button type='submit' variant="primary" style={{ maxWidth: "100%", height: "50px" }}>
+                    <Button type='submit' value='submit' variant="primary" style={{ maxWidth: "100%", height: "50px" }}>
                         Submit
                     </Button>
                 </Form>

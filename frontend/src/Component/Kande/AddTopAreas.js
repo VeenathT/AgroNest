@@ -4,14 +4,15 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import FertilizerForm from "./FormCntainer/FertilizerForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios"; 
+
 
 
 
 
 const AddTopAreas = () => {
-    const [name, setName] = useState('');
-    const [sales, setSales] = useState('');
     const [area, setArea] = useState('');
+    const [noofRegistrations, setnoofRegistrations] = useState('');
 
     const handleaddClick = () => {
         // Navigate to the Add Service Record screen
@@ -20,7 +21,7 @@ const AddTopAreas = () => {
 
     const handleviewClick = () => {
         // Navigate to the Service Record List screen
-        navigate("");
+        navigate("/ViewTopRegisterdArea");
     };
 
 
@@ -29,26 +30,35 @@ const AddTopAreas = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if (!isNaN(parseInt(name.trim()))) {
-            toast.error('Name cannot be a number.');
+        if (!isNaN(parseInt(area.trim()))) {
+            alert('Name cannot be a number.');
         } else {
-            // try {
-            //     const res = await insertfertlizer({ 
-            //         name,
-            //         sales
-            //     }).unwrap();
-            //     if (res) {
-            //         toast.success('Fertilizer added successfully!');
-                    
-            //         setName('');
-            //         setSales('');
-            //     }
-            // } catch (err) {
-            //     console.error(err);
-            //     toast.error(err?.data?.message || err.message || 'An error occurred');
-            // }
+            try {
+                // Make a POST request to the backend API endpoint
+                const response = await axios.post('http://localhost:8070/toparea/add', {
+                 
+                    area: area,
+                    noofRegistrations: noofRegistrations
+
+                });
+
+                // Check if the request was successful
+                if (response.status === 200){
+                    alert(' Highest registration area added Successfully');
+                    // Clear the form fields after successful submission
+                    setArea('');
+                    setnoofRegistrations('');
+                } else {
+                    alert('Failed to add Highest registration area. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error adding top registration area:', error);
+                alert('Failed to add  top registration area. Please try again.');
+            }
         }
     }
+
+
 
 
     return (
@@ -66,20 +76,10 @@ const AddTopAreas = () => {
 
             {/* form  */}
             <FertilizerForm >
-                <h1>Add Fertilizer Top Selling Areas</h1>
+                <h1>Areas with highest dealer Registrations</h1>
                 <Form onSubmit={submitHandler}>
 
-                    <Form.Group className="my-2" controlId="name">
-                        <Form.Label>Fertilizer Name:</Form.Label>
-                        <Form.Control
-                            type='text'
-                            required={true}
-                            placeholder="Fertilizer Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            style={{ padding: "10px" }}
-                        />
-                    </Form.Group>
+                
 
                     <Form.Group className="my-2" controlId="name">
                         <Form.Label>Area:</Form.Label>
@@ -87,20 +87,20 @@ const AddTopAreas = () => {
                             type='text'
                             required={true}
                             placeholder="Area"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={area}
+                            onChange={(e) => setArea(e.target.value)}
                             style={{ padding: "10px" }}
                         />
                     </Form.Group>
 
                     <Form.Group className="my-2" controlId="sales">
-                        <Form.Label>Number Of Sales:</Form.Label>
+                        <Form.Label>Number Of Registrations:</Form.Label>
                         <Form.Control
                             type='Number'
                             required={true}
-                            placeholder="Enter No of Sales"
-                            value={sales}
-                            onChange={(e) => setSales(e.target.value)}
+                            placeholder="Enter No of registrations"
+                            value={ noofRegistrations}
+                            onChange={(e) => setnoofRegistrations(e.target.value)}
                             style={{ padding: "10px" }}
                         />
                     </Form.Group>
