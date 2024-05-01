@@ -65,8 +65,7 @@ app.use("/api/reports/", farmerReportRoutes);
 
 const suggestionRoutes = require("./routes/Veenath/suggestions.js");
 app.use("/api/suggestions", suggestionRoutes);
-const replyRoutes = require('./routes/Veenath/getReplyDealer.js');
-app.use('/api/repo', replyRoutes);
+
 //<<Veenath
 
 

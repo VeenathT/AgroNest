@@ -1,83 +1,84 @@
-const express = require("express");
-const router = express.Router();
-const FarmerReport = require("../../models/Veenath/farmerReport"); // Assuming the FarmerReport model path is correct
-const Reply = require("../../models/Rahul/ReplyFarmer");
+// farmerReports.js (in routes)
 
-// Fetch farmers
-router.get("/farmers", async (req, res) => {
+const router = require("express").Router();
+const FarmerReport = require("../../models/Veenath/farmerReport");
+
+// Create farmer report
+router.post("/", async (req, res) => {
   try {
-    const farmers = await FarmerReport.find({ category: "Farmer" });
-    res.json(farmers);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// Fetch reply associated with a farmer
-router.get("/farmers/:id/reply", async (req, res) => {
-  try {
-    const farmerId = req.params.id;
-    const reply = await Reply.findOne({ farmerId });
-    res.json(reply);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-router.post("/farmers/:id/reply", async (req, res) => {
-  try {
-    const farmerId = req.params.id;
-    const { replyText } = req.body;
-
-    // Create a new Reply document
-    const reply = new Reply({
-      farmerId,
-      replyText,
+    const { name, topic, description, priority, category, area, status } = req.body;
+    const newReport = new FarmerReport({
+      name,
+      topic,
+      description,
+      priority,
+      category,
+      area,
+      status,
     });
-
-    // Save the reply to the database
-    await reply.save();
-
-    res.status(201).json(reply);
+    const savedReport = await newReport.save();
+    res.status(201).json(savedReport);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-// Update status of a farmer
-// Modify this route according to your requirements
-
-router.put('/farmers/:id/status', async (req, res) => {
+// Get all farmer reports
+router.get("/", async (req, res) => {
   try {
-    const { id } = req.params;
-    const updatedFarmer = await FarmerReport.findByIdAndUpdate(
-      id,
-      { status: 'Resolved' },
-      { new: true } // To return the updated farmer object
+    const reports = await FarmerReport.find();
+    res.json(reports);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Get farmer report by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const report = await FarmerReport.findById(req.params.id);
+    if (!report) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+    res.json(report);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Update farmer report by ID
+router.put("/:id", async (req, res) => {
+  try {
+    const { name, topic, description, priority, category, area, status } = req.body;
+    const updatedReport = await FarmerReport.findByIdAndUpdate(
+      req.params.id,
+      { name, topic, description, priority, category, area, status },
+      { new: true }
     );
-    res.json(updatedFarmer);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (!updatedReport) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+    res.json(updatedReport);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-router.get('/replies/:farmerId', async (req, res) => {
+// Delete farmer report by ID
+router.delete("/:id", async (req, res) => {
   try {
-    const { farmerId } = req.params;
-    const replies = await Reply.find({ farmerId });
-    res.json(replies);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-router.delete('/replies/:replyId', async (req, res) => {
-  try {
-    const { replyId } = req.params;
-    await Reply.findByIdAndDelete(replyId);
-    res.json({ message: 'Reply deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const deletedReport = await FarmerReport.findByIdAndDelete(req.params.id);
+    if (!deletedReport) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+    res.json({ message: "Report deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 

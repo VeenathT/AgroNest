@@ -1,6 +1,5 @@
+import React, { useState } from 'react';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-
 import {
   Dialog,
   DialogActions,
@@ -13,7 +12,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 const buttonStyle = {
   padding: '10px 20px',
@@ -46,28 +45,29 @@ const styles = StyleSheet.create({
 });
 
 const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
-  const [replies, setReplies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [isBackdropOpen, setIsBackdropOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleteSuccess, setIsDeleteSuccess] = useState(false);
 
-  useEffect(() => {
-    const fetchReplies = async (dealerId) => {
-      try {
-        const response = await axios.get(`http://localhost:8070/api/repo/dealers/:id/reply`);
-        setReplies(response.data);
-      } catch (error) {
-        console.error('Error fetching replies:', error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (inquiry.status === 'Resolved') {
-      fetchReplies(inquiry._id);
+  const handleDelete = async () => {
+    setIsDeleteConfirmationOpen(false);
+    setIsBackdropOpen(true);
+    setIsDeleting(true);
+    try {
+      await axios.delete(`http://localhost:8070/api/reports/${inquiry._id}`);
+      setIsDeleteSuccess(true);
+      onClosePopup(); 
+      setTimeout(() => {
+        window.location.reload(); 
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsBackdropOpen(false);
+      setIsDeleting(false);
     }
-  }, [inquiry.status, inquiry._id]);
+  };
 
   const MyDocument = () => (
     <Document>
@@ -108,22 +108,6 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
           <Typography variant="subtitle1">Area:</Typography>
           <Typography>{inquiry.area}</Typography>
         </div>
-        {inquiry.status === 'Resolved' && (
-          <div>
-            <Typography variant="subtitle1">Replies:</Typography>
-            {loading ? (
-              <LinearProgress />
-            ) : error ? (
-              <Typography color="error">{error}</Typography>
-            ) : (
-              replies.map((reply, index) => (
-                <div key={index}>
-                  <Typography>{reply.replyText}</Typography>
-                </div>
-              ))
-            )}
-          </div>
-        )}
       </DialogContent>
       <DialogActions>
         {inquiry.status === 'Pending' && (
@@ -159,6 +143,37 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
         </PDFDownloadLink>
         )}
       </DialogActions>
+
+      <Dialog
+        open={isDeleteConfirmationOpen}
+        onClose={() => setIsDeleteConfirmationOpen(false)}
+      >
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this inquiry?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDelete} color="error">
+            Yes
+          </Button>
+          <Button
+            onClick={() => setIsDeleteConfirmationOpen(false)}
+            color="primary"
+          >
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {isBackdropOpen && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 9999 }}>
+          <LinearProgress />
+          {isDeleting && <div style={{ textAlign: 'center' }}>Deleting...</div>}
+          {isDeleteSuccess && <div style={{ textAlign: 'center' }}>Delete successful!</div>}
+        </div>
+      )}
     </Dialog>
   );
 };
