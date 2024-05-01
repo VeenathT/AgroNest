@@ -135,11 +135,6 @@ const EditProfile = () => {
   };
 
 
-  const handleDeleteProfile = async () => {
-    setShowConfirmationDialog(true); // Show confirmation dialog when user clicks delete button
-  };
-
-
   const confirmDeleteProfile = async () => {
     try {
       const token = localStorage.getItem('token');
