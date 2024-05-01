@@ -29,6 +29,12 @@ const SignUp = () => {
   const handleSignUp = async (event) => {
     event.preventDefault();
 
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        setErrorMessage('Invalid email format');
+        return;
+    }
+
     try {
       const response = await axios.post('http://localhost:8070/dealer/registerDealer', {
         name: name,
@@ -45,7 +51,7 @@ const SignUp = () => {
       setSuccessMessage('Signup successful');
       setTimeout(() => {
         navigate('/loginDealer');
-      }, 1000);
+      }, 2000);
       
       
     } catch (error) {
@@ -120,6 +126,7 @@ const SignUp = () => {
               }
             }}
             />
+
             <TextField
               margin="normal"
               required
@@ -146,6 +153,7 @@ const SignUp = () => {
               }
             }}
             />
+
             <TextField
               margin="normal"
               required
@@ -172,18 +180,18 @@ const SignUp = () => {
               }
             }}
             />
+
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               sx={{
                 '& .MuiInputLabel-root': { 
                   '&.Mui-focused': {
@@ -199,6 +207,7 @@ const SignUp = () => {
               }
             }}
             />
+
             </Grid>
             <Grid item xs={6}>
             
@@ -270,13 +279,14 @@ const SignUp = () => {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="email"
+              label="Email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               sx={{
                 '& .MuiInputLabel-root': { 
                   '&.Mui-focused': {
@@ -292,6 +302,7 @@ const SignUp = () => {
               }
             }}
             />
+
             <TextField
               margin="normal"
               required
@@ -316,17 +327,20 @@ const SignUp = () => {
                           borderColor: '#0f5132 !important', 
                         }, 
                       }
-                    }}
+            }}
             />
+
             </Grid>
             </Grid>
+
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="/loginDealer" variant="body2" sx={{ color: '#0f5132', textDecoration: 'none' }}>
+                <Link href="/loginDealer" variant="body2" sx={{ color: 'red', textDecoration: 'none' }}>
                   {"Already have an account? Login"}
                 </Link>
               </Grid>
             </Grid>
+
             <Box display="flex" justifyContent="center">
               <Button
                 type="submit"
@@ -344,6 +358,7 @@ const SignUp = () => {
                 Sign Up
               </Button>
             </Box>
+            
           </Box>
         </Box>
       </Paper>
