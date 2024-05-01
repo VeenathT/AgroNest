@@ -64,49 +64,6 @@ const DealerListComponent = () => {
     setEditMode(false); // Reset edit mode when closing the dialog
   };
 
-  const handleReplyClick = async () => {
-    try {
-      if (editMode) {
-        // Perform update if in edit mode
-        await axios.put(`http://localhost:8070/farmerReport/replies/${editedReply._id}`, { replyText });
-        const updatedReplies = replies.map(reply =>
-          reply._id === editedReply._id ? { ...reply, replyText } : reply
-        );
-        setReplies(updatedReplies);
-        setEditMode(false);
-        toast.success('Reply updated successfully'); // Notification for successful update
-      } else {
-        // Perform create if not in edit mode
-        const response = await axios.post(`http://localhost:8070/farmerReport/dealers/${selectedDealer._id}/reply`, { replyText });
-      
-        // Update the status to "Resolved"
-        await axios.put(`http://localhost:8070/farmerReport/dealers/${selectedDealer._id}/status`);
-  
-        // Update the local state of dealers
-        const updatedDealers = dealers.map(dealer => 
-          dealer._id === selectedDealer._id ? { ...dealer, status: 'Resolved' } : dealer
-        );
-        setDealers(updatedDealers);
-  
-        // Add the new reply to the list of replies
-        setReplies([...replies, response.data]);
-        toast.success('Reply sent successfully'); // Notification for successful reply
-      }
-      setReplyText('');
-    } catch (error) {
-      console.error('Error sending reply:', error);
-      toast.error('Failed to send reply');
-    }
-  
-    // Close the popup window
-    setOpenPopup(false);
-  };
-  
-  
-  
-  
-  
-  
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
@@ -136,6 +93,58 @@ const DealerListComponent = () => {
     setEditMode(true);
   };
 
+  const handleReplyClick = async () => {
+    try {
+      if (editMode) {
+        // Handle update if in edit mode
+        await handleUpdateClick();
+      } else {
+        // Perform create if not in edit mode
+        const response = await axios.post(`http://localhost:8070/farmerReport/dealers/${selectedDealer._id}/reply`, { replyText });
+      
+        // Update the status to "Resolved"
+        await axios.put(`http://localhost:8070/farmerReport/dealers/${selectedDealer._id}/status`);
+  
+        // Update the local state of dealers
+        const updatedDealers = dealers.map(dealer => 
+          dealer._id === selectedDealer._id ? { ...dealer, status: 'Resolved' } : dealer
+        );
+        setDealers(updatedDealers);
+  
+        // Add the new reply to the list of replies
+        setReplies([...replies, response.data]);
+        toast.success('Reply sent successfully'); // Notification for successful reply
+      }
+      setReplyText('');
+    } catch (error) {
+      console.error('Error sending reply:', error);
+      toast.error('Failed to send reply');
+    }
+  
+    // Close the popup window
+    setOpenPopup(true);
+  };
+
+  const handleUpdateClick = async () => {
+    try {
+      const updatedReply = { ...editedReply, replyText }; // Combine edited reply with updated text
+      const response = await axios.put(`http://localhost:8070/farmerReport/replies/${editedReply._id}`, { replyText });
+
+      // Update the local state of replies with the updated reply
+      const updatedReplies = replies.map(reply =>
+        reply._id === editedReply._id ? { ...reply, replyText } : reply
+      );
+      setReplies(updatedReplies);
+
+      toast.success('Reply updated successfully');
+    } catch (error) {
+      console.error('Error updating reply:', error);
+      toast.error('Failed to update reply');
+    }
+    setOpenPopup(true); // Close the popup window after updating
+    setEditMode(false);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -144,6 +153,7 @@ const DealerListComponent = () => {
     return <div>Error: {error}</div>;
   }
 
+  // set order High - low
   const pendingDealers = dealers
     .filter(dealer => dealer.status === 'Pending')
     .sort((a, b) => {
@@ -168,6 +178,7 @@ const DealerListComponent = () => {
             />
           </Tabs>
           <ToastContainer position="center" />
+
           <Dialog open={openPopup} onClose={handleClosePopup}>
             <DialogTitle>{selectedDealer && selectedDealer.name}</DialogTitle>
             <DialogContent>
@@ -185,7 +196,7 @@ const DealerListComponent = () => {
                     value={replyText}
                     onChange={(e) => setReplyText(e.target.value)}
                   />
-                  <Button onClick={handleReplyClick}>Send</Button>
+                  <Button onClick={handleReplyClick}>{editMode ? 'Update' : 'Send'}</Button> {/* Change button text based on edit mode */}
                 </div>
               )}
               {tabValue === 1 && (

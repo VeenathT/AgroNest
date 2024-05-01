@@ -1,19 +1,18 @@
-
 const express = require("express");
 const router = express.Router();
 const FarmerReport = require("../../models/Veenath/farmerReport");
-const Reply = require("../../models/Rahul/Reply")
-
+const Reply = require("../../models/Rahul/Reply");
 
 // Fetch farmers
 router.get("/dealers", async (req, res) => {
   try {
-    const dealers = await FarmerReport.find({ category: "Dealer"} );
+    const dealers = await FarmerReport.find({ category: "Dealer"});
     res.json(dealers);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
 // Fetch reply associated with a dealer
 router.get("/dealers/:id/reply", async (req, res) => {
   try {
@@ -25,6 +24,7 @@ router.get("/dealers/:id/reply", async (req, res) => {
   }
 });
 
+// Send reply to a dealer
 router.post("/dealers/:id/reply", async (req, res) => {
   try {
     const dealerId = req.params.id;
@@ -45,6 +45,24 @@ router.post("/dealers/:id/reply", async (req, res) => {
   }
 });
 
+// Update an existing reply
+router.put('/replies/:replyId', async (req, res) => {
+  try {
+    const { replyId } = req.params;
+    const { replyText } = req.body;
+
+    // Find the reply by id and update its replyText
+    const updatedReply = await Reply.findByIdAndUpdate(
+      replyId,
+      { replyText },
+      { new: true } // To return the updated reply object
+    );
+    res.json(updatedReply);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Update status of a dealer
 router.put('/dealers/:id/status', async (req, res) => {
   try {
@@ -60,6 +78,7 @@ router.put('/dealers/:id/status', async (req, res) => {
   }
 });
 
+// Fetch all replies associated with a dealer
 router.get('/replies/:dealerId', async (req, res) => {
   try {
     const { dealerId } = req.params;
@@ -68,8 +87,9 @@ router.get('/replies/:dealerId', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-})
+});
 
+// Delete a reply
 router.delete('/replies/:replyId', async (req, res) => {
   try {
     const { replyId } = req.params;
@@ -79,6 +99,5 @@ router.delete('/replies/:replyId', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 module.exports = router;
