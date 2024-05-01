@@ -62,12 +62,6 @@ const Router = () => {
     }
   }, []);
 
-  const handleLogin = () => {
-    localStorage.setItem('isLoggedIn', 'true');
-    setIsLoggedIn(true);
-    navigate('/');
-  };
-
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);

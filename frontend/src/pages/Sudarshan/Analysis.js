@@ -36,6 +36,7 @@ const ShopAnalysis = () => {
     const [sortBy, setSortBy] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
     const [pdfExportComponent, setPdfExportComponent] = useState(null);
+    const [pdfExportComponent1, setPdfExportComponent1] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [selectedFertilizer, setSelectedFertilizer] = useState(null);
@@ -165,6 +166,13 @@ const ShopAnalysis = () => {
     const exportToPdf = () => {
       if (pdfExportComponent) {
           pdfExportComponent.save();
+          setSuccessMessage('PDF Exported');
+      }
+    };
+
+    const exportToPdf1 = () => {
+      if (pdfExportComponent1) {
+          pdfExportComponent1.save();
           setSuccessMessage('PDF Exported');
       }
     };
@@ -332,21 +340,31 @@ const handleSearchChange = (event,dealerId) => {
         ))}
     </List>
 )}
-            {selectedFertilizer && (
-    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-        <div className="img-container">
-            <img src={getFertilizerImage(selectedFertilizer[0].name)} alt={selectedFertilizer[0].name} />
-        </div>
-        <div className="fertilizer-details" style={{ marginLeft: '20px' }}>
-            <Typography variant="subtitle1" className="fertilizer-name" style={{ fontSize: '25px', color: 'white', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}><b>{selectedFertilizer[0].name}</b></Typography>
-            <Typography variant="body1" className="fertilizer-quantity"><b>Item Code:</b> {selectedFertilizer[0].itemcode}</Typography>
-            <Typography variant="body1" className="fertilizer-price"><b>Price:</b> {selectedFertilizer[0].price}</Typography>
-            <Typography variant="body1" className="fertilizer-quantity"><b>Quantity:</b> {selectedFertilizer[0].quantity}</Typography>
-        </div>
-    </div>
-)}
 
+<PDFExport ref={(component) => setPdfExportComponent1(component)} paperSize="B4" >
+        {selectedFertilizer && (
+            <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                <div className="img-container">
+                    <img src={getFertilizerImage(selectedFertilizer[0].name)} alt={selectedFertilizer[0].name} />
+                </div>
+                <div className="fertilizer-details" style={{ marginLeft: '20px' }}>
+                    <Typography variant="subtitle1" className="fertilizer-name" style={{ fontSize: '25px', color: 'white', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}><b>{selectedFertilizer[0].name}</b></Typography>
+                    <Typography variant="body1" className="fertilizer-quantity"><b>Item Code:</b> {selectedFertilizer[0].itemcode}</Typography>
+                    <Typography variant="body1" className="fertilizer-price"><b>Price:</b> {selectedFertilizer[0].price}</Typography>
+                    <Typography variant="body1" className="fertilizer-quantity"><b>Quantity:</b> {selectedFertilizer[0].quantity}</Typography>
+                </div>
+            </div>
+        )}
+    </PDFExport>
+
+    {selectedFertilizer && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <Button onClick={exportToPdf1} variant="contained" color="primary">
+                Export to PDF
+            </Button>
         </div>
+    )}
+</div>
 
 
         <div className="section update-listings-section light-green-bg">
