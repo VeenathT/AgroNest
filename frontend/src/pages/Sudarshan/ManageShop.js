@@ -160,7 +160,6 @@ const ManageShop = () => {
       setSearchTerm(value);
       console.log('Searching for suggestions with term:', value);
       console.log('Dealer ID:', dealerId);
-      // Call your backend API to fetch suggestions based on the search term
       axios.get(`http://localhost:8070/dealer/fertilizers/search?dealerId=${dealerId}&term=${value}`)
           .then(response => {
               console.log('Suggestions fetched successfully:', response.data);
@@ -176,7 +175,6 @@ const ManageShop = () => {
 
       console.log('Searching for fertilizer details with term:', searchTerm);
       console.log('Dealer ID:', dealerId);
-      // Call your backend API to fetch details of the selected fertilizer
       axios.get(`http://localhost:8070/dealer/fertilizers/search?dealerId=${dealerId}&term=${searchTerm}`)
           .then(response => {
             console.log('Fertilizer details fetched successfully:', response.data);
@@ -192,7 +190,6 @@ const ManageShop = () => {
 
 
   const handleSuggestionClick = (fertilizer) => {
-    // Assuming you have access to the dealerId variable here
     handleSearch(dealerId, fertilizer);
 };
 

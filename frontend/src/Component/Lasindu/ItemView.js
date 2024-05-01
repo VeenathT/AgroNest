@@ -84,7 +84,7 @@ const ItemView = () => {
       .then((response) => {
         console.log("Order placed successfully:", response);
         setOpenPaymentInfoDialog(false);
-        setOpenSuccessSnackbar(true); // Display success Snackbar
+        setOpenSuccessSnackbar(true);
       })
       .catch((error) => {
         console.error("Error placing order:", error);
