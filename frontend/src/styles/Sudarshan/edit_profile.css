@@ -12,7 +12,7 @@ body {
 .container {
     padding: 20px;
     flex-direction: column;
-    margin-top: 64px;
+    margin-top: 100px !important;
   }
   
   .header {
@@ -48,19 +48,11 @@ body {
     max-width: 900px; 
     margin: -20px auto; 
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(16, 32, 5, 0.884) !important;
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center; 
-  }
-  
-  .avatar {
-    width: 200px !important;
-    height: 200px !important;
-    margin: 30px auto 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
   }
 
   .detail-item {
@@ -100,6 +92,7 @@ body {
     text-align: left;
     flex-wrap: wrap;
     justify-content: space-between;
+    color: white;
   }
 
   .column {
