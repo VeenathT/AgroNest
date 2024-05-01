@@ -110,6 +110,7 @@ router.get('/dealers', async (req, res) => {
     }
 
     console.log('Dealer data:', dealer);
+    
 
     res.status(200).json(dealer);
   } catch (error) {
@@ -125,11 +126,10 @@ module.exports = router;
 router.put('/updateDealer/:id', async (req, res) => {
   try {
     const dealerId = req.params.id;
-    const { username, name, email, phone, storeLocation, address, password, reEnteredPassword, image } = req.body;
+    const { username, name, email, phone, storeLocation, address, password, reEnteredPassword} = req.body;
 
     console.log('Received Update Request for Dealer:', req.params.id);
     console.log('Request Body:', req.body);
-    console.log('Image Data:', image);
 
     // Check if the dealer exists
     const dealer = await Dealer.findById(dealerId);
@@ -152,13 +152,6 @@ router.put('/updateDealer/:id', async (req, res) => {
     dealer.phone = phone;
     dealer.storeLocation = storeLocation;
     dealer.address = address;
-    if (image) {
-      console.log('Updating Image...');
-      console.log('Image Data:', image);
-      dealer.image.data = image.data;
-      dealer.image.contentType = image.contentType;
-      console.log('Dealer Image Data:', dealer.image);
-    }
     dealer.password = hashedPassword; // Store hashed password in the database
     dealer.reEnteredPassword = reEnteredPassword;
 

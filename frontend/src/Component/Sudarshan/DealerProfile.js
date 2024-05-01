@@ -43,10 +43,10 @@ const DealerProfile = () => {
     navigate('/editProf');
   };
 
-  const renderDetailItem = (title, icon, content) => (
+  const renderDetailItem = (title, icon, content, labelColor = 'white', detailsColor = 'black') => (
     <div className="detail-item">
-      <Typography variant="subtitle1" className="detail-title">{title}</Typography>
-      <Typography variant="subtitle1" className="detail-content">
+      <Typography variant="subtitle1" className="detail-title" style={{ color: labelColor }}>{title}</Typography>
+      <Typography variant="subtitle1" className="detail-content" style={{ color: detailsColor }}>
         <Icon className="icon">{icon}</Icon>{content}
       </Typography>
     </div>
@@ -60,22 +60,15 @@ const DealerProfile = () => {
         </IconButton>
       </div>
       <div className="profile-container">
-        <Typography variant="h4" style={{ textAlign: 'center' }}>Welcome, {dealerData?.name}!</Typography>
-        <Avatar
-          alt="Dealer"
-          src={dealerData?.image?.data ? `data:${dealerData?.image?.contentType};base64,${dealerData?.image?.data}` : ''}
-          className="avatar"
-          style={{ boxShadow: '0 0 10px green' }}
-          onLoad={() => console.log('Avatar image loaded successfully')}
-          onError={() => console.error('Error loading Avatar image')}
-        />
-        <div className="details-container"> 
-          {renderDetailItem('Username:', 'account_circle', dealerData?.username)}
-          {renderDetailItem('Name:', 'person', dealerData?.name)}
-          {renderDetailItem('Email:', 'email', dealerData?.email)}
-          {renderDetailItem('Contact:', 'phone', dealerData?.phone)}
-          {renderDetailItem('Store Location:', 'location_on', dealerData?.storeLocation)}
-          {renderDetailItem('Address:', 'home', dealerData?.address)}
+        <Typography variant="h4" style={{ textAlign: 'center', color:'white' }}>Welcome, {dealerData?.name}!</Typography>
+
+        <div className="details-container" style={{ marginTop: '40px' }}> 
+          {renderDetailItem('Username:', 'account_circle', dealerData?.username, 'white')}
+          {renderDetailItem('Name:', 'person', dealerData?.name, 'white')}
+          {renderDetailItem('Email:', 'email', dealerData?.email, 'white')}
+          {renderDetailItem('Contact:', 'phone', dealerData?.phone, 'white')}
+          {renderDetailItem('Store Location:', 'location_on', dealerData?.storeLocation, 'white')}
+          {renderDetailItem('Address:', 'home', dealerData?.address, 'white')}
         </div>
       </div>
       <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name} handleEditProfile={handleEditProfile} />
