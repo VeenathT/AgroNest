@@ -10,7 +10,6 @@ const OrderHistoryPage = () => {
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
-    // Fetch order history from the backend
     axios.get('http://localhost:8070/order/displayAll')
       .then((response) => {
         setOrders(response.data);

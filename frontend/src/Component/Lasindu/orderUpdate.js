@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const UpdateOrderDialog = ({ open, onClose }) => {
   const { id } = useParams();
+  const { id } = useParams();
   const [updatedOrder, setUpdatedOrder] = useState({
     quantity: '',
     price: '',
@@ -28,6 +29,7 @@ const UpdateOrderDialog = ({ open, onClose }) => {
 
     fetchItemDetails();
   }, [id]);
+  }, [id]);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -43,6 +45,7 @@ const UpdateOrderDialog = ({ open, onClose }) => {
 
       const newPrice = itemPrice * parseInt(value);
 
+      const newPrice = itemPrice * parseInt(value);
       setUpdatedOrder((prevOrder) => ({
         ...prevOrder,
         price: newPrice,
@@ -57,6 +60,8 @@ const UpdateOrderDialog = ({ open, onClose }) => {
     try {
       await axios.put(`http://localhost:8070/order/update/${id}`, updatedOrder);
       alert('Order updated successfully');
+      onClose();
+      window.location.href='/Order-History'
       onClose();
     } catch (error) {
       console.log('Error updating order:', error);

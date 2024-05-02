@@ -39,7 +39,6 @@ const ItemView = () => {
   }, [id]);
 
   React.useEffect(() => {
-    // Validate payment information
     const isValidCardNumber = /^[0-9]{16}$/.test(paymentInfo.cardNumber);
     const isValidExpiryDate = /^(0[1-9]|1[0-2])\/[0-9]{4}$/.test(paymentInfo.expiryDate);
     const isValidCVV = /^[0-9]{3}$/.test(paymentInfo.cvv);
@@ -70,7 +69,6 @@ const ItemView = () => {
   };
 
   const handlePaymentInfoSubmit = () => {
-    // Send payment information to backend for order placement
     const orderDetails = {
       name: item.name,
       itemcode: item.itemcode,
