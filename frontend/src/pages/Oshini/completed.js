@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -150,6 +150,7 @@ function CompletedRequests() {
                 <TableCell style={{ color: '#0F5132' }}>Date</TableCell>
                 <TableCell style={{ color: '#0F5132' }}>Start Time</TableCell>
                 <TableCell style={{ color: '#0F5132' }}>Status</TableCell>
+                <TableCell style={{ color: '#0F5132' }}>Report</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -167,6 +168,13 @@ function CompletedRequests() {
                       <option value="completed">Completed</option>
                       <option value="rejected">Rejected</option>
                     </select>
+                  </TableCell>
+                  <TableCell>
+                    <Link to={`/uploadFile?requestId=${request._id}`}>
+                      <Button variant="contained" style={{ backgroundColor: '#0F5132', color: '#FFFFFF' }}>
+                        Upload
+                      </Button>
+                   </Link>
                   </TableCell>
                 </TableRow>
               ))}

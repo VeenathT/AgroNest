@@ -16,6 +16,7 @@ import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
 import FormPage from '../pages/Veenath/InquiryPages/formPage';
 import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
 import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
+
 import LabSignUp from '../pages/Oshini/signup';
 import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
@@ -23,6 +24,7 @@ import LabProfile from '../pages/Oshini/labProfile';
 import LabEdit from '../pages/Oshini/labEdit';
 import TestAccept from '../pages/Oshini/accepted';
 import TestComplete from '../pages/Oshini/completed';
+import FileUpload from '../pages/Oshini/uploadFile';
 
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
@@ -107,6 +109,7 @@ const Router = () => {
         <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
         <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/test-types' element={<TestType />}/>
+
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/labDash" element={<LabDash />} />
@@ -114,6 +117,8 @@ const Router = () => {
         <Route path="/labEdit" element={<LabEdit />} />
         <Route path="/accepted" element={<TestAccept />} />
         <Route path="/completed" element={<TestComplete />} />
+        <Route path="/uploadFile" element={<FileUpload />} />
+
         <Route path='/articles' element={<ArticleList/>} />
         <Route path='/addarticle' element={<ArticleForm/>} />
       </Routes>
