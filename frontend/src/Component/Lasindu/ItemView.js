@@ -69,13 +69,14 @@ const ItemView = () => {
   };
 
   const handlePaymentInfoSubmit = () => {
+    const farmer = localStorage.getItem('logId');
+    console.log("Token : ",farmer)
     const orderDetails = {
       name: item.name,
       itemcode: item.itemcode,
       quantity: quantity,
       price: getTotalPrice(),
-      paymentMethod: selectedPaymentMethod,
-      paymentInfo: paymentInfo,
+      farmerId: farmer
     };
 
     axios.post('http://localhost:8070/order/add', orderDetails)
@@ -91,7 +92,10 @@ const ItemView = () => {
 
   const handleCardNumberChange = (event) => {
     const cardNumber = event.target.value.replace(/\D/g, '');
-    setPaymentInfo({ ...paymentInfo, cardNumber });
+    setPaymentInfo((prevInfo) => ({
+      ...prevInfo,
+      cardNumber: cardNumber,
+    }));
   };
 
   const handleExpiryDateChange = (event) => {
@@ -101,12 +105,18 @@ const ItemView = () => {
       /(\d\d)\/?(\d\d)?/,
       (_, m, y) => (m.length === 2 && parseInt(m, 10) <= 12 ? `${m}/${y || ''}` : '')
     );
-    setPaymentInfo({ ...paymentInfo, expiryDate });
+    setPaymentInfo((prevInfo) => ({
+      ...prevInfo,
+      expiryDate: expiryDate,
+    }));
   };
 
   const handleCVVChange = (event) => {
     const cvv = event.target.value.replace(/\D/g, '');
-    setPaymentInfo({ ...paymentInfo, cvv });
+    setPaymentInfo((prevInfo) => ({
+      ...prevInfo,
+      cvv: cvv,
+    }));
   };
 
   const handleConfirmOrder = () => {

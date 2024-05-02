@@ -10,7 +10,8 @@ const OrderHistoryPage = () => {
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8070/order/displayAll')
+    const farmerId = localStorage.getItem('logId');
+    axios.get(`http://localhost:8070/order/history/${farmerId}`)
       .then((response) => {
         setOrders(response.data);
         setLoading(false);
@@ -31,7 +32,7 @@ const OrderHistoryPage = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ marginTop: '120px' }}>
       <Typography variant="h4" gutterBottom>
         Order History
       </Typography>

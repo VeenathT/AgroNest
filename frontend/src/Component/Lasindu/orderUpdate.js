@@ -5,7 +5,6 @@ import axios from 'axios';
 
 const UpdateOrderDialog = ({ open, onClose }) => {
   const { id } = useParams();
-  const { id } = useParams();
   const [updatedOrder, setUpdatedOrder] = useState({
     quantity: '',
     price: '',
@@ -29,7 +28,6 @@ const UpdateOrderDialog = ({ open, onClose }) => {
 
     fetchItemDetails();
   }, [id]);
-  }, [id]);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -42,8 +40,6 @@ const UpdateOrderDialog = ({ open, onClose }) => {
     try {
       const response = await axios.get(`http://localhost:8070/order/get/${id}`);
       const itemPrice = response.data.item.price;
-
-      const newPrice = itemPrice * parseInt(value);
 
       const newPrice = itemPrice * parseInt(value);
       setUpdatedOrder((prevOrder) => ({
