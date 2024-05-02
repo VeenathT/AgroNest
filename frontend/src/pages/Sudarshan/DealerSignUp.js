@@ -1,30 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import { MenuItem, Select, FormControl, InputLabel, Button, TextField } from '@mui/material';
-
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import { Container, Grid, Paper, Box, Avatar, Typography,FormControl,InputLabel, TextField, Select, MenuItem, Button,CssBaseline } from '@mui/material';
 import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import paddy from '../../images/common/paddy.jpg';
 import PopupMessage from '../common/PopUp';
-
-const greenTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#0f5132', 
-    },
-  },
-});
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -37,7 +17,7 @@ const SignUp = () => {
   const [reEnteredPassword, setReEnteredPassword] = useState('');
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
-const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const districts = [
     'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle', 'Gampaha', 'Hambantota',
@@ -48,6 +28,12 @@ const [successMessage, setSuccessMessage] = useState('');
 
   const handleSignUp = async (event) => {
     event.preventDefault();
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        setErrorMessage('Invalid email format');
+        return;
+    }
 
     try {
       const response = await axios.post('http://localhost:8070/dealer/registerDealer', {
@@ -65,7 +51,7 @@ const [successMessage, setSuccessMessage] = useState('');
       setSuccessMessage('Signup successful');
       setTimeout(() => {
         navigate('/loginDealer');
-      }, 3000);
+      }, 2000);
       
       
     } catch (error) {
@@ -86,202 +72,300 @@ const [successMessage, setSuccessMessage] = useState('');
   };
 
   return (
-    <ThemeProvider theme={greenTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
+    <Container component="main" maxWidth="md" style={{ marginTop: '10rem', borderRadius: '20px' }} >
+      <CssBaseline />
+      <Paper elevation={6} square sx={{ borderRadius: '20px',boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8)' }}>
+        <Box
           sx={{
-            backgroundImage: `url(${paddy})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            mx: 4,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: '2rem',
+            paddingBottom: '1rem',
+            borderRadius: '20px',
           }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 5,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%', 
-              paddingTop: '2rem', 
+        >
+          <Avatar sx={{ m: 1, bgcolor: '#0f5132' }}>
+            <LockOutlinedIcon style={{ fontSize: 28, color: 'white'}} />
+          </Avatar>
+
+          <Typography component="h1" variant="h4" sx={{ mb: 2, color: '#0f5132' }}>
+            Dealer Sign Up
+          </Typography>
+
+          <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 1, width: '100%' }}>
+
+          <Grid container spacing={2}>
+              <Grid item xs={6}>
+            
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="off"
+              autoFocus
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              sx={{
+                '& .MuiInputLabel-root': { 
+                  '&.Mui-focused': {
+                    color: '#0f5132' 
+                  }
+                },
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-root': { 
+                borderRadius: '20px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0f5132 !important', 
+                }, 
+              }
             }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
-              Sign Up
-            </Typography>
+            />
 
-            <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 1, width: '100%' }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                InputProps={{
-                  sx: { borderRadius: '20px' } 
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Name"
-                name="name"
-                autoComplete="name"
-                autoFocus
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                InputProps={{
-                  sx: { borderRadius: '20px' } 
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="address"
-                label="Address"
-                name="address"
-                autoComplete="address"
-                autoFocus
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                InputProps={{
-                  sx: { borderRadius: '20px' } 
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                autoFocus
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                InputProps={{
-                  sx: { borderRadius: '20px' } 
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="phone"
-                label="Phone"
-                name="phone"
-                type="text"
-                autoComplete="phone"
-                autoFocus
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                InputProps={{
-                  sx: { borderRadius: '20px' } 
-                }}
-              />
-              <Select
-                margin="normal"
-                required
-                fullWidth
-                id="storelocation"
-                label="StoreDistrict"
-                name="storelocation"
-                autoFocus
-                value={storeLocation}
-                onChange={(e) => setStoreLocation(e.target.value)}
-                sx={{ borderRadius: '20px' }}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              sx={{mt: 3.9,
+                '& .MuiInputLabel-root': { 
+                  '&.Mui-focused': {
+                    color: '#0f5132' 
+                  }
+                },
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-root': { 
+                borderRadius: '20px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0f5132 !important', 
+                }, 
+              }
+            }}
+            />
 
-              >
-                {districts.map((district, index) => (
-                  <MenuItem key={index} value={district}>{district}</MenuItem>
-                ))}
-              </Select>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                InputProps={{
-                  sx: { borderRadius: '20px' } 
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="repassword"
-                label="Re-enter Password"
-                type="password"
-                id="repassword"
-                autoComplete="re-entered-password"
-                value={reEnteredPassword}
-                onChange={(e) => setReEnteredPassword(e.target.value)}
-                InputProps={{
-                  sx: { borderRadius: '20px' } 
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="address"
+              label="Address"
+              name="address"
+              autoComplete="address"
+              autoFocus
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              sx={{
+                '& .MuiInputLabel-root': { 
+                  '&.Mui-focused': {
+                    color: '#0f5132' 
+                  }
+                },
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-root': { 
+                borderRadius: '20px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0f5132 !important', 
+                }, 
+              }
+            }}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              sx={{
+                '& .MuiInputLabel-root': { 
+                  '&.Mui-focused': {
+                    color: '#0f5132' 
+                  }
+                },
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-root': { 
+                borderRadius: '20px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0f5132 !important', 
+                }, 
+              }
+            }}
+            />
+
+            </Grid>
+            <Grid item xs={6}>
+            
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="phone"
+              label="Phone"
+              name="phone"
+              type="text"
+              autoComplete="phone"
+              autoFocus
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              sx={{
+                '& .MuiInputLabel-root': { 
+                  '&.Mui-focused': {
+                    color: '#0f5132' 
+                  }
+                },
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-root': { 
+                borderRadius: '20px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0f5132 !important', 
+                }, 
+              }
+            }}
+            />
+            
+            <FormControl fullWidth margin="normal" sx={{ borderRadius: '20px', mt: 2, mb: -0.1 }}>
+            <InputLabel htmlFor="storelocation" sx={{ color: '#0f5132',marginTop: '15px' }}>Store District *</InputLabel>
+            <Select
+              margin="normal"
+              required
+              fullWidth
+              id="storelocation"
+              labelId="store-location-label"
+              name="storelocation"
+              autoFocus
+              value={storeLocation}
+              onChange={(e) => setStoreLocation(e.target.value)}
+              sx={{ borderRadius: '20px',mt: 2, mb: 1,
+              '& .MuiInputLabel-root': { 
+                color: '#0f5132',
+                '&.Mui-focused': {
+                  color: '#0f5132' 
+                }
+              },
+            '& .MuiOutlinedInput-root': { 
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#0f5132 !important', 
+              }, 
+            } }}
+            InputLabelProps={{
+              shrink: true, // Set shrink to true
+              sx: { position: 'absolute', top: '-8px', left: '12px', backgroundColor: '#ffffff' } // Adjust label position
+            }}
+            >
+              {districts.map((district, index) => (
+                <MenuItem key={index} value={district}>{district}</MenuItem>
+              ))}
+            </Select>
+            </FormControl>
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              sx={{
+                '& .MuiInputLabel-root': { 
+                  '&.Mui-focused': {
+                    color: '#0f5132' 
+                  }
+                },
+              borderRadius: '20px',
+              '& .MuiOutlinedInput-root': { 
+                borderRadius: '20px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0f5132 !important', 
+                }, 
+              }
+            }}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="repassword"
+              label="Re-enter Password"
+              type="password"
+              id="repassword"
+              autoComplete="re-entered-password"
+              value={reEnteredPassword}
+              onChange={(e) => setReEnteredPassword(e.target.value)}
+              sx={{
+                        '& .MuiInputLabel-root': { 
+                          '&.Mui-focused': {
+                            color: '#0f5132' 
+                          }
+                        },
+                      borderRadius: '20px',
+                      '& .MuiOutlinedInput-root': { 
+                        borderRadius: '20px',
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#0f5132 !important', 
+                        }, 
+                      }
+            }}
+            />
+
+            </Grid>
+            </Grid>
+
+            <Grid container justifyContent="center">
+              <Grid item>
+                <Link href="/loginDealer" variant="body2" sx={{ color: 'red', textDecoration: 'none' }}>
+                  {"Already have an account? Login"}
+                </Link>
+              </Grid>
+            </Grid>
+
+            <Box display="flex" justifyContent="center">
               <Button
                 type="submit"
-                fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, borderRadius: '20px' }}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  borderRadius: '20px',
+                  color: 'white',
+                  backgroundColor: '#0f5132',
+                  padding: '10px 20px', // Adjust padding to decrease button size
+                  width: '350px', // Adjust width to decrease button width
+                }}
               >
                 Sign Up
               </Button>
-              
-              <Grid container justifyContent="flex-end">
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
+            
           </Box>
-        </Grid>
-      </Grid>
+        </Box>
+      </Paper>
 
       {successMessage && <PopupMessage message={successMessage} type="success" onClose={handleClosePopup} />}
       {errorMessage && <PopupMessage message={errorMessage} type="error" onClose={handleClosePopup} />}
-
-    </ThemeProvider>
+    </Container>
   );
 };
 

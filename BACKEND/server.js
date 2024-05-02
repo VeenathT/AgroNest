@@ -13,7 +13,6 @@ const cron = require('node-cron');
 const moment = require('moment');
 const Lab = require('./models/Oshini/lab_account/labAccount.js');
 const LabSlot = require('./models/Oshini/lab_account/labSlot');
-
 // Generate a random secret key
 const secretKey = crypto.randomBytes(32).toString('hex');
 
@@ -62,10 +61,11 @@ const farmerFeedbackRoutes = require("./routes/Veenath/farmerfeedbacks.js");
 app.use("/api/feedbacks", farmerFeedbackRoutes);
 
 const farmerReportRoutes = require("./routes/Veenath/farmerReports.js");
-app.use("/api/reports", farmerReportRoutes);
+app.use("/api/reports/", farmerReportRoutes);
 
 const suggestionRoutes = require("./routes/Veenath/suggestions.js");
 app.use("/api/suggestions", suggestionRoutes);
+
 //<<Veenath
 
 
@@ -95,6 +95,37 @@ app.use("/labSlot", labSlotRouter);
 
 const testRequestRouter = require("./routes/Oshini/test_request/testRequests.js");
 app.use("/testRequest", testRequestRouter);
+
+//Rahul
+const dealerRoutes = require('./routes/Rahul/dealer.routes');
+app.use(dealerRoutes);
+
+const farmerRoutes =require('./routes/Rahul/farmer.routes');
+app.use(farmerRoutes);
+
+const labsRouter = require('./routes/Rahul/labs.js');
+app.use('/labs', labsRouter);
+
+const dealerReportRouter = require('./routes/Rahul/dealersReport.js');
+app.use("/farmerReport", dealerReportRouter);
+
+const replyRoutess = require('./routes/Rahul/reply.js');
+app.use('/replies', replyRoutess);
+
+const farmerReport = require('./routes/Rahul/farmerReport.js')
+app.use("/farmerReport",farmerReport)
+
+const adminRoutes = require('./routes/Rahul/adminRoutes.js');
+app.use('/admin', adminRoutes);
+
+const countDealer = require('./routes/Rahul/countCealer.js')
+app.use(countDealer);
+const inquiryCount = require('./routes/Rahul/inquiryCount.js');
+app.use(inquiryCount);
+
+app.use('/api/auth', adminRoutes);
+
+
 
 //------------------------------------------------------------------------------------------------------------------
 

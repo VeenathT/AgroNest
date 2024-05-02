@@ -1,17 +1,16 @@
-// farmerfeedbacks.js (in routes)
-
 const router = require("express").Router();
 const FarmerFeedback = require("../../models/Veenath/farmerfeedback");
 
 // Create farmer feedback
 router.post("/", async (req, res) => {
   try {
-    const { orderId, farmerName, description, starRating } = req.body;
+    const { orderId, farmerName, description, starRating, itemcode } = req.body;
     const newFeedback = new FarmerFeedback({
       orderId,
       farmerName,
       description,
       starRating,
+      itemcode, // Include itemcode in the feedback
     });
     const savedFeedback = await newFeedback.save();
     res.status(201).json(savedFeedback);
@@ -54,10 +53,10 @@ router.get("/:id", async (req, res) => {
 // Update farmer feedback by ID
 router.put("/:id", async (req, res) => {
   try {
-    const { orderId, farmerName, description, starRating } = req.body;
+    const { orderId, farmerName, description, starRating, itemcode } = req.body;
     const updatedFeedback = await FarmerFeedback.findByIdAndUpdate(
       req.params.id,
-      { orderId, farmerName, description, starRating },
+      { orderId, farmerName, description, starRating, itemcode },
       { new: true }
     );
     if (!updatedFeedback) {

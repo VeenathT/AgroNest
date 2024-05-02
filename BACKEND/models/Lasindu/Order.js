@@ -19,6 +19,11 @@ const itemSchema = new schema({
     quantity: {
         type: Number,
         required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: "Pending"
     }
 });
 
