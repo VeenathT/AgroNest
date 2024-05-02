@@ -313,7 +313,7 @@ const ManageShop = () => {
     ))}
   </div>
   <Dialog open={showConfirmationDialog} onClose={() => setShowConfirmationDialog(false)}>
-        <DialogTitle>Are you sure you want to delete your profile?</DialogTitle>
+        <DialogTitle>Are you sure you want to delete fertilizer?</DialogTitle>
         <DialogActions>
           <Button onClick={() => handleDeleteProduct(fertilizerToDeleteId)} color="error">Yes</Button>
           <Button onClick={() => setShowConfirmationDialog(false)}>No</Button>
