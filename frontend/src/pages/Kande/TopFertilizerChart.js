@@ -9,7 +9,7 @@ const FertilizerAnalysisChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8070/fertilizerAnalysis"); // Adjust the URL to match your backend endpoint
+        const response = await axios.get("http://localhost:8070/topfertilizercategory/"); // Adjust the URL to match your backend endpoint
         setFertilizers(response.data);
         setLoading(false);
         renderChart(response.data);
@@ -21,25 +21,40 @@ const FertilizerAnalysisChart = () => {
     fetchData();
   }, []);
 
-  const renderChart = (data) => {
-    const ctx = document.getElementById("barChart");
+  const renderChart = (topfertilizer) => {
+    const ctx = document.getElementById("Fertilizerlinechart");
 
-    if (!ctx || !data) return;
+    if (!ctx || !topfertilizer) return;
 
-    const fertilizerNames = data.map((item) => item.fertilizername);
-    const salesData = data.map((item) => item.noofsales);
+    const fertilizerNames = topfertilizer.map((item) => item.fertilizername);
+    const salesData = topfertilizer.map((item) => item.noofsales);
 
     new Chart(ctx, {
-      type: "bar",
+      type: "line",
       data: {
         labels: fertilizerNames,
         datasets: [
           {
             label: "Number of Sales",
             data: salesData,
-            backgroundColor: "rgba(75, 192, 192, 0.2)", // Green
-            borderColor: "rgba(75, 192, 192, 1)", // Green
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)", // Red
+              "rgba(75, 192, 192, 0.2)", // Green
+              "rgba(54, 162, 235, 0.2)", // Blue
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)", // Red
+              "rgba(75, 192, 192, 1)", // Green
+              "rgba(54, 162, 235, 1)", // Blue
+              "rgba(255, 206, 86, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+            ],
             borderWidth: 1,
+            fill:true
           },
         ],
       },
@@ -58,9 +73,9 @@ const FertilizerAnalysisChart = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div style={{ width: "600px", height: "400px", backgroundColor: "#f7f7f7", padding: "20px", marginTop: "20px" }}>
+        <div style={{ width: "600px", height: "400px" }}>
           <h1>Fertilizer Analysis</h1>
-          <canvas id="barChart"></canvas>
+          <canvas style={{height:"100px"}} id="Fertilizerlinechart"></canvas>
         </div>
       )}
     </div>

@@ -22,7 +22,7 @@ const TopSellerChart = () => {
   }, []);
 
   const renderChart = (dealers) => {
-    const ctx = document.getElementById("barChart");
+    const ctx = document.getElementById("Sellerlinechart");
 
     if (!ctx || !dealers) return;
 
@@ -31,7 +31,7 @@ const TopSellerChart = () => {
 
   
     new Chart(ctx, {
-      type: "line",
+      type: "bar",
       data: {
         labels: dealerNames,
         datasets: [
@@ -75,7 +75,7 @@ const TopSellerChart = () => {
       ) : (
         <div style={{ width: "600px", height: "400px" }}>
           <h1>Top Sellers</h1>
-          <canvas id="barChart"></canvas>
+          <canvas id="Sellerlinechart"></canvas>
         </div>
       )}
     </div>
