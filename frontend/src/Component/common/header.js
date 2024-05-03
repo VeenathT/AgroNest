@@ -6,7 +6,7 @@ import { Box } from '@mui/system';
 
 const Header = ({ isLoggedIn, onLogout }) => {
   return (
-    <AppBar style={{ position: 'fixed', top: 0, zIndex: 1000 }} sx={{ backgroundColor: '#0f5132' }}>
+    <AppBar style={{ position: 'fixed', top: 30, zIndex: 1000 }} sx={{ backgroundColor: '#0f5132' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
       <Typography variant="h6" component={Link} to="/" color="inherit" className="site-name">
           AgroNest
@@ -14,7 +14,7 @@ const Header = ({ isLoggedIn, onLogout }) => {
         <Box>
         <Button color="inherit" component={Link} to="/inquiryCategory">Help</Button>
           <Button color="inherit" component={Link} to="/soiltest">Soil Test</Button>
-          <Button color="inherit" component={Link} to="/shop">Shop</Button>
+          <Button color="inherit" component={Link} to="/Itemlist">Shop</Button>
           {isLoggedIn ? (
             <>
               <Button variant="contained" color="success" sx={{ marginRight: 1 }} component={Link} to="/profiletype">Profile</Button>

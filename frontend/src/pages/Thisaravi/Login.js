@@ -34,6 +34,8 @@ const Login = ({setIsLoggedIn}) => {
   };
 
   return (
+    <div style={{backgroundColor: 'white'}}>
+      <form onSubmit={handleSubmit} style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <form onSubmit={handleSubmit} style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Grid
             container
@@ -89,6 +91,8 @@ const Login = ({setIsLoggedIn}) => {
       </Grid>
       </Grid>
     </form>
+    </div>
+    
   );
 };
 

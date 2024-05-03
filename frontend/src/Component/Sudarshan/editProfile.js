@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from './Sidebar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Update';
 import '../../styles/Sudarshan/edit_profile.css';
-import { Icon } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
 import PopupMessage from '../../pages/common/PopUp';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
 
 const EditProfile = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,16 +26,16 @@ const EditProfile = () => {
   const [phone, setPhone] = useState('');
   const [storeLocation, setStoreLocation] = useState('');
   const [address, setAddress] = useState('');
-  const [image, setImage] = useState(null);
   const [password, setPassword] = useState('');
   const [reEnteredPassword, setReEnteredPassword] = useState('');
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
 
   useEffect(() => {
     
-    const fetchDealerData = async () => {
+  const fetchDealerData = async () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get('http://localhost:8070/dealer/dealers', {
@@ -51,10 +51,8 @@ const EditProfile = () => {
         setPhone(data.phone || '');
         setStoreLocation(data.storeLocation || '');
         setAddress(data.address || '');
-        setImage(data.image || null);
         setPassword(data.password || '');
         setReEnteredPassword(data.reEnteredPassword || '');
-        setSuccessMessage('Dealer data fetch successful');
       } catch (error) {
         console.error('Error fetching dealer data:', error);
         setErrorMessage(error.response.data.error);
@@ -64,53 +62,27 @@ const EditProfile = () => {
     fetchDealerData();
   }, []);
 
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const MAX_FILE_SIZE_MB = 2;
-
-  const handleChooseFile = async (event) => {
-    const files = event.target.files;
-    const file = files[0]; 
-  
-    if (file) {
-      console.log('Selected File:', file);
-      // Check file size
-      const fileSizeInMB = file.size / (1024 * 1024); 
-      if (fileSizeInMB > MAX_FILE_SIZE_MB) {
-        console.error('File size exceeds the maximum allowed size.');
-        
-        return;
-      }
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-      if (!allowedTypes.includes(file.type)) {
-        console.error('Invalid file type. Please select a JPG, JPEG, or PNG image.');
-        
-        return;
-      }
-  
-      
-      const blob = new Blob([file]);
-  
-      
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage({
-          data: reader.result,
-          contentType: file.type
-        });
-      };
-      reader.readAsDataURL(blob);
-    }
-  };
 
   const handleUpdateProfile = async () => {
     try {
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      console.error('Invalid email format');
+      setErrorMessage('Invalid email format');
+      return;
+    }
+
       console.log('Password:', password);
       console.log('Re-entered Password:', reEnteredPassword);
       console.log('Updating Profile...');
@@ -122,8 +94,7 @@ const EditProfile = () => {
         storeLocation,
         address,
         password,
-        reEnteredPassword,
-        image 
+        reEnteredPassword, 
       });
       
       if (password !== reEnteredPassword) {
@@ -142,8 +113,7 @@ const EditProfile = () => {
         storeLocation,
         address,
         password,
-        reEnteredPassword,
-        image 
+        reEnteredPassword, 
       };
   
       
@@ -154,17 +124,18 @@ const EditProfile = () => {
         },
       });
       console.log('Update successful');
-      setSuccessMessage('Login successful');
+      setSuccessMessage('Details updated successfully');
       setTimeout(() => {
         navigate('/profileDealer');
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error('Error updating profile:', error);
       setErrorMessage(error.response.data.error);
     }
   };
 
-  const handleDeleteProfile = async () => {
+
+  const confirmDeleteProfile = async () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(`http://localhost:8070/dealer/delete/${dealerData._id}`, {
@@ -176,15 +147,16 @@ const EditProfile = () => {
       
       localStorage.removeItem('token');
       localStorage.removeItem('isLoggedIn');
-      setSuccessMessage('Deletion successful');
+      setSuccessMessage('Profile deleted successfully');
       setTimeout(() => {
         navigate('/signupDealer');
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error('Error deleting profile:', error);
       setErrorMessage(error.response.data.error);
     }
   };
+
   
   const handleClosePopup = () => {
     
@@ -193,26 +165,23 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="container"> 
+    <div className="container">
+
       <div className="header"> 
         <IconButton onClick={toggleSidebar} edge="start" className="sidebar-button"> 
           <MenuIcon />
         </IconButton>
       </div>
+
       <div className="profile-container">
-        <Typography variant="h4" style={{ textAlign: 'center' }}>Here you can edit your details, {dealerData?.name || 'User'}!</Typography>
-        <Avatar
-          alt="Dealer"
-          src={image ? image.data : ''}
-          className="avatar"
-          style={{ boxShadow: '0 0 10px green' }}
-        />
+
+        <Typography variant="h4" style={{ textAlign: 'center', color:'white' }}>Here you can edit your details, {dealerData?.name || 'User'}!</Typography>
+
         <div style={{ marginTop: '20px', display: 'inline-block' }}></div>
-        <Button variant="contained" color="primary" startIcon={<CloudUploadIcon />} style={{ borderRadius: '20px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.4)' }} className="edit-button" onClick={() => document.getElementById('fileInput').click()} >
-          Choose Image
-        </Button>
-        <input type="file" id="fileInput" style={{ display: 'none' }} accept=".jpg, .jpeg" onChange={handleChooseFile} />
-        <div className="details-container"> 
+
+
+        <div className="details-container" style={{ marginTop: '40px' }}>
+
           <div className="detail-item">
             <Typography variant="subtitle1" className="detail-title">Username:</Typography>
             <input
@@ -272,6 +241,7 @@ const EditProfile = () => {
               placeholder={dealerData.address || 'Address'}
             />
           </div>
+
           <div className="detail-item">
             <Typography variant="subtitle1" className="detail-title">Password:</Typography>
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -281,7 +251,7 @@ const EditProfile = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={dealerData.reEnteredPassword || 'Password'}
               />
-              <IconButton onClick={togglePasswordVisibility}>
+              <IconButton onClick={togglePasswordVisibility} style={{ color: 'white' }}>
                 {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
               </IconButton>
             </div>
@@ -296,24 +266,35 @@ const EditProfile = () => {
                 onChange={(e) => setReEnteredPassword(e.target.value)}
                 placeholder={dealerData.reEnteredPassword || 'Re-enter Password'}
               />
-              <IconButton onClick={togglePasswordVisibility}>
+              <IconButton onClick={togglePasswordVisibility} style={{ color: 'white' }}>
                 {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
               </IconButton>
             </div>
           </div>
         </div>
+
         <div className="button-container">
           <Button variant="contained" color="success" startIcon={<UpdateIcon />} style={{ marginRight: '10px', borderRadius: '20px', fontSize: '16px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.4)' }} className="edit-button" onClick={handleUpdateProfile}>
             Edit Profile
           </Button>
-          <Button variant="contained" color="error" startIcon={<DeleteIcon />} style={{ marginLeft: '10px', borderRadius: '20px', fontSize: '16px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.4)' }} className="delete-button" onClick={handleDeleteProfile}>
+          <Button variant="contained" color="error" startIcon={<DeleteIcon />} style={{ marginLeft: '10px', borderRadius: '20px', fontSize: '16px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.4)' }} className="delete-button" onClick={() => setShowConfirmationDialog(true)}>
             Delete Profile
           </Button>
         </div>
       </div>
+
       <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name || ''} />
       {successMessage && <PopupMessage message={successMessage} type="success" onClose={handleClosePopup} />}
       {errorMessage && <PopupMessage message={errorMessage} type="error" onClose={handleClosePopup} />}
+
+      <Dialog open={showConfirmationDialog} onClose={() => setShowConfirmationDialog(false)}>
+        <DialogTitle>Are you sure you want to delete your profile?</DialogTitle>
+        <DialogActions>
+          <Button onClick={confirmDeleteProfile} color="error">Yes</Button>
+          <Button onClick={() => setShowConfirmationDialog(false)}>No</Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 };

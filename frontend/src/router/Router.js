@@ -12,10 +12,16 @@ import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
 import ProfType from '../pages/common/ProfileType';
+//Veenath>>
 import InquiryCategory from '../pages/Veenath/InquiryPages/inquiryCategory';
 import FormPage from '../pages/Veenath/InquiryPages/formPage';
 import FarmerInquiry from '../pages/Veenath/InquiryPages/farmerInquiry';
 import DealerInquiry from '../pages/Veenath/InquiryPages/dealerInquiry';
+import FeedbackForm from '../pages/Veenath/FeedbackPages/FeedbackForm';
+import PastFeedbackList from '../pages/Veenath/FeedbackPages/PastFeedbackList';
+import FeedbackCardView from '../pages/Veenath/FeedbackPages/FeedbackCardView';
+import DealerRating from '../pages/Veenath/FeedbackPages/DealerRating';
+//Veenath<<
 import LabSignUp from '../pages/Oshini/signup';
 import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
@@ -23,7 +29,10 @@ import LabProfile from '../pages/Oshini/labProfile';
 import LabEdit from '../pages/Oshini/labEdit';
 import TestAccept from '../pages/Oshini/accepted';
 import TestComplete from '../pages/Oshini/completed';
-
+import ItemView from '../Component/Lasindu/ItemView';
+import OrderHistoryPage from '../Component/Lasindu/orderHistory';
+import UpdateOrderDialog from '../Component/Lasindu/orderUpdate';
+import ItemList from '../Component/Lasindu/Itemlist';
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
 import FarmerProfile from '../Component/Thisaravi/FarmerProfile';
@@ -37,7 +46,15 @@ import Login from '../pages/Thisaravi/Login';
 import TestType from '../pages/Thisaravi/SoilTest/TestType';
 import ArticleList from '../pages/Nilupul/ArticleList';
 import ArticleForm from '../pages/Nilupul/ArticleForm';
+import ShopAnalysis from '../pages/Sudarshan/Analysis';
 
+//Rahul
+import DealerList from '../Component/Rahul/DealerList';
+import FarmerList from '../Component/Rahul/FarmerList';
+import LabCards from '../Component/Rahul/LabCard';
+import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
+import AdminLogin from '../Component/Rahul/AdminLogin';
+import AdminDashboard from '../pages/Rahul/AdminDashboard'
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,12 +68,6 @@ const Router = () => {
       setIsLoggedIn(false); 
     }
   }, []);
-
-  const handleLogin = () => {
-    localStorage.setItem('isLoggedIn', 'true');
-    setIsLoggedIn(true);
-    navigate('/');
-  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -91,10 +102,17 @@ const Router = () => {
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
         <Route path="/profiletype" element={<ProfType />} />
+        <Route path="/analysis" element={<ShopAnalysis />} />
+        
         <Route path="/inquiryCategory" element={<InquiryCategory />} />
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
+        <Route path="/FeedbackForm" element={<FeedbackForm />} />
+        <Route path="/FeedbackForm/:feedbackId" element={<FeedbackForm />} /> {/* Use :feedbackId */}
+        <Route path="/PastFeedbackList" element={<PastFeedbackList />} />
+        <Route path="/FeedbackCardView" element={<FeedbackCardView />} />
+         <Route path="/DealerRating" element={<DealerRating />} />
 
         <Route path='/RegisterForm' element={<RegisterForm />}/>
         <Route path='/Profile' element={<Profile/>}/>
@@ -116,6 +134,17 @@ const Router = () => {
         <Route path="/completed" element={<TestComplete />} />
         <Route path='/articles' element={<ArticleList/>} />
         <Route path='/addarticle' element={<ArticleForm/>} />
+        <Route path="/Itemlist" element={<ItemList />} />
+        <Route path="/Item/:id" element={<ItemView />}/>
+        <Route path="/Order-History" element={<OrderHistoryPage />}/>
+        <Route path="/update-order/:id" element={<UpdateOrderDialog open={true} />} />
+        <Route path="/viewdealers" element={<DealerList />}  />
+        <Route path="/viewfarmers" element={<FarmerList />} />
+        <Route path="/labrotaryview" element={<LabCards />} />
+        <Route path="/userreports" element={<FullWidthTabs />} />
+        <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path='/admin/home' element={<AdminDashboard/>} />
+
       </Routes>
     </>
   );
