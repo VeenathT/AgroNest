@@ -20,6 +20,7 @@ const RequestDetails = () => {
     fetchRequestDetails();
   }, [requestId]);
 
+  //pdf generation
   const generatePDF = () => (
     <Document>
   <Page size="A4">
