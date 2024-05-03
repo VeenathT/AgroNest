@@ -2,42 +2,41 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Chart from "chart.js/auto";
 
-const TopSellerChart = () => {
-  const [topSellers, setTopSellers] = useState([]);
+const TopAreasChart = () => {
+  const [topAreas, setTopAreas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8070/topdealer/");
-        setTopSellers(response.data);
+        const response = await axios.get("http://localhost:8070/topareas/");
+        setTopAreas(response.data);
         setLoading(false);
         renderChart(response.data);
       } catch (error) {
-        console.error("Error fetching top dealers:", error);
+        console.error("Error fetching top areas:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  const renderChart = (dealers) => {
+  const renderChart = (areas) => {
     const ctx = document.getElementById("barChart");
 
-    if (!ctx || !dealers) return;
+    if (!ctx || !areas) return;
 
-    const dealerNames = dealers.map((dealer) => dealer.dealername);
-    const salesData = dealers.map((dealer) => dealer.noofsales);
+    const areaNames = areas.map((area) => area.area);
+    const registrationData = areas.map((area) => area.noofRegistrations);
 
-  
     new Chart(ctx, {
-      type: "line",
+      type: "bar",
       data: {
-        labels: dealerNames,
+        labels: areaNames,
         datasets: [
           {
-            label: "Number of Sales",
-            data: salesData,
+            label: "Number of Registrations",
+            data: registrationData,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)", // Red
               "rgba(75, 192, 192, 0.2)", // Green
@@ -74,7 +73,7 @@ const TopSellerChart = () => {
         <p>Loading...</p>
       ) : (
         <div style={{ width: "600px", height: "400px" }}>
-          <h1>Top Sellers</h1>
+          <h1>Top Areas</h1>
           <canvas id="barChart"></canvas>
         </div>
       )}
@@ -82,4 +81,4 @@ const TopSellerChart = () => {
   );
 };
 
-export default TopSellerChart;
+export default TopAreasChart;
