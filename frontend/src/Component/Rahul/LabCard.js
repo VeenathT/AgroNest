@@ -87,7 +87,7 @@ const LabCards = () => {
       <Grid item xs={3}>
         <Sidebar />
       </Grid>
-      <div style={{ marginTop:'110px', marginBottom: '20px', display: 'flex', justifyContent: 'flex-end', paddingRight: '50px' }}>
+      <div style={{ marginTop:'130px', marginBottom: '20px', display: 'flex', justifyContent: 'flex-end', paddingRight: '50px' }}>
         <FormControl variant="outlined" style={{ marginRight: '10px', minWidth: '100px', minHeight:'10px' }}>
           <InputLabel id="filter-by-label">Filter By</InputLabel>
           <Select
@@ -117,20 +117,20 @@ const LabCards = () => {
         <Button variant="contained" onClick={handleFilter} sx={{ backgroundColor: 'green', color: 'white' }}>Filter</Button>
 
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', marginLeft: '95px', width: '1100px' }}>
+      <div style={{ display: 'flex' , justifyContent: 'center', position: 'relative', marginLeft: '95px', width: '1100px' }}>
         
                         {/* Export all labs */}
-        <div style={{ position: 'absolute', top: '-10px', right: '-110px', zIndex: '1' }}>
+        <div style={{ position: 'absolute', top: '6px', right: '-60px', zIndex: '1' }}>
           <Button width="200px" onClick={handleExportCSV} sx={{ color: 'green' }} >Export All Labs</Button>
         </div>
         
                     {/* lab count */}
-        <div style={{ position: 'absolute',  height:'18px', top: '-80px', right: '420px',backgroundImage: `url(${buttonBackground}`, padding: '20px', borderRadius: '12px', zIndex: '1' }}>
+        <div style={{ position: 'absolute',  height:'18px', top: '-80px',marginTop:'50px', right: '420px',backgroundImage: `url(${buttonBackground}`, padding: '20px', borderRadius: '12px', zIndex: '1' }}>
           <Typography  variant="h5" style={{ color: 'white',textAlign:'center', textDecoration:'line' }}>Total Labs: {labCount}</Typography>
         </div>
 
         {/* Cards */}
-        <div style={{ display: 'flex', flexWrap: 'wrap' ,marginLeft:'140px', marginTop:'20px'}}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' ,marginLeft:'100px', marginTop:'40px'}}>
           {filteredLabs.map((lab, index) => (
             <Card key={lab._id} sx={{ width: 200, margin: '25px', position: 'relative', backgroundImage: `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url(${labBackground})`, backgroundSize: 'cover', borderRadius: '15px' }}>
               <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '93%' }}>
@@ -148,7 +148,7 @@ const LabCards = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div>        {/*Show data in popup window*/}
       </div>
       <Dialog open={openDialog} onClose={handleDialogClose} fullWidth>
         <DialogTitle sx={{ fontSize: 26, fontWeight: 'bold' }}>{selectedLab?.name}</DialogTitle>
