@@ -78,7 +78,7 @@ const FeedbackForm = () => {
 
       setSuccessSnackbar(true); // Set success
       setTimeout(() => {
-        navigate('/LandingPage');
+        navigate('/PastFeedbackList');
       }, 2000); // Navigate after 2 seconds
     } catch (err) {
       console.error(err);
