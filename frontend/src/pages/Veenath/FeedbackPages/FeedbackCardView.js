@@ -90,7 +90,7 @@ const FeedbackCardView = () => {
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={['#FF5733', '#FFBD33', '#D9FF33', '#33FF69', '#33FFEC'][index % 5]} />
               ))}
-              <Bar dataKey="count" fill="#8884d8" />
+              <Bar dataKey="count" fill="#299B21" />
             </BarChart>
           </ResponsiveContainer>
         </Box>
