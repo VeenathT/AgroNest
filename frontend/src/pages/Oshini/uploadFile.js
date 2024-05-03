@@ -43,7 +43,7 @@ function UploadFile() {
     formData.append('file', file);
     formData.append('requestId', requestId);
 
-    const result = await axios.post('http://localhost:8070/testRequest/upload-files', formData, {
+    const result = await axios.post('http://localhost:8070/labReport/upload-files', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     console.log(result);

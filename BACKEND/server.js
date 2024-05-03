@@ -93,6 +93,9 @@ app.use("/labSlot", labSlotRouter);
 const testRequestRouter = require("./routes/Oshini/test_request/testRequests.js");
 app.use("/testRequest", testRequestRouter);
 
+const labReportRouter = require("./routes/Oshini/test_request/labReports.js");
+app.use("/labReport", labReportRouter);
+
 //------------------------------------------------------------------------------------------------------------------
 
 cron.schedule('0 0 * * *', async () => {
