@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Grid, Card, CardContent, Rating, CardActions, Button, Box } from '@mui/material';
+import { Container, Typography, Grid, Card, CardContent, Rating, CardActions, Button, Box, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import FeedbackDetailsDialog from '../../../Component/Veenath/FeedbackComp/FeedbackDetailsDialog';// Assuming FeedbackDetailsDialog is in the same directory
 
 const FeedbackCardView = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [filterRating, setFilterRating] = useState(null);
+  const [selectedFeedback, setSelectedFeedback] = useState(null);
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
@@ -46,6 +49,12 @@ const FeedbackCardView = () => {
     count: countFeedbacksByRating(rating + 1)
   }));
 
+  // Function to handle click on View Details button
+  const handleViewDetails = (feedback) => {
+    setSelectedFeedback(feedback);
+    setOpenDetailsDialog(true);
+  };
+
   return (
     <Container style={{ marginTop: '100px', backgroundColor: '#FFFF', width: '90%' }} maxWidth="xl">
       <Typography marginTop={15} variant="h4" align="center" gutterBottom>
@@ -78,7 +87,10 @@ const FeedbackCardView = () => {
               <XAxis dataKey="rating" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="count" fill="#299B21" />
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={['#FF5733', '#FFBD33', '#D9FF33', '#33FF69', '#33FFEC'][index % 5]} />
+              ))}
+              <Bar dataKey="count" fill="#8884d8" />
             </BarChart>
           </ResponsiveContainer>
         </Box>
@@ -98,7 +110,7 @@ const FeedbackCardView = () => {
                   <Typography variant="body2">{feedback.description}</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary" component={Link} to={`/feedback/${feedback._id}`}>
+                  <Button size="small" color="primary" onClick={() => handleViewDetails(feedback)}>
                     View Details
                   </Button>
                 </CardActions>
@@ -106,6 +118,12 @@ const FeedbackCardView = () => {
             </Grid>
           ))}
       </Grid>
+      {/* Feedback Details Dialog */}
+      <FeedbackDetailsDialog
+        open={openDetailsDialog}
+        handleClose={() => setOpenDetailsDialog(false)}
+        feedback={selectedFeedback}
+      />
     </Container>
   );
 };
