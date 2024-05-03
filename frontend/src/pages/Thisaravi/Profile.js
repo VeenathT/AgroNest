@@ -4,7 +4,6 @@ import Sidebar from '../../Component/Thisaravi/Sidebar';
 import { useParams } from 'react-router-dom';
 
 const Profile = () => {
-  // Retrieve farmerID from the URL using useParams
   const { farmerID } = useParams();
 
   return (

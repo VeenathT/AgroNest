@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-// Define the data for soil test types
 const TestType = [
   {
     name: 'Mineral Content',
@@ -30,17 +29,15 @@ const TestType = [
   },
 ];
 
-// Define the component for displaying soil test types and search functionality
 function SoilTestPage() {
   const [searchTerm, setSearchTerm] = useState('');
   
-  // Filter soil test types based on search term
   const filteredTestType = TestType.filter(test => 
     test.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px', marginTop:'70px', marginLeft:'20px', marginRight:'20px' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px', marginTop:'70px', marginLeft:'20px', marginRight:'20px' ,backgroundColor: 'rgba(255, 255, 255, 0.8)',}}>
     <div>
       <h1 style={{ textAlign: 'center' }}>Soil Test Types</h1>
       <TextField

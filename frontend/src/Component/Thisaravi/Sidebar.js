@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar = ({farmerID}) => {
   const classes = useStyles();
-  //const { farmerID } = useParams();
 
   return (
     <Drawer
