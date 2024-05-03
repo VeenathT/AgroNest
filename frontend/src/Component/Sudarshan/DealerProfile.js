@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from './Sidebar';
@@ -8,6 +7,7 @@ import '../../styles/Sudarshan/dealer_profile.css';
 import { Icon } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import DealerRating from '../../pages/Veenath/FeedbackPages/DealerRating';
 
 const DealerProfile = () => {
   const [dealerData, setDealerData] = useState(null);
@@ -61,6 +61,8 @@ const DealerProfile = () => {
       </div>
       <div className="profile-container">
         <Typography variant="h4" style={{ textAlign: 'center', color:'white' }}>Welcome, {dealerData?.name}!</Typography>
+
+        <DealerRating />
 
         <div className="details-container" style={{ marginTop: '40px' }}> 
           {renderDetailItem('Username:', 'account_circle', dealerData?.username, 'white')}

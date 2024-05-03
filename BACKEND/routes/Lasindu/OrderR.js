@@ -35,10 +35,12 @@ router.route('/update/:id').put(async (req, res) => {
     let id = req.params.id;
     const price = req.body.price;
     const quantity = req.body.quantity;
+    const status = req.body.status;
 
     const updatedItem = {
         price,
         quantity,
+        status
     };
 
     const update = await Order.findByIdAndUpdate(id, updatedItem)

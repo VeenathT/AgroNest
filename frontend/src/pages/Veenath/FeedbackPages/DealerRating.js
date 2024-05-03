@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Container, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { Rating } from '@mui/material';
 import axios from 'axios';
 
@@ -24,17 +24,17 @@ const DealerRating = () => {
   }, []);
 
   return (
-    <Container style={{ marginTop: '100px', backgroundColor: '#FFFF'}} maxWidth="md">
-      <Typography variant="h6" align="center" gutterBottom>
-        Reviews and Ratings
-      </Typography>
-      <Typography variant="h3" align="center" gutterBottom>
-        {averageRating.toFixed(1)}
-      </Typography>
-      <Box display="flex" justifyContent="center" mb={3}>
-        <Rating value={averageRating} precision={0.25} readOnly />
-      </Box>
-    </Container>
+    <div style={{ marginTop: '30px', color: 'white' }}>
+    <Typography variant="h6" align="center" gutterBottom>
+      Your Rating
+    </Typography>
+    <Typography variant="h5" align="center" gutterBottom>
+      {averageRating.toFixed(1)}
+    </Typography>
+    <Box display="flex" justifyContent="center" mb={3}>
+      <Rating value={averageRating} precision={0.25} readOnly  />
+    </Box>
+  </div>
   );
 };
 
