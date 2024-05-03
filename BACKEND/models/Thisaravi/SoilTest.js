@@ -29,6 +29,7 @@ const soilTestSchema = new Schema({
     },
     status: {
         type: String,
+        enum: ['pending', 'completed'],
         default: "pending"
     },
 });

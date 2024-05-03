@@ -24,12 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    marginTop: '77px',
+    marginTop: '107px',
     backgroundColor: '#90EE90 !important ',
   },
 }));
 
 const Sidebar = ({farmerID}) => {
+  console.log("farmerID in Sidebar:", farmerID);
   const classes = useStyles();
 
   return (
