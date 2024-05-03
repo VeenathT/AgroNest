@@ -1,17 +1,27 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, Box } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, Box, Divider, Rating } from '@mui/material';
 
 const FeedbackDetailsDialog = ({ open, handleClose, feedback }) => {
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
       <DialogTitle>Feedback Details</DialogTitle>
       <DialogContent>
-        <Box bgcolor="#f5f5f5" p={2} borderRadius={5} boxShadow={3}>
+        <Box>
           <Typography variant="h6">Name: {feedback?.farmerName}</Typography>
-          <Typography variant="body1">Item Code: {feedback?.itemcode}</Typography>
-          <Typography variant="body1">Order ID: {feedback?.orderId}</Typography>
-          <Typography variant="body2">Description: {feedback?.description}</Typography>
-          <Typography variant="body1">Rating: {feedback?.starRating}</Typography>
+          <Divider sx={{ mt: 2, mb: 1 }} />
+          <Typography marginLeft={2} variant="subtitle2">Item Code: {feedback?.itemcode}</Typography>
+          <Typography marginLeft={2} marginTop={1} variant="subtitle2">Order ID: {feedback?.orderId}</Typography>
+          <Divider sx={{ mt: 1, mb: 1 }} />
+          <Box sx={{ bgcolor: '#ffff', p: 2, borderRadius: 1, boxShadow: 1 }}>
+            <Typography variant="subtitle2">Description:</Typography>
+            <Typography variant="body2">{feedback?.description}</Typography>
+          </Box>
+          <Divider sx={{ mt: 2, mb: 1 }} />
+          <Typography marginLeft={1} variant="subtitle2">Rating:</Typography>
+          <Box marginTop={1} marginLeft={0.5} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Rating value={feedback?.starRating} readOnly />
+            <Typography variant="body1" sx={{ ml: 1 }}>{feedback?.starRating}/5</Typography>
+          </Box>
         </Box>
       </DialogContent>
       <DialogActions>
