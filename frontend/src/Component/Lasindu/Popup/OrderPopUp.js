@@ -40,6 +40,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
       try {
         const response = await axios.get(`http://localhost:8070/order/get/${orderId}`);
         setOrder(response.data);
+        setOrder(response.data);
         setLoading(false);
       } catch (error) {
         setError('Error fetching order details');
@@ -50,6 +51,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
     if (orderId) {
       fetchOrderDetails();
     }
+
   }, [orderId]);
 
   const closeBanner = () => {
@@ -91,6 +93,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
             ) : error ? (
               <Typography>Error: {error}</Typography>
             ) : (
+              
               order && (
                 <View style={styles.page}>
                   <Text style={styles.text}><MdConfirmationNumber />Order ID: {order.item._id}</Text><br />

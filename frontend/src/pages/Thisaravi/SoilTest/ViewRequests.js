@@ -27,7 +27,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
+
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -69,7 +69,7 @@ const ViewRequests = () => {
   const handleConfirmDelete = async () => {
     try {
       await axios.delete(`http://localhost:8070/SoilTest/delete/${selectedRequestId}`);
-      // Refresh pending requests after deletion
+
       const response = await axios.get('http://localhost:8070/SoilTest/getPendingRequests');
       setPendingRequests(response.data);
     } catch (error) {
