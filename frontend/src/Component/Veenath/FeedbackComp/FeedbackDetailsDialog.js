@@ -17,8 +17,8 @@ const FeedbackDetailsDialog = ({ open, handleClose, feedback }) => {
             <Typography variant="body2">{feedback?.description}</Typography>
           </Box>
           <Divider sx={{ mt: 2, mb: 1 }} />
-          <Typography marginLeft={1} variant="subtitle2">Rating:</Typography>
-          <Box marginTop={1} marginLeft={0.5} sx={{ display: 'flex', alignItems: 'center' }}>
+          <Typography marginLeft={2} variant="subtitle2">Rating:</Typography>
+          <Box marginTop={1} marginLeft={1} sx={{ display: 'flex', alignItems: 'center' }}>
             <Rating value={feedback?.starRating} readOnly />
             <Typography variant="body1" sx={{ ml: 1 }}>{feedback?.starRating}/5</Typography>
           </Box>
