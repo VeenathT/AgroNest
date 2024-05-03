@@ -51,7 +51,6 @@ const CookiesBanner = ({ onClose, orderId }) => {
     if (orderId) {
       fetchOrderDetails();
     }
-  }, [orderId]);
 
   }, [orderId]);
 
@@ -62,7 +61,6 @@ const CookiesBanner = ({ onClose, orderId }) => {
 
   const handleUpdateOrder = () => {
     if (order && order.item && order.item._id) {
-      const orderId = order.item._id;
       const orderId = order.item._id;
       window.location.href = `/update-order/${orderId}`;
     }
@@ -95,7 +93,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
             ) : error ? (
               <Typography>Error: {error}</Typography>
             ) : (
-              order && (
+              
               order && (
                 <View style={styles.page}>
                   <Text style={styles.text}><MdConfirmationNumber />Order ID: {order.item._id}</Text><br />
