@@ -30,8 +30,8 @@ const RegForm = (props) => {
 const handleSubmit = async (e) => {
    e.preventDefault();
    try {
-       const response = await axios.post('http://localhost:8070/Farmer/add', formData); // Make POST request to your backend API
-       console.log(response.data); // Log response from the backend
+       const response = await axios.post('http://localhost:8070/Farmer/add', formData); 
+       console.log(response.data); 
        setFormData({
          first_name: '',
          last_name: '',

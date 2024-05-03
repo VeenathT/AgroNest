@@ -15,10 +15,10 @@ const FarmerProfile = () => {
       try {
         const response = await axios.get(`http://localhost:8070/Farmer/get/${farmerID}`);
         setFarmerData(response.data.farmer);
-        setError(null); // Reset error state if data is fetched successfully
+        setError(null); 
       } catch (error) {
         console.error('Error fetching farmer data:', error);
-        setError('Error fetching farmer data'); // Set error state if there's an error
+        setError('Error fetching farmer data'); 
       }
     };
 
