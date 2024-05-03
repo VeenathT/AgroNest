@@ -34,5 +34,13 @@ router.post("/upload-files",upload.single("file"),async(req,res)=>{
 
 })
 
+router.get("/get-files",async(req,res)=>{
+    try{
+        LabReport.find({}).then(data=>{
+            res.send({status:"ok", data:data});
+        });
+    }catch(error){}
+})
+
   
 module.exports = router;

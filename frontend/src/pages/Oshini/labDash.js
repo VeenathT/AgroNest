@@ -106,11 +106,11 @@ function LabDash() {
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Pending" disabled={tabValue === 0} />
+            <Tab label="Pending" disabled={tabValue === 0} sx={{ color: 'white' }} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Accepted" component={Link} to="/accepted" />
+            <Tab label="Accepted" component={Link} to="/accepted" sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Completed" component={Link} to="/completed" />
+            <Tab label="Completed" component={Link} to="/completed" sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
           </Tabs>

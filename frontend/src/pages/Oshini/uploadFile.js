@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
 
+
 const Container = styled('div')({
   width: '100%',
   maxWidth: 700,
@@ -27,13 +28,18 @@ function UploadFile() {
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
 
+
   // Fetch user name from session storage
   useEffect(() => {
     const storedUserName = sessionStorage.getItem('userName');
     if (storedUserName) {
       setUserName(storedUserName);
     }
+
+
   }, []);
+
+  
 
   // Function to handle file upload
   const handleFileUpload = async (e) => {
@@ -46,6 +52,7 @@ function UploadFile() {
     const result = await axios.post('http://localhost:8070/labReport/upload-files', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
+    alert("Successfully uploaded");
     console.log(result);
   };
 
@@ -71,45 +78,56 @@ function UploadFile() {
           </Link>
         </Toolbar>
       </AppBar>
-      <Container>
-        <div style={{ padding: '20px' }}>
-          <form onSubmit={handleFileUpload}>
-            <center><h2>Upload Lab Report here</h2></center>
-            <TextField
-              label="Title"
-              variant="outlined"
-              required
-              fullWidth
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <br />
-            <br />
-            <br />
-           
-            <Button
-  variant="contained"
-  component="label"
-  style={{ backgroundColor: '#0F5132'}} // Add margin-right
->
-  Choose File
-  <input type="file" hidden accept="application/pdf" onChange={handleFileChange} />
-</Button>
-{file && (
-  <Typography variant="body2" gutterBottom>
-    Selected: {file.name}
-  </Typography>
-)}
-<br />
-<br />
-<Button type="submit" variant="contained" color="primary" style={{ backgroundColor: '#0F5132' }}>
-  Submit
-</Button>
+      <Container style={{ marginTop: '80px' }}>
+  <div style={{ padding: '20px', marginTop: '-30px', border: '1px solid #000000', borderRadius: '5px' }}> {/* Added border and rounded corners */}
+    <form onSubmit={handleFileUpload}>
+      <center>
+        <h2>Upload Lab Report here</h2>
+      </center>
+      <TextField
+        variant="outlined"
+        placeholder="Title"
+        required
+        fullWidth
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <br />
+      <br />
+      <br />
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}> {/* Nested container for buttons */}
+        {/* Button 1 */}
+        <Button
+          variant="contained"
+          component="label"
+          style={{ backgroundColor: '#0F5132', marginRight: '10px', borderRadius: '5px' }}
+        >
+          Choose File
+          <input type="file" hidden accept="application/pdf" onChange={handleFileChange} />
+        </Button>
+        <br /> {/* Added a line break between buttons */}
+        {/* Button 2 */}
+        {file && (
+          <Typography variant="body2" gutterBottom>
+            Selected: {file.name}
+          </Typography>
+        )}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          style={{ backgroundColor: '#0F5132', borderRadius: '5px' }}
+        >
+          Submit
+        </Button>
+      </div>
+      <br />
+      <br />
+    </form>
+  </div>
+</Container>
 
 
-          </form>
-        </div>
-      </Container>
     </div>
   );
 }

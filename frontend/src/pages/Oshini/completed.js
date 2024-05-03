@@ -108,11 +108,11 @@ function CompletedRequests() {
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Pending" component={Link} to="/labDash" />
+            <Tab label="Pending" component={Link} to="/labDash" sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Accepted" component={Link} to="/accepted" />
+            <Tab label="Accepted" component={Link} to="/accepted" sx={{ color: 'white' }} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Completed" disabled={tabValue === 0} />
+            <Tab label="Completed" disabled={tabValue === 0} sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
           </Tabs>
