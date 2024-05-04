@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TextField, Button, Card, CardContent, Typography, IconButton, Container, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
+import { Link } from 'react-router-dom';
 
 const ArticleForm = () => {
   const [title, setTitle] = useState('');
@@ -41,8 +42,8 @@ const ArticleForm = () => {
       setContent('');
       setSelectedArticle(null);
       setFormError(null);
-      alert(selectedArticle ? 'Article updated successfully!' : 'Article added successfully!');
       fetchArticles(); // Update the articles after adding or updating
+      window.location.href = '/';
     } catch (err) {
       console.error('Error adding/updating article:', err);
     }
@@ -104,7 +105,7 @@ const ArticleForm = () => {
                 fullWidth
                 margin="normal"
                 multiline
-                rows={4}
+                rows={4} 
               />
               <Button type="submit" variant="contained" color="primary">
                 {selectedArticle ? 'Update' : 'Add'}
@@ -142,10 +143,10 @@ const ArticleForm = () => {
                 {article.content}
               </Typography>
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-                <IconButton aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
+                <IconButton component={Link} to={`/`} aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
                   <DeleteIcon />
                 </IconButton>
-                <Button variant="outlined" color="primary" onClick={() => handleUpdate(article)}>
+                <Button component={Link} to={`/`} variant="outlined" color="primary" onClick={() => handleUpdate(article)}>
                   Update
                 </Button>
               </div>
