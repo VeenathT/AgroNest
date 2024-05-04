@@ -40,6 +40,10 @@ const dealerSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'fertilizer'
     }],
+    rating : {
+        type : Number,
+        default : 4.5
+    },
     
     
 })

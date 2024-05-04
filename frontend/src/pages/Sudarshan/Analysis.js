@@ -23,6 +23,7 @@ import algae from '../../images/Sudarshan/fertilizer images/algae.png';
 import recovery from '../../images/Sudarshan/fertilizer images/recovery.png';
 import xfert from '../../images/Sudarshan/fertilizer images/xfert.png';
 import dolomite from '../../images/Sudarshan/fertilizer images/dolomite.png';
+import Pdfgen from '../../Component/Sudarshan/pdfgenerator'
 
 const ShopAnalysis = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,7 +36,6 @@ const ShopAnalysis = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [sortBy, setSortBy] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
-    const [pdfExportComponent, setPdfExportComponent] = useState(null);
     const [pdfExportComponent1, setPdfExportComponent1] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -161,14 +161,6 @@ const ShopAnalysis = () => {
       { id: 'quantity', label: 'Quantity' },
       { id: 'price', label: 'Price' },
     ];
-
-
-    const exportToPdf = () => {
-      if (pdfExportComponent) {
-          pdfExportComponent.save();
-          setSuccessMessage('PDF Exported');
-      }
-    };
 
     const exportToPdf1 = () => {
       if (pdfExportComponent1) {
@@ -359,7 +351,14 @@ const handleSearchChange = (event,dealerId) => {
 
     {selectedFertilizer && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-            <Button onClick={exportToPdf1} variant="contained" color="primary">
+            <Button onClick={exportToPdf1} variant="contained" color="primary" sx={{
+                color: 'white',
+                marginTop: '10px',
+                borderRadius: '20px',
+                '&:hover': {
+                    backgroundColor: 'darkblue',
+                },
+            }}>
                 Export to PDF
             </Button>
         </div>
@@ -384,11 +383,9 @@ const handleSearchChange = (event,dealerId) => {
           <Typography variant="h4"><SummarizeIcon style={{ fontSize: 36, color: 'black', marginRight: 8 }}/>
           Generate Stock Reports</Typography>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
-    <Button onClick={exportToPdf} variant="contained" color="primary">
-        Export to PDF
-    </Button>
+    < Pdfgen fertilizers={fertilizers} />
 </div>
-            <PDFExport ref={(component) => setPdfExportComponent(component)}>
+            
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -415,13 +412,8 @@ const handleSearchChange = (event,dealerId) => {
           ))}
         </TableBody>
                 </Table>
-            </PDFExport>
-
 
         </div>
-
-
-        
 
       </div>
       <Sidebar open={sidebarOpen} onClose={toggleSidebar} dealerName={dealerData?.name} handleEditProfile={handleEditProfile} />

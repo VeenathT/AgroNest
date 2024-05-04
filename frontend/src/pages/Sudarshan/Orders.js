@@ -45,7 +45,7 @@ const Orders = () => {
       try {
           await axios.put(`http://localhost:8070/order/update/${itemId}`, { status: 'Confirmed' });
           console.log('Status updated successfully');
-          setSuccessMessage('Order Confitmed successfully');
+          setSuccessMessage('Order Confirmed successfully');
           fetchData();
           // Add any additional logic you need after updating the status
       } catch (error) {
@@ -57,7 +57,7 @@ const Orders = () => {
     try {
         await axios.put(`http://localhost:8070/order/update/${itemId}`, { status: 'Rejected' });
         console.log('Status updated successfully');
-        setSuccessMessage('Order Confitmed successfully');
+        setSuccessMessage('Order Rejected successfully');
         setShowConfirmationDialog(false);
         fetchData();
         // Add any additional logic you need after updating the status
