@@ -50,29 +50,37 @@ router.route("/").get((req,res)=>{
     })
 })
 
-router.route("/update/:farmerID").put(async(req,res)=>{
-    let userId = req.params.farmerID;
-    const{first_name, last_name, email, phone, district, city, userName,password} = req.body;
+// Update profile route
+router.route("/update/:farmerID").put(async (req, res) => {
+    const userId = req.params.farmerID;
+    const { first_name, last_name, email, phone, district, city, userName, password } = req.body;
 
-    const updateFarmer ={
-        first_name,
-        last_name,
-        email,
-        phone,
-        district,
-        city,
-        userName,
-        password
+    try {
+        // Find the farmer by ID
+        const farmer = await Farmer.findById(userId);
+        if (!farmer) {
+            return res.status(404).json({ error: "Farmer not found" });
+        }
+
+        // Update the farmer's fields
+        farmer.first_name = first_name;
+        farmer.last_name = last_name;
+        farmer.email = email;
+        farmer.phone = phone;
+        farmer.district = district;
+        farmer.city = city;
+        farmer.userName = userName;
+        farmer.password = password;
+
+        // Save the updated farmer
+        await farmer.save();
+
+        res.status(200).json({ status: "Profile Updated", farmer });
+    } catch (error) {
+        console.error("Error updating farmer profile:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-
-    const update = await Farmer.findByIdAndUpdate(userId,updateFarmer).then(()=>{
-        res.status(200).send({status: "User Updated"})
-    }).catch((err)=>{
-        console.log(err);
-        res.status(500).send({status: "Error with updating data",error: err.message});
-    })
-
-})
+});
 
 router.route("/delete/:farmerID").delete(async(req,res)=>{
     let userId = req.params.farmerID;

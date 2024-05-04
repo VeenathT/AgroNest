@@ -32,6 +32,10 @@ const soilTestSchema = new Schema({
         enum: ['pending', 'completed'],
         default: "pending"
     },
+    pdfUrl: {
+        type: String,
+        required: false
+    },
 });
 
 const SoilTest = mongoose.model("SoilTest", soilTestSchema);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Grid } from '@mui/material';
+import { Container, Typography, Grid, Button, Link } from '@mui/material';
 import Sidebar from '../../Component/Thisaravi/Sidebar';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ const FarmerProfile = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log("farmerID:", farmerID);
     const fetchFarmerData = async () => {
       try {
         const response = await axios.get(`http://localhost:8070/Farmer/get/${farmerID}`);
@@ -80,6 +81,11 @@ const FarmerProfile = () => {
                   <Typography variant="body1">
                     City: {farmerData.city}
                   </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                <Button component={Link} to={`/edit-profile/${farmerID}`} variant="contained" color="primary">
+                Edit Profile
+                </Button>
                 </Grid>
               </Grid>
             )}

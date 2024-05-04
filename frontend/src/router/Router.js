@@ -46,6 +46,7 @@ import UpdateRequest from '../pages/Thisaravi/SoilTest/UpdateRequest';
 import Login from '../pages/Thisaravi/Login';
 import TestType from '../pages/Thisaravi/SoilTest/TestType';
 import ViewResolvedRequests from '../pages/Thisaravi/SoilTest/ViewResolvedRequests';
+import UpdateProfile from '../pages/Thisaravi/UpdateProfile';
 
 import ArticleList from '../pages/Nilupul/ArticleList';
 import ArticleForm from '../pages/Nilupul/ArticleForm';
@@ -128,7 +129,8 @@ const Router = () => {
         <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
         <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/test-types' element={<TestType />}/>
-        <Route path='//resolved-requests' element={<ViewResolvedRequests/>}/>
+        <Route path='/resolved-requests' element={<ViewResolvedRequests/>}/>
+        <Route path="/edit-profile/:farmerID" element={<UpdateProfile/>}/>
 
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin setIsLoggedIn={setIsLoggedIn} />} />
