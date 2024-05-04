@@ -5,10 +5,12 @@ const router = express.Router();
 
 router.route('/add').post((req, res) => {
     
+    
     const name = req.body.name;
     const itemcode = Number(req.body.itemcode);
     const price = Number(req.body.price);
     const quantity = Number(req.body.quantity);
+    const farmerId = req.body.farmerId;
     const farmerId = req.body.farmerId;
 
     const newItem = new Order({
@@ -17,14 +19,18 @@ router.route('/add').post((req, res) => {
         price,
         quantity,
         farmerId,
+        farmerId,
     });
 
     newItem.save().then(() => {
         res.json("Order Placed");
     }).catch((err) => {
+        console.error("Error placing order:", err);
+        res.status(500).json({ error: "Error placing order" });
         console.log("Unsuccessful");
     });
 });
+
 
 router.route('/displayAll').get((req, res) => {
     Order.find().then((orders) => {
@@ -32,6 +38,16 @@ router.route('/displayAll').get((req, res) => {
     }).catch((err) => {
         console.log(err);
     });
+});
+
+router.get('/history/:farmerId', async (req, res) => {
+    try {
+        const orders = await Order.find({ farmerId: req.params.farmerId });
+        res.json(orders);
+    } catch (error) {
+        console.error('Error fetching order history:', error);
+        res.status(500).json({ error: 'Error fetching order history' });
+    }
 });
 
 router.get('/history/:farmerId', async (req, res) => {

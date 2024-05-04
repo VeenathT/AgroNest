@@ -56,7 +56,8 @@ const OrderHistoryPage = () => {
                         <br />
                         Item Code: {order.itemcode} | 
                         Price: Rs. {order.price} | 
-                        Quantity: {order.quantity}
+                        Quantity: {order.quantity} |
+                        Status: {order.status}
                       </>
                     }
                   />

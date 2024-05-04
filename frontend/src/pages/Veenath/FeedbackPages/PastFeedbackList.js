@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ListItemText, Button, Typography, Container, Accordion, AccordionSummary, AccordionDetails, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { ListItemText, Button, Typography, Container, Accordion, AccordionSummary, AccordionDetails, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ToggleButton, ToggleButtonGroup, Badge } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { DeleteOutline, Edit, SentimentVeryDissatisfied, SentimentDissatisfied, SentimentSatisfied, SentimentSatisfiedAltOutlined, SentimentVerySatisfied } from '@mui/icons-material';
+import { DeleteOutline, Edit, SentimentVeryDissatisfied, SentimentDissatisfied, SentimentSatisfied, SentimentSatisfiedAltOutlined, SentimentVerySatisfied, Mail } from '@mui/icons-material';
 import axios from 'axios';
 
 const PastFeedbackList = () => {
@@ -9,6 +9,7 @@ const PastFeedbackList = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedFeedbackId, setSelectedFeedbackId] = useState(null);
+  const [filterRating, setFilterRating] = useState(null);
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
@@ -65,12 +66,46 @@ const PastFeedbackList = () => {
     }
   };
 
+  const handleFilterChange = (event, newFilterRating) => {
+    setFilterRating(newFilterRating);
+  };
+
+  const filteredFeedbacks = filterRating
+    ? feedbacks.filter((feedback) => feedback.starRating === filterRating)
+    : feedbacks;
+
   return (
     <Container style={{ marginTop: '100px', backgroundColor: '#F5F5F5', padding: '20px' }} maxWidth="md">
-      <Typography variant="h4" align="center" gutterBottom>
-        Past Feedback Forms
+      <Typography variant="h3" align="center" gutterBottom>
+        My Reviews
       </Typography>
-      {feedbacks.map((feedback, index) => (
+      <Typography variant="h6" align="center" gutterBottom>
+        Make Valuable Decisions With Past Reviews !
+      </Typography>
+      <div>
+          <Badge style={{ marginLeft:'800px' }} badgeContent={filteredFeedbacks.length} color="success">
+            <Mail fontSize="large" />
+          </Badge>
+        <ToggleButtonGroup style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center'}} value={filterRating} onChange={handleFilterChange} exclusive aria-label="rating-filter">
+          <ToggleButton value={5} style={{ backgroundColor: filterRating === 5 ? '#B2B9B0' : '' }}>
+            <SentimentVerySatisfied style={{ color: '#06CB00', fontSize: 35 }} />
+          </ToggleButton>
+          <ToggleButton value={4} style={{ backgroundColor: filterRating === 4 ? '#B2B9B0' : '' }}>
+            <SentimentSatisfiedAltOutlined style={{ color: '#8FD547', fontSize: 35 }} />
+          </ToggleButton>
+          <ToggleButton value={3} style={{ backgroundColor: filterRating === 3 ? '#B2B9B0' : '' }}>
+            <SentimentSatisfied style={{ color: '#FFEA00', fontSize: 35 }} />
+          </ToggleButton>
+          <ToggleButton value={2} style={{ backgroundColor: filterRating === 2 ? '#B2B9B0' : '' }}>
+            <SentimentDissatisfied style={{ color: '#FFA500', fontSize: 35 }} />
+          </ToggleButton>
+          <ToggleButton value={1} style={{ backgroundColor: filterRating === 1 ? '#B2B9B0' : '' }}>
+            <SentimentVeryDissatisfied style={{ color: '#E66060', fontSize: 35 }} />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
+
+      {filteredFeedbacks.map((feedback, index) => (
         <div key={feedback._id} style={{ marginBottom: '20px' }}>
           {index !== 0 && <Divider />}
           <Accordion>
