@@ -3,12 +3,15 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import FertilizerForm from "./FormCntainer/FertilizerForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from "axios"; 
+import TopFertilizerInputData from "../../pages/Kande/DataInsertGraphs/TopFertilizerInputData"
+import axios from "axios";
 
 
 
 
 const AddTopfertilizer = () => {
+
+  
     const [name, setName] = useState('');
     const [sales, setSales] = useState('');
 
@@ -55,9 +58,10 @@ const AddTopfertilizer = () => {
 
 
     return (
-        <>
+        < div style={{marginTop:"5%"}}>
+         
             {/* page switch */}
-            <div className="d-flex justify-content-center mt-5">
+            <div  className="d-flex justify-content-center mt-5">
                 <div className="btn-group mt-5" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked />
                     <label className="btn btn-outline-primary btn-lg" htmlFor="btnradio1" onClick={handleaddClick}>Add </label>
@@ -65,13 +69,18 @@ const AddTopfertilizer = () => {
                     <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" />
                     <label className="btn btn-outline-primary btn-lg" htmlFor="btnradio2" onClick={handleviewClick} style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }} >View</label>
                 </div>
+                
             </div>
+            <div style={{  backgroundColor: "rgba(224, 224, 224, 0.5)", backdropFilter: "blur(10px)", padding: "20px", marginTop: "20px", marginLeft: "25%",width:"706px",marginBottom:"-8%" }}>
+            <TopFertilizerInputData/>
+          </div>
+            
 
            
 
             {/* form  */}
             <FertilizerForm >
-           
+              
                 <h1>Add Top Fertlizer</h1>
                
                 <Form onSubmit={submitHandler} >
@@ -112,7 +121,7 @@ const AddTopfertilizer = () => {
             </FertilizerForm>
             
             <br />
-        </>
+        </div>
     )
 }
 

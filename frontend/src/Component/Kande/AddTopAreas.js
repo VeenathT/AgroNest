@@ -10,6 +10,7 @@ import axios from "axios";
 
 
 
+
 const AddTopAreas = () => {
     const [area, setArea] = useState('');
     const [noofRegistrations, setnoofRegistrations] = useState('');
@@ -72,7 +73,9 @@ const AddTopAreas = () => {
                     <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" />
                     <label className="btn btn-outline-primary btn-lg" htmlFor="btnradio2" onClick={handleviewClick} style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }} >View</label>
                 </div>
+                
             </div>
+          
 
             {/* form  */}
             <FertilizerForm >

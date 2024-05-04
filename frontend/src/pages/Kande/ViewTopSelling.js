@@ -17,20 +17,20 @@ const MyDocument = ({ data }) => (
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
       <Image style={styles.logo} src={agronestLogo} />
-        <Text style={styles.title}>Top xxxxxx</Text>
+        <Text style={styles.title}>Top Selling Dealers</Text>
         
         <View style={styles.tableContainer}>
           <Table style={styles.table} fixed>
             <View style={styles.tableHeader}>
               <Text style={styles.headerCell}></Text>
-              <Text style={styles.headerCell}>yyyyyyy</Text>
+              <Text style={styles.headerCell}>dealername</Text>
               <Text style={styles.headerCell}>Number of Sales</Text>
             </View>
             <View style={styles.tableBody}>
               {data.map((fertilizer, index) => (
                 <View key={fertilizer._id} style={styles.row}>
                   <Text style={styles.cell}>{index + 1}</Text>
-                  <Text style={styles.cell}>{fertilizer.fertilizername}</Text>
+                  <Text style={styles.cell}>{fertilizer.dealername}</Text>
                   <Text style={styles.cell}>{fertilizer.noofsales}</Text>
 
                 </View>

@@ -71,8 +71,8 @@ app.use("/Farmer", farmerRouter);
 const soilTestRouter = require("./routes/Thisaravi/soilTests.js");
 app.use("/SoilTest", soilTestRouter);
 
-const FAnalysis = require("./routes/Kande/FAnalysis.js");
-app.use("/FAnalysis",FAnalysis);
+//const FAnalysis = require("./routes/Kande/FAnalysis.js");
+//app.use("/FAnalysis",FAnalysis);
 // kande
 const TopFertilizer = require("./routes/Kande/TopFertilizerRoutes.js");
 app.use("/topfertilizercategory",TopFertilizer);

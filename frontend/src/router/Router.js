@@ -55,11 +55,13 @@ import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
+
+//kande
 import TopFertilizer from  '../pages/Kande/TopfertilizerScreen'
 import AddTopAreas from '../pages/Kande/TopAreaScreen';
 import SysManagerDashboard from '../pages/Kande/SysManagerDashboard';
 import ViewTopFertilizer from '../pages/Kande/ViewTopFertilizer';
-import Login from '../Component/Kande/login/Login';
+import MLogin from '../Component/Kande/login/MLogin';
 import TopArea from '../pages/Kande/TopAreaScreen';
 import AddTopfertilizer from'../Component/Kande/AddTopSelling'
 import ViewTopSellers from '../pages/Kande/ViewTopSelling';
@@ -163,7 +165,7 @@ const Router = () => {
         <Route path='/addtopsellingfertilizers' element={<AddTopfertilizer />} />
         <Route path='/addtopareas' element={<AddTopAreas />} />
         <Route path='/managerdashboard' element={<SysManagerDashboard />} />
-        <Route path='/Login' element={<Login />} />
+        <Route path='/MLogin' element={<MLogin />} />
         <Route path='/TopArea' element={<TopArea />} />
         <Route path='/TopSellers'element={< ViewTopSellers/>} ></Route>
         <Route path='/ViewTopRegisterdArea'element={<  ViewTopRegisterdArea/>} ></Route>

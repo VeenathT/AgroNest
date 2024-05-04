@@ -13,7 +13,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/Mlogin", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username, password });

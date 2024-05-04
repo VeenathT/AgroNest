@@ -54,7 +54,8 @@ const TopAreasChart = () => {
                 "rgba(255, 159, 64, 1)",
               ],
               borderWidth: 1,
-              fill:true
+              fill:true,
+              tension:0.4
             },
           ],
         },
