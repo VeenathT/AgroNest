@@ -32,7 +32,7 @@ const OrderHistoryPage = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ marginTop : '120px'}}>
       <Typography variant="h4" gutterBottom>
         Order History
       </Typography>
@@ -56,7 +56,8 @@ const OrderHistoryPage = () => {
                         <br />
                         Item Code: {order.itemcode} | 
                         Price: Rs. {order.price} | 
-                        Quantity: {order.quantity}
+                        Quantity: {order.quantity} |
+                        Status: {order.status}
                       </>
                     }
                   />
