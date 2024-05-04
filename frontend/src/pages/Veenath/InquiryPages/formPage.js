@@ -100,14 +100,14 @@ const FormPage = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '64px', overflowY: 'auto' }}>
+    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '100px', overflowY: 'auto' }}>
       <h1>{inquiryId ? 'Update Inquiry' : 'Submit Inquiry'}</h1>
       <form onSubmit={handleSubmit}>
         <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px' }}>
-          <TextField  color="secondary" 
+          <TextField  color="success" 
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder=" E-mail"
+            placeholder=" E-mail (@gmail.com)"
             required
             InputProps={{
               startAdornment: <AccountCircle />,
@@ -119,11 +119,11 @@ const FormPage = () => {
             placeholder="Category"
             disabled
             variant="outlined"
-            style={{ marginLeft: '50px', color: '#fffff', backgroundColor: '#B2BEB5' }}
+            style={{ marginLeft: '50px', color: '#fffff', backgroundColor: '#CCD1D1' }}
           />
           
-          <FormControl color="secondary" style={{ marginLeft: '70px', minWidth: '250px' }}>
-            <InputLabel>Select Area</InputLabel>
+          <FormControl color="success" style={{ marginLeft: '70px', minWidth: '250px' }}>
+            <InputLabel>Select Your Area</InputLabel>
             <Select value={area} onChange={(e) => setArea(e.target.value)} required>
               <MenuItem value="">Select Area</MenuItem>
               <MenuItem value="Kandy">Kandy</MenuItem>
@@ -154,7 +154,7 @@ const FormPage = () => {
           </FormControl>
           
         </Box>
-        <TextField label="Topic" color="secondary" 
+        <TextField label="Topic" color="success" 
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="write your heading here"
@@ -162,7 +162,7 @@ const FormPage = () => {
           fullWidth
           style={{ marginBottom: '30px' }}
         />
-        <TextField label="Description" color="secondary" 
+        <TextField label="Description" color="success" 
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="write your issue here..."
@@ -191,22 +191,22 @@ const FormPage = () => {
           }}
           style={{ marginBottom: '50px' }}
         />
-        <FormControl fullWidth style={{ marginBottom: '100px' }}>
+        <FormControl color="success" fullWidth style={{ marginBottom: '100px' }}>
           <InputLabel>Select Priority</InputLabel>
           <Select value={priority} onChange={(e) => setPriority(e.target.value)} required>
             <MenuItem value="">Select Priority</MenuItem>
             <MenuItem value="Low">
-              <Avatar  variant="rounded" sx={{ backgroundColor: 'green' }}>L</Avatar> Low
+              <Avatar  variant="rounded" sx={{ backgroundColor: 'green' }}>L</Avatar> FAQ and Self-Help
             </MenuItem>
             <MenuItem value="Medium">
-              <Avatar  variant="rounded"sx={{ backgroundColor: 'orange' }}>M</Avatar> Medium
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'orange' }}>M</Avatar> General Inquiries
             </MenuItem>
             <MenuItem value="High">
-              <Avatar  variant="rounded"sx={{ backgroundColor: 'red' }}>H</Avatar> High
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'red' }}>H</Avatar> Urgent Support Requests
             </MenuItem>
           </Select>
         </FormControl>
-        <Button type="submit" variant="contained" sx={{ width: "200px", height: "50px", backgroundColor: "green", ml: "500px" }}>
+        <Button type="submit" variant="contained" sx={{ width: "250px", height: "50px", backgroundColor: "green", ml: "500px" }}>
         {inquiryId ? 'Update' : 'Send'}
         </Button>
       </form>
