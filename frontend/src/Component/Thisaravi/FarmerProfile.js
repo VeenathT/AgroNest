@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 const FarmerProfile = () => {
   const { farmerID } = useParams();
   console.log("farmerID:", farmerID); 
+  localStorage.setItem('farmerID', farmerID);
   const [farmerData, setFarmerData] = useState(null);
   const [error, setError] = useState(null);
 
