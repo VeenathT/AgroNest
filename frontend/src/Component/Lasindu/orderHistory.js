@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
-import CookiesBanner from '../Lasindu/Popup/OrderPopUp'; // Import the CookiesBanner component
+import CookiesBanner from '../Lasindu/Popup/OrderPopUp';
 
 const OrderHistoryPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedOrderId, setSelectedOrderId] = useState(null); // State to store the selected order ID
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
-    // Fetch order history from the backend
-    axios.get('http://localhost:8070/order/displayAll')
+    const farmerID = localStorage.getItem('farmerID');
+    axios.get(`http://localhost:8070/order/history/${farmerID}`)
       .then((response) => {
         setOrders(response.data);
         setLoading(false);
@@ -23,16 +23,16 @@ const OrderHistoryPage = () => {
   }, []);
 
   const handleViewOrder = (orderId) => {
-    setSelectedOrderId(orderId); // Set the selected order ID
+    setSelectedOrderId(orderId);
     console.log('View order:', orderId);
   };
 
   const handleCloseBanner = () => {
-    setSelectedOrderId(null); // Reset selected order ID when the banner is closed
+    setSelectedOrderId(null);
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ marginTop : '120px'}}>
       <Typography variant="h4" gutterBottom>
         Order History
       </Typography>
@@ -56,7 +56,8 @@ const OrderHistoryPage = () => {
                         <br />
                         Item Code: {order.itemcode} | 
                         Price: Rs. {order.price} | 
-                        Quantity: {order.quantity}
+                        Quantity: {order.quantity} |
+                        Status: {order.status}
                       </>
                     }
                   />
@@ -70,7 +71,7 @@ const OrderHistoryPage = () => {
           <div>No orders found</div>
         )
       )}
-      {selectedOrderId && <CookiesBanner onClose={handleCloseBanner} orderId={selectedOrderId} />} {/* Render the banner component if selectedOrderId is not null */}
+      {selectedOrderId && <CookiesBanner onClose={handleCloseBanner} orderId={selectedOrderId} />}
     </Container>
   );
 };

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
+
+
+import SearchBar from './SearchBar';
 import { TextField, Button, Card, CardContent, Typography, IconButton, Container, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { Link } from 'react-router-dom';
 
 const ArticleForm = () => {

@@ -14,7 +14,7 @@ const ItemButton = styled(ButtonBase)(({ theme }) => ({
   width: '20%',
   margin: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
-    width: '100% !important', // Overrides inline-style
+    width: '100% !important',
     height: 100,
   },
   '&:hover, &.Mui-focusVisible': {
@@ -78,7 +78,7 @@ const SearchBar = styled(TextField)(({ theme }) => ({
   zIndex: 999,
   backgroundColor: theme.palette.background.paper,
   width: '50%',
-  margin: '0 auto', // Center horizontally
+  margin: '0 auto',
 }));
 
 const ItemList = () => {
@@ -108,7 +108,7 @@ const ItemList = () => {
   );
 
   return (
-    <Box sx={{ marginTop: '100px', textAlign: 'center' }}> {/* Center the content */}
+    <Box sx={{ marginTop: '100px', textAlign: 'center' }}>
       <SearchBar
         placeholder="Search items"
         variant="outlined"

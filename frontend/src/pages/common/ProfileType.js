@@ -1,56 +1,70 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { Button, Container, Grid, Typography, Avatar } from '@mui/material';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
-const Profiletype = () => {
+const Logintype = () => {
   return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
-      spacing={2}
-      style={{ height: '100vh' }}
-    >
-      <Grid item>
-        <Typography variant="h4" gutterBottom>
-          Choose Your Role
-        </Typography>
+    <Container style={{ backgroundColor: 'white', width: '80%', maxWidth: '400px', height: '60vh', 
+    padding: '20px', marginTop: '10rem', borderRadius: '20px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8)', border: '3px solid black' }}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+        style={{ height: '100%' }}
+      >
+        <Grid item>
+          <Avatar sx={{ m: 1, bgcolor: '#0f5132' }}>
+            <AccountCircleOutlinedIcon style={{ fontSize: 35, color: 'white' }} />
+          </Avatar>
+        </Grid>
+
+        <Grid item>
+          <Typography variant="h4" gutterBottom style={{ textAlign: 'center', color: '#0f5132' }}>
+            Choose Your Profile Type
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" component={Link} to="/Profile" sx={{
+            borderRadius: '20px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
+            width: '200px'
+          }}>
+            Farmers
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" component={Link} to="/profileDealer" sx={{
+            borderRadius: '20px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
+            width: '200px'
+          }}>
+            Dealers
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" component={Link} to="/laboratories" sx={{
+            borderRadius: '20px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
+            width: '200px'
+          }}>
+            Laboratories
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" component={Link} to="/laboratories" sx={{
+            borderRadius: '20px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
+            width: '200px'
+          }}>
+            Administrator
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/farmers"
-        >
-          Farmers
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/profileDealer"
-        >
-          Dealers
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/laboratories"
-        >
-          Laboratories
-        </Button>
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
 
-export default Profiletype;
+export default Logintype;

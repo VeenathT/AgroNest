@@ -17,18 +17,14 @@ const DeleteOrderButton = ({ orderId }) => {
   };
 
   const handleConfirmDelete = () => {
-    // Send a DELETE request to delete the order
     axios.delete(`http://localhost:8070/order/delete/${orderId}`)
       .then((response) => {
         console.log('Order deleted successfully:', response);
-        // Close the dialog
         setOpen(false);
-        // Reload the page
         window.location.reload();
       })
       .catch((error) => {
         console.error('Error deleting order:', error);
-        // Handle error gracefully
       });
   };
 
