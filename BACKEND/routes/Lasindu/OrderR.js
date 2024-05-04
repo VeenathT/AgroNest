@@ -11,7 +11,6 @@ router.route('/add').post((req, res) => {
     const price = Number(req.body.price);
     const quantity = Number(req.body.quantity);
     const farmerId = req.body.farmerId;
-    const farmerId = req.body.farmerId;
 
     const newItem = new Order({
         name,
