@@ -107,7 +107,7 @@ const FormPage = () => {
           <TextField  color="secondary" 
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
+            placeholder=" E-mail"
             required
             InputProps={{
               startAdornment: <AccountCircle />,
