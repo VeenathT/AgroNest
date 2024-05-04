@@ -24,6 +24,10 @@ const itemSchema = new schema({
         type: String,
         required: true,
         default: "Pending"
+    },
+    farmerId: {
+        type: String,
+        required: true
     }
 });
 
