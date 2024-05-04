@@ -22,7 +22,7 @@ const farmerReportSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["Farmer", "Dealer", "Lab"],
+    enum: ["Farmer", "Dealer"],
     required: true,
   },
   area: {
@@ -59,6 +59,9 @@ const farmerReportSchema = new mongoose.Schema({
     type: String,
     enum: ["Pending","Resolved"],
     default: "Pending",
+  },
+  replyText: {
+    type: String,
   },
 });
 

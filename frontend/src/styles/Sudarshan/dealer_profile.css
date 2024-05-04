@@ -2,6 +2,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: url('../../images/Nilupul/bgimg.jpg'); 
     background-size: cover;
     background-attachment: fixed; 
     background-position: center; 
@@ -12,7 +13,7 @@ body {
 .container {
     padding: 20px;
     flex-direction: column;
-    margin-top: 64px;
+    margin-top: 100px !important;
   }
   
   .header {
@@ -26,11 +27,12 @@ body {
     background-color: #ffffff !important; 
     border-radius: 50%;
     width: 50px; 
-  height: 50px; 
-  border-radius: 50%; 
+    height: 50px; 
+    border-radius: 50%; 
     padding: 10px 20px !important; 
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    margin-top: 40px !important; 
   }
   
   .sidebar-button:hover {
@@ -48,20 +50,12 @@ body {
     max-width: 900px; 
     margin: -20px auto; 
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(16, 32, 5, 0.884) !important;
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8) !important;
     text-align: center;
     margin-bottom: 50px !important; 
-  }
-  
-  .avatar {
-    width: 200px !important;
-    height: 200px !important;
-    margin: 30px auto 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 50%; 
   }
 
   .detail-item {
@@ -100,6 +94,7 @@ body {
     text-align: left;
     flex-wrap: wrap;
     justify-content: space-between;
+    color: white;
   }
 
   .column {

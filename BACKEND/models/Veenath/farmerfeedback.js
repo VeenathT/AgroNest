@@ -1,5 +1,3 @@
-// farmerfeedback.js (in modules)
-
 const mongoose = require("mongoose");
 
 const farmerFeedbackSchema = new mongoose.Schema({
@@ -20,6 +18,10 @@ const farmerFeedbackSchema = new mongoose.Schema({
     required: true,
     min: 1,
     max: 5,
+  },
+  itemcode: {
+    type: Number, 
+    required: true,
   },
 });
 

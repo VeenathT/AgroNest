@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     padding-top: 64px;
-    background-color: rgb(172, 105, 50);
   }
   
   .header {
@@ -125,6 +124,17 @@
     max-width: 100% !important; 
     max-height: 100% !important; /* Add this to maintain aspect ratio */
   }
+  .web-content img,
+.web-content h1,
+.web-content p {
+  display: none;
+}
+
+.pdf-content img,
+.pdf-content h1,
+.pdf-content p {
+  display: block; /* Ensure content is displayed */
+}
   
   
   

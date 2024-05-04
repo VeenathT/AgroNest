@@ -1,45 +1,51 @@
 import React, { useState } from 'react';
 import { Button, Grid, Input, Typography } from "@mui/material";
 import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
 
 const RegForm = (props) => {
+   const Navigate= useNavigate();
 
    const [formData, setFormData] = useState({
-      fName: '',
-      lName: '',
-      email: '',
-      phone: '',
-      district: '',
-      city: '',
-      un: '',
-      pw: ''
+      first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    district: '',
+    city: '',
+    userName: '',
+    password: '',
   });
 
   const handleChange = (e) => {
    const { name, value } = e.target;
-   setFormData({
-       ...formData,
-       [name]: value
-   });
-};
+   setFormData((prevData) => ({
+     ...prevData,
+     [name]: value,
+   }));
+ };
+
+ const [errorMessage, setErrorMessage] = useState('');
 
 const handleSubmit = async (e) => {
    e.preventDefault();
    try {
-       const response = await axios.post('/api/farmers/add', formData); // Make POST request to your backend API
-       console.log(response.data); // Log response from the backend
+       const response = await axios.post('http://localhost:8070/Farmer/add', formData); 
+       console.log(response.data); 
        setFormData({
-           fName: '',
-           lName: '',
-           email: '',
-           phone: '',
-           district: '',
-           city: '',
-           un: '',
-           pw: ''
+         first_name: '',
+         last_name: '',
+         email: '',
+         phone: '',
+         district: '',
+         city: '',
+         userName: '',
+         password: '',
        });
+       Navigate(`/Login`);
    } catch (error) {
-       console.error('Error:', error);
+       console.error('Error:' , error.response.data);
+        setErrorMessage(error.response.data.error);
    }
 };
 
@@ -49,20 +55,27 @@ const handleSubmit = async (e) => {
         <Grid
             container
             spacing={2}
+            
             sx={{
-                backgroundColor: '#ffffff',
-                marginBottom: '30px',
-                display: 'block',
+               maxWidth: '600px',
+               margin: '-20px auto',
+               marginTop: '2cm',
+               boxSizing: 'border-box',
+               backgroundColor: 'rgba(255, 255, 255, 0.8)',
+               borderRadius: '20px',
+               padding: '20px',
+               boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+               textAlign: 'center',
             }}
         >
             <Grid item xs={12}>
                 <Typography component={'h1'} sx={{color: '#000000'}}>Create Account</Typography>
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="fName"
+                 htmlForm="first_name"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -75,18 +88,18 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='fName'
-                    name="fName"
+                    id='first_name'
+                    name="first_name"
                     sx={{width:'400px'}}
-                    value={formData.fName}
+                    value={formData.first_name}
                     onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="lName"
+                 htmlForm="last_name"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -99,15 +112,15 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='lName'
-                    name="lName"
+                    id='last_name'
+                    name="last_name"
                     sx={{width:'400px'}}
-                    value={formData.lName}
+                    value={formData.last_name}
                     onChange={handleChange}
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="email"
@@ -131,7 +144,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="phone"
@@ -155,7 +168,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="district"
@@ -179,7 +192,7 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
                  htmlForm="city"
@@ -203,10 +216,10 @@ const handleSubmit = async (e) => {
                  />
             </Grid>
 
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="un"
+                 htmlForm="userName"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -219,18 +232,20 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='un'
-                    name="un"
+                    id='userName'
+                    name="userName"
                     sx={{width:'400px'}}
-                    value={formData.un}
+                    value={formData.userName}
                     onChange={handleChange}
                  />
             </Grid>
-
-            <Grid item xs={12} sm={6} sx={{display:'flex'}}>
+            {errorMessage && (
+            <Typography sx={{ color: 'red' }}>{errorMessage}</Typography>
+        )}
+            <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
-                 htmlForm="pw"
+                 htmlForm="password"
                  sx={{
                     color: '#000000',
                     marginRight: '20px',
@@ -243,31 +258,29 @@ const handleSubmit = async (e) => {
                  </Typography>
                  <Input
                     type="text"
-                    id='pw'
-                    name="pw"
+                    id='password'
+                    name="password"
                     sx={{width:'400px'}}
-                    value={formData.pw}
+                    value={formData.password}
                     onChange={handleChange}
                  />
             </Grid>
 
-            <Button
-               type='submit'
-                sx={{
-                    margin: 'auto',
-                    marginBottom: '20px',
-                    backgroundColor: '#2DA771',
-                    color: '#000000',
-                    marginLeft: '15px',
-                    marginTop: '20px',
-                    '&:hover':{
-                        opacity: '0.7',
-                        backgroundColor: '#2DA771'
-                    }
-                }}
-            >
-                Sign Up
-            </Button>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          type='submit'
+          sx={{
+            backgroundColor: '#2DA771',
+            color: '#000000',
+            '&:hover': {
+              opacity: '0.7',
+              backgroundColor: '#2DA771'
+            }
+          }}
+        >
+          Sign Up
+        </Button>
+      </Grid>
         </Grid>
         </form>
     );

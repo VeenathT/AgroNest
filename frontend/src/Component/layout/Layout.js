@@ -2,6 +2,7 @@ import React,{ useState, useEffect } from 'react'
 
 import Header from '../common/header'
 import Footer from '../common/footer'
+import TopBar from '../../pages/common/topbar'
 import Router from '../../router/Router'
 
 
@@ -23,6 +24,7 @@ const Layout = () => {
   
         return (
             <div style={{ paddingBottom: showFooter ? '80px' : '0' }}>
+              <TopBar />
               <Header />
               <Router />
               <Footer visible={showFooter} />
