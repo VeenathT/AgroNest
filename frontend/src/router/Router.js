@@ -59,7 +59,9 @@ import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
 
 //Nilupul
-
+import Form from '../pages/Nilupul/Form';
+import DataTable from '../pages/Nilupul/DataTable';
+import GmailButton from '../pages/Nilupul/GmailButton';
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -154,7 +156,9 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
-        
+        <Route path='/form' element={<Form/>} />
+        <Route path='/datatable' element={<DataTable/>} />
+        <Route path='/gmail' element={<GmailButton/>} />
         
 
       </Routes>
