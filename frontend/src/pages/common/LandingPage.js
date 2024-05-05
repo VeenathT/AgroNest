@@ -21,12 +21,12 @@ const DealerSignUp = () => {
 
   return (
     
-    
+    <>
   <div style={{ marginTop: '150px' }}>
     <ArticleList />
   </div>
 
-    <>
+    
     <div className="App">
       <h1>My Slideshow</h1>
       <SlideShow images={images} />
