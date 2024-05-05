@@ -22,6 +22,15 @@ router.post('/registerDealer', async (req, res) => {
       if (password !== reEnteredPassword) {
         return res.status(400).json({ error: 'Passwords do not match' });
       }
+
+      if (phone.length !== 10 || !(/^\d+$/.test(phone))) {
+        return res.status(400).json({ error: 'Phone number should contain exactly 10 digits' });
+    }
+
+    const firstTwoDigits = phone.substring(0, 2);
+    if (firstTwoDigits !== '07') {
+        return res.status(400).json({ error: 'Phone number should contain 07XXXXXXXX' });
+    }
   
       const existingEmail = await Dealer.findOne({ email });
       if (existingEmail) {
@@ -135,6 +144,22 @@ router.put('/updateDealer/:id', async (req, res) => {
     const dealer = await Dealer.findById(dealerId);
     if (!dealer) {
       return res.status(404).json({ error: 'Dealer not found' });
+    }
+
+    const existingUsername = await Dealer.findOne({ username });
+    if (existingUsername && existingUsername._id.toString() !== dealerId) {
+      return res.status(400).json({ error: 'Username already taken' });
+    }
+
+    // Check if the email is already registered
+    const existingEmail = await Dealer.findOne({ email });
+    if (existingEmail && existingEmail._id.toString() !== dealerId) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+
+    // Check if the phone number has exactly 10 digits and starts with '07'
+    if (phone.length !== 10 || !(/^\d+$/.test(phone)) || !phone.startsWith('07')) {
+      return res.status(400).json({ error: 'Phone number should contain exactly 10 digits and start with 07' });
     }
 
     // Check if the password matches the re-entered password

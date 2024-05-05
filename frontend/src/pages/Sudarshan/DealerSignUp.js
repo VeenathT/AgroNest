@@ -190,6 +190,7 @@ const SignUp = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              placeholder="enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               sx={{
@@ -220,6 +221,7 @@ const SignUp = () => {
               name="phone"
               type="text"
               autoComplete="phone"
+              placeholder="e.g. 07XXXXXXXX"
               autoFocus
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -284,6 +286,7 @@ const SignUp = () => {
               name="email"
               type="email"
               autoComplete="email"
+              placeholder="e.g. exmaple@gmail.com"
               autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -312,6 +315,7 @@ const SignUp = () => {
               type="password"
               id="repassword"
               autoComplete="re-entered-password"
+              placeholder="re-enter the password"
               value={reEnteredPassword}
               onChange={(e) => setReEnteredPassword(e.target.value)}
               sx={{
