@@ -53,6 +53,9 @@ import UpdateProfile from '../pages/Thisaravi/UpdateProfile';
 import ArticleList from '../pages/Nilupul/ArticleList';
 import ArticleForm from '../pages/Nilupul/ArticleForm';
 import ShopAnalysis from '../pages/Sudarshan/Analysis';
+import Form from '../pages/Nilupul/Form';
+import DataTable from '../pages/Nilupul/DataTable';
+import GmailButton from '../pages/Nilupul/GmailButton';
 
 //Rahul
 import DealerList from '../Component/Rahul/DealerList';
@@ -165,6 +168,10 @@ const Router = () => {
 
         <Route path='/articles' element={<ArticleList/>} />
         <Route path='/addarticle' element={<ArticleForm/>} />
+        <Route path='/form' element={<Form/>} />
+        <Route path='/datatable' element={<DataTable/>} />
+        <Route path='/gmail' element={<GmailButton/>} />
+        
         <Route path="/Itemlist" element={<ItemList />} />
         <Route path="/Item/:id" element={<ItemView />}/>
         <Route path="/Order-History" element={<OrderHistoryPage />}/>
@@ -175,6 +182,7 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
+        
 
 
         {/* Kande Routes */}
