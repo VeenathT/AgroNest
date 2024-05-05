@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Rating, Typography, Container, Grid, Snackbar, Box } from '@mui/material'; 
 import { Alert } from '@mui/material';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useParams
 import axios from 'axios';
 import SaveIcon from '@mui/icons-material/Save';
 
 const FeedbackForm = () => {
-  const location = useLocation();
+  const { orderId } = useParams(); // Get orderId from URL parameters
   const navigate = useNavigate();
-  const { feedbackId } = useParams(); 
 
-  const [orderId, setOrderId] = useState('');
   const [farmerName, setFarmerName] = useState('');
   const [description, setDescription] = useState('');
   const [rating, setRating] = useState(1); 
@@ -19,34 +17,21 @@ const FeedbackForm = () => {
   const [successSnackbar, setSuccessSnackbar] = useState(false);
 
   useEffect(() => {
-    console.log('Feedback ID:', feedbackId); 
+    // Fetch order details based on orderId
+    const fetchOrderDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8070/order/get/${orderId}`);
+        const { farmerName } = response.data; // Assuming 'farmerName' is part of the order details
+        setFarmerName(farmerName);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-    if (location.state && location.state.feedbackToEdit) {
-      
-      const { orderId, farmerName, description, starRating } = location.state.feedbackToEdit;
-      setOrderId(orderId);
-      setFarmerName(farmerName);
-      setDescription(description);
-      setRating(starRating);
-    } else if (feedbackId) {
-      
-      const fetchFeedback = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8070/api/feedbacks/${feedbackId}`);
-          const { orderId, farmerName, description, starRating } = response.data;
-          setOrderId(orderId);
-          setFarmerName(farmerName);
-          setDescription(description);
-          setRating(starRating);
-        } catch (err) {
-          console.error(err);
-        
-        }
-      };
-
-      fetchFeedback();
+    if (orderId) {
+      fetchOrderDetails();
     }
-  }, [location.state, feedbackId]);
+  }, [orderId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,24 +42,13 @@ const FeedbackForm = () => {
     }
 
     try {
-      if (feedbackId) {
-        
-        await axios.put(`http://localhost:8070/api/feedbacks/${feedbackId}`, {
-          orderId,
-          farmerName,
-          description,
-          starRating: rating,
-        });
-      } else {
-       
-        await axios.post('http://localhost:8070/api/feedbacks', {
-          orderId,
-          farmerName,
-          description,
-          starRating: rating,
-          itemcode: 12345, 
-        });
-      }
+      await axios.post('http://localhost:8070/api/feedbacks', {
+        orderId,
+        farmerName,
+        description,
+        starRating: rating,
+        itemcode: 12345, 
+      });
 
       setSuccessSnackbar(true); 
       setTimeout(() => {
@@ -99,21 +73,20 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "500px", margin: "auto", marginTop: '150px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
+    <div style={{ backgroundColor: '#F8F9F9', width: "500px", margin: "auto", marginTop: '150px', boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
     <Container maxWidth="sm">
       <Typography style={{ marginBottom:'20px'}} variant="h4" align="center" gutterBotom>
-        {feedbackId ? 'Edit Feedback' : 'Submit Feedback'}
+        Submit Feedback
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>
             <TextField
-              label="Order ID"
+              label={`Order ID: ${farmerName.name}`}
               variant="outlined"
               fullWidth
-              value={orderId}
-              onChange={(e) => setOrderId(e.target.value)}
-              required
+              value={farmerName.name} // Pre-fill orderId
+              InputProps={{ readOnly: false }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -157,7 +130,7 @@ const FeedbackForm = () => {
               size="large"
             >
               <SaveIcon sx={{ mr: 1 }} />
-              {feedbackId ? 'Update' : 'Submit'}
+              Submit
             </Button>
             <Button
               variant="outlined"
