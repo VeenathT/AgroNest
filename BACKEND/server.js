@@ -71,8 +71,28 @@ app.use("/Farmer", farmerRouter);
 const soilTestRouter = require("./routes/Thisaravi/soilTests.js");
 app.use("/SoilTest", soilTestRouter);
 
-const FAnalysis = require("./routes/Kande/FAnalysis.js");
-app.use("/FAnalysis",FAnalysis);
+const PdfRouter = require("./routes/Thisaravi/PDFRoutes.js");
+app.use('/pdfRouter', PdfRouter);
+
+//const FAnalysis = require("./routes/Kande/FAnalysis.js");
+//app.use("/FAnalysis",FAnalysis);
+// kande
+const TopFertilizer = require("./routes/Kande/TopFertilizerRoutes.js");
+app.use("/topfertilizercategory",TopFertilizer);
+
+const topsellingSchema = require("./routes/Kande/TopSellingRoutes.js");
+app.use("/topdealer",topsellingSchema);
+
+const topareasSchema = require("./routes/Kande/TopAreasRoutes.js");
+app.use("/toparea",topareasSchema);
+
+const userSchema = require("./routes/Kande/managerloginRoutes.js");
+app.use(userSchema);
+
+const adminadd = require('./routes/Kande/admin.js');
+app.use('/api/admin', adminadd);
+
+
 
 //Oshini
 const labRouter = require("./routes/Oshini/lab_account/labAccounts.js");
@@ -118,6 +138,9 @@ const countDealer = require('./routes/Rahul/countCealer.js')
 app.use(countDealer);
 const inquiryCount = require('./routes/Rahul/inquiryCount.js');
 app.use(inquiryCount);
+
+const profileRoutes = require('./routes/Rahul/Profile.js');
+app.use('/api/profile', profileRoutes);
 
 app.use('/api/auth', adminRoutes);
 

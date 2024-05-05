@@ -130,6 +130,27 @@ router.get('/dealers', async (req, res) => {
 
 module.exports = router;
 
+router.get('/alldealers', async (req, res) => {
+  try {
+    // Fetch all dealers from the database
+    const dealers = await Dealer.find();
+
+    if (!dealers || dealers.length === 0) {
+      console.log('No dealers found');
+      return res.status(404).json({ error: 'No dealers found' });
+    }
+
+    console.log('Dealers data:', dealers);
+    
+    res.status(200).json(dealers);
+  } catch (error) {
+    console.error('Error fetching dealers data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+module.exports = router;
+
 
 
 router.put('/updateDealer/:id', async (req, res) => {

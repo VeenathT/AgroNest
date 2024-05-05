@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Select, MenuItem, FormControl } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -11,6 +11,8 @@ function LabDash() {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [farmerNames, setFarmerNames] = useState({});
+  const [showPopup, setShowPopup] = useState(false);
+  const [newRequestsCount, setNewRequestsCount] = useState(0);
 
   useEffect(() => {
     const storedUserName = sessionStorage.getItem('userName');
@@ -32,15 +34,12 @@ function LabDash() {
           names[request.farmerID] = name;
         }));
         setFarmerNames(names);
-  
-        // Retrieve last visit timestamp from local storage
+
         const lastVisitTimestamp = localStorage.getItem('lastVisit');
-  
-        // Set current timestamp as the last visit timestamp
+
         localStorage.setItem('lastVisit', new Date().getTime());
   
         if (lastVisitTimestamp) {
-          // Count the number of requests added after the last visit
           const newRequestsCount = response.data.testRequests.reduce((count, request) => {
             const requestTimestamp = new Date(request.date).getTime();
             if (requestTimestamp > lastVisitTimestamp) {
@@ -49,9 +48,9 @@ function LabDash() {
             return count;
           }, 0);
   
-          // Display notification if there are new requests
+          setNewRequestsCount(newRequestsCount);
           if (newRequestsCount > 0) {
-            alert(`You have ${newRequestsCount} new requests since your last visit.`);
+            setShowPopup(true);
           }
         }
       } catch (error) {
@@ -116,11 +115,22 @@ function LabDash() {
     return dateComparison;
   });
 
+  const NewRequestsPopup = () => {
+    return (
+      <div style={popupStyle}>
+        <div style={popupContentStyle}>
+          <p>You have {newRequestsCount} new requests since your last visit.</p>
+          <button style={closeButtonStyle} onClick={() => setShowPopup(false)}>Close</button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div style={{ marginTop:'50px' , paddingTop: '70px' }}>
       <AppBar position="fixed" style={{ marginTop: "107px", backgroundColor: '#0F5132' }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 0, color: 'white' }}>
+          <Typography variant="h6" component="div" style={{ flexGrow: 0, color: 'white' }}>
             Lab Dashboard
           </Typography>
           <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="transparent">
@@ -128,11 +138,11 @@ function LabDash() {
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Pending" disabled={tabValue === 0} sx={{ color: 'white' }} />
+            <Tab label="Pending" disabled={tabValue === 0} style={{ color: 'white' }} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Accepted" component={Link} to="/accepted" sx={{ color: 'white' }}/>
+            <Tab label="Accepted" component={Link} to="/accepted" style={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Completed" component={Link} to="/completed" sx={{ color: 'white' }}/>
+            <Tab label="Completed" component={Link} to="/completed" style={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
           </Tabs>
@@ -150,20 +160,20 @@ function LabDash() {
       <div style={{ marginTop: '20px' }} /> 
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '20px', marginBottom: '30px' }}>
         <IconButton>
-        <SearchIcon sx={{ color: '#0F5132' }}  />
+          <SearchIcon style={{ color: '#0F5132' }}  />
         </IconButton>
         <InputBase
           placeholder="  Search..."
           value={searchQuery}
           onChange={handleSearchChange}
-          sx={{ backgroundColor: 'white', marginLeft: '10px', color: 'black', border: '2px solid #0F5132' }}
+          style={{ backgroundColor: 'white', marginLeft: '10px', color: 'black', border: '2px solid #0F5132' }}
         />
       </div>
       <div style={{ margin: '0 20px', borderRadius: '10px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
         <TableContainer component={Paper} style={{ backgroundColor: '#E8F5E9' }}>
           <Table>
             <TableHead>
-            <TableRow style={{ backgroundColor: '#90EE90' }}>
+              <TableRow style={{ backgroundColor: '#90EE90' }}>
                 <TableCell style={{ color: '#0F5132' }}>Request ID</TableCell>
                 <TableCell style={{ color: '#0F5132' }}>Name</TableCell>
                 <TableCell style={{ color: '#0F5132' }}>Test Type</TableCell>
@@ -181,12 +191,18 @@ function LabDash() {
                   <TableCell>{formatDate(request.date)}</TableCell>
                   <TableCell>{request.startTime}</TableCell>
                   <TableCell>
-                  <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
-                        <option value="pending">Pending</option>
-                        <option value="accepted">Accepted</option>
-                        <option value="completed">Completed</option>
-                        <option value="rejected">Rejected</option>
-                  </select>
+                    <FormControl>
+                      <Select
+                        value={request.status}
+                        onChange={(event) => handleStatusChange(event, request._id)}
+                        style={{ fontSize: '0.8rem', minWidth: 100 }}
+                      >
+                        <MenuItem value="pending">Pending</MenuItem>
+                        <MenuItem value="accepted">Accepted</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="rejected">Rejected</MenuItem>
+                      </Select>
+                    </FormControl>
                   </TableCell>
                 </TableRow>
               ))}
@@ -194,8 +210,31 @@ function LabDash() {
           </Table>
         </TableContainer>
       </div>
+      {showPopup && <NewRequestsPopup />}
     </div>
   );
 }
+
+const popupStyle = {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  backgroundColor: 'white',
+  padding: '20px',
+  border: '1px solid #ccc',
+};
+
+const popupContentStyle = {
+  textAlign: 'center',
+};
+
+const closeButtonStyle = {
+  padding: '5px 10px',
+  backgroundColor: '#0F5132',
+  color: 'white',
+  border: 'none',
+  cursor: 'pointer',
+};
 
 export default LabDash;

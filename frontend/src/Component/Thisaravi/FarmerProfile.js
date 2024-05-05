@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Grid } from '@mui/material';
+import { Container, Typography, Grid, Button, Link } from '@mui/material';
 import Sidebar from '../../Component/Thisaravi/Sidebar';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const FarmerProfile = () => {
   const { farmerID } = useParams();
-  console.log("farmerID:", farmerID); 
-  localStorage.setItem('logId', farmerID);
-  const value1 = localStorage.getItem('logId')
-  console.log("Valueee : ", value1)
+  const history = useNavigate();
   const [farmerData, setFarmerData] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFarmerData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8070/Farmer/get/${value1}`);
+        const response = await axios.get(`http://localhost:8070/Farmer/get/${farmerID}`);
         setFarmerData(response.data.farmer);
-        setError(null); 
+        setError(null);
       } catch (error) {
         console.error('Error fetching farmer data:', error);
-        setError('Error fetching farmer data'); 
+        setError('Error fetching farmer data');
       }
     };
 
     fetchFarmerData();
   }, [farmerID]);
+
+  const handleEditProfile = () => {
+    history(`/edit-profile/${farmerID}`);
+  };
 
   return (
     <Grid
@@ -35,7 +36,7 @@ const FarmerProfile = () => {
       sx={{
         maxWidth: '600px',
         margin: '-20px auto',
-        marginTop: '2cm',
+        marginTop: '250px',
         boxSizing: 'border-box',
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         borderRadius: '20px',
@@ -83,6 +84,11 @@ const FarmerProfile = () => {
                   <Typography variant="body1">
                     City: {farmerData.city}
                   </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button onClick={handleEditProfile} variant="contained" color="primary">
+                    Edit Profile
+                  </Button>
                 </Grid>
               </Grid>
             )}

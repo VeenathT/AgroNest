@@ -12,7 +12,7 @@ router.get('/viewdealers', async (req, res) => {
   }
 });
 
-// DELETE a dealer by ID
+// delete ID
 router.delete('/viewdealers/delete/:id', async (req, res) => {
   try {
     const { id } = req.params;

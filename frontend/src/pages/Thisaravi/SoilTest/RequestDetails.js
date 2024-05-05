@@ -20,23 +20,29 @@ const RequestDetails = () => {
     fetchRequestDetails();
   }, [requestId]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   //pdf generation
   const generatePDF = () => (
     <Document>
-  <Page size="A4">
-    <View style={styles.section}>
-      <Text style={{ color: 'red', fontWeight: 'bold' }}>Soil Test Request Details</Text>
-      <Text>{`Soil Test Type: ${soilTest?.soilTestType}`}</Text>
-      <Text>{`Crop Type: ${soilTest?.cropType}`}</Text>
-      <Text>{`Date: ${soilTest?.date}`}</Text>
-      <Text>{`District: ${soilTest?.district}`}</Text>
-      <Text>{`City: ${soilTest?.city}`}</Text>
-      <Text>{`Status: ${soilTest?.status}`}</Text>
-    </View>
-  </Page>
-</Document>
-
-
+      <Page size="A4">
+        <View style={styles.section}>
+          <Text style={{ color: 'red', fontWeight: 'bold' }}>Soil Test Request Details</Text>
+          <Text>{`Soil Test Type: ${soilTest?.soilTestType}`}</Text>
+          <Text>{`Crop Type: ${soilTest?.cropType}`}</Text>
+          <Text>{`Date: ${formatDate(soilTest?.date)}`}</Text>
+          <Text>{`District: ${soilTest?.district}`}</Text>
+          <Text>{`City: ${soilTest?.city}`}</Text>
+          <Text>{`Status: ${soilTest?.status}`}</Text>
+        </View>
+      </Page>
+    </Document>
   );
 
   return (
@@ -47,7 +53,7 @@ const RequestDetails = () => {
             <h2>Soil Test Request Details</h2>
             <p><strong>Soil Test Type:</strong> {soilTest.soilTestType}</p>
             <p><strong>Crop Type:</strong> {soilTest.cropType}</p>
-            <p><strong>Date:</strong> {soilTest.date}</p>
+            <p><strong>Date:</strong> {formatDate(soilTest.date)}</p>
             <p><strong>District:</strong> {soilTest.district}</p>
             <p><strong>City:</strong> {soilTest.city}</p>
             <p><strong>Status:</strong> {soilTest.status}</p>

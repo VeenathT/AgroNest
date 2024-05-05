@@ -13,7 +13,7 @@ router.get("/dealers", async (req, res) => {
   }
 });
 
-// Fetch reply with a dealer
+// Fetch reply 
 router.get("/dealers/:id/reply", async (req, res) => {
   try {
     const dealerId = req.params.id;
@@ -30,13 +30,13 @@ router.post("/dealers/:id/reply", async (req, res) => {
     const dealerId = req.params.id;
     const { replyText } = req.body;
 
-    // Create new Reply 
+    
     const reply = new Reply({
       dealerId,
       replyText,
     });
 
-    // Save reply to databse
+    // Save reply 
     await reply.save();
 
     res.status(201).json(reply);

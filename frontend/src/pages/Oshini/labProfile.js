@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Paper, Button, styled } from '@mui/material';
+import { Container, Typography, Paper, Button, styled, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom'; 
 import axios from 'axios';
 import jsPDF from 'jspdf';
@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StyledContainer = styled(Container)({
   marginTop: '50px',
-  backgroundColor: 'rgba(169, 169, 169, 0.1)' // Setting background color
+  backgroundColor: 'rgba(255, 255, 255, 0)' 
 });
 
 const Label = styled(Typography)({
@@ -28,6 +28,7 @@ const ValueLabel = styled(Typography)({
 
 const LabProfile = () => {
   const [labDetails, setLabDetails] = useState({});
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate(); 
   const storedUserName = sessionStorage.getItem('userName');
     
@@ -49,7 +50,15 @@ const LabProfile = () => {
     navigate('/labEdit');
   };
 
-  const handleDelete = async (userName) => {
+  const handleDelete = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
       await axios.delete(`http://localhost:8070/labAccount/delete/${storedUserName}`);
       alert('Account deleted successfully');
@@ -59,10 +68,6 @@ const LabProfile = () => {
       alert('Failed to delete account. Please try again later.');
     }
   };
-
-  const handleBack = () => {
-    navigate('/labDash');
-  }
 
   const generatePDF = async () => {
     try {
@@ -104,7 +109,8 @@ const LabProfile = () => {
         <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '10px', left: '10px', zIndex: 999 }}>
           <ArrowBackIcon />
         </Link>
-        <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', margin: '0 auto', position: 'relative' }}>
+        <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)', width: '55%', margin: '0 auto', position: 'relative' }}>
+
           <Typography variant="h4" gutterBottom>
             <center>Your Details</center>
           </Typography> <br></br>
@@ -149,6 +155,24 @@ const LabProfile = () => {
           </div>
         </Paper>
       </div>
+
+
+      <Dialog open={showConfirmation} onClose={handleCancelDelete}>
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Are you sure you want to delete your account?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDelete} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmDelete} color="secondary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </StyledContainer>
   );
 };
