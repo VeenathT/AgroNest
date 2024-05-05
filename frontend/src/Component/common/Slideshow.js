@@ -4,8 +4,9 @@ import 'react-slideshow-image/dist/styles.css'; // Import the default styles
 
 const Slideshow = ({ images }) => {
   const slideStyles = {
-    height: '300px', // Set the height of each slide
+    height: '500px', // Set the height of each slide
     display: 'flex',
+    
     justifyContent: 'center',
     alignItems: 'center',
   };
