@@ -54,12 +54,10 @@ function CompletedRequests() {
     try {
       await axios.put(`http://localhost:8070/testRequest/updateStatus/${requestId}`, { status: newStatus });
 
-      // If the status is rejected, increment the rejected count
       if (newStatus === 'rejected') {
         await axios.put('http://localhost:8070/labAccount/incrementRejected', { userName: sessionStorage.getItem('userName') });
       }
 
-      // Update the completedRequests state to remove the completed request
       setCompletedRequests(completedRequests.filter(request => request._id !== requestId));
     } catch (error) {
       console.error('Error updating status:', error);

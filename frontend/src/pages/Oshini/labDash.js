@@ -34,15 +34,12 @@ function LabDash() {
           names[request.farmerID] = name;
         }));
         setFarmerNames(names);
-  
-        // Retrieve last visit timestamp from local storage
+
         const lastVisitTimestamp = localStorage.getItem('lastVisit');
-  
-        // Set current timestamp as the last visit timestamp
+
         localStorage.setItem('lastVisit', new Date().getTime());
   
         if (lastVisitTimestamp) {
-          // Count the number of requests added after the last visit
           const newRequestsCount = response.data.testRequests.reduce((count, request) => {
             const requestTimestamp = new Date(request.date).getTime();
             if (requestTimestamp > lastVisitTimestamp) {

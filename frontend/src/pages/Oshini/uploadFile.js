@@ -11,10 +11,10 @@ const Container = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  height: 'calc(100vh - 150px)', /* Adjust height as needed */
+  height: 'calc(100vh - 150px)',
   backgroundColor: 'rgba(255, 255, 255, 0)',
   position: 'fixed',
-  top: '75px', /* Adjust top position based on AppBar height */
+  top: '75px', 
   left: '50%',
   transform: 'translateX(-50%)',
 });
@@ -44,9 +44,8 @@ function UploadFile() {
   const [file, setFile] = useState(null);
   const [dragging, setDragging] = useState(false);
   const [removingFile, setRemovingFile] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate(); 
 
-  // Fetch user name from session storage
   useEffect(() => {
     const storedUserName = sessionStorage.getItem('userName');
     if (storedUserName) {
@@ -54,7 +53,6 @@ function UploadFile() {
     }
   }, []);
 
-  // Function to handle file upload
   const handleFileUpload = async (e) => {
     e.preventDefault();
     if (!file) {
@@ -72,19 +70,18 @@ function UploadFile() {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert("Successfully uploaded");
-      navigate('/completed'); // Redirect to the completed page after successful upload
+      navigate('/completed');
     } catch (error) {
       console.error('Error uploading file:', error);
       alert("An error occurred while uploading. Please try again later.");
     }
   };
 
-  // Function to handle file selection
+  
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  // Function to handle file click to open in new tab
   const handleFileClick = () => {
     if (file && !removingFile) {
       const fileURL = URL.createObjectURL(file);
@@ -92,25 +89,21 @@ function UploadFile() {
     }
   };
 
-  // Function to handle drag over
   const handleDragOver = (e) => {
     e.preventDefault();
     setDragging(true);
   };
 
-  // Function to handle drag enter
   const handleDragEnter = (e) => {
     e.preventDefault();
     setDragging(true);
   };
 
-  // Function to handle drag leave
   const handleDragLeave = (e) => {
     e.preventDefault();
     setDragging(false);
   };
 
-  // Function to handle file drop
   const handleDrop = (e) => {
     e.preventDefault();
     setDragging(false);
@@ -118,11 +111,10 @@ function UploadFile() {
     setFile(droppedFile);
   };
 
-  // Function to remove selected file
   const removeFile = () => {
-    setRemovingFile(true); // Set removingFile state to true before removing the file
+    setRemovingFile(true); 
     setFile(null);
-    setRemovingFile(false); // Reset removingFile state to false after removing the file
+    setRemovingFile(false); 
   };
 
   return (

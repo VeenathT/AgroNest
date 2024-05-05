@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StyledContainer = styled(Container)({
   marginTop: '50px',
-  backgroundColor: 'rgba(255, 255, 255, 0)' // Setting background color
+  backgroundColor: 'rgba(255, 255, 255, 0)' 
 });
 
 const Label = styled(Typography)({
@@ -156,7 +156,7 @@ const LabProfile = () => {
         </Paper>
       </div>
 
-      {/* Confirmation Dialog */}
+
       <Dialog open={showConfirmation} onClose={handleCancelDelete}>
         <DialogTitle>Confirmation</DialogTitle>
         <DialogContent>
