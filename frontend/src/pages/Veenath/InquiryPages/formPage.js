@@ -102,8 +102,9 @@ const FormPage = () => {
   return (
     <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '100px', overflowY: 'auto' }}>
       <h1>{inquiryId ? 'Update Inquiry' : 'Submit Inquiry'}</h1>
+      <section2>Fill in the form below to submit your inquiry</section2>
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px',marginTop:'30px' }}>
           <TextField  color="success" 
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -119,7 +120,7 @@ const FormPage = () => {
             placeholder="Category"
             disabled
             variant="outlined"
-            style={{ marginLeft: '50px', color: '#fffff', backgroundColor: '#CCD1D1' }}
+            style={{ marginLeft: '50px', color: '#fffff', backgroundColor: '#86B579' }}
           />
           
           <FormControl color="success" style={{ marginLeft: '70px', minWidth: '250px' }}>
