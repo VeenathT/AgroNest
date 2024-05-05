@@ -1,33 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { MaterialReactTable } from 'material-react-table';
+import { Box, IconButton, Menu, MenuItem, Grid, Typography } from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon, Email as EmailIcon, GetApp as GetAppIcon } from '@mui/icons-material';
 import axios from 'axios';
-import { MaterialReactTable, createMRTColumnHelper, useMaterialReactTable } from 'material-react-table';
-import { Box, Button , Grid} from '@mui/material';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { mkConfig, generateCsv, download } from 'export-to-csv';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ConfirmationDialog from './ConfirmationDialog';
 import Sidebar from './Sidebar';
 
-
-const columnHelper = createMRTColumnHelper();
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2', // Dark blue color
-    },
-  },
-});
-
-const FarmerList = () => {
-  const [farmers, setFarmer] = useState([]);
-  const [loading, setLoading] = useState(true);
+export const Example = () => {
+  const [data, setData] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedFarmer, setSelectedFarmer] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/viewfarmers');
-        setFarmer(response.data);
-        setLoading(false);
+        const response = await fetch('http://localhost:8070/viewfarmers'); // Fetch farmer data
+        if (!response.ok) {
+          throw new Error('Failed to fetch farmers');
+        }
+        const fetchedData = await response.json();
+        setData(fetchedData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -36,108 +29,146 @@ const FarmerList = () => {
     fetchData();
   }, []);
 
-  const columns = [
-    
-    columnHelper.accessor('first_name', {
-      header: 'Name',
-      size: 120,
-    }),
-    columnHelper.accessor('email', {
-      header: 'Email',
-      size: 200,
-    }),
-    columnHelper.accessor('phone', {
-      header: 'Phone',
-      size: 150,
-    }),
-    
-  ];
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'first_name',
+        header: 'Name',
+        size: 120,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        size: 130,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        size: 110,
+      },
+      
+    ],
+    []
+  );
 
-  const csvConfig = mkConfig({
-    fieldSeparator: ',',
-    decimalSeparator: '.',
-    useKeysAsHeaders: true,
-  });
-
-  const handleExportRows = (rows) => {
-    const rowData = rows.map((row) => row.original);
-    const csv = generateCsv(csvConfig)(rowData);
-    download(csvConfig)(csv);
+  const handleExportCSV = () => {
+    const csvContent = "data:text/csv;charset=utf-8," + data.map(row => Object.values(row).join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "farmers.csv");
+    document.body.appendChild(link);
+    link.click();
   };
 
-  const handleExportData = () => {
-    const csv = generateCsv(csvConfig)(farmers);
-    download(csvConfig)(csv);
+  const handleMenuOpen = event => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const table = useMaterialReactTable({
-    columns,
-    data: farmers,
-    enableRowSelection: true,
-    columnFilterDisplayMode: 'popover',
-    paginationDisplayMode: 'pages',
-    positionToolbarAlertBanner: 'bottom',
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '12px',
-          padding: '8px',
-          flexWrap: 'wrap',
-          marginTop:'90px',
-          justifyContent: 'flex-end',
-          
-        }}
-      >
-        <Button
-          onClick={handleExportData}
-          startIcon={<FileDownloadIcon />}
-        >
-          Export All Data
-        </Button>
-        <Button
-          disabled={table.getPrePaginationRowModel().rows.length === 0}
-          onClick={() =>
-            handleExportRows(table.getPrePaginationRowModel().rows)
-          }
-          startIcon={<FileDownloadIcon />}
-        >
-          Export All Rows
-        </Button>
-        <Button
-          disabled={table.getRowModel().rows.length === 0}
-          onClick={() => handleExportRows(table.getRowModel().rows)}
-          startIcon={<FileDownloadIcon />}
-        >
-          Export Page Rows
-        </Button>
-        <Button
-          disabled={
-            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
-          }
-          onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
-          startIcon={<FileDownloadIcon />}
-        >
-          Export Selected Rows
-        </Button>
-      </Box>
-    ),
-  });
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDeleteConfirmation = (farmer) => {
+    setSelectedFarmer(farmer);
+    setConfirmOpen(true);
+  };
+
+  const handleDelete = async () => {
+    const id = selectedFarmer._id;
+    try {
+      const response = await axios.delete(`http://localhost:8070/viewfarmers/delete/${id}`); // Delete farmer
+      if (response.status === 200) {
+        const newData = data.filter(farmer => farmer._id !== id);
+        setData(newData);
+      } else {
+        console.error('Failed to delete farmer:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error deleting farmer:', error);
+    }
+    setConfirmOpen(false);
+    setSelectedFarmer(null);
+  };
 
   return (
-    <Grid container>
-      <Grid item xs={3}>
-        <Sidebar />
+    <div style={{ marginTop: '120px' }}>
+      <Typography variant="h6" style={{ marginLeft: '265px', marginBottom: '-10px' }}>Registered Farmers</Typography>
+      <Grid container>
+        <Grid item xs={3}>
+          <Sidebar />
+        </Grid>
+        <Grid item xs={9} style={{ marginLeft: '265px' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h6"> </Typography>
+            <IconButton onClick={handleExportCSV}>
+              <GetAppIcon />
+            </IconButton>
+          </Box>
+          <MaterialReactTable
+            className="custom-table"
+            columns={columns}
+            data={data}
+            layoutMode="grid"
+            displayColumnDefOptions={{
+              'mrt-row-actions': {
+                size: 180,
+                grow: false,
+              },
+            }}
+            enableRowActions
+            renderRowActions={({ row, table }) => (
+              <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '1px' }}>
+                <IconButton
+                  color="primary"
+                  onClick={() =>
+                    window.open(
+                      `mailto:${row.original.email}?subject=Hello ${row.original.name}!`
+                    )
+                  }
+                >
+                  <EmailIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    table.setEditingRow(row);
+                  }}
+                >
+                  
+                </IconButton>
+                <IconButton
+                  color="error"
+                  onClick={() => handleDeleteConfirmation(row.original)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            )}
+            toolbar={(
+              <div>
+                <IconButton onClick={handleMenuOpen}>
+                  <GetAppIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={handleExportCSV}>Export CSV</MenuItem>
+                </Menu>
+              </div>
+            )}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={9} style={{ marginLeft: '180px' }}>
-      <div style={{ width: 'calc(100% + 150px)', overflowX: 'hidden' }}>
-    <ThemeProvider theme={theme}>
-      <MaterialReactTable table={table} />
-    </ThemeProvider>
-  </div>
-      </Grid>
-    </Grid>
+      <ConfirmationDialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleDelete}
+      />
+    </div>
   );
-  
-}
-export default FarmerList;
+};
+
+export default Example;

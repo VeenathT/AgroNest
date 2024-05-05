@@ -15,7 +15,7 @@ const LabPDFGenerator = ({ lab }) => {
     doc.setFontSize(24); 
 
  
-    const xPosition = 80; // X position for the header
+    const xPosition = 80; 
     const yPosition = 30; 
     doc.text('Agronest', xPosition, yPosition);
 

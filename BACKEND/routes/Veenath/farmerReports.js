@@ -1,9 +1,7 @@
-// farmerReports.js (in routes)
-
 const router = require("express").Router();
 const FarmerReport = require("../../models/Veenath/farmerReport");
 
-// Create farmer report
+
 router.post("/", async (req, res) => {
   try {
     const { name, topic, description, priority, category, area, status } = req.body;
@@ -24,7 +22,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all farmer reports
+
 router.get("/", async (req, res) => {
   try {
     const reports = await FarmerReport.find();
@@ -35,7 +33,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get farmer report by ID
+
 router.get("/:id", async (req, res) => {
   try {
     const report = await FarmerReport.findById(req.params.id);
@@ -49,7 +47,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Update farmer report by ID
+
 router.put("/:id", async (req, res) => {
   try {
     const { name, topic, description, priority, category, area, status } = req.body;
@@ -68,7 +66,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete farmer report by ID
+
 router.delete("/:id", async (req, res) => {
   try {
     const deletedReport = await FarmerReport.findByIdAndDelete(req.params.id);

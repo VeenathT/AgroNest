@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Rating, Typography, Container, Grid, Snackbar, Box } from '@mui/material'; // Import Box
+import { TextField, Button, Rating, Typography, Container, Grid, Snackbar, Box } from '@mui/material'; 
 import { Alert } from '@mui/material';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -8,28 +8,28 @@ import SaveIcon from '@mui/icons-material/Save';
 const FeedbackForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { feedbackId } = useParams(); // Get the feedback ID from the URL
+  const { feedbackId } = useParams(); 
 
   const [orderId, setOrderId] = useState('');
   const [farmerName, setFarmerName] = useState('');
   const [description, setDescription] = useState('');
-  const [rating, setRating] = useState(1); // Default to 1 star
+  const [rating, setRating] = useState(1); 
   const [hover, setHover] = useState(-1);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [successSnackbar, setSuccessSnackbar] = useState(false);
 
   useEffect(() => {
-    console.log('Feedback ID:', feedbackId); // Check if feedbackId is received
+    console.log('Feedback ID:', feedbackId); 
 
     if (location.state && location.state.feedbackToEdit) {
-      // If feedbackToEdit is passed through location state, use that
+      
       const { orderId, farmerName, description, starRating } = location.state.feedbackToEdit;
       setOrderId(orderId);
       setFarmerName(farmerName);
       setDescription(description);
       setRating(starRating);
     } else if (feedbackId) {
-      // If there's a feedbackId in the URL, fetch the feedback for editing
+      
       const fetchFeedback = async () => {
         try {
           const response = await axios.get(`http://localhost:8070/api/feedbacks/${feedbackId}`);
@@ -40,7 +40,7 @@ const FeedbackForm = () => {
           setRating(starRating);
         } catch (err) {
           console.error(err);
-          // Add error handling here
+        
         }
       };
 
@@ -52,13 +52,13 @@ const FeedbackForm = () => {
     e.preventDefault();
 
     if (!orderId || !farmerName || !description) {
-      setOpenSnackbar(true); // Open snackbar to notify user to fill the form
+      setOpenSnackbar(true); 
       return;
     }
 
     try {
       if (feedbackId) {
-        // If editing an existing feedback, send a PUT request
+        
         await axios.put(`http://localhost:8070/api/feedbacks/${feedbackId}`, {
           orderId,
           farmerName,
@@ -66,20 +66,20 @@ const FeedbackForm = () => {
           starRating: rating,
         });
       } else {
-        // If adding new feedback, send a POST request
+       
         await axios.post('http://localhost:8070/api/feedbacks', {
           orderId,
           farmerName,
           description,
           starRating: rating,
-          itemcode: 12345, // Example item code, replace with actual item code
+          itemcode: 12345, 
         });
       }
 
-      setSuccessSnackbar(true); // Set success
+      setSuccessSnackbar(true); 
       setTimeout(() => {
         navigate('/PastFeedbackList');
-      }, 2000); // Navigate after 2 seconds
+      }, 2000); 
     } catch (err) {
       console.error(err);
       // Add error handling here
@@ -87,15 +87,15 @@ const FeedbackForm = () => {
   };
 
   const handleCancel = () => {
-    navigate('/ItemList'); // Go back to the previous page (ItemList)
+    navigate('/ItemList'); 
   };
 
   const handleCloseSnackbar = () => {
-    setOpenSnackbar(false); // Close snackbar
+    setOpenSnackbar(false); 
   };
 
   const handleCloseSuccessSnackbar = () => {
-    setSuccessSnackbar(false); // Close success snackbar
+    setSuccessSnackbar(false); 
   };
 
   return (

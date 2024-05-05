@@ -16,7 +16,7 @@ const DealerRating = () => {
         setAverageRating(average);
       } catch (err) {
         console.error(err);
-        // Add error handling here
+       
       }
     };
 

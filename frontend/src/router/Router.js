@@ -7,7 +7,6 @@ import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
 import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
-import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
@@ -78,9 +77,14 @@ const Router = () => {
     navigate('/'); 
   };
 
+  
+
   return (
     <>
+    
+
       {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+      
       <Routes>
         <Route
           path="/"
@@ -100,7 +104,6 @@ const Router = () => {
         />
         <Route path="/editProf" element={<EditProfile />} />
         <Route path="/manageShop" element={<ManageShop />} />
-        <Route path="/feedbacks" element={<Feedbacks />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
@@ -111,14 +114,13 @@ const Router = () => {
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
-        <Route path="/FeedbackForm" element={<FeedbackForm />} />
         <Route path="/FeedbackForm/:feedbackId" element={<FeedbackForm />} /> {/* Use :feedbackId */}
         <Route path="/PastFeedbackList" element={<PastFeedbackList />} />
         <Route path="/FeedbackCardView" element={<FeedbackCardView />} />
          <Route path="/DealerRating" element={<DealerRating />} />
 
         <Route path='/RegisterForm' element={<RegisterForm />}/>
-        <Route path='/Profile' element={<Profile/>}/>
+        <Route path='/Profile/:farmerID' element={<FarmerProfile />}/>
         <Route path="/farmer/:farmerID" element={<FarmerProfile />}/>
         <Route path='/Sidebar' element={<Sidebar/>}/>
         <Route path='/soil-test-request' element={<SoilTestRequest/>}/>
@@ -150,7 +152,7 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
-
+        
       </Routes>
     </>
   );
