@@ -75,9 +75,9 @@ const ViewResolvedRequests = () => {
   return (
     <div>
       <Sidebar />
-      <div style={{ maxWidth: 600, paddingLeft: '500px', marginTop:'200px' }}>
+      <div style={{ maxWidth: 800, paddingLeft: '500px', marginTop:'200px' }}>
         <h2>Resolved Soil Test Requests</h2>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} style={{ height: '100%', width: '800px' }}>
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>

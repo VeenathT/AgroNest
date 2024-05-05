@@ -6,9 +6,9 @@ import Sidebar from '../../../Component/Thisaravi/Sidebar';
 import { useNavigate } from 'react-router-dom';
 
 const districts = {
-  Puttlam: ['Wennappuwa', 'Katuneriya', 'City7'],
+  Puttlam: ['Wennappuwa', 'Katuneriya', 'Chilaw'],
   Kurunagala: ['City8', 'City9', 'City0'],
-  Colombo: ['City1', 'Maharagama', 'City3'],
+  Colombo: ['Nugegoda', 'Maharagama', 'Pannipitiya'],
   Gampaha: ['City3', 'City4', 'City5'],
 };
 

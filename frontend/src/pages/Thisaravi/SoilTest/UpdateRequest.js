@@ -142,7 +142,7 @@ const UpdateRequest = () => {
           ))}
         </Select>
       </FormControl >
-      <Button variant="contained" color="primary" onClick={handleUpdate}>
+      <Button variant="contained" color="primary" onClick={handleUpdate} >
         Update
       </Button>
       </Box>

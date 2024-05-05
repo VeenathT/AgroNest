@@ -92,7 +92,7 @@ const handleSubmit = async (e) => {
             sx={{
                maxWidth: '600px',
                margin: '-20px auto',
-               marginTop: '2cm',
+               marginTop: '5cm',
                boxSizing: 'border-box',
                backgroundColor: 'rgba(255, 255, 255, 0.8)',
                borderRadius: '20px',
