@@ -3,7 +3,7 @@ const router = express.Router();
 const FarmerReport = require("../../models/Veenath/farmerReport");
 const Reply = require("../../models/Rahul/Reply");
 
-// Fetch farmers
+// Fetch dealers
 router.get("/dealers", async (req, res) => {
   try {
     const dealers = await FarmerReport.find({ category: "Dealer"});
@@ -13,7 +13,7 @@ router.get("/dealers", async (req, res) => {
   }
 });
 
-// Fetch reply associated with a dealer
+// Fetch reply with a dealer
 router.get("/dealers/:id/reply", async (req, res) => {
   try {
     const dealerId = req.params.id;
@@ -24,19 +24,19 @@ router.get("/dealers/:id/reply", async (req, res) => {
   }
 });
 
-// Send reply to a dealer
+// reply to  dealer
 router.post("/dealers/:id/reply", async (req, res) => {
   try {
     const dealerId = req.params.id;
     const { replyText } = req.body;
 
-    // Create a new Reply document
+    // Create new Reply 
     const reply = new Reply({
       dealerId,
       replyText,
     });
 
-    // Save the reply to the database
+    // Save reply to databse
     await reply.save();
 
     res.status(201).json(reply);
@@ -45,17 +45,17 @@ router.post("/dealers/:id/reply", async (req, res) => {
   }
 });
 
-// Update an existing reply
+// Update  reply
 router.put('/replies/:replyId', async (req, res) => {
   try {
     const { replyId } = req.params;
     const { replyText } = req.body;
 
-    // Find the reply by id and update its replyText
+    //  update its replyText
     const updatedReply = await Reply.findByIdAndUpdate(
       replyId,
       { replyText },
-      { new: true } // To return the updated reply object
+      { new: true } 
     );
     res.json(updatedReply);
   } catch (error) {
@@ -63,14 +63,14 @@ router.put('/replies/:replyId', async (req, res) => {
   }
 });
 
-// Update status of a dealer
+// Update dealer status
 router.put('/dealers/:id/status', async (req, res) => {
   try {
     const { id } = req.params;
     const updatedDealer = await FarmerReport.findByIdAndUpdate(
       id,
       { status: 'Resolved' },
-      { new: true } // To return the updated dealer object
+      { new: true } 
     );
     res.json(updatedDealer);
   } catch (error) {
@@ -78,7 +78,7 @@ router.put('/dealers/:id/status', async (req, res) => {
   }
 });
 
-// Fetch all replies associated with a dealer
+// Fetch all replies 
 router.get('/replies/:dealerId', async (req, res) => {
   try {
     const { dealerId } = req.params;

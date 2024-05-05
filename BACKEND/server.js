@@ -126,6 +126,9 @@ app.use('/api/auth', adminRoutes);
 
 
 
+const labReportRouter = require("./routes/Oshini/test_request/labReports.js");
+app.use("/labReport", labReportRouter);
+
 //------------------------------------------------------------------------------------------------------------------
 
 cron.schedule('0 0 * * *', async () => {

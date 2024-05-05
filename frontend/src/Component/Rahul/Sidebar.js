@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: 180,
-    marginTop: '80px',
+    marginTop: '110px',
     backgroundColor: 'purewhite',
   },
 }));
@@ -67,7 +67,8 @@ const Sidebar = ({ farmerID }) => {
         </ListItem>
 
         <ListItem button> 
-          <ListItemText primary="System Report" />
+          <ListItemText primary="Articles & Promotion" />
+          
         </ListItem>
 
         <ListItem button>

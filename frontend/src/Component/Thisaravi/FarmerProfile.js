@@ -7,7 +7,9 @@ import { useParams } from 'react-router-dom';
 const FarmerProfile = () => {
   const { farmerID } = useParams();
   console.log("farmerID:", farmerID); 
-  localStorage.setItem('farmerID', farmerID);
+  localStorage.setItem('logId', farmerID);
+  const value1 = localStorage.getItem('logId')
+  console.log("Valueee : ", value1)
   const [farmerData, setFarmerData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -15,7 +17,7 @@ const FarmerProfile = () => {
     console.log("farmerID:", farmerID);
     const fetchFarmerData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8070/Farmer/get/${farmerID}`);
+        const response = await axios.get(`http://localhost:8070/Farmer/get/${value1}`);
         setFarmerData(response.data.farmer);
         setError(null); 
       } catch (error) {

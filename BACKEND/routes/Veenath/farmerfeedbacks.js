@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const FarmerFeedback = require("../../models/Veenath/farmerfeedback");
 
-// Create farmer feedback
+
 router.post("/", async (req, res) => {
   try {
     const { orderId, farmerName, description, starRating, itemcode } = req.body;
@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
       farmerName,
       description,
       starRating,
-      itemcode, // Include itemcode in the feedback
+      itemcode, 
     });
     const savedFeedback = await newFeedback.save();
     res.status(201).json(savedFeedback);
@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all farmer feedbacks with average rating
+
 router.get("/", async (req, res) => {
   try {
     const feedbacks = await FarmerFeedback.find();
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
     feedbacks.forEach((feedback) => {
       totalRatings += feedback.starRating;
     });
-    const averageRating = feedbacks.length > 0 ? totalRatings / feedbacks.length : 0;
+    const averageRating = feedbacks.length > 0 ? totalRatings / feedbacks.length : 0; // Average rating count
     res.json({ feedbacks, averageRating });
   } catch (err) {
     console.error(err);
@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get farmer feedback by ID
+
 router.get("/:id", async (req, res) => {
   try {
     const feedback = await FarmerFeedback.findById(req.params.id);
@@ -50,7 +50,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Update farmer feedback by ID
+
 router.put("/:id", async (req, res) => {
   try {
     const { orderId, farmerName, description, starRating, itemcode } = req.body;
@@ -69,7 +69,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete farmer feedback by ID
+
 router.delete("/:id", async (req, res) => {
   try {
     const deletedFeedback = await FarmerFeedback.findByIdAndDelete(

@@ -43,7 +43,7 @@ const Sidebar = ({farmerID}) => {
       anchor="left"
     >
       <List>
-        <ListItem button component={Link} to={`/farmer/${farmerID}`}>
+        <ListItem button component={Link} to={`/Profile/${localStorage.getItem('logId')}`}>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
@@ -61,7 +61,7 @@ const Sidebar = ({farmerID}) => {
           </ListItemIcon>
           <ListItemText primary="Soil Tests" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to={'/PastFeedbackList'}>
           <ListItemIcon>
             <FeedbackIcon />
           </ListItemIcon>

@@ -1,11 +1,10 @@
-// Assuming you have your routes set up in a file like routes.js
 
 const express = require('express');
 const router = express.Router();
-const Dealer = require('../../models/Sudarshan/dealer_acc_mgmt/dealer'); // Assuming you have a Dealer model defined
+const Dealer = require('../../models/Sudarshan/dealer_acc_mgmt/dealer'); 
 const Farmer = require('../../models/Thisaravi/Farmer');
 
-// Route to get the count of dealers
+// count of dealers
 router.get('/countDealer', async (req, res) => {
   try {
     const count = await Dealer.countDocuments();

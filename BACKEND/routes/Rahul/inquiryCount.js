@@ -1,11 +1,9 @@
-// farmerReportRoutes.js
-
 const express = require('express');
-const FarmerReport = require('../../models/Veenath/farmerReport'); // Assuming you have a FarmerReport model defined
+const FarmerReport = require('../../models/Veenath/farmerReport'); 
 
 const router = express.Router();
 
-// Route to count farmer reports with status "Pending"
+// select  "Pending" farmers
 router.get('/countPendingFarmerReports', async (req, res) => {
   try {
     const count = await FarmerReport.countDocuments({ status: 'Pending' });
