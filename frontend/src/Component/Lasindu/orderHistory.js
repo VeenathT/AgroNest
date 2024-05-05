@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, Divider, Button, Link } from '@mui/material';
 import CookiesBanner from '../Lasindu/Popup/OrderPopUp';
 
 const OrderHistoryPage = () => {
@@ -10,8 +10,8 @@ const OrderHistoryPage = () => {
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
-    const farmerID = localStorage.getItem('farmerID');
-    axios.get(`http://localhost:8070/order/history/${farmerID}`)
+    const farmerId = localStorage.getItem('logId');
+    axios.get(`http://localhost:8070/order/history/${farmerId}`)
       .then((response) => {
         setOrders(response.data);
         setLoading(false);
@@ -27,12 +27,16 @@ const OrderHistoryPage = () => {
     console.log('View order:', orderId);
   };
 
+  const handleReviewOrder = (orderId) => {
+    window.location.href = `/FeedbackForm/${orderId}`;
+  };
+
   const handleCloseBanner = () => {
     setSelectedOrderId(null);
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ marginTop: '120px' }}>
       <Typography variant="h4" gutterBottom>
         Order History
       </Typography>
@@ -56,11 +60,16 @@ const OrderHistoryPage = () => {
                         <br />
                         Item Code: {order.itemcode} | 
                         Price: Rs. {order.price} | 
-                        Quantity: {order.quantity}
+                        Quantity: {order.quantity} |
+                        Status: {order.status}
                       </>
                     }
                   />
-                  <Button variant="contained" onClick={() => handleViewOrder(order._id)} sx={{ background:'green'}}>View</Button>
+                  {order.status === 'Confirmed' ? (
+                    <Button variant="contained"  onClick={() => handleReviewOrder(order._id)} sx={{ background:'orange'}}>Review</Button>
+                  ) : (
+                    <Button variant="contained" onClick={() => handleViewOrder(order._id)} sx={{ background:'green'}}>View</Button>
+                  )}
                 </ListItem>
                 <Divider />
               </div>

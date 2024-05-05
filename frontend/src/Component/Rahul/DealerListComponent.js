@@ -240,7 +240,7 @@ const DealerListComponent = () => {
             </DialogActions>
           </Dialog>
           {tabValue === 0 && (
-            <TableContainer component={Paper} style={{ width: 1000, height: 600, bgcolor:'#cde3c3' }}>
+            <TableContainer component={Paper} style={{ width: 1060, height: 600, bgcolor:'#cde3c3' }}>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -274,15 +274,13 @@ const DealerListComponent = () => {
             </TableContainer>
           )}
           {tabValue === 1 && (
-            <TableContainer component={Paper} style={{ width: 1000, height: 600, bgcolor:'#cde3c3' }}>
+            <TableContainer component={Paper} style={{ width: 1060, height: 600, bgcolor:'#cde3c3' }}>
               <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>
                     <TableCell>Topic</TableCell>
                     <TableCell>Description</TableCell>
-                    <TableCell>Priority</TableCell>
-                    <TableCell>Area</TableCell>
                     <TableCell>Status</TableCell>
                     <TableCell>Actions</TableCell>
                   </TableRow>
@@ -290,11 +288,9 @@ const DealerListComponent = () => {
                 <TableBody>
                   {resolvedDealers.map((dealer) => (
                     <TableRow key={dealer._id}>
-                      <TableCell>{dealer.name}</TableCell>
+                      <TableCell sx={{ width: '100px' }}>{dealer.name}</TableCell>
                       <TableCell>{dealer.topic}</TableCell>
                       <TableCell>{dealer.description}</TableCell>
-                      <TableCell>{dealer.priority}</TableCell>
-                      <TableCell>{dealer.area}</TableCell>
                       <TableCell>{dealer.status}</TableCell>
                       <TableCell>
                         <Button variant="contained" onClick={() => handleViewClick(dealer)}>

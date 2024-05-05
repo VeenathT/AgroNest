@@ -1,6 +1,7 @@
 const router = require('express').Router();
 let Lab = require("../../../models/Oshini/lab_account/labAccount");
 
+//add new lab acount
 router.route("/add").post((req,res)=>{
 
   const name = req.body.name;
@@ -34,7 +35,7 @@ router.route("/add").post((req,res)=>{
 })
 
 
-
+//get all lab account details
 router.route("/").get((req,res)=>{
 
     Lab.find().then((labAccounts)=>{
@@ -45,7 +46,7 @@ router.route("/").get((req,res)=>{
 })
 
 
-
+//update lab account by fetching by userName
 router.route("/update/:userName").put(async (req, res) => {
     try {
         const userName = req.params.userName;
@@ -74,7 +75,7 @@ router.route("/update/:userName").put(async (req, res) => {
 });
 
 
-
+//delete lab account by username
 router.route("/delete/:userName").delete(async (req, res) => {
     let userName = req.params.userName;
 

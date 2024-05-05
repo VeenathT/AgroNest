@@ -22,6 +22,15 @@ router.post('/registerDealer', async (req, res) => {
       if (password !== reEnteredPassword) {
         return res.status(400).json({ error: 'Passwords do not match' });
       }
+
+      if (phone.length !== 10 || !(/^\d+$/.test(phone))) {
+        return res.status(400).json({ error: 'Phone number should contain exactly 10 digits' });
+    }
+
+    const firstTwoDigits = phone.substring(0, 2);
+    if (firstTwoDigits !== '07') {
+        return res.status(400).json({ error: 'Phone number should contain 07XXXXXXXX' });
+    }
   
       const existingEmail = await Dealer.findOne({ email });
       if (existingEmail) {
@@ -158,6 +167,22 @@ router.put('/updateDealer/:id', async (req, res) => {
       return res.status(404).json({ error: 'Dealer not found' });
     }
 
+    const existingUsername = await Dealer.findOne({ username });
+    if (existingUsername && existingUsername._id.toString() !== dealerId) {
+      return res.status(400).json({ error: 'Username already taken' });
+    }
+
+    // Check if the email is already registered
+    const existingEmail = await Dealer.findOne({ email });
+    if (existingEmail && existingEmail._id.toString() !== dealerId) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+
+    // Check if the phone number has exactly 10 digits and starts with '07'
+    if (phone.length !== 10 || !(/^\d+$/.test(phone)) || !phone.startsWith('07')) {
+      return res.status(400).json({ error: 'Phone number should contain exactly 10 digits and start with 07' });
+    }
+
     // Check if the password matches the re-entered password
     if (password !== reEnteredPassword) {
       return res.status(400).json({ error: 'Passwords do not match' });
@@ -201,8 +226,7 @@ router.delete('/delete/:id', async (req, res) => {
     // Delete the dealer profile
     await Dealer.findByIdAndDelete(dealerId);
 
-    // Optionally, you can also revoke any existing JWT tokens associated with this dealer
-    // This prevents the deleted dealer from accessing protected routes with previously issued tokens
+    
 
     res.status(200).json({ message: 'Dealer profile deleted successfully' });
   } catch (error) {
@@ -217,7 +241,7 @@ router.post('/addProduct', async (req, res) => {
 
     console.log('Request received to add product:', req.body);
     const dealerId = req.body.id; 
-    console.log('Dealer ID:', dealerId);// Assuming you have the dealer ID available
+    console.log('Dealer ID:', dealerId);
     const { name, price, quantity, itemcode } = req.body;
     console.log('Product details:', { name, price, quantity, itemcode });
 
@@ -227,7 +251,7 @@ router.post('/addProduct', async (req, res) => {
       return res.status(400).json({ error: 'Fertilizer with this name already exists' });
     }
 
-    // Create a new fertilizer document
+    
     const newFertilizer = new Fertilizer({
       name,
       price,
@@ -235,11 +259,11 @@ router.post('/addProduct', async (req, res) => {
       itemcode
     });
 
-    // Save the new fertilizer document to the database
+    
     const savedFertilizer = await newFertilizer.save();
     console.log('New fertilizer saved:', savedFertilizer);
 
-    // Find the dealer by ID and update the fertilizers array
+    
     const updatedDealer = await Dealer.findByIdAndUpdate(dealerId, { $push: { fertilizers: savedFertilizer._id } }, { new: true });
     console.log('Dealer updated:', updatedDealer);
 
@@ -260,7 +284,7 @@ router.get('/:dealerId/fertilizers', async (req, res) => {
       return res.status(404).json({ message: 'Dealer not found' });
     }
     console.log('Fetching fertilizers for dealer:', dealerId);
-    // Fetch fertilizers from the database based on the dealerId
+    
     const fertilizers = dealer.fertilizers;
     console.log('Fetched fertilizers:', fertilizers);
     res.json(fertilizers);
@@ -277,7 +301,7 @@ router.put('/updatefertilizers/:fertilizerId', async (req, res) => {
   const { price, quantity } = req.body;
 
   try {
-    // Find the fertilizer by ID and update its price and quantity
+    
     const updatedFertilizer = await Fertilizer.findByIdAndUpdate(fertilizerId, { price, quantity }, { new: true });
 
     if (!updatedFertilizer) {
@@ -299,7 +323,7 @@ router.delete('/deletefertilizer/:fertilizerId', async (req, res) => {
 
   try {
     console.log('Finding fertilizer to delete...');
-    // Find the fertilizer by ID and delete it
+    
     const deletedFertilizer = await Fertilizer.findByIdAndDelete(fertilizerId);
     console.log('Deleted fertilizer:', deletedFertilizer);
     if (!deletedFertilizer) {
@@ -318,12 +342,12 @@ module.exports = router;
 
 router.get('/fertilizers/search', async (req, res) => {
   try {
-    const dealerId = req.query.dealerId; // Assuming you pass the dealerId as a query parameter
+    const dealerId = req.query.dealerId; 
     const searchTerm = req.query.term;
 
     console.log('Searching for fertilizers with term:', searchTerm, 'for dealer ID:', dealerId);
 
-    // Find the dealer by ID
+    
     const dealer = await Dealer.findById(dealerId);
     console.log('Dealer found');
     if (!dealer) {
@@ -342,9 +366,9 @@ router.get('/fertilizers/search', async (req, res) => {
         itemcode: searchTerm // Search for itemcode as a number
       });
     } else {
-      // Otherwise, search by name
+      
       fertilizers = await Fertilizer.find({
-        _id: { $in: dealer.fertilizers }, // Filter fertilizers associated with the dealer
+        _id: { $in: dealer.fertilizers }, 
         name: { $regex: searchTerm, $options: 'i' } // Case-insensitive search by name
       });
     }

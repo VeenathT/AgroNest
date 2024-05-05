@@ -1,33 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { MaterialReactTable } from 'material-react-table';
+import { Box, IconButton, Menu, MenuItem, Grid, Typography } from '@mui/material';
+import {  Delete as DeleteIcon, Email as EmailIcon, GetApp as GetAppIcon } from '@mui/icons-material';
 import axios from 'axios';
-import { MaterialReactTable, createMRTColumnHelper, useMaterialReactTable } from 'material-react-table';
-import { Box, Button, Grid } from '@mui/material';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { mkConfig, generateCsv, download } from 'export-to-csv';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ConfirmationDialog from './ConfirmationDialog';
+import Sidebar from './Sidebar';
 
-import Sidebar from './Sidebar'; 
-
-const columnHelper = createMRTColumnHelper();
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-  },
-});
-
-const DealerList = () => {
-  const [dealers, setDealers] = useState([]);
-  const [loading, setLoading] = useState(true);
+export const Example = () => {
+  const [data, setData] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedDealer, setSelectedDealer] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/viewdealers');
-        setDealers(response.data);
-        setLoading(false);
+        const response = await fetch('http://localhost:8070/viewdealers'); // Assuming your backend is running on the same domain
+        if (!response.ok) {
+          throw new Error('Failed to fetch dealers');
+        }
+        const fetchedData = await response.json();
+        setData(fetchedData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -36,144 +29,157 @@ const DealerList = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        size: 110,
+      },
+      {
+        accessorKey: 'address',
+        header: 'Address',
+        size: 110,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        size: 120,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        size: 110,
+      },
+      {
+        accessorKey: 'storeLocation',
+        header: 'Location',
+        size: 120,
+      },
+      
+    ],
+    []
+  );
+
+  const handleExportCSV = () => {
+    // Convert data to CSV format
+    const csvContent = "data:text/csv;charset=utf-8," + data.map(row => Object.values(row).join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "dealers.csv");
+    document.body.appendChild(link);
+    link.click();
+  };
+
+  const handleMenuOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDeleteConfirmation = (dealer) => {
+    setSelectedDealer(dealer); // Set the selected dealer
+    setConfirmOpen(true); // Open the confirmation dialog
+  };
+
+  const handleDelete = async () => {
+    const id = selectedDealer._id;
     try {
-      await axios.delete(`http://localhost:8070/dealers/${id}`);
-      const updatedDealers = dealers.filter(dealer => dealer.id !== id);
-      setDealers(updatedDealers);
+      const response = await axios.delete(`http://localhost:8070/viewdealers/delete/${id}`);
+      if (response.status === 200) {
+        const newData = data.filter(dealer => dealer._id !== id);
+        setData(newData);
+      } else {
+        console.error('Failed to delete dealer:', response.data.message);
+      }
     } catch (error) {
       console.error('Error deleting dealer:', error);
     }
+    setConfirmOpen(false); // Close the confirmation dialog
+    setSelectedDealer(null); // Reset selected dealer
   };
-
-  const columns = [
-    columnHelper.accessor('name', {
-      header: 'Name',
-      size: 120,
-    }),
-  
-    columnHelper.accessor('address', {
-      header: 'Address',
-      size: 120,
-    }),
-  
-    columnHelper.accessor('email', {
-      header: 'Email',
-      size: 200,
-    }),
-  
-    columnHelper.accessor('phone', {
-      header: 'Phone',
-      size: 150,
-    }),
-  
-    columnHelper.accessor('storeLocation', {
-      header: 'Store Location',
-      size: 150,
-    }),
-  
-// Custom action column
-{
-  id: 'actions',
-  header: 'Actions',
-  size: 200, // Increased size to accommodate buttons
-  // Define the render function to render custom content in the action column
-  render: (row) => (
-    <Box>
-      <Button onClick={() => handleDelete(row.id)} variant="contained" color="error">
-        Delete
-      </Button>
-      <Button variant="contained" color="primary">
-        Edit
-      </Button>
-    </Box>
-  ),
-},
-
-
-
-  ];
-  
-
-  const csvConfig = mkConfig({
-    fieldSeparator: ',',
-    decimalSeparator: '.',
-    useKeysAsHeaders: true,
-  });
-
-  const handleExportRows = (rows) => {
-    const rowData = rows.map((row) => row.original);
-    const csv = generateCsv(csvConfig)(rowData);
-    download(csvConfig)(csv);
-  };
-
-  const handleExportData = () => {
-    const csv = generateCsv(csvConfig)(dealers);
-    download(csvConfig)(csv);
-  };
-
-  const table = useMaterialReactTable({
-    columns,
-    data: dealers,
-    enableRowSelection: true,
-    columnFilterDisplayMode: 'popover',
-    paginationDisplayMode: 'pages',
-    positionToolbarAlertBanner: 'bottom',
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Box
-        sx={{
-          gap: '12px',
-          padding: '8px',
-          marginTop: '90px',
-        }}
-      >
-        <Button onClick={handleExportData} startIcon={<FileDownloadIcon />}>
-          Export All Data
-        </Button>
-        <Button
-          disabled={table.getPrePaginationRowModel().rows.length === 0}
-          onClick={() =>
-            handleExportRows(table.getPrePaginationRowModel().rows)
-          }
-          startIcon={<FileDownloadIcon />}
-        >
-          Export All Rows
-        </Button>
-        <Button
-          disabled={table.getRowModel().rows.length === 0}
-          onClick={() => handleExportRows(table.getRowModel().rows)}
-          startIcon={<FileDownloadIcon />}
-        >
-          Export Page Rows
-        </Button>
-        <Button
-          disabled={
-            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
-          }
-          onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
-          startIcon={<FileDownloadIcon />}
-        >
-          Export Selected Rows
-        </Button>
-      </Box>
-    ),
-  });
 
   return (
-    <Grid container>
-      <Grid item xs={3}>
-        <Sidebar/>
+    <div style={{ marginTop: '120px' }}>
+      <Grid container>
+        <Grid item xs={3}>
+          <Sidebar />
+        </Grid>
+        <Grid item xs={9} style={{ marginLeft: '265px' }}>
+          <Typography variant="h6" style={{ marginBottom: '-10px' }}>Registered Dealers</Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h6"> </Typography>
+            <IconButton onClick={handleExportCSV}>
+              <GetAppIcon />
+            </IconButton>
+          </Box>
+          <MaterialReactTable
+            className="custom-table"
+            columns={columns}
+            data={data}
+            layoutMode="grid"
+            displayColumnDefOptions={{
+              'mrt-row-actions': {
+                size: 150,
+                grow: false,
+              },
+            }}
+            enableRowActions
+            renderRowActions={({ row, table }) => (
+              <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '1px' }}>
+                <IconButton
+                  color="primary"
+                  onClick={() =>
+                    window.open(
+                      `mailto:${row.original.email}?subject=Hello ${row.original.name}!`
+                    )
+                  }
+                >
+                  <EmailIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    table.setEditingRow(row);
+                  }}
+                >
+                  
+                </IconButton>
+                <IconButton
+                  color="error"
+                  onClick={() => handleDeleteConfirmation(row.original)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            )}
+            toolbar={(
+              <div>
+                <IconButton onClick={handleMenuOpen}>
+                  <GetAppIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={handleExportCSV}>Export CSV</MenuItem>
+                </Menu>
+              </div>
+            )}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={9} style={{ marginLeft: '180px' }}>
-  <div style={{ width: 'calc(100% + 150px)', overflowX: 'hidden' }}>
-    <ThemeProvider theme={theme}>
-      <MaterialReactTable table={table} />
-    </ThemeProvider>
-  </div>
-</Grid>
-
-    </Grid>
+      <ConfirmationDialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleDelete}
+      />
+    </div>
   );
 };
 
-export default DealerList;
+export default Example;

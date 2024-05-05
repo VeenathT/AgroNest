@@ -52,7 +52,7 @@ const AllLabsPDFGenerator = ({ labs }) => {
   };
 
   return (
-    <div style={{ position: 'absolute', left: '77%', top: '26.5%' }}>
+    <div style={{ position: 'absolute', left: '77%', top: '30.5%' }}>
       <Button  size="small" onClick={handleExportPDF} sx={{  color: 'green', marginTop: '10px' }}>
         Generate PDF
       </Button>

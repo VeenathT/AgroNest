@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-let Admin = require('../../models/Rahul/Admin'); // Adjust the path and model name according to your setup
+let Admin = require('../../models/Rahul/Admin'); 
 
 router.post('/login', async (req, res) => {
   try {
@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
-    // Create and send JWT token
+    // Create JWT token
     const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET || '16811', { expiresIn: '1h' });
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
@@ -31,15 +31,15 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Route to fetch admin's name
+// fetch admin's name
 router.get('/admins', async (req, res) => {
   try {
-    // Extract user ID from JWT token
+  
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET || '16811');
     const adminId = decodedToken.id;
 
-    // Fetch admin data from the database
+   
     const admin = await Admin.findById(adminId);
 
     if (!admin) {

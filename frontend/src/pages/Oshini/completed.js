@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -97,10 +97,10 @@ function CompletedRequests() {
     });
 
   return (
-    <div style={{ paddingTop: '70px' }}>
-      <AppBar position="fixed" style={{ marginTop: "75px",backgroundColor: '#0F5132' }}>
+    <div style={{ marginTop:'50px' , paddingTop: '70px' }}>
+      <AppBar position="fixed" style={{ marginTop: "107px", backgroundColor: '#0F5132' }}>
         <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 0, color: 'white' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 0, color: 'white' }}>
             Lab Dashboard
           </Typography>
           <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="transparent">
@@ -108,11 +108,11 @@ function CompletedRequests() {
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Pending" component={Link} to="/labDash" />
+            <Tab label="Pending" component={Link} to="/labDash" sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Accepted" component={Link} to="/accepted" />
+            <Tab label="Accepted" component={Link} to="/accepted" sx={{ color: 'white' }} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Completed" disabled={tabValue === 0} />
+            <Tab label="Completed" disabled={tabValue === 0} sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
           </Tabs>
@@ -150,6 +150,7 @@ function CompletedRequests() {
                 <TableCell style={{ color: '#0F5132' }}>Date</TableCell>
                 <TableCell style={{ color: '#0F5132' }}>Start Time</TableCell>
                 <TableCell style={{ color: '#0F5132' }}>Status</TableCell>
+                <TableCell style={{ color: '#0F5132' }}>Report</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -167,6 +168,13 @@ function CompletedRequests() {
                       <option value="completed">Completed</option>
                       <option value="rejected">Rejected</option>
                     </select>
+                  </TableCell>
+                  <TableCell>
+                    <Link to={`/uploadFile?requestId=${request._id}`}>
+                      <Button variant="contained" style={{ backgroundColor: '#0F5132', color: '#FFFFFF' }}>
+                        Upload
+                      </Button>
+                   </Link>
                   </TableCell>
                 </TableRow>
               ))}

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Lab = require('../../models/Oshini/lab_account/labAccount');
 
-// Get a list of labs (show only name)
+// Get a list of labs 
 router.get('/', async (req, res) => {
   try {
     const labs = await Lab.find({}, { }); 

@@ -20,8 +20,8 @@ const Login = () => {
     e.preventDefault();
     try {
         const response = await axios.post('http://localhost:8070/Farmer/login', formData);
-        const { token } = response.data;
-        localStorage.setItem('token', token);
+        const { token } = response.data.username;
+        localStorage.setItem('logId', token);
         console.log('Token:', token);
     } catch (error) {    
         console.error('Login error:', error);

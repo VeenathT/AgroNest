@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Typography, Tabs, Tab, Badge, TextField, Button, Grid } from '@mui/material';
-import { Search as SearchIcon } from '@mui/icons-material';
+import { ReplyAll, Search as SearchIcon } from '@mui/icons-material';
 import InquiryRow from '../../../Component/Veenath/InquiryComp/InquiryRow';
 import InquiryDetailsPopup from '../../../Component/Veenath/InquiryComp/InquiryDetailsPopup';
 
@@ -18,10 +18,22 @@ const FarmerInquiry = () => {
       try {
         const response = await axios.get('http://localhost:8070/api/reports');
         const allInquiries = response.data;
+
         const farmerPendingInquiries = allInquiries.filter(inquiry => inquiry.status === 'Pending' && inquiry.category === 'Farmer');
         const farmerResolvedInquiries = allInquiries.filter(inquiry => inquiry.status === 'Resolved' && inquiry.category === 'Farmer');
         setPendingInquiries(farmerPendingInquiries);
         setResolvedFarmerInquiries(farmerResolvedInquiries);
+
+        farmerPendingInquiries.forEach(async (inquiry) => {
+          try {
+            const replyResponse = await axios.get(`http://localhost:8070/dealers/${inquiry._id}/reply`);
+            // Assuming the replies are stored in a property called 'replies'
+            console.log('Replies for inquiry ID', inquiry._id, ':', replyResponse.data); // Log replies
+            allInquiries.replies = replyResponse.data;
+          } catch (error) {
+            console.error('Error fetching replies:', error);
+          }
+        });
       } catch (error) {
         console.error(error);
       }
@@ -29,8 +41,8 @@ const FarmerInquiry = () => {
     fetchInquiries();
   }, []);
 
-  const handleViewInquiry = (inquiry) => {
-    setSelectedInquiry(inquiry);
+  const handleViewInquiry = (inquiry,replies) => {
+    setSelectedInquiry(inquiry,replies);
     setIsPopupOpen(true);
   };
 
@@ -56,7 +68,7 @@ const FarmerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '100px' }}>
+    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '105px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
       <Typography variant="h3" gutterBottom align="center">Welcome to AgroNest Support Services !</Typography>
       <Tabs
         value={selectedTab}
@@ -101,12 +113,12 @@ const FarmerInquiry = () => {
             style={{ marginBottom: '20px' }}
           />
           {filteredPendingInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center"  marginLeft="40px">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>
               <Grid item xs={2}>
-                <Button onClick={() => handleViewInquiry(inquiry)} variant="contained" color="success" style={{ marginBottom: '20px' }}>View</Button>
+                <Button onClick={() => handleViewInquiry(inquiry,inquiry.replies)} variant="contained" color="success" style={{ marginBottom: '20px' }}>View</Button>
               </Grid>
             </Grid>
           ))}
@@ -131,7 +143,7 @@ const FarmerInquiry = () => {
             style={{ marginBottom: '20px' }}
           />
           {filteredResolvedInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center"  marginLeft="40px">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>

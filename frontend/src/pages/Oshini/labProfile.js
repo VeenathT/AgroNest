@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StyledContainer = styled(Container)({
   marginTop: '50px',
-  backgroundColor: '#90EE90', // Setting background color
+  backgroundColor: 'rgba(169, 169, 169, 0.1)' // Setting background color
 });
 
 const Label = styled(Typography)({
@@ -74,7 +74,7 @@ const LabProfile = () => {
       const imgData = '../../../images/Oshini/logo.jpeg';
       doc.addImage(imgData, 'JPEG', 170, 10, 40, 40);
 
-      // Add title to the PDF
+
       doc.text('Laboratory Details', 10, 10);
   
       const data = [
@@ -100,51 +100,55 @@ const LabProfile = () => {
   
   return (
     <StyledContainer maxWidth="md">
-      <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', position: 'fixed', left: '20%', right : '40%' , top : '50px'}}>
-        <Typography variant="h4" gutterBottom>
-          <center>Your Details</center>
-        </Typography> <br></br>
-        
-        <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '30px', left: '10px' }}>
+      <div style={{ paddingTop: '70px' }}>
+        <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '10px', left: '10px', zIndex: 999 }}>
           <ArrowBackIcon />
         </Link>
-        <div>
-          <Label>Name:</Label>
-          <ValueLabel>{labDetails.name}</ValueLabel>
-        </div>
-        <div>
-          <Label>Address:</Label>
-          <ValueLabel>{labDetails.address}</ValueLabel>
-        </div>
-        <div>
-          <Label>Phone:</Label>
-          <ValueLabel>{labDetails.phone}</ValueLabel>
-        </div>
-        <div>
-          <Label>District:</Label>
-          <ValueLabel>{labDetails.district}</ValueLabel>
-        </div>
-        <div>
-          <Label>City:</Label>
-          <ValueLabel>{labDetails.city}</ValueLabel>
-        </div>
-        <div>
-          <Label>Level:</Label>
-          <ValueLabel>{labDetails.level}</ValueLabel>
-        </div>
-       
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-          <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={handleEdit}>
-            Edit
-          </Button>
-          <Button variant="contained" color="secondary" style={{ width: '30%' }} onClick={handleDelete}>
-            Delete Account
-          </Button>
-          <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={generatePDF}>
-            Download Statistics
-          </Button>
-        </div>
-      </Paper>
+        <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', margin: '0 auto', position: 'relative' }}>
+          <Typography variant="h4" gutterBottom>
+            <center>Your Details</center>
+          </Typography> <br></br>
+          <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '30px', left: '10px' }}>
+          <ArrowBackIcon />
+        </Link>
+          <div>
+            <Label>Name:</Label>
+            <ValueLabel>{labDetails.name}</ValueLabel>
+          </div>
+          <div>
+            <Label>Address:</Label>
+            <ValueLabel>{labDetails.address}</ValueLabel>
+          </div>
+          <div>
+            <Label>Phone:</Label>
+            <ValueLabel>{labDetails.phone}</ValueLabel>
+          </div>
+          <div>
+            <Label>District:</Label>
+            <ValueLabel>{labDetails.district}</ValueLabel>
+          </div>
+          <div>
+            <Label>City:</Label>
+            <ValueLabel>{labDetails.city}</ValueLabel>
+          </div>
+          <div>
+            <Label>Level:</Label>
+            <ValueLabel>{labDetails.level}</ValueLabel>
+          </div>
+         
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+            <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={handleEdit}>
+              Edit
+            </Button>
+            <Button variant="contained" color="secondary" style={{ width: '30%' }} onClick={handleDelete}>
+              Delete Account
+            </Button>
+            <Button variant="contained" color="primary" style={{ width: '30%' }} onClick={generatePDF}>
+              Download Statistics
+            </Button>
+          </div>
+        </Paper>
+      </div>
     </StyledContainer>
   );
 };

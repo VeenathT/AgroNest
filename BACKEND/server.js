@@ -20,10 +20,10 @@ console.log('Generated secret key:', secretKey);
 
 // Set up session middleware
 app.use(session({
-  secret: secretKey, // Change this to your own secret key
+  secret: secretKey, 
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: 'mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest' }), // Adjust the MongoDB URL as needed
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest' }), 
 }));
 //end---------------------------------
 const fs = require('fs');
@@ -139,6 +139,9 @@ app.use(inquiryCount);
 app.use('/api/auth', adminRoutes);
 
 
+
+const labReportRouter = require("./routes/Oshini/test_request/labReports.js");
+app.use("/labReport", labReportRouter);
 
 //------------------------------------------------------------------------------------------------------------------
 

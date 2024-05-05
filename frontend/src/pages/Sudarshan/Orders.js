@@ -45,9 +45,8 @@ const Orders = () => {
       try {
           await axios.put(`http://localhost:8070/order/update/${itemId}`, { status: 'Confirmed' });
           console.log('Status updated successfully');
-          setSuccessMessage('Order Confitmed successfully');
+          setSuccessMessage('Order Confirmed successfully');
           fetchData();
-          // Add any additional logic you need after updating the status
       } catch (error) {
           console.error('Error updating status:', error);
       }
@@ -57,10 +56,9 @@ const Orders = () => {
     try {
         await axios.put(`http://localhost:8070/order/update/${itemId}`, { status: 'Rejected' });
         console.log('Status updated successfully');
-        setSuccessMessage('Order Confitmed successfully');
+        setSuccessMessage('Order Rejected successfully');
         setShowConfirmationDialog(false);
         fetchData();
-        // Add any additional logic you need after updating the status
     } catch (error) {
         console.error('Error updating status:', error);
     }
@@ -109,7 +107,7 @@ const Orders = () => {
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Quantity</th>
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Current Status</th>
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Change Status</th>
-            {/* Add more headers as needed */}
+            
         </tr>
                 </thead>
                 <tbody>
@@ -128,7 +126,7 @@ const Orders = () => {
                               Reject
                           </Button>
                         </td>
-                        {/* Add more cells as needed */}
+                       
                     </tr>
                     ))}
                 </tbody>
@@ -156,7 +154,7 @@ const Orders = () => {
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Price</th>
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Quantity</th>
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Current Status</th>
-            {/* Add more headers as needed */}
+           
         </tr>
                 </thead>
                 <tbody>
@@ -167,7 +165,7 @@ const Orders = () => {
                         <td style={{ border: '1px solid black', padding: '10px', color: 'black', fontSize: '17px' }}>{order.price}</td>
                         <td style={{ border: '1px solid black', padding: '10px', color: 'black', fontSize: '17px' }}>{order.quantity}</td>
                         <td style={{ border: '1px solid black', padding: '10px', color: 'black', fontSize: '17px' }}>{order.status}</td>
-                        {/* Add more cells as needed */}
+                        
                     </tr>
                     ))}
                 </tbody>
@@ -187,7 +185,7 @@ const Orders = () => {
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Price</th>
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Quantity</th>
             <th style={{ border: '2px solid black', padding: '12px', textAlign: 'left', color: 'black', textAlign: 'center', fontSize: '20px' }}>Current Status</th>
-            {/* Add more headers as needed */}
+            
         </tr>
                 </thead>
                 <tbody>
@@ -198,7 +196,7 @@ const Orders = () => {
                         <td style={{ border: '1px solid black', padding: '10px', color: 'black', fontSize: '17px' }}>{order.price}</td>
                         <td style={{ border: '1px solid black', padding: '10px', color: 'black', fontSize: '17px' }}>{order.quantity}</td>
                         <td style={{ border: '1px solid black', padding: '10px', color: 'black', fontSize: '17px' }}>{order.status}</td>
-                        {/* Add more cells as needed */}
+                        
                     </tr>
                     ))}
                 </tbody>

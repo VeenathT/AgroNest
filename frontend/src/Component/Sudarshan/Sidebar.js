@@ -31,7 +31,7 @@ const Sidebar = ({ open, onClose, dealerName, handleEditProfile }) => {
             <ListItemIcon><StoreIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Shop Analysis" />
           </ListItemButton>
-          <ListItemButton component="a" href="/feedbacks">
+          <ListItemButton component="a" href="/FeedbackCardView">
             <ListItemIcon><FeedbackIcon style={{ color: 'green' }} /></ListItemIcon>
             <ListItemText primary="Feedbacks" />
           </ListItemButton>
