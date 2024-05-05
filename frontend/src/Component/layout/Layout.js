@@ -23,8 +23,8 @@ const Layout = () => {
   
         return (
             <div style={{ paddingBottom: showFooter ? '80px' : '0' }}>
-              <TopBar />
               <Header />
+              <TopBar />
               <Router />
               <Footer visible={showFooter} />
             </div>

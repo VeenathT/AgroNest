@@ -5,7 +5,7 @@ import '../../styles/common_css/header.css';
 
 const Header = ({ isLoggedIn, onLogout }) => {
   return (
-    <AppBar style={{ position: 'fixed', top: 30, zIndex: 1000 }} sx={{ backgroundColor: '#0f5132' }}>
+    <AppBar style={{ position: 'fixed',  zIndex: 1000 }} sx={{ backgroundColor: '#0f5132' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
       <Typography variant="h6" component={Link} to="/" color="inherit" className="site-name">
           AgroNest

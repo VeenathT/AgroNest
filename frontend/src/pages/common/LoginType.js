@@ -54,7 +54,7 @@ const Logintype = () => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/labLogin" sx={{
+          <Button variant="contained" color="primary" component={Link} to="/admin/login" sx={{
             borderRadius: '20px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '200px'

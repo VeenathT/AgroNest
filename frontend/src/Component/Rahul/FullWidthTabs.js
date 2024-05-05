@@ -64,7 +64,7 @@ export default function FullWidthTabs() {
       <Grid item xs={3}>
         <Sidebar />
       </Grid>
-    <Box sx={{display: 'flex', justifyContent: 'center', marginTop:'80px', marginLeft:'200px', height: '100vh',left:'200px'}}>
+    <Box sx={{display: 'flex', justifyContent: 'center', marginTop:'110px', marginLeft:'180px', height: '100vh',left:'200px'}}>
     <Box sx={{ bgcolor: '#cde3c3', width: 1130,height:720 }}>
       <AppBar position="static">
         <Tabs

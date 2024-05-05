@@ -22,6 +22,7 @@ import PastFeedbackList from '../pages/Veenath/FeedbackPages/PastFeedbackList';
 import FeedbackCardView from '../pages/Veenath/FeedbackPages/FeedbackCardView';
 import DealerRating from '../pages/Veenath/FeedbackPages/DealerRating';
 //Veenath<<
+
 import LabSignUp from '../pages/Oshini/signup';
 import LabLogin from '../pages/Oshini/labLogin'
 import LabDash from '../pages/Oshini/labDash';
@@ -33,6 +34,8 @@ import ItemView from '../Component/Lasindu/ItemView';
 import OrderHistoryPage from '../Component/Lasindu/orderHistory';
 import UpdateOrderDialog from '../Component/Lasindu/orderUpdate';
 import ItemList from '../Component/Lasindu/Itemlist';
+import FileUpload from '../pages/Oshini/uploadFile';
+
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
 import FarmerProfile from '../Component/Thisaravi/FarmerProfile';
@@ -78,9 +81,14 @@ const Router = () => {
     navigate('/'); 
   };
 
+  
+
   return (
     <>
+    
+
       {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+      
       <Routes>
         <Route
           path="/"
@@ -111,14 +119,13 @@ const Router = () => {
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
-        <Route path="/FeedbackForm" element={<FeedbackForm />} />
         <Route path="/FeedbackForm/:feedbackId" element={<FeedbackForm />} /> {/* Use :feedbackId */}
         <Route path="/PastFeedbackList" element={<PastFeedbackList />} />
         <Route path="/FeedbackCardView" element={<FeedbackCardView />} />
          <Route path="/DealerRating" element={<DealerRating />} />
 
         <Route path='/RegisterForm' element={<RegisterForm />}/>
-        <Route path='/Profile' element={<Profile/>}/>
+        <Route path='/Profile/:farmerID' element={<FarmerProfile />}/>
         <Route path="/farmer/:farmerID" element={<FarmerProfile />}/>
         <Route path='/Sidebar' element={<Sidebar/>}/>
         <Route path='/soil-test-request' element={<SoilTestRequest/>}/>
@@ -128,6 +135,7 @@ const Router = () => {
         <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
         <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/test-types' element={<TestType />}/>
+
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/labDash" element={<LabDash />} />
@@ -135,6 +143,8 @@ const Router = () => {
         <Route path="/labEdit" element={<LabEdit />} />
         <Route path="/accepted" element={<TestAccept />} />
         <Route path="/completed" element={<TestComplete />} />
+        <Route path="/uploadFile" element={<FileUpload />} />
+
         <Route path='/articles' element={<ArticleList/>} />
         <Route path='/addarticle' element={<ArticleForm/>} />
         <Route path="/emailjs" component={<OpenEmailJSPage/>} />
@@ -148,6 +158,7 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
+        
         <Route path='/emails' element={<OpenEmailJSPage/>} />
 
 
