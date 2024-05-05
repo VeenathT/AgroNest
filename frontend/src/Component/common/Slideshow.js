@@ -17,7 +17,7 @@ const Slideshow = ({ images }) => {
         {images.map((url, index) => (
           <div key={index} className="each-slide" style={slideStyles}>
             <div style={{ 'backgroundImage': `url(${url})`, height: '100%', width: '100%', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-              {/* If you want to display a caption, you can add it here */}
+             
             </div>
           </div>
         ))}
