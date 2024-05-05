@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography';
 import { MdConfirmationNumber, MdShoppingBasket, MdCode, MdAttachMoney, MdRemoveShoppingCart } from 'react-icons/md';
 import axios from 'axios';
 import DeleteOrderButton from '../OrderDelete';
-import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import Invoice from './Invoice';
 
 const styles = StyleSheet.create({
   page: {
@@ -51,7 +52,6 @@ const CookiesBanner = ({ onClose, orderId }) => {
     if (orderId) {
       fetchOrderDetails();
     }
-
   }, [orderId]);
 
   const closeBanner = () => {
@@ -93,7 +93,6 @@ const CookiesBanner = ({ onClose, orderId }) => {
             ) : error ? (
               <Typography>Error: {error}</Typography>
             ) : (
-              
               order && (
                 <View style={styles.page}>
                   <Text style={styles.text}><MdConfirmationNumber />Order ID: {order.item._id}</Text><br />
@@ -110,15 +109,7 @@ const CookiesBanner = ({ onClose, orderId }) => {
               Update
             </Button>
             {order && order.item && order.item._id && (
-              <PDFDownloadLink document={<InvoiceDocument order={order} />} fileName="invoice.pdf">
-                {({ blob, url, loading, error }) =>
-                  loading ? 'Loading document...' : (
-                    <Button variant="contained" style={{ backgroundColor: 'green', color: 'white' }}>
-                      Download Invoice
-                    </Button>
-                  )
-                }
-              </PDFDownloadLink>
+              <Invoice order={order} />
             )}
             {order && order.item && order.item._id && (
               <DeleteOrderButton orderId={order.item._id} onClose={closeBanner} />
@@ -132,17 +123,5 @@ const CookiesBanner = ({ onClose, orderId }) => {
     </React.Fragment>
   );
 }
-
-const InvoiceDocument = ({ order }) => (
-  <Document>
-    <Page style={styles.page}>
-      <Text style={styles.text}><MdConfirmationNumber /> Order ID: {order.item._id}</Text>
-      <Text style={styles.text}><MdShoppingBasket /> Item: {order.item.name}</Text>
-      <Text style={styles.text}><MdCode /> Item Code: {order.item.itemcode}</Text>
-      <Text style={styles.text}><MdRemoveShoppingCart /> Quantity: {order.item.quantity}</Text>
-      <Text style={styles.text}><MdAttachMoney /> Total Price: Rs. {order.item.price}</Text>
-    </Page>
-  </Document>
-);
 
 export default CookiesBanner;
