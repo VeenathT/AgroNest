@@ -266,7 +266,7 @@ const SignUp = () => {
             } }}
             InputLabelProps={{
               shrink: true, // Set shrink to true
-              sx: { position: 'absolute', top: '-8px', left: '12px', backgroundColor: '#ffffff' } // Adjust label position
+              sx: { position: 'absolute', top: '-8px', left: '12px', backgroundColor: '#ffffff' } 
             }}
             >
               {districts.map((district, index) => (
@@ -351,8 +351,8 @@ const SignUp = () => {
                   borderRadius: '20px',
                   color: 'white',
                   backgroundColor: '#0f5132',
-                  padding: '10px 20px', // Adjust padding to decrease button size
-                  width: '350px', // Adjust width to decrease button width
+                  padding: '10px 20px', 
+                  width: '350px', 
                 }}
               >
                 Sign Up
