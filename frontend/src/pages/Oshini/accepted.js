@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, FormControl, Select, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -168,12 +168,18 @@ function AcceptedRequests() {
                   <TableCell>{formatDate(request.date)}</TableCell>
                   <TableCell>{request.startTime}</TableCell>
                   <TableCell>
-                    <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
-                      <option value="pending">Pending</option>
-                      <option value="accepted">Accepted</option>
-                      <option value="completed">Completed</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
+                    <FormControl sx={{ minWidth: 120 }}>
+                      <Select
+                        value={request.status}
+                        onChange={(event) => handleStatusChange(event, request._id)}
+                        sx={{ fontSize: '0.8rem', minWidth: 100 }}
+                      >
+                        <MenuItem value="pending">Pending</MenuItem>
+                        <MenuItem value="accepted">Accepted</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="rejected">Rejected</MenuItem>
+                      </Select>
+                    </FormControl>
                   </TableCell>
                 </TableRow>
               ))}

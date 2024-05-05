@@ -24,6 +24,7 @@ const ValueLabel = styled(Typography)({
 
 const LabEdit = () => {
   const [labDetails, setLabDetails] = useState({});
+  const [phoneError, setPhoneError] = useState('');
   const navigate = useNavigate();
 
   const fetchLabDetails = async () => {
@@ -60,11 +61,26 @@ const LabEdit = () => {
 
   const handleNavigate = () => {
     navigate('/labProfile');
-  }
+  };
+
+  const handleChange = (e) => {
+    setLabDetails({
+      ...labDetails,
+      [e.target.name]: e.target.value,
+    });
+
+    if (e.target.name === 'phone') {
+      if (!/^[0-9]{9}$/.test(e.target.value)) {
+        setPhoneError('Invalid phone number');
+      } else {
+        setPhoneError('');
+      }
+    }
+  };
 
   return (
     <StyledContainer maxWidth="md">
-      <Paper style={{ padding: '70px', backgroundColor: '#CCFFCC', width: '55%', margin: '60px auto' }}>
+      <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', margin: '50px auto' }}>
         <Typography variant="h4" gutterBottom>
           <center>Edit Your Details</center>
         </Typography> 
@@ -78,7 +94,8 @@ const LabEdit = () => {
             fullWidth
             variant="outlined"
             value={labDetails.name || ''}
-            onChange={(e) => setLabDetails({ ...labDetails, name: e.target.value })}
+            onChange={handleChange}
+            name="name"
           />
         </div>
         <div>
@@ -96,7 +113,10 @@ const LabEdit = () => {
             fullWidth
             variant="outlined"
             value={labDetails.phone || ''}
-            onChange={(e) => setLabDetails({ ...labDetails, phone: e.target.value })}
+            onChange={handleChange}
+            name="phone"
+            error={!!phoneError}
+            helperText={phoneError}
           />
         </div>
         <div>

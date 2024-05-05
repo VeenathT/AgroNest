@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Paper, Button, styled } from '@mui/material';
+import { Container, Typography, Paper, Button, styled, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom'; 
 import axios from 'axios';
 import jsPDF from 'jspdf';
@@ -28,6 +28,7 @@ const ValueLabel = styled(Typography)({
 
 const LabProfile = () => {
   const [labDetails, setLabDetails] = useState({});
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate(); 
   const storedUserName = sessionStorage.getItem('userName');
     
@@ -49,7 +50,15 @@ const LabProfile = () => {
     navigate('/labEdit');
   };
 
-  const handleDelete = async (userName) => {
+  const handleDelete = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
       await axios.delete(`http://localhost:8070/labAccount/delete/${storedUserName}`);
       alert('Account deleted successfully');
@@ -59,10 +68,6 @@ const LabProfile = () => {
       alert('Failed to delete account. Please try again later.');
     }
   };
-
-  const handleBack = () => {
-    navigate('/labDash');
-  }
 
   const generatePDF = async () => {
     try {
@@ -149,6 +154,24 @@ const LabProfile = () => {
           </div>
         </Paper>
       </div>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={showConfirmation} onClose={handleCancelDelete}>
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Are you sure you want to delete your account?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDelete} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmDelete} color="secondary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </StyledContainer>
   );
 };
