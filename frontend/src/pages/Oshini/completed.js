@@ -11,6 +11,7 @@ function CompletedRequests() {
   const [completedRequests, setCompletedRequests] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [farmerNames, setFarmerNames] = useState({});
+  const [uploadedRequests, setUploadedRequests] = useState(new Set());
 
   useEffect(() => {
     const storedUserName = sessionStorage.getItem('userName');
@@ -65,7 +66,9 @@ function CompletedRequests() {
     }
   };
 
-
+  const handleFileUpload = (requestId) => {
+    setUploadedRequests((prevUploadedRequests) => new Set([...prevUploadedRequests, requestId]));
+  };
   const getFarmerName = async (farmerId) => {
     try {
       const response = await axios.get(`http://localhost:8070/farmer/getName/${farmerId}`);
@@ -176,11 +179,17 @@ function CompletedRequests() {
                     </FormControl>
                   </TableCell>
                   <TableCell>
-                    <Link to={`/uploadFile?requestId=${request._id}`}>
-                      <Button variant="contained" style={{ backgroundColor: '#0F5132', color: '#FFFFFF' }}>
-                        Upload
+                    {uploadedRequests.has(request._id) ? (
+                      <Button variant="contained" disabled>
+                        Uploaded
                       </Button>
-                    </Link>
+                    ) : (
+                      <Link to={`/uploadFile?requestId=${request._id}`}>
+                        <Button variant="contained" style={{ backgroundColor: '#0F5132', color: '#FFFFFF' }}>
+                          Upload
+                        </Button>
+                      </Link>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
