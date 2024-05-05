@@ -56,7 +56,7 @@ const FarmerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '100px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
+    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '105px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
       <Typography variant="h3" gutterBottom align="center">Welcome to AgroNest Support Services !</Typography>
       <Tabs
         value={selectedTab}
