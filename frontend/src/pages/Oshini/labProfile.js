@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StyledContainer = styled(Container)({
   marginTop: '50px',
-  backgroundColor: 'rgba(169, 169, 169, 0.1)' // Setting background color
+  backgroundColor: 'rgba(255, 255, 255, 0)' // Setting background color
 });
 
 const Label = styled(Typography)({
@@ -109,7 +109,8 @@ const LabProfile = () => {
         <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '10px', left: '10px', zIndex: 999 }}>
           <ArrowBackIcon />
         </Link>
-        <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', margin: '0 auto', position: 'relative' }}>
+        <Paper style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)', width: '55%', margin: '0 auto', position: 'relative' }}>
+
           <Typography variant="h4" gutterBottom>
             <center>Your Details</center>
           </Typography> <br></br>

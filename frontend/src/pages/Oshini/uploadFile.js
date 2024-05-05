@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, TextField, IconButton, styled } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
 
@@ -44,6 +44,7 @@ function UploadFile() {
   const [file, setFile] = useState(null);
   const [dragging, setDragging] = useState(false);
   const [removingFile, setRemovingFile] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   // Fetch user name from session storage
   useEffect(() => {
@@ -66,11 +67,16 @@ function UploadFile() {
     formData.append('file', file);
     formData.append('requestId', requestId);
 
-    const result = await axios.post('http://localhost:8070/labReport/upload-files', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-    alert("Successfully uploaded");
-    console.log(result);
+    try {
+      await axios.post('http://localhost:8070/labReport/upload-files', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      alert("Successfully uploaded");
+      navigate('/completed'); // Redirect to the completed page after successful upload
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      alert("An error occurred while uploading. Please try again later.");
+    }
   };
 
   // Function to handle file selection
