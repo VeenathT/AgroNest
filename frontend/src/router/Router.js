@@ -75,18 +75,11 @@ const Router = () => {
     navigate('/'); 
   };
 
-  const images = [
-    require('../images/Rahul/1.png'),
-    require('../images/Rahul/2.png'),
-    require('../images/Rahul/3.png')
-  ];
+  
 
   return (
     <>
-    {/* <div className="App">
-      <h1>My Slideshow</h1>
-      <Slideshow images={images} />
-    </div> */}
+    
 
       {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
       

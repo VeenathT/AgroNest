@@ -19,7 +19,7 @@ const FarmerListComponent = () => {
   const [editedReply, setEditedReply] = useState('');
 
   useEffect(() => {
-    const fetchFarmers = async () => {      //fetchDealers
+    const fetchFarmers = async () => {      //fetchfarmers
       try {
         const response = await axios.get('http://localhost:8070/farmerReport/farmers');
         setFarmers(response.data);
@@ -46,7 +46,7 @@ const FarmerListComponent = () => {
     try {
       await axios.delete(`http://localhost:8070/farmerReport/replies/${replyId}`);
       setReplies(replies.filter(reply => reply._id !== replyId));
-      toast.success('Reply deleted successfully', { autoClose: 2000 }); // Notification 
+      toast.success('Reply deleted successfully', { autoClose: 2000 }); 
     } catch (error) {
       console.error('Error deleting reply:', error);
       toast.error('Failed to delete reply', { autoClose: 2000 }); 
@@ -56,41 +56,41 @@ const FarmerListComponent = () => {
   const handleViewClick = async (farmer) => {
     setSelectedFarmer(farmer);
     setOpenPopup(true);
-    await fetchReplies(farmer._id); // Fetch replies for the selected dealer
+    await fetchReplies(farmer._id); // Fetch replies for selected farmer
   };
 
   const handleClosePopup = () => {
     setOpenPopup(false);
-    setEditMode(false); // Reset edit mode when closing the dialog
+    setEditMode(false); // Reset edit mode 
   };
 
   const handleReplyClick = async () => {
     try {
       if (editMode) {
-        // Perform update if in edit mode
+        //update in 
         await axios.put(`http://localhost:8070/farmerReport/replies/${editedReply._id}`, { replyText });
         const updatedReplies = replies.map(reply =>
           reply._id === editedReply._id ? { ...reply, replyText } : reply
         );
         setReplies(updatedReplies);
         setEditMode(false);
-        toast.success('Reply updated successfully'); // Notification for successful update
+        toast.success('Reply updated successfully'); 
       } else {
-        // Perform create if not in edit mode
+        
         const response = await axios.post(`http://localhost:8070/farmerReport/farmers/${selectedFarmer._id}/reply`, { replyText });
       
-        // Update the status to "Resolved"
+        // Update  to "Resolved"
         await axios.put(`http://localhost:8070/farmerReport/farmers/${selectedFarmer._id}/status`);
   
-        // Update the local state of dealers
+        // Update the local state 
         const updatedFarmer = farmers.map(farmer => 
           farmer._id === selectedFarmer._id ? { ...farmer, status: 'Resolved' } : farmer
         );
         setFarmers(updatedFarmer);
   
-        // Add the new reply to the list of replies
+        
         setReplies([...replies, response.data]);
-        toast.success('Reply sent successfully'); // Notification for successful reply
+        toast.success('Reply sent successfully'); 
       }
       setReplyText('');
     } catch (error) {
@@ -98,7 +98,7 @@ const FarmerListComponent = () => {
       toast.error('Failed to send reply');
     }
   
-    // Close the popup window
+    
     setOpenPopup(false);
   };
   

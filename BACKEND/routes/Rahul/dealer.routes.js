@@ -12,7 +12,6 @@ router.get('/viewdealers', async (req, res) => {
   }
 });
 
-
 // DELETE a dealer by ID
 router.delete('/viewdealers/delete/:id', async (req, res) => {
   try {
@@ -27,5 +26,4 @@ router.delete('/viewdealers/delete/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 module.exports = router;

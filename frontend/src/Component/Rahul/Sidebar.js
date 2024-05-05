@@ -67,7 +67,8 @@ const Sidebar = ({ farmerID }) => {
         </ListItem>
 
         <ListItem button> 
-          <ListItemText primary="System Report" />
+          <ListItemText primary="Articles & Promotion" />
+          
         </ListItem>
 
         <ListItem button>
