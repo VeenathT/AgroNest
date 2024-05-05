@@ -78,9 +78,14 @@ const Router = () => {
     navigate('/'); 
   };
 
+  
+
   return (
     <>
+    
+
       {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+      
       <Routes>
         <Route
           path="/"
@@ -149,7 +154,7 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
-
+        
       </Routes>
     </>
   );
