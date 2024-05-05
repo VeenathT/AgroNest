@@ -42,7 +42,7 @@ const Sidebar = ({farmerID}) => {
       anchor="left"
     >
       <List>
-        <ListItem button component={Link} to={`/farmer/${farmerID}`}>
+        <ListItem button component={Link} to={`/Profile/${localStorage.getItem('logId')}`}>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
