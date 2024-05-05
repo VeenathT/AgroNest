@@ -4,6 +4,14 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepConnector from '@mui/material/StepConnector';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 const images = [
   {
@@ -86,9 +94,12 @@ const ImageMarked = styled('span')(({ theme }) => ({
 
 const InquiryCategory = () => {
   return (
-    <div style={{ padding: '100px', marginTop: '20px' }}>
-      <h1>Select Category</h1>
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '80px',marginBottom: '100px' }}>
+    <div style={{ padding: '100px', marginTop: '30px' }}>
+      <Stack sx={{ width: '100%', alignItems: 'center' }} spacing={4}>
+        <Typography variant="h4">Select Your Category</Typography>
+        <CustomizedSteppers />
+      </Stack>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '50px',marginBottom: '100px' }}>
         {images.map((image) => (
           <ImageButton
             key={image.title}
@@ -120,6 +131,56 @@ const InquiryCategory = () => {
         ))}
       </Box>
     </div>
+  );
+}
+
+const CustomizedSteppers = () => {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={4}>
+      <Stepper alternativeLabel activeStep={0} connector={<ColorlibConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Stack>
+  );
+}
+
+const steps = ['Select Category', 'Fill the Inquiry Form', 'Submit to the system'];
+
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${StepConnector.defaultProps?.classes?.alternativeLabel}`]: {
+    top: 22,
+  },
+  [`&.${StepConnector.defaultProps?.classes?.active}`]: {
+    [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`&.${StepConnector.defaultProps?.classes?.completed}`]: {
+    [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+    height: 3,
+    border: 0,
+    backgroundColor:
+      theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+    borderRadius: 1,
+  },
+}));
+
+const CustomStepIcon = ({ active, completed, icon }) => {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      {completed ? <CheckCircleIcon /> : active ? <RadioButtonCheckedIcon /> : <RadioButtonUncheckedIcon />}
+      <Typography sx={{ ml: 1, color: active ? 'text.primary' : 'text.secondary', fontWeight: 'bold' }}>{icon}</Typography>
+    </Box>
   );
 }
 

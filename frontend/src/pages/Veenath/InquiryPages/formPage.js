@@ -2,9 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AccountCircle, FormatBold, FormatItalic, FormatUnderlined, FormatAlignLeft } from '@mui/icons-material';
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar, Box, Snackbar, IconButton } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar, Box, Snackbar, IconButton,Typography } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { styled } from '@mui/system';
+import Stack from '@mui/material/Stack';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepConnector from '@mui/material/StepConnector';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 const StyledSnackbar = styled(Snackbar)({
   position: 'fixed',
@@ -102,9 +110,11 @@ const FormPage = () => {
   return (
     <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '100px', overflowY: 'auto' }}>
       <h1>{inquiryId ? 'Update Inquiry' : 'Submit Inquiry'}</h1>
-      <section2>Fill in the form below to submit your inquiry</section2>
+      <Stack sx={{ width: '100%', alignItems: 'center',marginBottom: '50px', marginTop:'50px' }} spacing={4}>
+        <CustomizedSteppers />
+      </Stack>
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px',marginTop:'30px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '40px',marginTop:'20px' }}>
           <TextField  color="success" 
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -217,7 +227,59 @@ const FormPage = () => {
         </MuiAlert>
       </StyledSnackbar>
     </div>
+    
   );
 }
+const CustomizedSteppers = () => {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={4}>
+      <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Stack>
+  );
+}
+
+
+const steps = ['Select Category', 'Fill the Inquiry Form', 'Submit to the system'];
+
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${StepConnector.defaultProps?.classes?.alternativeLabel}`]: {
+    top: 22,
+  },
+  [`&.${StepConnector.defaultProps?.classes?.active}`]: {
+    [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`&.${StepConnector.defaultProps?.classes?.completed}`]: {
+    [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+    height: 3,
+    border: 0,
+    backgroundColor:
+      theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+    borderRadius: 1,
+  },
+}));
+
+const CustomStepIcon = ({ active, completed, icon }) => {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      {completed ? <CheckCircleIcon /> : active ? <RadioButtonCheckedIcon /> : <RadioButtonUncheckedIcon />}
+      <Typography sx={{ ml: 1, color: active ? 'text.primary' : 'text.secondary', fontWeight: 'bold' }}>{icon}</Typography>
+    </Box>
+  );
+}
+
 
 export default FormPage;
