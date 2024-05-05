@@ -35,7 +35,7 @@ const FarmerProfile = () => {
       sx={{
         maxWidth: '600px',
         margin: '-20px auto',
-        marginTop: '20px',
+        marginTop: '250px',
         boxSizing: 'border-box',
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         borderRadius: '20px',
