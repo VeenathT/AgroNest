@@ -62,6 +62,15 @@ const Logintype = () => {
             Administrator
           </Button>
         </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" component={Link} to="/MLogin" sx={{
+            borderRadius: '20px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
+            width: '200px'
+          }}>
+            Manager
+          </Button>
+        </Grid>
       </Grid>
     </Container>
   );

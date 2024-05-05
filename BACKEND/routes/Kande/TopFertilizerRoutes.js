@@ -1,19 +1,18 @@
 const router = require("express").Router();
-const FAnalysis = require("../../models/FAnalysis/FAnalysis");
+const TopFertlizer = require("../../models/Kande/TopFertilizer");
 
 router.route("/add").post((req, res) => {
-    const { name, gmail, age, address } = req.body;
+    const { fertilizername,noofsales} = req.body;
 
-    const addUser = new FAnalysis({
-        name,
-        gmail,
-        age,
-        address
+    const addtopfertilizer = new TopFertlizer({
+        fertilizername,
+        noofsales
+        
     });
 
-    addUser.save()
+    addtopfertilizer.save()
         .then(() => {
-            res.status(200).json("User Added");
+            res.status(200).json("Top Fertilizer Added");
         })
         .catch(err => {
             console.log(err);
@@ -22,9 +21,9 @@ router.route("/add").post((req, res) => {
 });
 
 router.route("/").get((req, res) => {
-    FAnalysis.find()
-        .then(users => {
-            res.status(200).json(users);
+    TopFertlizer.find()
+        .then(topfertilizer => {
+            res.status(200).json(topfertilizer);
         })
         .catch(err => {
             console.log(err);
@@ -33,19 +32,17 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/update/:id").put(async (req, res) => {
-    const userId = req.params.id;
-    const { name, gmail, age, address } = req.body;
+    const fId = req.params.id;
+    const { fertilizername,noofsales } = req.body;
 
-    const updateUser = {
-        name,
-        gmail,
-        age,
-        address
+    const updateTopFertlizer = {
+        fertilizername,
+        noofsales
     };
 
     try {
-        await FAnalysis.findByIdAndUpdate(userId, updateUser);
-        res.status(200).json({ status: "User Updated" });
+        await TopFertlizer.findByIdAndUpdate(fId, updateTopFertlizer);
+        res.status(200).json({ status: "Fertilizer Updated" });
     } catch (err) {
         console.log(err);
         res.status(500).json({ status: "Error with updating data", error: err.message });
@@ -53,11 +50,11 @@ router.route("/update/:id").put(async (req, res) => {
 });
 
 router.route("/delete/:id").delete(async (req, res) => {
-    const userId = req.params.id;
+    const fid = req.params.id;
 
     try {
-        await FAnalysis.findByIdAndDelete(userId);
-        res.status(200).json({ status: "User Deleted" });
+        await TopFertlizer.findByIdAndDelete(fid);
+        res.status(200).json({ status: "Fertilizer Deleted" });
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ status: "Error with delete user", error: err.message });
@@ -65,10 +62,10 @@ router.route("/delete/:id").delete(async (req, res) => {
 });
 
 router.route("/get/:id").get(async (req, res) => {
-    const userId = req.params.id;
+    const fId = req.params.id;
 
     try {
-        const user = await FAnalysis.findById(userId);
+        const user = await TopFertlizer.findById(fId);
         res.status(200).json({ status: "User fetched", user });
     } catch (err) {
         console.log(err.message);
