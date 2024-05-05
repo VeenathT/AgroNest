@@ -1,5 +1,6 @@
 import React from "react";
 import "./Sidebar.css"; // Import your CSS file for styling
+import "../../../Component/Kande/FormCntainer/Form"
 
 
 const Sidebar = () => {
@@ -23,7 +24,7 @@ const Sidebar = () => {
         </a>
         
         
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+        <a href="/addadmin" class="list-group-item list-group-item-action py-2 ripple"
           ><i class="fas fa-chart-line fa-fw me-3"></i><span>Admin Registrations</span></a
         >
         <a href="#" class="list-group-item list-group-item-action py-2 ripple">

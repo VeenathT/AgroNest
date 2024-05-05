@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Chart from "chart.js/auto";
 
-const TopFertilizerInputData = () => {
+const TopAreasInputData = () => {
   const [fertilizers, setFertilizers] = useState([]);
   const [loading, setLoading] = useState(true);
   let chartInstance = null;
@@ -10,7 +10,7 @@ const TopFertilizerInputData = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8070/order/displayAll");
+        const response = await axios.get("http://localhost:8070/dealer/alldealers");
         setFertilizers(response.data);
         setLoading(false);
         renderChart(response.data);
@@ -27,22 +27,20 @@ const TopFertilizerInputData = () => {
 
     if (!ctxB || !fertilizersData) return;
 
-    const productMap = new Map();
-    // Aggregate quantities by product name
+    const storePersonCountMap = new Map();
+    // Aggregate persons count by store location
     fertilizersData.forEach(fertilizer => {
-      const quantity = parseInt(fertilizer.quantity); // Parse quantity as an integer
-      const name = fertilizer.name; // Product name
-      if (!isNaN(quantity)) {
-        if (productMap.has(name)) {
-          productMap.set(name, productMap.get(name) + quantity); // Sum up quantities
-        } else {
-          productMap.set(name, quantity);
+        const location = fertilizer.storeLocation;
+        if (location) {
+            if (!storePersonCountMap.has(location)) {
+                storePersonCountMap.set(location, 0);
+            }
+            storePersonCountMap.set(location, storePersonCountMap.get(location) + 1);
         }
-      }
     });
 
-    const labels = Array.from(productMap.keys());
-    const data = labels.map(name => productMap.get(name)); // Get quantities for corresponding product names
+    const labels = Array.from(storePersonCountMap.keys());
+    const data = labels.map(location => storePersonCountMap.get(location));
 
     if (chartInstance) {
       chartInstance.destroy();
@@ -54,7 +52,7 @@ const TopFertilizerInputData = () => {
         labels: labels,
         datasets: [
           {
-            label: 'Quantity',
+            label: 'Number of Persons',
             data: data,
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             fill: true,
@@ -85,7 +83,7 @@ const TopFertilizerInputData = () => {
             display: true,
             title: {
               display: true,
-              text: 'Product Name',
+              text: 'Store Location',
               color: "#333",
               font: {
                 weight: 1000,
@@ -102,7 +100,7 @@ const TopFertilizerInputData = () => {
             display: true,
             title: {
               display: true,
-              text: 'Quantity',
+              text: 'Number of Persons',
               color: "#333",
               font: {
                 weight: 1000,
@@ -130,7 +128,7 @@ const TopFertilizerInputData = () => {
         <p>Loading...</p>
       ) : (
         <div style={{ width: "600px", height: "400px" }}>
-          <h1 style={{fontWeight:"700",marginLeft:"50px" }}>Fertilizer Categories & Sales</h1>
+          <h1 style={{fontWeight:"700",marginLeft:"50px" }}>Dealer Registrations top Areas</h1>
           <canvas id="TopFerDataInsertlinechart"></canvas>
         </div>
       )}
@@ -138,4 +136,4 @@ const TopFertilizerInputData = () => {
   );
 };
 
-export default TopFertilizerInputData;
+export default TopAreasInputData;

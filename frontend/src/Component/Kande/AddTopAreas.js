@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import FertilizerForm from "./FormCntainer/FertilizerForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios"; 
-
+import TopareasInput from "../../pages/Kande/DataInsertGraphs/TopareasInput";
 
 
 
@@ -75,7 +75,9 @@ const AddTopAreas = () => {
                 </div>
                 
             </div>
-          
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <TopareasInput />
+    </div>
 
             {/* form  */}
             <FertilizerForm >

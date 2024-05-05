@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import FertilizerForm from "./FormCntainer/FertilizerForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios"; 
+import TopFertilizerInputData from "../../pages/Kande/DataInsertGraphs/TopSellerInputGraphs";
 
 
 
@@ -59,9 +60,11 @@ const AddTopSelling = () => {
 
 
     return (
+        
         <>
+        <div style={{ marginTop: '5%' }}></div>
             {/* page switch */}
-            <div className="d-flex justify-content-center mt-5">
+            <div className="d-flex justify-content-center mt-5" style={{marginTop:"50px"}}>
                 <div className="btn-group mt-5" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked />
                     <label className="btn btn-outline-primary btn-lg" htmlFor="btnradio1" onClick={handleaddClick}>Add </label>
@@ -70,9 +73,12 @@ const AddTopSelling = () => {
                     <label className="btn btn-outline-primary btn-lg" htmlFor="btnradio2" onClick={handleviewClick} style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }} >View</label>
                 </div>
             </div>
-
+            <div style={{ margin: '0 auto', width: 'fit-content',marginTop:"3%" }}>
+      <TopFertilizerInputData />
+    </div>
+        
             {/* form  */}
-            <FertilizerForm >
+            <FertilizerForm style={{marginTop:"50px"}}>
                 <h1>Add Top Selling Fertilizers</h1>
                 <Form onSubmit={submitHandler}>
 

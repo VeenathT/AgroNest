@@ -86,6 +86,8 @@ app.use("/toparea",topareasSchema);
 const userSchema = require("./routes/Kande/managerloginRoutes.js");
 app.use(userSchema);
 
+const adminadd = require('./routes/Kande/admin.js');
+app.use('/api/admin', adminadd);
 
 
 

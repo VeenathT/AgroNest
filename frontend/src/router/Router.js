@@ -66,7 +66,8 @@ import TopArea from '../pages/Kande/TopAreaScreen';
 import AddTopfertilizer from'../Component/Kande/AddTopSelling'
 import ViewTopSellers from '../pages/Kande/ViewTopSelling';
 import  ViewTopRegisterdArea from'../pages/Kande/ViewTopAreas'
-
+import AddAdminForm from '../Component/Kande/FormCntainer/Form'
+import ViewAdmin from '../Component/Kande/ViewAdmins'
 
 
 const Router = () => {
@@ -169,6 +170,8 @@ const Router = () => {
         <Route path='/TopArea' element={<TopArea />} />
         <Route path='/TopSellers'element={< ViewTopSellers/>} ></Route>
         <Route path='/ViewTopRegisterdArea'element={<  ViewTopRegisterdArea/>} ></Route>
+        <Route path='/addadmin' element={<AddAdminForm/>}/>
+        <Route path='/viewadmin' element={<ViewAdmin/>}/>
 
        
         
