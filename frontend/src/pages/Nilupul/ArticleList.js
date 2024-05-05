@@ -112,11 +112,24 @@ const ArticleList = () => {
   };
 
   return (
-    <div style={{ padding: '20px', width:'auto', backgroundColor: '#D5F5E3', minHeight: '100vh',marginTop: '3000px', marginBottom: '200px' }}>
-      <Container>
-        <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
+    <div style={{ padding: '50px', width:'auto', backgroundColor: '#F5F5F5', minHeight: '300vh' }}>
+      <Container >
+        <div style={{ padding: '20px', backgroundColor: '#F5F5F5' }}>
+        <Typography 
+          variant="h1" 
+          style={{
+            marginBottom: '20px', 
+            color: '#196F3D',
+            textAlign: 'center', 
+            fontFamily: 'serif', 
+            letterSpacing: '5px'
+            
+          }}
+        >
+          Articles
+        </Typography>
+
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <Typography variant="h4" style={{ marginBottom: '20px', color: '#4CAF50' }}>Articles</Typography>
           
           {/* Sorting Section */}
           <FormControl variant="outlined" style={{ marginBottom: '20px' }}>
@@ -159,41 +172,36 @@ const ArticleList = () => {
             </Fade>
           </div>
 
-          <Grid container spacing={3}>
-            {sortedArticles.map((article, index) => (
-              <Grid item key={article._id} xs={12} sm={6} md={6} lg={6}>
-               
-                <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <CardContent style={{ flexGrow: 1 }}>
-                    <Typography variant="h6" gutterBottom style={{ color: '#4CAF50' }}>
-                      {article.title}
-                    </Typography>
-                    <Typography color="textSecondary">
-                      {new Date(article.date).toLocaleString()}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                      {article.content}
-                    </Typography>
-                    <PDFDownloadLink
-                      document={<ArticlePDF title={article.title} content={article.content} />}
-                      fileName={`${article.title}.pdf`}
+          {sortedArticles.map((article, index) => (
+            <Card key={article._id} style={{ marginBottom: '20px' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom style={{ color: '#4CAF50' }}>
+                  {article.title}
+                </Typography>
+                <Typography color="textSecondary">
+                  {new Date(article.date).toLocaleString()}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  {article.content}
+                </Typography>
+                <PDFDownloadLink
+                  document={<ArticlePDF title={article.title} content={article.content} />}
+                  fileName={`${article.title}.pdf`}
+                >
+                  {({ loading }) => (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      style={{ marginTop: '10px' }}
+                      disabled={loading}
                     >
-                      {({ loading }) => (
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{ marginTop: '10px' }}
-                          disabled={loading}
-                        >
-                          {loading ? 'Loading document...' : 'Download PDF'}
-                        </Button>
-                      )}
-                    </PDFDownloadLink>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+                      {loading ? 'Loading document...' : 'Download PDF'}
+                    </Button>
+                  )}
+                </PDFDownloadLink>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </Container>
     </div>
