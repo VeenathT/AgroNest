@@ -75,7 +75,7 @@ const PastFeedbackList = () => {
     : feedbacks;
 
   return (
-    <Container style={{ marginTop: '100px', backgroundColor: '#F5F5F5', padding: '20px' }} maxWidth="md">
+    <Container style={{ marginTop: '105px', backgroundColor: '#F5F5F5', padding: '20px' }} maxWidth="md">
       <Typography variant="h3" align="center" gutterBottom>
         My Reviews
       </Typography>

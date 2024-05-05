@@ -27,7 +27,7 @@ const Logintype = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/Profile" sx={{
+          <Button variant="contained" color="primary" component={Link} to={`/Profile/${localStorage.getItem('logId')}`} sx={{
             borderRadius: '20px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '200px'

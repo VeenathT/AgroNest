@@ -104,10 +104,10 @@ function AcceptedRequests() {
   });
 
   return (
-    <div style={{ paddingTop: '70px' }}>
-      <AppBar position="fixed" style={{ marginTop: "75px",backgroundColor: '#0F5132' }}>
+    <div style={{ marginTop:'50px' , paddingTop: '70px' }}>
+      <AppBar position="fixed" style={{ marginTop: "107px", backgroundColor: '#0F5132' }}>
         <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 0, color: 'white' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 0, color: 'white' }}>
             Lab Dashboard
           </Typography>
           <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="transparent">
@@ -115,11 +115,11 @@ function AcceptedRequests() {
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Pending" component={Link} to="/labDash" />
+            <Tab label="Pending" component={Link} to="/labDash" sx={{ color: 'white' }} />
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Accepted" disabled={tabValue === 0} />
+            <Tab label="Accepted" disabled={tabValue === 0} sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
-            <Tab label="Completed" component={Link} to="/completed" />
+            <Tab label="Completed" component={Link} to="/completed" sx={{ color: 'white' }}/>
             <Tab label="" disabled={tabValue === 0} />
             <Tab label="" disabled={tabValue === 0} />
           </Tabs>

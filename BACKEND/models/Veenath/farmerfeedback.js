@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const farmerFeedbackSchema = new mongoose.Schema({
   orderId: {
     type: String,
-    required: true,
+    required: false,
   },
   farmerName: {
     type: String,

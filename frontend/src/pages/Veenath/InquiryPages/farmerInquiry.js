@@ -68,7 +68,7 @@ const FarmerInquiry = () => {
   );
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '100px' }}>
+    <div style={{ backgroundColor: '#F8F9F9', width: "1000px", margin: "auto", marginTop: '105px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
       <Typography variant="h3" gutterBottom align="center">Welcome to AgroNest Support Services !</Typography>
       <Tabs
         value={selectedTab}
@@ -113,7 +113,7 @@ const FarmerInquiry = () => {
             style={{ marginBottom: '20px' }}
           />
           {filteredPendingInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center"  marginLeft="40px">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>
@@ -143,7 +143,7 @@ const FarmerInquiry = () => {
             style={{ marginBottom: '20px' }}
           />
           {filteredResolvedInquiries.map((inquiry) => (
-            <Grid container key={inquiry._id} alignItems="center" justifyContent="center">
+            <Grid container key={inquiry._id} alignItems="center" justifyContent="center"  marginLeft="40px">
               <Grid item xs={10}>
                 <InquiryRow inquiry={inquiry} />
               </Grid>

@@ -2,21 +2,22 @@ const express = require('express');
 const router = express.Router();
 const TestRequest = require('../../../models/Oshini/test_requests/testRequest');
 
-
+// Route for adding test requests
 router.post('/addTestRequest', async (req, res) => {
   try {
     const { farmerID, labID, testType, date, startTime } = req.body;
-
     
+    // Create the test request with uploaded file initialized
     const testRequest = new TestRequest({
-      farmerID: farmerID,
-      labID: labID,
-      testType: testType,
-      date: date,
-      startTime: startTime,
+      farmerID,
+      labID,
+      testType,
+      date,
+      startTime,
       status: "pending"
     });
-
+    
+    // Save the test request to the database
     await testRequest.save();
 
     res.status(201).json({ message: 'Test request added successfully' });
