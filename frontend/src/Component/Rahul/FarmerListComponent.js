@@ -46,10 +46,10 @@ const FarmerListComponent = () => {
     try {
       await axios.delete(`http://localhost:8070/farmerReport/replies/${replyId}`);
       setReplies(replies.filter(reply => reply._id !== replyId));
-      toast.success('Reply deleted successfully', { autoClose: 2000 }); // Notification disappears after 3 seconds
+      toast.success('Reply deleted successfully', { autoClose: 2000 }); // Notification 
     } catch (error) {
       console.error('Error deleting reply:', error);
-      toast.error('Failed to delete reply', { autoClose: 2000 }); // Notification disappears after 3 seconds
+      toast.error('Failed to delete reply', { autoClose: 2000 }); 
     }
   };
 

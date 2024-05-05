@@ -55,7 +55,7 @@ import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
-
+import Slideshow from '../../src/Component/common/Slideshow';
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -75,9 +75,21 @@ const Router = () => {
     navigate('/'); 
   };
 
+  const images = [
+    require('../images/Rahul/1.png'),
+    require('../images/Rahul/2.png'),
+    require('../images/Rahul/3.png')
+  ];
+
   return (
     <>
+    {/* <div className="App">
+      <h1>My Slideshow</h1>
+      <Slideshow images={images} />
+    </div> */}
+
       {isLoggedIn && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+      
       <Routes>
         <Route
           path="/"
@@ -144,7 +156,7 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
-
+        
       </Routes>
     </>
   );
