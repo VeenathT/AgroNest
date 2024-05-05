@@ -136,6 +136,9 @@ app.use(countDealer);
 const inquiryCount = require('./routes/Rahul/inquiryCount.js');
 app.use(inquiryCount);
 
+const profileRoutes = require('./routes/Rahul/Profile.js');
+app.use('/api/profile', profileRoutes);
+
 app.use('/api/auth', adminRoutes);
 
 

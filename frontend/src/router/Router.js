@@ -71,6 +71,7 @@ import  ViewTopRegisterdArea from'../pages/Kande/ViewTopAreas'
 import AddAdminForm from '../Component/Kande/FormCntainer/Form'
 import ViewAdmin from '../Component/Kande/ViewAdmins'
 
+import ProfilePAge from "../Component/Rahul/ProfilePage"
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -186,6 +187,8 @@ const Router = () => {
 
         
 
+        <Route path='/adminp' element={<ProfilePAge/>}/>
+        
       </Routes>
     </>
   );
