@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Button, Card, CardContent, Typography, IconButton, Container } from '@material-ui/core';
+
 
 
 import SearchBar from './SearchBar';
+import { TextField, Button, Card, CardContent, Typography, IconButton, Container, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
 
+import { Link } from 'react-router-dom';
 
 const ArticleForm = () => {
   const [title, setTitle] = useState('');
@@ -45,8 +47,8 @@ const ArticleForm = () => {
       setContent('');
       setSelectedArticle(null);
       setFormError(null);
-      alert(selectedArticle ? 'Article updated successfully!' : 'Article added successfully!');
       fetchArticles(); // Update the articles after adding or updating
+      window.location.href = '/';
     } catch (err) {
       console.error('Error adding/updating article:', err);
     }
@@ -88,45 +90,51 @@ const ArticleForm = () => {
   return (
     <Container>
       <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <TextField
-            label="Search"
-            value={searchTerm}
-            onChange={handleSearch}
-            margin="normal"
-            variant="outlined"
-            size="small"
-            InputProps={{
-              endAdornment: <SearchIcon />,
-            }}
-          />
-        </div>
-        <h2 style={{ color: '#4CAF50' }}>Add Article</h2>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Title"
-            value={title}
-            onChange={handleTitleChange}
-            fullWidth
-            margin="normal"
-            error={formError && !title}
-            helperText={formError && <span style={{ color: 'red' }}>{formError}</span>}
-          />
-          <TextField
-            label="Content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            fullWidth
-            margin="normal"
-            multiline
-            rows={4}
-          />
-          <Button type="submit" variant="contained" color="primary">
-            {selectedArticle ? 'Update' : 'Add'}
-          </Button>
-        </form>
-        <h2 style={{ color: '#4CAF50', marginTop: '20px' }}>Articles</h2>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h2" style={{ color: '#4CAF50', marginBottom: '20px' }}>Add Article</Typography>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                label="Title"
+                value={title}
+                onChange={handleTitleChange}
+                fullWidth
+                margin="normal"
+                error={formError && !title}
+                helperText={formError && <span style={{ color: 'red' }}>{formError}</span>}
+              />
+              <TextField
+                label="Content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                fullWidth
+                margin="normal"
+                multiline
+                rows={4} 
+              />
+              <Button type="submit" variant="contained" color="primary">
+                {selectedArticle ? 'Update' : 'Add'}
+              </Button>
+            </form>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h2" style={{ color: '#4CAF50', marginBottom: '20px' }}>Search Articles</Typography>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <TextField
+                label="Search"
+                value={searchTerm}
+                onChange={handleSearch}
+                margin="normal"
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  endAdornment: <SearchIcon />,
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
+        <Typography variant="h2" style={{ color: '#4CAF50', marginTop: '40px', marginBottom: '20px' }}>Articles</Typography>
         {filteredArticles.map((article) => (
           <Card key={article._id} style={{ marginBottom: '20px', backgroundColor: '#FFFFFF' }}>
             <CardContent>
@@ -140,10 +148,10 @@ const ArticleForm = () => {
                 {article.content}
               </Typography>
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-                <IconButton aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
+                <IconButton component={Link} to={`/`} aria-label="delete" color="secondary" onClick={() => handleDelete(article._id)}>
                   <DeleteIcon />
                 </IconButton>
-                <Button variant="outlined" color="primary" onClick={() => handleUpdate(article)}>
+                <Button component={Link} to={`/`} variant="outlined" color="primary" onClick={() => handleUpdate(article)}>
                   Update
                 </Button>
               </div>

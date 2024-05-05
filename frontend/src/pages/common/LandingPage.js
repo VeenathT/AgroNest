@@ -13,6 +13,7 @@ const images = [
   // Add more images as needed
 ];
 
+
 const DealerSignUp = () => {
   const slideshowImages = [
     require('../../images/Rahul/1.png'),
@@ -22,9 +23,20 @@ const DealerSignUp = () => {
 
   return (
     <>
-    <SlideShow images={slideshowImages} />
-    <ArticleList />
+  
+
+    
+    <div className="App">
+      <h1>My Slideshow</h1>
+      <SlideShow images={images} />
+    </div>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', marginTop: '150px' }}>
+      <ArticleList />
+    </div>
     </>
+  
+    
+    
   );
 }
 
