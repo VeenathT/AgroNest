@@ -20,10 +20,10 @@ console.log('Generated secret key:', secretKey);
 
 // Set up session middleware
 app.use(session({
-  secret: secretKey, // Change this to your own secret key
+  secret: secretKey, 
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: 'mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest' }), // Adjust the MongoDB URL as needed
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest' }), 
 }));
 //end---------------------------------
 const fs = require('fs');
@@ -71,8 +71,25 @@ app.use("/Farmer", farmerRouter);
 const soilTestRouter = require("./routes/Thisaravi/soilTests.js");
 app.use("/SoilTest", soilTestRouter);
 
-const FAnalysis = require("./routes/Kande/FAnalysis.js");
-app.use("/FAnalysis",FAnalysis);
+//const FAnalysis = require("./routes/Kande/FAnalysis.js");
+//app.use("/FAnalysis",FAnalysis);
+// kande
+const TopFertilizer = require("./routes/Kande/TopFertilizerRoutes.js");
+app.use("/topfertilizercategory",TopFertilizer);
+
+const topsellingSchema = require("./routes/Kande/TopSellingRoutes.js");
+app.use("/topdealer",topsellingSchema);
+
+const topareasSchema = require("./routes/Kande/TopAreasRoutes.js");
+app.use("/toparea",topareasSchema);
+
+const userSchema = require("./routes/Kande/managerloginRoutes.js");
+app.use(userSchema);
+
+const adminadd = require('./routes/Kande/admin.js');
+app.use('/api/admin', adminadd);
+
+
 
 //Oshini
 const labRouter = require("./routes/Oshini/lab_account/labAccounts.js");

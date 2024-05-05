@@ -7,7 +7,6 @@ import SignupPage from '../pages/Sudarshan/DealerSignUp';
 import Header from '../Component/common/header';
 import EditProfile from '../pages/Sudarshan/editProf';
 import ManageShop from '../pages/Sudarshan/ManageShop';
-import Feedbacks from '../pages/Sudarshan/Feedbacks';
 import Orders from '../pages/Sudarshan/Orders';
 import LoginType from '../pages/common/LoginType';
 import SignupType from '../pages/common/SignUpType';
@@ -58,6 +57,20 @@ import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
+
+//kande
+import TopFertilizer from  '../pages/Kande/TopfertilizerScreen'
+import AddTopAreas from '../pages/Kande/TopAreaScreen';
+import SysManagerDashboard from '../pages/Kande/SysManagerDashboard';
+import ViewTopFertilizer from '../pages/Kande/ViewTopFertilizer';
+import MLogin from '../Component/Kande/login/MLogin';
+import TopArea from '../pages/Kande/TopAreaScreen';
+import AddTopfertilizer from'../Component/Kande/AddTopSelling'
+import ViewTopSellers from '../pages/Kande/ViewTopSelling';
+import  ViewTopRegisterdArea from'../pages/Kande/ViewTopAreas'
+import AddAdminForm from '../Component/Kande/FormCntainer/Form'
+import ViewAdmin from '../Component/Kande/ViewAdmins'
+
 import ProfilePAge from "../Component/Rahul/ProfilePage"
 
 const Router = () => {
@@ -106,7 +119,6 @@ const Router = () => {
         />
         <Route path="/editProf" element={<EditProfile />} />
         <Route path="/manageShop" element={<ManageShop />} />
-        <Route path="/feedbacks" element={<Feedbacks />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/logintype" element={<LoginType />} />
         <Route path="/signuptype" element={<SignupType />} />
@@ -155,6 +167,26 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
+
+
+        {/* Kande Routes */}
+        <Route path='/addtopfertilizers' element={<TopFertilizer />} />
+        <Route path='/viewtopfertilizers' element={<ViewTopFertilizer />} />
+        <Route path='/addtopsellingfertilizers' element={<AddTopfertilizer />} />
+        <Route path='/addtopareas' element={<AddTopAreas />} />
+        <Route path='/managerdashboard' element={<SysManagerDashboard />} />
+        <Route path='/MLogin' element={<MLogin />} />
+        <Route path='/TopArea' element={<TopArea />} />
+        <Route path='/TopSellers'element={< ViewTopSellers/>} ></Route>
+        <Route path='/ViewTopRegisterdArea'element={<  ViewTopRegisterdArea/>} ></Route>
+        <Route path='/addadmin' element={<AddAdminForm/>}/>
+        <Route path='/viewadmin' element={<ViewAdmin/>}/>
+
+       
+        
+
+        
+
         <Route path='/adminp' element={<ProfilePAge/>}/>
         
       </Routes>
