@@ -24,9 +24,7 @@ const DealerSignUp = () => {
   return (
     
     <>
-  <div style={{ marginTop: '150px' }}>
-    <ArticleList />
-  </div>
+  
 
     
     <div className="App">

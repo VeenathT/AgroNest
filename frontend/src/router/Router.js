@@ -60,7 +60,6 @@ import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
 
 //Nilupul
-import OpenEmailJSPage from '../pages/Nilupul/OpenEmailJSPage';
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -147,7 +146,6 @@ const Router = () => {
 
         <Route path='/articles' element={<ArticleList/>} />
         <Route path='/addarticle' element={<ArticleForm/>} />
-        <Route path="/emailjs" component={<OpenEmailJSPage/>} />
         <Route path="/Itemlist" element={<ItemList />} />
         <Route path="/Item/:id" element={<ItemView />}/>
         <Route path="/Order-History" element={<OrderHistoryPage />}/>
@@ -159,8 +157,7 @@ const Router = () => {
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
         
-        <Route path='/emails' element={<OpenEmailJSPage/>} />
-
+        
 
       </Routes>
     </>
