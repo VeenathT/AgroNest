@@ -43,6 +43,7 @@ function UploadFile() {
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [dragging, setDragging] = useState(false);
+  const [removingFile, setRemovingFile] = useState(false);
 
   // Fetch user name from session storage
   useEffect(() => {
@@ -55,6 +56,11 @@ function UploadFile() {
   // Function to handle file upload
   const handleFileUpload = async (e) => {
     e.preventDefault();
+    if (!file) {
+      alert("Please select a file before submitting.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('file', file);
@@ -74,7 +80,7 @@ function UploadFile() {
 
   // Function to handle file click to open in new tab
   const handleFileClick = () => {
-    if (file) {
+    if (file && !removingFile) {
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL, '_blank');
     }
@@ -108,7 +114,9 @@ function UploadFile() {
 
   // Function to remove selected file
   const removeFile = () => {
+    setRemovingFile(true); // Set removingFile state to true before removing the file
     setFile(null);
+    setRemovingFile(false); // Reset removingFile state to false after removing the file
   };
 
   return (
@@ -167,20 +175,22 @@ function UploadFile() {
                 )}
               </DropArea>
               <input type="file" accept="application/pdf" onChange={handleFileChange} style={{ display: 'none' }} />
-              <Button variant="contained" component="label" style={{ marginTop: '10px', backgroundColor: '#0F5132', color: 'white' }}>
-                Browse
-                <input type="file" accept="application/pdf" onChange={handleFileChange} style={{ display: 'none' }} />
-              </Button>
-              <br />
-              <br />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                style={{ backgroundColor: '#0F5132', borderRadius: '5px' }}
-              >
-                Submit
-              </Button>
+              <center>
+                <Button variant="contained" component="label" style={{ marginTop: '10px', backgroundColor: '#0F5132', color: 'white' }}>
+                  Browse
+                  <input type="file" accept="application/pdf" onChange={handleFileChange} style={{ display: 'none' }} />
+                </Button>
+                <br />
+                <br />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  style={{ backgroundColor: '#0F5132', borderRadius: '5px' }}
+                >
+                  Submit
+                </Button>
+              </center>
             </form>
           </div>
         </InsideContainer>
