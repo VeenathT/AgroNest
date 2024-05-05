@@ -114,7 +114,7 @@ const Router = () => {
         <Route path="/farmerInquiry" element={<FarmerInquiry />} />
         <Route path="/dealerInquiry" element={<DealerInquiry />} />
         <Route path="/formPage" element={<FormPage />} />
-        <Route path="/FeedbackForm/:feedbackId" element={<FeedbackForm />} /> {/* Use :feedbackId */}
+        <Route path="/FeedbackForm" element={<FeedbackForm />} /> {/* Use :feedbackId */}
         <Route path="/PastFeedbackList" element={<PastFeedbackList />} />
         <Route path="/FeedbackCardView" element={<FeedbackCardView />} />
          <Route path="/DealerRating" element={<DealerRating />} />

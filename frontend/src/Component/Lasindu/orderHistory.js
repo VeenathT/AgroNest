@@ -27,8 +27,8 @@ const OrderHistoryPage = () => {
     console.log('View order:', orderId);
   };
 
-  const handleReviewOrder = (orderId) => {
-    window.location.href = `/FeedbackForm/${orderId}`;
+  const handleReviewOrder = () => {
+    window.location.href = `/FeedbackForm`;
   };
 
   const handleCloseBanner = () => {
