@@ -1,5 +1,3 @@
-// farmerReport.js (in modules)
-
 const mongoose = require("mongoose");
 
 const farmerReportSchema = new mongoose.Schema({
