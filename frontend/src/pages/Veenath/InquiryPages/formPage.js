@@ -2,9 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AccountCircle, FormatBold, FormatItalic, FormatUnderlined, FormatAlignLeft } from '@mui/icons-material';
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar, Box, Snackbar, IconButton } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar, Box, Snackbar, IconButton,Typography } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { styled } from '@mui/system';
+import Stack from '@mui/material/Stack';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepConnector from '@mui/material/StepConnector';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 const StyledSnackbar = styled(Snackbar)({
   position: 'fixed',
@@ -100,14 +108,17 @@ const FormPage = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '64px', overflowY: 'auto' }}>
+    <div style={{ backgroundColor: 'white', padding: '20px', marginTop: '100px', overflowY: 'auto' }}>
       <h1>{inquiryId ? 'Update Inquiry' : 'Submit Inquiry'}</h1>
+      <Stack sx={{ width: '100%', alignItems: 'center',marginBottom: '50px', marginTop:'50px' }} spacing={4}>
+        <CustomizedSteppers />
+      </Stack>
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px' }}>
-          <TextField  color="secondary" 
+        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '40px',marginTop:'20px' }}>
+          <TextField  color="success" 
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
+            placeholder=" E-mail (@gmail.com)"
             required
             InputProps={{
               startAdornment: <AccountCircle />,
@@ -119,23 +130,42 @@ const FormPage = () => {
             placeholder="Category"
             disabled
             variant="outlined"
-            style={{ marginLeft: '50px', color: '#fffff', backgroundColor: '#B2BEB5' }}
+            style={{ marginLeft: '50px', color: '#fffff', backgroundColor: '#86B579' }}
           />
           
-          <FormControl color="secondary" style={{ marginLeft: '70px', minWidth: '250px' }}>
-            <InputLabel>Select Area</InputLabel>
+          <FormControl color="success" style={{ marginLeft: '70px', minWidth: '250px' }}>
+            <InputLabel>Select Your Area</InputLabel>
             <Select value={area} onChange={(e) => setArea(e.target.value)} required>
               <MenuItem value="">Select Area</MenuItem>
-              {[...Array(24)].map((_, index) => (
-                <MenuItem key={index} value={`Area ${index + 1}`}>
-                  Area {index + 1}
-                </MenuItem>
-              ))}
+              <MenuItem value="Kandy">Kandy</MenuItem>
+              <MenuItem value="Colombo">Colombo</MenuItem>
+              <MenuItem value="Galle">Galle</MenuItem>
+              <MenuItem value="Jaffna">Jaffna</MenuItem>
+              <MenuItem value="Kurunegala">Kurunegala</MenuItem>
+              <MenuItem value="Anuradhapura">Anuradhapura</MenuItem>
+              <MenuItem value="Gampaha">Gampaha</MenuItem>
+              <MenuItem value="Matara">Matara</MenuItem>
+              <MenuItem value="Hambantota">Hambantota</MenuItem>
+              <MenuItem value="Badulla">Badulla</MenuItem>
+              <MenuItem value="Ratnapura">Ratnapura</MenuItem>
+              <MenuItem value="Ampara">Ampara</MenuItem>
+              <MenuItem value="Monaragala">Monaragala</MenuItem>
+              <MenuItem value="Polonnaruwa">Polonnaruwa</MenuItem>
+              <MenuItem value="Puttalam">Puttalam</MenuItem>
+              <MenuItem value="Kegalle">Kegalle</MenuItem>
+              <MenuItem value="Matale">Matale</MenuItem>
+              <MenuItem value="Nuwara Eliya">Nuwara Eliya</MenuItem>
+              <MenuItem value="Trincomalee">Trincomalee</MenuItem>
+              <MenuItem value="Batticaloa">Batticaloa</MenuItem>
+              <MenuItem value="Mannar">Mannar</MenuItem>
+              <MenuItem value="Vavuniya">Vavuniya</MenuItem>
+              <MenuItem value="Kilinochchi">Kilinochchi</MenuItem>
+              <MenuItem value="Mullaitivu">Mullaitivu</MenuItem>
             </Select>
           </FormControl>
           
         </Box>
-        <TextField label="Topic" color="secondary" 
+        <TextField label="Topic" color="success" 
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="write your heading here"
@@ -143,7 +173,7 @@ const FormPage = () => {
           fullWidth
           style={{ marginBottom: '30px' }}
         />
-        <TextField label="Description" color="secondary" 
+        <TextField label="Description" color="success" 
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="write your issue here..."
@@ -172,22 +202,22 @@ const FormPage = () => {
           }}
           style={{ marginBottom: '50px' }}
         />
-        <FormControl fullWidth style={{ marginBottom: '100px' }}>
+        <FormControl color="success" fullWidth style={{ marginBottom: '100px' }}>
           <InputLabel>Select Priority</InputLabel>
           <Select value={priority} onChange={(e) => setPriority(e.target.value)} required>
             <MenuItem value="">Select Priority</MenuItem>
             <MenuItem value="Low">
-              <Avatar  variant="rounded" sx={{ backgroundColor: 'green' }}>L</Avatar> Low
+              <Avatar  variant="rounded" sx={{ backgroundColor: 'green' }}>L</Avatar> FAQ and Self-Help
             </MenuItem>
             <MenuItem value="Medium">
-              <Avatar  variant="rounded"sx={{ backgroundColor: 'orange' }}>M</Avatar> Medium
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'orange' }}>M</Avatar> General Inquiries
             </MenuItem>
             <MenuItem value="High">
-              <Avatar  variant="rounded"sx={{ backgroundColor: 'red' }}>H</Avatar> High
+              <Avatar  variant="rounded"sx={{ backgroundColor: 'red' }}>H</Avatar> Urgent Support Requests
             </MenuItem>
           </Select>
         </FormControl>
-        <Button type="submit" variant="contained" sx={{ width: "200px", height: "50px", backgroundColor: "green", ml: "500px" }}>
+        <Button type="submit" variant="contained" sx={{ width: "250px", height: "50px", backgroundColor: "green", ml: "500px" }}>
         {inquiryId ? 'Update' : 'Send'}
         </Button>
       </form>
@@ -197,7 +227,59 @@ const FormPage = () => {
         </MuiAlert>
       </StyledSnackbar>
     </div>
+    
   );
 }
+const CustomizedSteppers = () => {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={4}>
+      <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Stack>
+  );
+}
+
+
+const steps = ['Select Category', 'Fill the Inquiry Form', 'Submit to the system'];
+
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${StepConnector.defaultProps?.classes?.alternativeLabel}`]: {
+    top: 22,
+  },
+  [`&.${StepConnector.defaultProps?.classes?.active}`]: {
+    [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`&.${StepConnector.defaultProps?.classes?.completed}`]: {
+    [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`& .${StepConnector.defaultProps?.classes?.line}`]: {
+    height: 3,
+    border: 0,
+    backgroundColor:
+      theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+    borderRadius: 1,
+  },
+}));
+
+const CustomStepIcon = ({ active, completed, icon }) => {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      {completed ? <CheckCircleIcon /> : active ? <RadioButtonCheckedIcon /> : <RadioButtonUncheckedIcon />}
+      <Typography sx={{ ml: 1, color: active ? 'text.primary' : 'text.secondary', fontWeight: 'bold' }}>{icon}</Typography>
+    </Box>
+  );
+}
+
 
 export default FormPage;

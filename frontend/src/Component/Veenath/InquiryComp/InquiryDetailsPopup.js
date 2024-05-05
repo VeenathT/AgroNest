@@ -79,6 +79,7 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
           <Text style={styles.detail}>Description: {inquiry.description}</Text>
           <Text style={styles.detail}>Priority: {inquiry.priority}</Text>
           <Text style={styles.detail}>Area: {inquiry.area}</Text>
+          <Text style={styles.detail}>Reply: {inquiry.reply}</Text>
         </View>
       </Page>
     </Document>
@@ -107,6 +108,11 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
         <div>
           <Typography variant="subtitle1">Area:</Typography>
           <Typography>{inquiry.area}</Typography>
+        </div>
+        <div>
+          <Typography variant="subtitle1">Reply:</Typography>
+          {/* Display the inquiry reply */}
+          <Typography>{inquiry.reply}</Typography>
         </div>
       </DialogContent>
       <DialogActions>
