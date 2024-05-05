@@ -37,7 +37,7 @@ function SoilTestPage() {
   );
   
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px', marginTop:'70px', marginLeft:'20px', marginRight:'20px' ,backgroundColor: 'rgba(255, 255, 255, 0.8)',}}>
+    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '50px', marginTop:'120px', marginLeft:'20px', marginRight:'20px' ,backgroundColor: 'rgba(255, 255, 255, 0.8)',}}>
     <div>
       <h1 style={{ textAlign: 'center' }}>Soil Test Types</h1>
       <TextField
