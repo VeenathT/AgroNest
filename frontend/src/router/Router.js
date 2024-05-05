@@ -35,6 +35,7 @@ import UpdateOrderDialog from '../Component/Lasindu/orderUpdate';
 import ItemList from '../Component/Lasindu/Itemlist';
 import FileUpload from '../pages/Oshini/uploadFile';
 
+
 import RegisterForm from '../pages/Thisaravi/RegisterForm';
 import Profile from '../pages/Thisaravi/Profile';
 import FarmerProfile from '../Component/Thisaravi/FarmerProfile';
@@ -46,6 +47,9 @@ import RequestDetails from '../pages/Thisaravi/SoilTest/RequestDetails';
 import UpdateRequest from '../pages/Thisaravi/SoilTest/UpdateRequest';
 import Login from '../pages/Thisaravi/Login';
 import TestType from '../pages/Thisaravi/SoilTest/TestType';
+import ViewResolvedRequests from '../pages/Thisaravi/SoilTest/ViewResolvedRequests';
+import UpdateProfile from '../pages/Thisaravi/UpdateProfile';
+
 import ArticleList from '../pages/Nilupul/ArticleList';
 import ArticleForm from '../pages/Nilupul/ArticleForm';
 import ShopAnalysis from '../pages/Sudarshan/Analysis';
@@ -145,6 +149,9 @@ const Router = () => {
         <Route path='/update-request/:requestId' element={<UpdateRequest/>}/>
         <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/test-types' element={<TestType />}/>
+
+        <Route path='/resolved-requests' element={<ViewResolvedRequests/>}/>
+        <Route path="/edit-profile/:farmerID" element={<UpdateProfile/>}/>
 
         <Route path="/labSignup" element={<LabSignUp />} />
         <Route path="/labLogin" element={<LabLogin setIsLoggedIn={setIsLoggedIn} />} />

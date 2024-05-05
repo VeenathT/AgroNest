@@ -78,6 +78,17 @@ router.put("/update/:requestID", async (req, res) => {
     }
 });
 
+// Get resolved requests
+router.get("/getResolvedRequests", async (req, res) => {
+    try {
+        const resolvedRequests = await SoilTest.find({ status: "completed" });
+        res.json(resolvedRequests);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 //delete
 router.delete("/delete/:requestID", async (req, res) => {
     try {
