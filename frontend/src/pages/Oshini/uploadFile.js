@@ -121,7 +121,7 @@ function UploadFile() {
 
   return (
     <div style={{ paddingTop: '70px' }}>
-      <AppBar position="fixed" style={{ marginTop: '75px', backgroundColor: '#0F5132' }}>
+      <AppBar position="fixed" style={{ marginTop: '108px', backgroundColor: '#0F5132' }}>
         <Toolbar style={{ justifyContent: 'space-between' }}>
           <Typography variant="h5" component="div" sx={{ flexGrow: 0, color: 'white' }}>
             Upload File
