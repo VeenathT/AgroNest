@@ -5,7 +5,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 
 const Logintype = () => {
   return (
-    <Container style={{ backgroundColor: 'white', width: '80%', maxWidth: '400px', height: '60vh', 
+    <Container style={{ backgroundColor: 'white', width: '80%', maxWidth: '400px', height: '70vh', 
     padding: '20px', marginTop: '10rem', borderRadius: '20px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8)', border: '3px solid black' }}>
       <Grid
         container
