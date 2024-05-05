@@ -30,7 +30,7 @@ const AddTopSelling = () => {
 
 
     const submitHandler = async (e) => {
-        e.preventDefault();
+        e.preventDefault();                       //validation
         if (!isNaN(parseInt(name.trim()))) {
             alert('Name cannot be a number.');
         } else {
@@ -79,7 +79,7 @@ const AddTopSelling = () => {
         
             {/* form  */}
             <FertilizerForm style={{marginTop:"50px"}}>
-                <h1>Add Top Selling Fertilizers</h1>
+                <h1>Add Top Rated Dealers</h1>
                 <Form onSubmit={submitHandler}>
 
                     <Form.Group className="my-2" controlId="name">
@@ -95,11 +95,11 @@ const AddTopSelling = () => {
                     </Form.Group>
 
                     <Form.Group className="my-2" controlId="sales">
-                        <Form.Label>Number Of Sales:</Form.Label>
+                        <Form.Label>Rating:</Form.Label>
                         <Form.Control
                             type='Number'
                             required={true}
-                            placeholder="Enter No of Sales"
+                            placeholder="Rating"
                             value={sales}
                             onChange={(e) => setSales(e.target.value)}
                             style={{ padding: "10px" }}

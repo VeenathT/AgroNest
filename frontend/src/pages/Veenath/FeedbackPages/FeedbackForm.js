@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Rating, Typography, Container, Grid, Snackbar, Box } from '@mui/material'; // Import Box
 import { Alert } from '@mui/material';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useParams
 import axios from 'axios';
 import SaveIcon from '@mui/icons-material/Save';
 
 const FeedbackForm = () => {
-  const location = useLocation();
+  const { orderId } = useParams(); // Get orderId from URL parameters
   const navigate = useNavigate();
   const { feedbackId } = useParams(); // Get the feedback ID from the URL
 
-  const [orderId, setOrderId] = useState('');
   const [farmerName, setFarmerName] = useState('');
   const [description, setDescription] = useState('');
   const [rating, setRating] = useState(1); // Default to 1 star
@@ -44,9 +43,10 @@ const FeedbackForm = () => {
         }
       };
 
-      fetchFeedback();
+    if (orderId) {
+      fetchOrderDetails();
     }
-  }, [location.state, feedbackId]);
+  }, [orderId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,7 +99,7 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "500px", margin: "auto", marginTop: '150px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
+    <div style={{ backgroundColor: '#F8F9F9', width: "500px", margin: "auto", marginTop: '150px', boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBotom>
         {feedbackId ? 'Edit Feedback' : 'Submit Feedback'}
@@ -111,9 +111,8 @@ const FeedbackForm = () => {
               label="Email"
               variant="outlined"
               fullWidth
-              value={orderId}
-              onChange={(e) => setOrderId(e.target.value)}
-              required
+              value={farmerName.name} // Pre-fill orderId
+              InputProps={{ readOnly: false }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -157,7 +156,7 @@ const FeedbackForm = () => {
               size="large"
             >
               <SaveIcon sx={{ mr: 1 }} />
-              {feedbackId ? 'Update' : 'Submit'}
+              Submit
             </Button>
             <Button
               variant="outlined"
