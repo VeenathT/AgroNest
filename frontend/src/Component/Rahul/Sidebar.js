@@ -66,7 +66,7 @@ const Sidebar = ({ farmerID }) => {
         <ListItemText primary="Inquiries" />
         </ListItem>
 
-        <ListItem button> 
+        <ListItem button component={Link} to="/addarticle"> 
           <ListItemText primary="Articles & Promotion" />
           
         </ListItem>

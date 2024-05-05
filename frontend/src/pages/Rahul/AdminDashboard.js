@@ -71,7 +71,7 @@ function Dashboard() {
         <LinkCard title={"Dealers"} link="/viewdealers" />
         <LinkCard title={"Inquiries"} link="/userreports" />
         <LinkCard title={"Laboratory"} link="/labrotaryview" />
-        <LinkCard title={"Soil Testing"} link="/card5" />
+        <LinkCard title={"Articles & Promotion"} link="/addarticle" />
         
       </Space>
     </div>

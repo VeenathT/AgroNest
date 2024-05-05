@@ -58,6 +58,7 @@ import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
+import ProfilePAge from "../Component/Rahul/ProfilePage"
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -154,6 +155,7 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
+        <Route path='/adminp' element={<ProfilePAge/>}/>
         
       </Routes>
     </>
