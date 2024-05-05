@@ -42,7 +42,7 @@ const Sidebar = ({ farmerID }) => {
       anchor="left"
     >
       <List>
-        <ListItem button component={Link} to={`/admin/home`}>
+        <ListItem button component={Link} to={`/adminp`}>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
@@ -67,15 +67,15 @@ const Sidebar = ({ farmerID }) => {
         </ListItem>
 
         <ListItem button component={Link} to="/addarticle"> 
-          <ListItemText primary="Articles & Promotion" />
+          <ListItemText primary="Articles " />
           
         </ListItem>
 
-        <ListItem button>
-          <ListItemIcon>
-            <LogoutIcon />
-          </ListItemIcon>
-          <ListItemText primary="Logout" />
+        <ListItem button components={Link} to="/">
+         
+          <ListItemText primary="Promotion" />
+          
+          
         </ListItem>
       </List>
     </Drawer>
