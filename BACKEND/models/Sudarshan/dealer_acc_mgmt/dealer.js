@@ -36,14 +36,14 @@ const dealerSchema = new Schema({
         required : true,
         unique : true
     },
-    image: {
-        data: Buffer, // Store image data as binary data
-        contentType: String // Store the content type of the image
-    },
     fertilizers: [{
         type: Schema.Types.ObjectId,
         ref: 'fertilizer'
     }],
+    rating : {
+        type : Number,
+        default : 4.5
+    },
     
     
 })

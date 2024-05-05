@@ -17,7 +17,7 @@ router.route("/add").post(async (req, res)=>{
 
     const existingUser = await Farmer.findOne({ userName });
     if (existingUser) {
-        return res.status(400).json({ error: "Username already exists" });
+        return res.status(400).json({ error: "Username already exists" }); //validation
     }
 
     const newFarmer = new Farmer({

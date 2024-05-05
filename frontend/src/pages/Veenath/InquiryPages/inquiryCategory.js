@@ -86,7 +86,7 @@ const ImageMarked = styled('span')(({ theme }) => ({
 
 const InquiryCategory = () => {
   return (
-    <div style={{ backgroundColor: '#FCF3CF', padding: '100px', marginTop: '20px' }}>
+    <div style={{ padding: '100px', marginTop: '20px' }}>
       <h1>Select Category</h1>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '80px',marginBottom: '100px' }}>
         {images.map((image) => (

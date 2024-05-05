@@ -21,13 +21,13 @@ const ArticleList = () => {
 
   return (
     <Container>
-      <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
+      <div style={{ padding: '20px', width:'auto', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Typography variant="h4" style={{ marginBottom: '20px', color: '#4CAF50' }}>Articles</Typography>
         <Grid container spacing={3}>
           {filteredArticles.map((article, index) => (
             <Grid item key={article._id} xs={12} sm={6} md={6} lg={6}>
-              <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#FFFFFF' }}>
+              <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardContent style={{ flexGrow: 1 }}>
                   <Typography variant="h6" gutterBottom style={{ color: '#4CAF50' }}>
                     {article.title}
