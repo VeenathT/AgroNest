@@ -2,32 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid, Button, Link } from '@mui/material';
 import Sidebar from '../../Component/Thisaravi/Sidebar';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const FarmerProfile = () => {
   const { farmerID } = useParams();
-  console.log("farmerID:", farmerID); 
-  localStorage.setItem('logId', farmerID);
-  const value1 = localStorage.getItem('logId')
-  console.log("Valueee : ", value1)
+  const history = useNavigate();
   const [farmerData, setFarmerData] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("farmerID:", farmerID);
     const fetchFarmerData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8070/Farmer/get/${value1}`);
+        const response = await axios.get(`http://localhost:8070/Farmer/get/${farmerID}`);
         setFarmerData(response.data.farmer);
-        setError(null); 
+        setError(null);
       } catch (error) {
         console.error('Error fetching farmer data:', error);
-        setError('Error fetching farmer data'); 
+        setError('Error fetching farmer data');
       }
     };
 
     fetchFarmerData();
   }, [farmerID]);
+
+  const handleEditProfile = () => {
+    history(`/edit-profile/${farmerID}`);
+  };
 
   return (
     <Grid
@@ -86,9 +86,9 @@ const FarmerProfile = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                <Button component={Link} to={`/edit-profile/${farmerID}`} variant="contained" color="primary">
-                Edit Profile
-                </Button>
+                  <Button onClick={handleEditProfile} variant="contained" color="primary">
+                    Edit Profile
+                  </Button>
                 </Grid>
               </Grid>
             )}

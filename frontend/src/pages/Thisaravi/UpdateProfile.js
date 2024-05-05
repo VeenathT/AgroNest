@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Grid } from '@mui/material';
+import { Container, Typography, TextField, Button, Grid, Paper } from '@mui/material';
 
 const UpdateProfile = () => {
   const { farmerID } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -54,6 +55,7 @@ const UpdateProfile = () => {
 
     try {
       await axios.put(`http://localhost:8070/Farmer/update/${farmerID}`, formData);
+      navigate(`/farmer/${farmerID}`)
       // Redirect or show success message
     } catch (error) {
       console.error('Error updating farmer data:', error);
@@ -62,91 +64,93 @@ const UpdateProfile = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Typography variant="h5" gutterBottom>
-        Edit Profile
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="First Name"
-              name="first_name"
-              value={formData.first_name}
-              onChange={handleChange}
-            />
+    <Container maxWidth="sm">
+      <Paper elevation={3} sx={{ padding: '20px', marginTop:20}}>
+        <Typography variant="h5" gutterBottom>
+          Edit Profile
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="First Name"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Last Name"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="District"
+                name="district"
+                value={formData.district}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="City"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Username"
+                name="userName"
+                value={formData.userName}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" color="primary">
+                Save Changes
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Last Name"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="District"
-              name="district"
-              value={formData.district}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="City"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Username"
-              name="userName"
-              value={formData.userName}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Save Changes
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
+        </form>
+      </Paper>
     </Container>
   );
 };
