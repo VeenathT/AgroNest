@@ -1,5 +1,3 @@
-// models/Admin.js
-
 const mongoose = require('mongoose');
 
 const adminSchema = new mongoose.Schema({
@@ -9,6 +7,22 @@ const adminSchema = new mongoose.Schema({
     unique: true
   },
   password: {
+    type: String,
+    required: true
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  address: {
     type: String,
     required: true
   }
