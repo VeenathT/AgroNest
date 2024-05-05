@@ -58,6 +58,20 @@ import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
 
+//kande
+import TopFertilizer from  '../pages/Kande/TopfertilizerScreen'
+import AddTopAreas from '../pages/Kande/TopAreaScreen';
+import SysManagerDashboard from '../pages/Kande/SysManagerDashboard';
+import ViewTopFertilizer from '../pages/Kande/ViewTopFertilizer';
+import MLogin from '../Component/Kande/login/MLogin';
+import TopArea from '../pages/Kande/TopAreaScreen';
+import AddTopfertilizer from'../Component/Kande/AddTopSelling'
+import ViewTopSellers from '../pages/Kande/ViewTopSelling';
+import  ViewTopRegisterdArea from'../pages/Kande/ViewTopAreas'
+import AddAdminForm from '../Component/Kande/FormCntainer/Form'
+import ViewAdmin from '../Component/Kande/ViewAdmins'
+
+
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -152,7 +166,26 @@ const Router = () => {
         <Route path="/userreports" element={<FullWidthTabs />} />
         <Route path="/admin/login" element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/admin/home' element={<AdminDashboard/>} />
+
+
+        {/* Kande Routes */}
+        <Route path='/addtopfertilizers' element={<TopFertilizer />} />
+        <Route path='/viewtopfertilizers' element={<ViewTopFertilizer />} />
+        <Route path='/addtopsellingfertilizers' element={<AddTopfertilizer />} />
+        <Route path='/addtopareas' element={<AddTopAreas />} />
+        <Route path='/managerdashboard' element={<SysManagerDashboard />} />
+        <Route path='/MLogin' element={<MLogin />} />
+        <Route path='/TopArea' element={<TopArea />} />
+        <Route path='/TopSellers'element={< ViewTopSellers/>} ></Route>
+        <Route path='/ViewTopRegisterdArea'element={<  ViewTopRegisterdArea/>} ></Route>
+        <Route path='/addadmin' element={<AddAdminForm/>}/>
+        <Route path='/viewadmin' element={<ViewAdmin/>}/>
+
+       
         
+
+        
+
       </Routes>
     </>
   );
