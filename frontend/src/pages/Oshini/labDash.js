@@ -117,10 +117,10 @@ function LabDash() {
   });
 
   return (
-    <div style={{ paddingTop: '70px' }}>
-      <AppBar position="fixed" style={{ marginTop: "75px",backgroundColor: '#0F5132' }}>
+    <div style={{ marginTop:'50px' , paddingTop: '70px' }}>
+      <AppBar position="fixed" style={{ marginTop: "107px", backgroundColor: '#0F5132' }}>
         <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 0, color: 'white' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 0, color: 'white' }}>
             Lab Dashboard
           </Typography>
           <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="transparent">

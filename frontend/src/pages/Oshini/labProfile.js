@@ -100,7 +100,7 @@ const LabProfile = () => {
   
   return (
     <StyledContainer maxWidth="md">
-      <div style={{ paddingTop: '50px' }}>
+      <div style={{ paddingTop: '70px' }}>
         <Link to="/labDash" style={{ textDecoration: 'none', color: 'inherit', position: 'absolute', top: '10px', left: '10px', zIndex: 999 }}>
           <ArrowBackIcon />
         </Link>

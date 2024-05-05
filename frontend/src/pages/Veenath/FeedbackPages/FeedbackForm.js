@@ -99,9 +99,9 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "500px", margin: "auto", marginTop: '100px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
+    <div style={{ backgroundColor: '#F8F9F9', width: "500px", margin: "auto", marginTop: '150px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
     <Container maxWidth="sm">
-      <Typography variant="h4" align="center" gutterBotom>
+      <Typography style={{ marginBottom:'20px'}} variant="h4" align="center" gutterBotom>
         {feedbackId ? 'Edit Feedback' : 'Submit Feedback'}
       </Typography>
       <form onSubmit={handleSubmit}>
