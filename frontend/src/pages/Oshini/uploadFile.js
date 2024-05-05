@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Button, TextField, FormControlLabel, Checkbox, IconButton, styled } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, TextField, IconButton, styled } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
-
 
 const Container = styled('div')({
   width: '100%',
@@ -13,11 +12,27 @@ const Container = styled('div')({
   justifyContent: 'center',
   alignItems: 'center',
   height: 'calc(100vh - 150px)', /* Adjust height as needed */
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  backgroundColor: 'rgba(255, 255, 255, 0)',
   position: 'fixed',
   top: '75px', /* Adjust top position based on AppBar height */
   left: '50%',
   transform: 'translateX(-50%)',
+});
+
+const InsideContainer = styled('div')({
+  border: '1px solid black',
+  borderRadius: '10px',
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+});
+
+const DropArea = styled('div')({
+  border: '1px dashed #0F5132',
+  borderRadius: '5px',
+  padding: '20px',
+  marginTop: '20px',
+  backgroundColor: 'transparent',
+  textAlign: 'center',
+  cursor: 'pointer',
 });
 
 function UploadFile() {
@@ -27,7 +42,7 @@ function UploadFile() {
   const [userName, setUserName] = useState('');
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
-
+  const [dragging, setDragging] = useState(false);
 
   // Fetch user name from session storage
   useEffect(() => {
@@ -35,11 +50,7 @@ function UploadFile() {
     if (storedUserName) {
       setUserName(storedUserName);
     }
-
-
   }, []);
-
-  
 
   // Function to handle file upload
   const handleFileUpload = async (e) => {
@@ -61,6 +72,45 @@ function UploadFile() {
     setFile(event.target.files[0]);
   };
 
+  // Function to handle file click to open in new tab
+  const handleFileClick = () => {
+    if (file) {
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+    }
+  };
+
+  // Function to handle drag over
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+
+  // Function to handle drag enter
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+
+  // Function to handle drag leave
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setDragging(false);
+  };
+
+  // Function to handle file drop
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragging(false);
+    const droppedFile = e.dataTransfer.files[0];
+    setFile(droppedFile);
+  };
+
+  // Function to remove selected file
+  const removeFile = () => {
+    setFile(null);
+  };
+
   return (
     <div style={{ paddingTop: '70px' }}>
       <AppBar position="fixed" style={{ marginTop: '75px', backgroundColor: '#0F5132' }}>
@@ -79,55 +129,62 @@ function UploadFile() {
         </Toolbar>
       </AppBar>
       <Container style={{ marginTop: '80px' }}>
-  <div style={{ padding: '20px', marginTop: '-30px', border: '1px solid #000000', borderRadius: '5px' }}> {/* Added border and rounded corners */}
-    <form onSubmit={handleFileUpload}>
-      <center>
-        <h2>Upload Lab Report here</h2>
-      </center>
-      <TextField
-        variant="outlined"
-        placeholder="Title"
-        required
-        fullWidth
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <br />
-      <br />
-      <br />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}> {/* Nested container for buttons */}
-        {/* Button 1 */}
-        <Button
-          variant="contained"
-          component="label"
-          style={{ backgroundColor: '#0F5132', marginRight: '10px', borderRadius: '5px' }}
-        >
-          Choose File
-          <input type="file" hidden accept="application/pdf" onChange={handleFileChange} />
-        </Button>
-        <br /> {/* Added a line break between buttons */}
-        {/* Button 2 */}
-        {file && (
-          <Typography variant="body2" gutterBottom>
-            Selected: {file.name}
-          </Typography>
-        )}
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          style={{ backgroundColor: '#0F5132', borderRadius: '5px' }}
-        >
-          Submit
-        </Button>
-      </div>
-      <br />
-      <br />
-    </form>
-  </div>
-</Container>
-
-
+        <InsideContainer>
+          <div style={{ padding: '20px' }}>
+            <form onSubmit={handleFileUpload}>
+              <center>
+                <h2>Upload Lab Report here</h2>
+              </center>
+              <TextField
+                variant="outlined"
+                placeholder="Title"
+                required
+                fullWidth
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <br />
+              <br />
+              <DropArea
+                onClick={handleFileClick}
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                style={{ border: dragging ? '2px dashed #0F5132' : '1px dashed #0F5132' }}
+              >
+                {file ? (
+                  <>
+                    <Typography variant="body2" gutterBottom>
+                      Selected: {file.name}
+                    </Typography>
+                    <Button variant="outlined" onClick={removeFile}>Remove</Button>
+                  </>
+                ) : (
+                  <Typography variant="body2" gutterBottom>
+                    Click to view or Drag & Drop
+                  </Typography>
+                )}
+              </DropArea>
+              <input type="file" accept="application/pdf" onChange={handleFileChange} style={{ display: 'none' }} />
+              <Button variant="contained" component="label" style={{ marginTop: '10px', backgroundColor: '#0F5132', color: 'white' }}>
+                Browse
+                <input type="file" accept="application/pdf" onChange={handleFileChange} style={{ display: 'none' }} />
+              </Button>
+              <br />
+              <br />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{ backgroundColor: '#0F5132', borderRadius: '5px' }}
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
+        </InsideContainer>
+      </Container>
     </div>
   );
 }

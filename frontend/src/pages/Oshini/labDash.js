@@ -17,7 +17,7 @@ function LabDash() {
     if (storedUserName) {
       setUserName(storedUserName);
     }
-
+  
     const fetchPendingRequests = async () => {
       try {
         const labIdResponse = await axios.get(`http://localhost:8070/labAccount/getLabIdByUsername/${storedUserName}`);
@@ -25,21 +25,43 @@ function LabDash() {
         
         const response = await axios.get(`http://localhost:8070/testRequest/retrievePendingTestRequests/${labId}`);
         setPendingRequests(response.data.testRequests);
-
+  
         const names = {};
         await Promise.all(response.data.testRequests.map(async (request) => {
           const name = await getFarmerName(request.farmerID);
           names[request.farmerID] = name;
         }));
         setFarmerNames(names);
+  
+        // Retrieve last visit timestamp from local storage
+        const lastVisitTimestamp = localStorage.getItem('lastVisit');
+  
+        // Set current timestamp as the last visit timestamp
+        localStorage.setItem('lastVisit', new Date().getTime());
+  
+        if (lastVisitTimestamp) {
+          // Count the number of requests added after the last visit
+          const newRequestsCount = response.data.testRequests.reduce((count, request) => {
+            const requestTimestamp = new Date(request.date).getTime();
+            if (requestTimestamp > lastVisitTimestamp) {
+              return count + 1;
+            }
+            return count;
+          }, 0);
+  
+          // Display notification if there are new requests
+          if (newRequestsCount > 0) {
+            alert(`You have ${newRequestsCount} new requests since your last visit.`);
+          }
+        }
       } catch (error) {
         console.error('Error fetching pending requests:', error);
       }
     };
-
+  
     fetchPendingRequests();
   }, []);
-
+  
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
