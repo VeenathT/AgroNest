@@ -28,13 +28,13 @@ const TopFertilizerInputData = () => {
     if (!ctxB || !fertilizersData) return;
 
     const productMap = new Map();
-    // Aggregate quantities by product name
+    
     fertilizersData.forEach(fertilizer => {
-      const quantity = parseInt(fertilizer.quantity); // Parse quantity as an integer
-      const name = fertilizer.name; // Product name
+      const quantity = parseInt(fertilizer.quantity); 
+      const name = fertilizer.name;                                                // Product name
       if (!isNaN(quantity)) {
         if (productMap.has(name)) {
-          productMap.set(name, productMap.get(name) + quantity); // Sum up quantities
+          productMap.set(name, productMap.get(name) + quantity);                        // Sum up quantities
         } else {
           productMap.set(name, quantity);
         }
@@ -42,7 +42,7 @@ const TopFertilizerInputData = () => {
     });
 
     const labels = Array.from(productMap.keys());
-    const data = labels.map(name => productMap.get(name)); // Get quantities for corresponding product names
+    const data = labels.map(name => productMap.get(name)); 
 
     if (chartInstance) {
       chartInstance.destroy();

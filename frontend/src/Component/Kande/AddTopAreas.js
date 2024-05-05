@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import FertilizerForm from "./FormCntainer/FertilizerForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import backgroundImage from '../../images/common/background.avif'; 
 import axios from "axios"; 
 import TopareasInput from "../../pages/Kande/DataInsertGraphs/TopareasInput";
 
@@ -16,12 +17,12 @@ const AddTopAreas = () => {
     const [noofRegistrations, setnoofRegistrations] = useState('');
 
     const handleaddClick = () => {
-        // Navigate to the Add Service Record screen
+       
         navigate("");
     };
 
     const handleviewClick = () => {
-        // Navigate to the Service Record List screen
+       
         navigate("/ViewTopRegisterdArea");
     };
 
@@ -30,12 +31,12 @@ const AddTopAreas = () => {
 
 
     const submitHandler = async (e) => {
-        e.preventDefault();
-        if (!isNaN(parseInt(area.trim()))) {
+        e.preventDefault();                                 //area validation
+        if (!isNaN(parseInt(area.trim()))) {    
             alert('Name cannot be a number.');
         } else {
             try {
-                // Make a POST request to the backend API endpoint
+                
                 const response = await axios.post('http://localhost:8070/toparea/add', {
                  
                     area: area,
@@ -43,10 +44,10 @@ const AddTopAreas = () => {
 
                 });
 
-                // Check if the request was successful
+                
                 if (response.status === 200){
                     alert(' Highest registration area added Successfully');
-                    // Clear the form fields after successful submission
+                   
                     setArea('');
                     setnoofRegistrations('');
                 } else {
@@ -64,8 +65,10 @@ const AddTopAreas = () => {
 
     return (
         <>
+      <div className="profile-page-container" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', minHeight: '100vh'}}>
+
             {/* page switch */}
-            <div className="d-flex justify-content-center mt-5">
+            <div className="d-flex justify-content-center" style={{marginTop:"100px"}}>
                 <div className="btn-group mt-5" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked />
                     <label className="btn btn-outline-primary btn-lg" htmlFor="btnradio1" onClick={handleaddClick}>Add </label>
@@ -75,7 +78,7 @@ const AddTopAreas = () => {
                 </div>
                 
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'center',marginTop:"50px"}}>
       <TopareasInput />
     </div>
 
@@ -117,6 +120,7 @@ const AddTopAreas = () => {
                 </Form>
             </FertilizerForm>
             <br />
+            </div>
         </>
     )
 }
