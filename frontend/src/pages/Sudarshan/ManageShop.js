@@ -42,7 +42,7 @@ const ManageShop = () => {
 
 
     useEffect(() => {
-    
+    //dealer data fetch
       const fetchDealerData = async () => {
           try {
             const token = localStorage.getItem('token');
@@ -75,7 +75,7 @@ const ManageShop = () => {
     };
 
 
-
+//edit profile
     const handleEditProfile = () => {
         navigate('/editProf');
     };
@@ -133,6 +133,7 @@ const ManageShop = () => {
         }
       };
 
+      //update
       const handleUpdateFertilizer = async (fertilizerId, updatedPrice, updatedQuantity) => {
         try {
           console.log('Updating fertilizer:', { fertilizerId, updatedPrice, updatedQuantity });
@@ -161,6 +162,7 @@ const ManageShop = () => {
 
 
 
+      //delete
     const handleDeleteProduct = async (fertilizerId) => {
         try {
           console.log('Deleting fertilizer with ID:', fertilizerId);

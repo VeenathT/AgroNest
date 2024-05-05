@@ -98,7 +98,9 @@ const ArticleList = () => {
   };
 
   return (
+    <div style={{ padding: '20px', width:'auto', backgroundColor: '#D5F5E3', minHeight: '100vh' }}>
     <Container>
+      
       <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Typography variant="h4" style={{ marginBottom: '20px', color: '#4CAF50' }}>Articles</Typography>
@@ -178,8 +180,9 @@ const ArticleList = () => {
             </Grid>
           ))}
         </Grid>
+        </Container>
       </div>
-    </Container>
+    
   );
 };
 
