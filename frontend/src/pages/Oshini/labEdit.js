@@ -8,10 +8,10 @@ const StyledContainer = styled(Container)({
 });
 
 const Label = styled(Typography)({
-    display: 'block',
-    marginBottom: '2px', 
-    fontWeight: 'bold',
-  });
+  display: 'block',
+  marginBottom: '2px', 
+  fontWeight: 'bold',
+});
 
 const ValueLabel = styled(Typography)({
   display: 'block',
@@ -26,7 +26,6 @@ const LabEdit = () => {
   const [labDetails, setLabDetails] = useState({});
   const navigate = useNavigate();
 
- 
   const fetchLabDetails = async () => {
     try {
       const userName = sessionStorage.getItem('userName');
@@ -41,11 +40,9 @@ const LabEdit = () => {
     fetchLabDetails();
   }, []);
 
-  
   const handleUpdate = async () => {
     try {
       const { userName, name, address, phone, district, city, password } = labDetails;
-  
       const updateData = {
         name,
         address,
@@ -54,7 +51,6 @@ const LabEdit = () => {
         city,
         password
       };
-  
       await axios.put(`http://localhost:8070/labAccount/update/${userName}`, updateData);
       alert("User Updated");
     } catch (error) {
@@ -65,11 +61,10 @@ const LabEdit = () => {
   const handleNavigate = () => {
     navigate('/labProfile');
   }
-  
 
   return (
     <StyledContainer maxWidth="md">
-      <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', position: 'fixed', left: '20%', right: '40%' }}>
+      <Paper style={{ padding: '20px', backgroundColor: '#CCFFCC', width: '55%', margin: '50px auto' }}>
         <Typography variant="h4" gutterBottom>
           <center>Edit Your Details</center>
         </Typography> 
