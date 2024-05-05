@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, Divider, Button, Link } from '@mui/material';
 import CookiesBanner from '../Lasindu/Popup/OrderPopUp';
 
 const OrderHistoryPage = () => {
@@ -25,6 +25,10 @@ const OrderHistoryPage = () => {
   const handleViewOrder = (orderId) => {
     setSelectedOrderId(orderId);
     console.log('View order:', orderId);
+  };
+
+  const handleReviewOrder = (orderId) => {
+    window.location.href = `/FeedbackForm/${orderId}`;
   };
 
   const handleCloseBanner = () => {
@@ -61,7 +65,11 @@ const OrderHistoryPage = () => {
                       </>
                     }
                   />
-                  <Button variant="contained" onClick={() => handleViewOrder(order._id)} sx={{ background:'green'}}>View</Button>
+                  {order.status === 'Confirmed' ? (
+                    <Button variant="contained"  onClick={() => handleReviewOrder(order._id)} sx={{ background:'orange'}}>Review</Button>
+                  ) : (
+                    <Button variant="contained" onClick={() => handleViewOrder(order._id)} sx={{ background:'green'}}>View</Button>
+                  )}
                 </ListItem>
                 <Divider />
               </div>
