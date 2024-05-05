@@ -60,7 +60,7 @@ const Sidebar = ({farmerID}) => {
           </ListItemIcon>
           <ListItemText primary="Soil Tests" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to={'/PastFeedbackList'}>
           <ListItemIcon>
             <FeedbackIcon />
           </ListItemIcon>

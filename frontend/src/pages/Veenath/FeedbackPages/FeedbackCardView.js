@@ -3,7 +3,7 @@ import { Container, Typography, Grid, Card, CardContent, Rating, CardActions, Bu
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import FeedbackDetailsDialog from '../../../Component/Veenath/FeedbackComp/FeedbackDetailsDialog';// Assuming FeedbackDetailsDialog is in the same directory
+import FeedbackDetailsDialog from '../../../Component/Veenath/FeedbackComp/FeedbackDetailsDialog';
 
 const FeedbackCardView = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -18,38 +18,38 @@ const FeedbackCardView = () => {
         setFeedbacks(response.data.feedbacks);
       } catch (err) {
         console.error(err);
-        // Add error handling here
+       
       }
     };
 
     fetchFeedbacks();
   }, []);
 
-  // Function to count feedbacks for each star rating
+  
   const countFeedbacksByRating = (rating) => {
     return feedbacks.filter((feedback) => feedback.starRating === rating).length;
   };
 
-  // Function to filter feedbacks by star rating
+  
   const handleFilter = (rating) => {
     setFilterRating(rating);
   };
 
-  // Function to reset filter
+  
   const handleResetFilter = () => {
     setFilterRating(null);
   };
 
-  // Define star labels
+  
   const starLabels = ['Poor', 'OK', 'Average', 'Good', 'Excellent'];
 
-  // Data for the bar chart
+  
   const data = [...Array(5).keys()].map((rating) => ({
     rating: rating + 1,
     count: countFeedbacksByRating(rating + 1)
   }));
 
-  // Function to handle click on View Details button
+ 
   const handleViewDetails = (feedback) => {
     setSelectedFeedback(feedback);
     setOpenDetailsDialog(true);
@@ -60,9 +60,9 @@ const FeedbackCardView = () => {
       <Typography marginTop={15} variant="h4" align="center" gutterBottom>
         All Feedbacks
       </Typography>
-      {/* Rating filter and chart side by side */}
+      
       <Box display="flex" flexDirection="row" alignItems="flex-start" marginTop={5} marginBottom={5} marginRight={10}>
-        {/* Rating filter */}
+      
         <Box width="100%" height={150} display="flex" flexDirection="column" alignItems="flex-start" marginRight={10} marginLeft={1}>
           {[...Array(5).keys()].map((rating) => (
             <Box key={rating} display="flex" alignItems="center" marginBottom={1} onClick={() => handleFilter(rating + 1)} style={{ cursor: 'pointer' }}>
@@ -77,7 +77,6 @@ const FeedbackCardView = () => {
           ))}
           <Button onClick={handleResetFilter}>Reset</Button>
         </Box>
-        {/* Bar chart */}
         <Box width="60%">
           <Typography variant="h6" align="center" gutterBottom>
             Feedback Ratings Distribution
@@ -95,12 +94,12 @@ const FeedbackCardView = () => {
           </ResponsiveContainer>
         </Box>
       </Box>
-      {/* Feedback cards displayed horizontally */}
+      {/* Feedback cards*/}
       <Grid container spacing={2}>
         {feedbacks
           .filter((feedback) => filterRating ? feedback.starRating === filterRating : true)
           .map((feedback) => (
-            <Grid item key={feedback._id} xs={12} sm={6} md={4} lg={3}>
+            <Grid mb={5} item key={feedback._id} xs={12} sm={6} md={4} lg={3}>
               <Card variant="outlined" style={{ height: '100%', backgroundColor: '#f0f0f0' }}>
                 <CardContent>
                   <Typography variant="h6">Item Code: {feedback.itemcode}</Typography>
@@ -118,7 +117,7 @@ const FeedbackCardView = () => {
             </Grid>
           ))}
       </Grid>
-      {/* Feedback Details Dialog */}
+      {/* Feedback Details */}
       <FeedbackDetailsDialog
         open={openDetailsDialog}
         handleClose={() => setOpenDetailsDialog(false)}
