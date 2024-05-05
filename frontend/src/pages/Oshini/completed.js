@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Button } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Tabs, Tab, Paper, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Button, FormControl, Select, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -11,6 +11,7 @@ function CompletedRequests() {
   const [completedRequests, setCompletedRequests] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [farmerNames, setFarmerNames] = useState({});
+  const [uploadedRequests, setUploadedRequests] = useState(new Set());
 
   useEffect(() => {
     const storedUserName = sessionStorage.getItem('userName');
@@ -53,19 +54,19 @@ function CompletedRequests() {
     try {
       await axios.put(`http://localhost:8070/testRequest/updateStatus/${requestId}`, { status: newStatus });
 
-      // If the status is rejected, increment the rejected count
       if (newStatus === 'rejected') {
         await axios.put('http://localhost:8070/labAccount/incrementRejected', { userName: sessionStorage.getItem('userName') });
       }
 
-      // Update the completedRequests state to remove the completed request
       setCompletedRequests(completedRequests.filter(request => request._id !== requestId));
     } catch (error) {
       console.error('Error updating status:', error);
     }
   };
 
-
+  const handleFileUpload = (requestId) => {
+    setUploadedRequests((prevUploadedRequests) => new Set([...prevUploadedRequests, requestId]));
+  };
   const getFarmerName = async (farmerId) => {
     try {
       const response = await axios.get(`http://localhost:8070/farmer/getName/${farmerId}`);
@@ -162,19 +163,31 @@ function CompletedRequests() {
                   <TableCell>{formatDate(request.date)}</TableCell>
                   <TableCell>{request.startTime}</TableCell>
                   <TableCell>
-                    <select value={request.status} onChange={(event) => handleStatusChange(event, request._id)}>
-                      <option value="pending">Pending</option>
-                      <option value="accepted">Accepted</option>
-                      <option value="completed">Completed</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
+                    <FormControl sx={{ minWidth: 120 }}>
+                      <Select
+                        value={request.status}
+                        onChange={(event) => handleStatusChange(event, request._id)}
+                        sx={{ fontSize: '0.8rem', minWidth: 100 }}
+                      >
+                        <MenuItem value="pending">Pending</MenuItem>
+                        <MenuItem value="accepted">Accepted</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="rejected">Rejected</MenuItem>
+                      </Select>
+                    </FormControl>
                   </TableCell>
                   <TableCell>
-                    <Link to={`/uploadFile?requestId=${request._id}`}>
-                      <Button variant="contained" style={{ backgroundColor: '#0F5132', color: '#FFFFFF' }}>
-                        Upload
+                    {uploadedRequests.has(request._id) ? (
+                      <Button variant="contained" disabled>
+                        Uploaded
                       </Button>
-                   </Link>
+                    ) : (
+                      <Link to={`/uploadFile?requestId=${request._id}`}>
+                        <Button variant="contained" style={{ backgroundColor: '#0F5132', color: '#FFFFFF' }}>
+                          Upload
+                        </Button>
+                      </Link>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
