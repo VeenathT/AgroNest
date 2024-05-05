@@ -58,7 +58,7 @@ import LabCards from '../Component/Rahul/LabCard';
 import FullWidthTabs from '../Component/Rahul/FullWidthTabs';
 import AdminLogin from '../Component/Rahul/AdminLogin';
 import AdminDashboard from '../pages/Rahul/AdminDashboard'
-import Slideshow from '../../src/Component/common/Slideshow';
+
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
