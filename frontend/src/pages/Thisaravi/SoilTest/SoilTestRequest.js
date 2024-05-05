@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const districts = {
   Puttlam: ['Wennappuwa', 'Katuneriya', 'City7'],
   Kurunagala: ['City8', 'City9', 'City0'],
-  Colombo: ['City1', 'City2', 'City3'],
+  Colombo: ['City1', 'Maharagama', 'City3'],
   Gampaha: ['City3', 'City4', 'City5'],
 };
 
@@ -105,7 +105,7 @@ const SoilTestRequest = () => {
         <h2>Soil Test Request</h2>
         <FormControl fullWidth>
           <InputLabel>Soil Test Type</InputLabel>
-          <Select value={soilTestType} onChange={(e) => setSoilTestType(e.target.value)} fullWidth>
+          <Select value={soilTestType} onChange={(e) => setSoilTestType(e.target.value)} fullWidth sx={{ marginBottom: '1.5rem' }}>
             {soilTestTypes.map((test, index) => (
               <MenuItem key={index} value={test}>
                 {test}
@@ -118,19 +118,23 @@ const SoilTestRequest = () => {
           value={cropType}
           onChange={(e) => setCropType(e.target.value)}
           fullWidth
+          sx={{ marginBottom: '1.5rem' }}
         />
         <TextField
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          fullWidth
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        fullWidth
+        InputLabelProps={{ shrink: true }} // Ensure the label doesn't overlap when the input is filled
+        inputProps={{ min: new Date().toISOString().split('T')[0] }} // Set min attribute to prevent selection of past dates
+        sx={{ marginBottom: '1.5rem' }}
         />
         {showCalendar && (
           <LocalizationProvider>
-            <DateTimePicker value={date} onChange={(newDate) => setDate(newDate)} />
+            <DateTimePicker value={date} onChange={(newDate) => setDate(newDate)} minDate={new Date()} />
           </LocalizationProvider>
         )}
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ marginBottom: '1.5rem' }}>
         <InputLabel>District</InputLabel>
         <Select value={district} onChange={handleDistrictChange} fullWidth>
           {Object.keys(districts).map((districtName, index) => (
@@ -140,7 +144,7 @@ const SoilTestRequest = () => {
           ))}
         </Select>
       </FormControl>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ marginBottom: '1.5rem' }}>
         <InputLabel>City</InputLabel>
         <Select value={city} onChange={(e) => setCity(e.target.value)} fullWidth>
           {district && districts[district].map((cityName, index) => (
@@ -150,7 +154,7 @@ const SoilTestRequest = () => {
           ))}
         </Select>
       </FormControl>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ marginBottom: '1.5rem' }}>
           <InputLabel>Laboratory</InputLabel>
           <Select value={laboratory} onChange={(e) => setLaboratory(e.target.value)} fullWidth>
             {availableLaboratories.map((lab) => (
@@ -160,7 +164,7 @@ const SoilTestRequest = () => {
             ))}
           </Select>
         </FormControl>
-      <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>
+      <Button variant="contained" color="primary" fullWidth onClick={handleSubmit} sx={{ marginBottom: '1.5rem' }}>
         Submit
       </Button>
     </form>

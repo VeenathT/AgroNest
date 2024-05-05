@@ -135,5 +135,22 @@ router.route("/getName/:farmerID").get(async (req, res) => {
     }
   });
   
+  router.get('/checkUserName', async (req, res) => {
+    const { userName } = req.query;
+  
+    try {
+      const existingUser = await User.findOne({ userName });
+  
+      if (existingUser) {
+        res.json({ exists: true });
+      } else {
+        res.json({ exists: false });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 
 module.exports = router;
