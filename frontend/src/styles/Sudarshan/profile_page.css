@@ -1,0 +1,17 @@
+body {
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
+  font-family: Arial, sans-serif; /* Set a default font-family */
+  /* Add background image */
+  background-image: url('../../images/common/paddy.jpg') !important;
+  background-size: cover; /* Adjusts the size of the background image to cover the entire body */
+  background-position: center; /* Centers the background image */
+}
+.profile-page-container {
+    padding-top: 64px; 
+  }
+  
+  .profile-page-content {
+    padding: 20px;
+  }
+  

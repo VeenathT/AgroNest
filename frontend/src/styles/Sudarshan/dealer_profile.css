@@ -1,0 +1,117 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../../images/common/paddy.jpg') !important; 
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center; 
+    height: 100vh;
+    font-family: "Roboto", sans-serif; 
+  }
+
+.container {
+    padding: 20px;
+    flex-direction: column;
+    margin-top: 100px !important;
+  }
+  
+  .header {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-button {
+    align-self: flex-start;
+    font-weight: bold !important;
+    color: #000000 !important; 
+    background-color: #ffffff !important; 
+    border-radius: 50%;
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    padding: 10px 20px !important; 
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    margin-top: 40px !important; 
+  }
+  
+  .sidebar-button:hover {
+    background-color: #0dac22 !important; 
+    border-color: #0056b3 !important; 
+    color: #ffffff !important;
+  }
+
+  .sidebar-button .MuiSvgIcon-root {
+    font-size: 34px; 
+  }
+  
+  
+  .profile-container {
+    max-width: 900px; 
+    margin: -20px auto; 
+    box-sizing: border-box;
+    background-color: rgba(16, 32, 5, 0.884) !important;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8) !important;
+    text-align: center;
+    margin-bottom: 50px !important; 
+  }
+
+  .detail-item {
+    width: calc(50% - 10px); 
+    margin-bottom: 20px;
+    padding: 10px; 
+    display: inline-block; 
+    box-sizing: border-box;
+    margin-right: 10px; 
+  }
+
+  
+
+  .detail-title {
+    font-weight: bold !important; 
+  }
+
+  .detail-content {
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 20px; 
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    border: 2px solid green;
+    align-items: center;
+    display: flex;
+  }
+
+  .detail-content .icon {
+    margin-right: 10px;
+    color: green; 
+}
+  
+  .details-container {
+    display: flex;
+    text-align: left;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: white;
+  }
+
+  .column {
+    width: 48%; 
+  }
+  
+  .details {
+    margin-bottom: 10px;
+  }
+
+  .button-container {
+    display: flex!important;
+    justify-content: center !important;
+    margin-top: 20px !important;
+  }
+  
+  .edit-button, .delete-button {
+    margin: 0 10px;
+  }
+  

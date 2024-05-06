@@ -1,0 +1,16 @@
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100; 
+}
+
+.site-name {
+    cursor: pointer;
+    font-size: 48px !important; /* Adjust font size as needed */ /* Replace 'Roboto' with your desired Google Font */
+    text-decoration: none; /* Remove underline */
+  }
+
+  
+  
