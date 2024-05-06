@@ -55,8 +55,6 @@ const UpdateOrderDialog = ({ open, onClose }) => {
   const handleSubmit = async () => {
     try {
       await axios.put(`http://localhost:8070/order/update/${id}`, updatedOrder);
-      alert('Order updated successfully');
-      onClose();
       window.location.href='/Order-History'
       onClose();
     } catch (error) {

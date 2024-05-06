@@ -225,9 +225,9 @@ const ManageShop = () => {
         </div>
         <div className="fertilizer-details">
           <Typography variant="subtitle1" className="fertilizer-name" style={{ fontSize: '25px', color: 'white',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}><b>{fertilizer.name}</b></Typography>
-          <Typography variant="body1" className="fertilizer-quantity"><b>Item Code:</b> {fertilizer.itemcode}</Typography>
-          <Typography variant="body1" className="fertilizer-price"><b>Price:</b> {fertilizer.price}</Typography>
-          <Typography variant="body1" className="fertilizer-quantity"><b>Quantity:</b> {fertilizer.quantity}</Typography>
+          <Typography variant="body1" className="fertilizer-quantity"style={{ color: 'black' }}><b>Item Code:</b> {fertilizer.itemcode}</Typography>
+          <Typography variant="body1" className="fertilizer-price"style={{ color: 'black' }}><b>Price:</b> {fertilizer.price}</Typography>
+          <Typography variant="body1" className="fertilizer-quantity"style={{ color: 'black' }}><b>Quantity:</b> {fertilizer.quantity}</Typography>
           
         </div>
       </div>
