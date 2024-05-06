@@ -29,9 +29,9 @@ const AddTopfertilizer = () => {
 
 
     const submitHandler = async (e) => {
-        e.preventDefault();
+        e.preventDefault();                                                              //validation
         if (!isNaN(parseInt(name.trim()))) {
-            alert('Name cannot be a number.');
+            alert('Name cannot be a number.');       
         } else {
             try {
                 // Make a POST request to the backend API endpoint

@@ -1,31 +1,28 @@
 import React from 'react';
-import ArticleList from '../Nilupul/ArticleList';
+import ArticleList from '../../pages/Nilupul/ArticleList';
+import SlideShow from '../../Component/common/Slideshow';
 import one from '../../images/common/slider/1.png';
 import two from '../../images/common/slider/2.png';
 import three from '../../images/Sudarshan/fertilizer images/tsp.png';
 
-import SlideShow from '../../Component/common/Slideshow';
 
 const images = [
   { url: one },
   { url: two },
   { url: three },
-  // Add more images as needed
 ];
 
-const DealerSignUp = () => {
-  const slideshowImages = [
-    require('../../images/Rahul/1.png'),
-    require('../../images/Rahul/2.png'),
-    require('../../images/Rahul/3.png')
-  ];
-
+const LandingPage = () => {
   return (
-    <>
-    <SlideShow images={slideshowImages} />
-    <ArticleList />
-    </>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className="App" style={{ width: '100%', marginBottom: '20px' }}>
+        <SlideShow images={images} />
+      </div>
+      <div style={{ width: '100%' }}>
+        <ArticleList />
+      </div>
+    </div>
   );
 }
 
-export default DealerSignUp;
+export default LandingPage;

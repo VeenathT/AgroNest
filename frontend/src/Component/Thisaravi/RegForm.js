@@ -17,6 +17,11 @@ const RegForm = (props) => {
     password: '',
   });
 
+  const [errorMessages, setErrorMessages] = useState({
+   email: '',
+   phone: '',
+ });
+ 
   const handleChange = (e) => {
    const { name, value } = e.target;
    setFormData((prevData) => ({
@@ -25,7 +30,35 @@ const RegForm = (props) => {
    }));
  };
 
- const [errorMessage, setErrorMessage] = useState('');
+ const handleEmailBlur = () => {
+   const { email } = formData;
+   if (email && !email.includes('@')) {
+      setErrorMessages((prevErrors) => ({
+         ...prevErrors,
+         email: 'Incorrect email',
+      }));
+   } else {
+      setErrorMessages((prevErrors) => ({
+         ...prevErrors,
+         email: '',
+      }));
+   }
+};
+
+const handlePhoneBlur = () => {
+   const { phone } = formData;
+   if (phone && phone.length !== 10) {
+      setErrorMessages((prevErrors) => ({
+         ...prevErrors,
+         phone: 'Invalid phone number',
+      }));
+   } else {
+      setErrorMessages((prevErrors) => ({
+         ...prevErrors,
+         phone: '',
+      }));
+   }
+};
 
 const handleSubmit = async (e) => {
    e.preventDefault();
@@ -45,7 +78,7 @@ const handleSubmit = async (e) => {
        Navigate(`/Login`);
    } catch (error) {
        console.error('Error:' , error.response.data);
-        setErrorMessage(error.response.data.error);
+        setErrorMessages(error.response.data.error);
    }
 };
 
@@ -59,7 +92,7 @@ const handleSubmit = async (e) => {
             sx={{
                maxWidth: '600px',
                margin: '-20px auto',
-               marginTop: '2cm',
+               marginTop: '5cm',
                boxSizing: 'border-box',
                backgroundColor: 'rgba(255, 255, 255, 0.8)',
                borderRadius: '20px',
@@ -135,15 +168,18 @@ const handleSubmit = async (e) => {
                 Email
                  </Typography>
                  <Input
-                    type="text"
+                    type="email"
                     id='email'
                     name="email"
                     sx={{width:'400px'}}
                     value={formData.email}
                     onChange={handleChange}
+                    onBlur={handleEmailBlur}
                  />
             </Grid>
-
+            {errorMessages.email && (
+          <Typography sx={{ color: 'red' }}>{errorMessages.email}</Typography>
+        )}
             <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
@@ -159,15 +195,18 @@ const handleSubmit = async (e) => {
                 Phone
                  </Typography>
                  <Input
-                    type="number"
+                    type="text"
                     id='phone'
                     name="phone"
                     sx={{width:'400px'}}
                     value={formData.phone}
                     onChange={handleChange}
+                    onBlur={handlePhoneBlur}
                  />
             </Grid>
-
+            {errorMessages.phone && (
+          <Typography sx={{ color: 'red' }}>{errorMessages.phone}</Typography>
+        )}
             <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
@@ -239,9 +278,7 @@ const handleSubmit = async (e) => {
                     onChange={handleChange}
                  />
             </Grid>
-            {errorMessage && (
-            <Typography sx={{ color: 'red' }}>{errorMessage}</Typography>
-        )}
+   
             <Grid item xs={12} sx={{display:'flex'}}>
                 <Typography
                  component={'label'}
@@ -286,4 +323,4 @@ const handleSubmit = async (e) => {
     );
 }
 
-export default RegForm;
+export default RegForm

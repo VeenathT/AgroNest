@@ -239,7 +239,7 @@ const ViewTopSellers = () => {
               <tr>
                 <th></th>
                 <th>Dealer Name</th>
-                <th>Number of Sales</th>
+                <th>Rating</th>
                 <th>Actions</th>
               </tr>
             </thead>

@@ -86,7 +86,7 @@ const UpdateRequest = () => {
     <div>
         <Box maxWidth="500px" margin="10rem auto" bgcolor="white" padding="2rem" borderRadius="10px" boxShadow="0 0 10px rgba(0, 0, 0, 0.1)">
       <h2>Update Soil Test Request</h2>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ marginBottom: '1.5rem' }}>
           <InputLabel>Soil Test Type</InputLabel>
           <Select value={soilTestType} onChange={(e) => setSoilTestType(e.target.value)} fullWidth>
             {soilTestTypes.map((test, index) => (
@@ -101,14 +101,18 @@ const UpdateRequest = () => {
         value={cropType}
         onChange={(e) => setCropType(e.target.value)}
         fullWidth
+        sx={{ marginBottom: '1.5rem' }}
       />
       <TextField
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
         fullWidth
+        sx={{ marginBottom: '1.5rem' }}
+        inputProps={{ min: new Date().toISOString().split('T')[0] }}
       />
-      <FormControl fullWidth>
+
+      <FormControl fullWidth sx={{ marginBottom: '1.5rem' }}>
         <InputLabel>District</InputLabel>
         <Select value={district} onChange={(e) => setDistrict(e.target.value)} fullWidth>
           {Object.keys(districts).map((districtName, index) => (
@@ -118,7 +122,7 @@ const UpdateRequest = () => {
           ))}
         </Select>
       </FormControl>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ marginBottom: '1.5rem' }} >
         <InputLabel>City</InputLabel>
         <Select value={city} onChange={(e) => setCity(e.target.value)} fullWidth>
           {district && districts[district].map((cityName, index) => (
@@ -128,7 +132,7 @@ const UpdateRequest = () => {
           ))}
         </Select>
       </FormControl>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ marginBottom: '1.5rem' }}>
         <InputLabel>Laboratory</InputLabel>
         <Select value={laboratory} onChange={(e) => setLaboratory(e.target.value)} fullWidth>
           {availableLaboratories.map((lab, index) => (
@@ -137,8 +141,8 @@ const UpdateRequest = () => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
-      <Button variant="contained" color="primary" onClick={handleUpdate}>
+      </FormControl >
+      <Button variant="contained" color="primary" onClick={handleUpdate} >
         Update
       </Button>
       </Box>
