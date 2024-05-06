@@ -59,7 +59,7 @@ function Dashboard() {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <Typography.Title level={2} style={{ marginTop: "100px" }}>Welcome, {adminName}</Typography.Title>
+      <Typography.Title level={2} style={{ marginTop: "120px" }}>Welcome, {adminName}</Typography.Title>
       <Space size={20}>
         <DashboardCard title={"Dealers"} value={dealersCount} link="/viewdelaers" />
         <DashboardCard title={"Farmers"} value={farmersCount} link="/viewfarmers" />
