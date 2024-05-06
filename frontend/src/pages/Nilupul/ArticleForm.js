@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-
-
-import SearchBar from './SearchBar';
 import { TextField, Button, Card, CardContent, Typography, IconButton, Container, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
-
 import { Link } from 'react-router-dom';
 
 const ArticleForm = () => {
@@ -89,37 +84,62 @@ const ArticleForm = () => {
 
   return (
     <Container>
-      <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
-        <Grid container spacing={2}>
+      <div style={{ padding: '20px', backgroundColor: '#F5F5F5', minHeight: '100vh', marginTop:'110px'}}>
+        <Typography 
+          variant="h2" 
+          style={{
+            marginBottom: '20px', 
+            color: '#196F3D',
+            textAlign: 'left', 
+            fontFamily: 'unset', 
+            letterSpacing: '1px'
+          }}
+        >
+          Add New Article
+        </Typography>
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <TextField
+            label="Title"
+            value={title}
+            onChange={handleTitleChange}
+            fullWidth
+            margin="normal"
+            error={formError && !title}
+            helperText={formError && <span style={{ color: 'red' }}>{formError}</span>}
+          />
+          <TextField
+            label="Content"
+            variant="outlined"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            fullWidth
+            margin="normal"
+            multiline
+            rows={10} 
+          />
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button type="submit" variant="contained" color="primary" style={{ marginTop: '40px' }}>
+              {selectedArticle ? 'Update' : 'Add'}
+            </Button>
+          </div>
+        </form>
+        <Grid container spacing={2} style={{ marginTop: '20px' }}>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h2" style={{ color: '#4CAF50', marginBottom: '20px' }}>Add Article</Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                label="Title"
-                value={title}
-                onChange={handleTitleChange}
-                fullWidth
-                margin="normal"
-                error={formError && !title}
-                helperText={formError && <span style={{ color: 'red' }}>{formError}</span>}
-              />
-              <TextField
-                label="Content"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                fullWidth
-                margin="normal"
-                multiline
-                rows={4} 
-              />
-              <Button type="submit" variant="contained" color="primary">
-                {selectedArticle ? 'Update' : 'Add'}
-              </Button>
-            </form>
+            <Typography 
+              variant="h3" 
+              style={{
+                marginBottom: '20px', 
+                color: '#196F3D',
+                textAlign: 'Left', 
+                fontFamily: 'unset', 
+                letterSpacing: '1px'
+              }}
+            >
+              Past Articles
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h2" style={{ color: '#4CAF50', marginBottom: '20px' }}>Search Articles</Typography>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
               <TextField
                 label="Search"
                 value={searchTerm}
@@ -128,13 +148,12 @@ const ArticleForm = () => {
                 variant="outlined"
                 size="small"
                 InputProps={{
-                  endAdornment: <SearchIcon />,
+                  endAdornment: <SearchIcon/>,
                 }}
               />
             </div>
           </Grid>
         </Grid>
-        <Typography variant="h2" style={{ color: '#4CAF50', marginTop: '40px', marginBottom: '20px' }}>Articles</Typography>
         {filteredArticles.map((article) => (
           <Card key={article._id} style={{ marginBottom: '20px', backgroundColor: '#FFFFFF' }}>
             <CardContent>

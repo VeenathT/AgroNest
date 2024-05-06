@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
         height: '34px', // Set the height of the app bar
         backgroundColor: '#0f5132', // Set the background color to black
         position: 'fixed', // Fix the top bar to the top of the viewport
-        top: 75, // Ensure the top bar starts at the top of the viewport
+        top: 77, // Ensure the top bar starts at the top of the viewport
         zIndex: theme.zIndex.drawer + 1, // Ensure the top bar is above other elements
       },
       text: {
@@ -32,8 +32,8 @@ const TopBar = () => {
   return (
     <AppBar  position="static" className={classes.appBar}>
       <Toolbar >
-        <Typography variant="h6" className={classes.text}>
-        "Empowering Agriculture: Agronest - Leading the Way in Fertilizer Management Solutions for Sustainable Farming Practices and Enhanced Crop Yields."
+        <Typography variant="h8" className={classes.text}>
+        "Welcome to Our Fertilizer System: Cultivating Growth, Nurturing Sustainability. Explore our innovative fertilizer solutions and promote sustainable agriculture practices."
         </Typography>
       </Toolbar>
     </AppBar>
