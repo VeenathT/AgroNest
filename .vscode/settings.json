@@ -1,4 +1,5 @@
 {
     "search.useGlobalIgnoreFiles": true,
-    "search.useParentIgnoreFiles": true
+    "search.useParentIgnoreFiles": true,
+    "r.lsp.promptToInstall": false
 }

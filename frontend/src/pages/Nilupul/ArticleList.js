@@ -191,7 +191,7 @@ const ArticleList = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      style={{ marginTop: '10px' }}
+                      style={{ marginTop: '30px' }}
                       disabled={loading}
                     >
                       {loading ? 'Loading document...' : 'Download PDF'}
