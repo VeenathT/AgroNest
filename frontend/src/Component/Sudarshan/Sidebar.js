@@ -13,8 +13,8 @@ const Sidebar = ({ open, onClose, dealerName, handleEditProfile }) => {
 
 
   return (
-    <Drawer anchor="left" open={open} onClose={onClose}>
-      <div className="sidebar-container">
+    <Drawer anchor="left" open={open} onClose={onClose} >
+      <div className="sidebar-container" style={{ marginTop: '150px' }}>
         
         <Typography variant="h4" align="center">{dealerName}</Typography>
         <hr />

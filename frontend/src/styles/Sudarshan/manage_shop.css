@@ -5,7 +5,8 @@ body {
   /* Add background image */
   background-image: url('../../images/Nilupul/bgimg.jpg') !important;
   background-size: cover !important; /* Adjusts the size of the background image to cover the entire body */
-  background-position: center; /* Centers the background image */
+  background-position: center;
+  background-attachment: fixed !important; /* Centers the background image */
 }
 
 .container {
