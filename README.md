@@ -27,5 +27,30 @@ to improve farming practices, boost production, and promote long-term farming co
 ##### • **Node.js** :- As a server-side runtime environment, Node.js allows us to run JavaScript code on the server, enabling the development of scalable and efficient backend services. It provides a non-blocking, event-driven architecture, making it suitable for handling asynchronous operations. 
 ##### • **Express.js** :- A minimalist web framework for Node.js, Express.js simplifies the process of building web applications and APIs by providing a robust set of features for routing, middleware, and HTTP utilities. It's lightweight and highly extensible, making it ideal for building RESTful APIs. 
 ##### • **MongoDB** :- A popular NoSQL database, MongoDB is known for its flexibility, scalability, and performance. It stores data in a flexible, JSON-like format called BSON and supports features like sharding and replication, making it suitable for handling large volumes of data. 
- ##### • **Mongoose** :- A MongoDB object modeling tool designed for Node.js, Mongoose provides a straightforward way to work with MongoDB databases by providing a schema-based solution for modeling application data. It simplifies tasks such as validation, querying, and data manipulation. 
+ ##### • **Mongoose** :- A MongoDB object modeling tool designed for Node.js, Mongoose provides a straightforward way to work with MongoDB databases by providing a schema-based solution for modeling application data. It simplifies tasks such as validation, querying, and data manipulation.
+
+## Installation and Setup
+
+Before proceeding, make sure your device has Node.js installed. You can download it from [here](https://nodejs.org/).
+
+### Backend Setup
+
+1. Navigate to the root directory of the project.
+2. Run the following command to start the backend server:
+
+```bash
+npm run dev
+```
+
+### Frontend Setup
+1. Navigate to the frontend directory.
+2. Since we ignore the node_modules in the repository, you need to install the necessary dependencies. Run the following command:
+```bash
+ npm i --force
+```
+3. Once the dependencies are installed, you can start the frontend by running:
+```bash
+npm start
+```
+Now, you should be able to access the Fertilizer Management System through your web browser.
 
