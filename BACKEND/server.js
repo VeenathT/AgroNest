@@ -38,9 +38,7 @@ const PORT = process.env.PORT || 8070;
 app.use(cors());
 app.use(bodyParser.json());
 
-const URL = process.env.MONGODB_URL;
-
-mongoose.connect(URL, {
+mongoose.connect('mongodb+srv://sudarshan16811:16811@cluster0.tww6ryy.mongodb.net/AgroNest', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
