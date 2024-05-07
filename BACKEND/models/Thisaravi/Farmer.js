@@ -42,3 +42,4 @@ const farmerSchema = new Schema({
 const Farmer = mongoose.model("Farmer",farmerSchema);
 
 module.exports = Farmer;
+
