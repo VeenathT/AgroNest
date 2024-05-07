@@ -29,13 +29,14 @@ to improve farming practices, boost production, and promote long-term farming co
 ##### • **MongoDB** :- A popular NoSQL database, MongoDB is known for its flexibility, scalability, and performance. It stores data in a flexible, JSON-like format called BSON and supports features like sharding and replication, making it suitable for handling large volumes of data. 
  ##### • **Mongoose** :- A MongoDB object modeling tool designed for Node.js, Mongoose provides a straightforward way to work with MongoDB databases by providing a schema-based solution for modeling application data. It simplifies tasks such as validation, querying, and data manipulation.
 
+
 ## Installation and Setup
 
 Before proceeding, make sure your device has Node.js installed. You can download it from [here](https://nodejs.org/).
 
 ### Backend Setup
 
-1. Navigate to the root directory of the project.
+1. Navigate to the BACKEND directory of the project.
 2. Run the following command to start the backend server:
 
 ```bash
