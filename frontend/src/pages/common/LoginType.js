@@ -5,8 +5,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 
 const Logintype = () => {
   return (
-    <Container style={{ backgroundColor: 'white', width: '80%', maxWidth: '400px', height: '70vh', 
-    padding: '20px', marginTop: '10rem', borderRadius: '20px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8)', border: '3px solid black' }}>
+    <Container style={{ backgroundColor: 'white', width: '100%', maxWidth: '600px', height: '80vh', 
+    padding: '10px', marginTop: '10rem', borderRadius: '50px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8)', border: '3px solid black' }}>
       <Grid
         container
         direction="column"
@@ -16,7 +16,7 @@ const Logintype = () => {
         style={{ height: '100%' }}
       >
         <Grid item>
-          <Avatar sx={{ m: 1, bgcolor: '#0f5132' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#229954' }}>
             <AccountCircleOutlinedIcon style={{ fontSize: 35, color: 'white' }} />
           </Avatar>
         </Grid>
@@ -27,46 +27,46 @@ const Logintype = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/Login" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/Login" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
-            width: '200px'
+            width: '300px'
           }}>
             Farmers
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/loginDealer" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/loginDealer" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
-            width: '200px'
+            width: '300px'
           }}>
             Dealers
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/labLogin" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/labLogin" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
-            width: '200px'
+            width: '300px'
           }}>
             Laboratories
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/admin/login" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/admin/login" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
-            width: '200px'
+            width: '300px'
           }}>
             Administrator
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/MLogin" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/MLogin" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
-            width: '200px'
+            width: '300px'
           }}>
             Manager
           </Button>
