@@ -23,7 +23,7 @@ const Logintype = () => {
 
         <Grid item>
           <Typography variant="h4" gutterBottom style={{ textAlign: 'center', color: '#0f5132' }}>
-            Choose Your Login Role
+            Login
           </Typography>
         </Grid>
         <Grid item>
@@ -32,7 +32,7 @@ const Logintype = () => {
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '300px'
           }}>
-            Farmers
+            Farmer
           </Button>
         </Grid>
         <Grid item>
@@ -41,7 +41,7 @@ const Logintype = () => {
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '300px'
           }}>
-            Dealers
+            Dealer
           </Button>
         </Grid>
         <Grid item>
@@ -50,7 +50,7 @@ const Logintype = () => {
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '300px'
           }}>
-            Laboratories
+            Laboratory
           </Button>
         </Grid>
         <Grid item>
