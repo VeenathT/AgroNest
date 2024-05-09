@@ -33,7 +33,7 @@ const TopBar = () => {
     <AppBar  position="static" className={classes.appBar}>
       <Toolbar >
         <Typography variant="h8" className={classes.text}>
-        "Welcome to Our Fertilizer System: Cultivating Growth, Nurturing Sustainability. Explore our innovative fertilizer solutions and promote sustainable agriculture practices."
+        "Welcome to Our Fertilizer Management System. Explore our innovative fertilizer solutions and promote sustainable agriculture practices."
         </Typography>
       </Toolbar>
     </AppBar>
