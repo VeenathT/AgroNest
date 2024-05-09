@@ -16,31 +16,57 @@ import { PDFDownloadLink, PDFViewer, Page, Text, View, Document, StyleSheet } fr
 
 const buttonStyle = {
   padding: '10px 20px',
-  backgroundColor: '#007bff',
+  backgroundColor: 'blue',
   color: 'white',
   border: 'none',
-  borderRadius: '5px',
+  borderRadius: '10px',
   cursor: 'pointer',
   textDecoration: 'none',
 };
+
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
-    padding: 10,
+    padding: 20,
+    backgroundColor: '#f0f0f0',
   },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
+  card: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 50,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
   },
-  detail: {
+  section: {
+    marginVertical: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  label: {
+    flex: 1,
+    fontWeight: 'bold',
+  },
+  value: {
+    flex: 2,
+  },
+  descriptionBox: {
+    border: '1px solid #ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+  },
+  description: {
     fontSize: 14,
-    marginBottom: 5,
   },
 });
 
@@ -72,19 +98,42 @@ const InquiryDetailsPopup = ({ inquiry, onClosePopup }) => {
   const MyDocument = () => (
     <Document>
       <Page size="A4" style={styles.page}>
-        <View style={styles.section}>
-          <Text style={styles.title}>Inquiry Details</Text>
-          <Text style={styles.detail}>Name: {inquiry.name}</Text>
-          <Text style={styles.detail}>Topic: {inquiry.topic}</Text>
-          <Text style={styles.detail}>Description: {inquiry.description}</Text>
-          <Text style={styles.detail}>Priority: {inquiry.priority}</Text>
-          <Text style={styles.detail}>Area: {inquiry.area}</Text>
-          <Text style={styles.detail}>Reply: {inquiry.reply}</Text>
+        <View style={styles.card}>
+          <View style={styles.header}>
+            <Text style={styles.title}>Inquiry Details</Text>
+          </View>
+          <View style={styles.section}>
+            <View style={styles.row}>
+              <Text style={styles.label}>Name:</Text>
+              <Text style={styles.value}>{inquiry.name}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Topic:</Text>
+              <Text style={styles.value}>{inquiry.topic}</Text>
+            </View>
+            <View style={styles.descriptionBox}>
+              <Text style={styles.description}>{inquiry.description}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Priority:</Text>
+              <Text style={styles.value}>{inquiry.priority}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Area:</Text>
+              <Text style={styles.value}>{inquiry.area}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Reply:</Text>
+              <Text style={styles.value}>{inquiry.reply}</Text>
+            </View>
+          </View>
         </View>
       </Page>
     </Document>
   );
-
+  
+  
+  
   return (
     <Dialog open onClose={onClosePopup} maxWidth="md" fullWidth>
       <DialogTitle>Inquiry Details</DialogTitle>
