@@ -75,7 +75,7 @@ const FeedbackCardView = () => {
               </Typography>
             </Box>
           ))}
-          <Button onClick={handleResetFilter} style={{ marginTop:'10px', backgroundColor: '#3C843F', color: 'white' }}>Reset</Button>
+          <Button onClick={handleResetFilter} style={{ marginTop:'10px', backgroundColor: '#3C843F', color: 'white'}}>Reset</Button>
         </Box>
         <Box width="50%">
           <Typography variant="h6" align="right" gutterBottom>
