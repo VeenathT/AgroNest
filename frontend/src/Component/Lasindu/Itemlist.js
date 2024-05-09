@@ -108,39 +108,41 @@ const ItemList = () => {
   );
 
   return (
-    <Box sx={{ marginTop: '100px', textAlign: 'center' }}>
+    <Box sx={{ marginTop: '150px', textAlign: 'center' }}>
       <SearchBar
         placeholder="Search items"
         variant="outlined"
+        color='success'
         onChange={handleSearchChange}
         InputProps={{
           startAdornment: <SearchIcon />,
         }}
       />
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '30px' }}>
         {loading ? (
           <Typography>Loading...</Typography>
         ) : error ? (
           <Typography>Error: {error.message}</Typography>
         ) : (
-          filteredItems.map((item) => (
+          filteredItems.map((item, index) => (
             <ItemButton
               key={item._id}
               focusRipple
               component={Link}
               to={`/item/${item._id}`}
+              sx={{ margin: '20px' }} 
             >
-              <ImageSrc style={{ backgroundImage: `url('/fert.jfif')` }} />
+              <ImageSrc style={{ backgroundImage: `url('https://t3.ftcdn.net/jpg/05/18/01/82/360_F_518018267_kVSFbWv58Or4c4ihnoXNzNVPpltTqdqY.jpg')` }} />
               <ImageBackdrop className="MuiImageBackdrop-root" />
               <Image>
                 <Typography
                   component="span"
                   variant="subtitle1"
-                  color="inherit"
+                  color="white"
                   sx={{
                     position: 'relative',
-                    fontSize: '22px',
-                    p: 4,
+                    fontSize: '30px',
+                    p: 2,
                     pt: 2,
                     pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
                   }}

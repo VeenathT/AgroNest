@@ -99,7 +99,7 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#F8F9F9', width: "500px", margin: "auto", marginTop: '150px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
+    <div style={{ backgroundColor: '#FFFF', padding:'20px', borderRadius:'40px', width: "500px", margin: "auto", marginTop: '150px',boxShadow: '0 5px 6px rgba(0, 0, 0, 0.6)'}}>
     <Container maxWidth="sm">
       <Typography style={{ marginBottom:'20px'}} variant="h4" align="center" gutterBotom>
         {feedbackId ? 'Edit Feedback' : 'Submit Feedback'}

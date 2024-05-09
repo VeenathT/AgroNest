@@ -25,7 +25,7 @@ const FeedbackDetailsDialog = ({ open, handleClose, feedback }) => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button  style={{ backgroundColor: 'green' , color:'white' }} onClick={handleClose} >
           Close
         </Button>
       </DialogActions>
