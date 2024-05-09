@@ -30,10 +30,11 @@ const images = [
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
-  height: 200,
+  height: 250,
+  margin: '0 10px 20px', 
   [theme.breakpoints.down('sm')]: {
-    width: '100% !important', // Overrides inline-style
-    height: 100,
+    width: '100% !important', 
+    height: 250,
   },
   '&:hover, &.Mui-focusVisible': {
     zIndex: 1,
@@ -44,7 +45,7 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
       opacity: 0,
     },
     '& .MuiTypography-root': {
-      border: '4px solid currentColor',
+      border: '10px solid currentColor',
     },
   },
 }));
@@ -94,7 +95,7 @@ const ImageMarked = styled('span')(({ theme }) => ({
 
 const InquiryCategory = () => {
   return (
-    <div style={{ padding: '100px', marginTop: '30px' }}>
+    <div style={{ padding: '100px', marginTop: '40px' }}>
       <Stack sx={{ width: '100%', alignItems: 'center' }} spacing={4}>
         <Typography variant="h4">Select Your Category</Typography>
         <CustomizedSteppers />
