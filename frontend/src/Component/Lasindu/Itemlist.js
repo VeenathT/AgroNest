@@ -118,18 +118,19 @@ const ItemList = () => {
           startAdornment: <SearchIcon />,
         }}
       />
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center',marginTop:'30px' }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '30px' }}>
         {loading ? (
           <Typography>Loading...</Typography>
         ) : error ? (
           <Typography>Error: {error.message}</Typography>
         ) : (
-          filteredItems.map((item) => (
+          filteredItems.map((item, index) => (
             <ItemButton
               key={item._id}
               focusRipple
               component={Link}
               to={`/item/${item._id}`}
+              sx={{ margin: '20px' }} 
             >
               <ImageSrc style={{ backgroundImage: `url('https://t3.ftcdn.net/jpg/05/18/01/82/360_F_518018267_kVSFbWv58Or4c4ihnoXNzNVPpltTqdqY.jpg')` }} />
               <ImageBackdrop className="MuiImageBackdrop-root" />
