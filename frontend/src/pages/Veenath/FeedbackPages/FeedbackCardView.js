@@ -109,7 +109,7 @@ const FeedbackCardView = () => {
                   <Typography variant="body2">{feedback.description}</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary" onClick={() => handleViewDetails(feedback)}>
+                  <Button size="small" style={{ color: 'green' }} onClick={() => handleViewDetails(feedback)}>
                     View Details
                   </Button>
                 </CardActions>
