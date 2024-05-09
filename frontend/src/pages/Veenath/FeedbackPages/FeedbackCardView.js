@@ -56,9 +56,9 @@ const FeedbackCardView = () => {
   };
 
   return (
-    <Container style={{ marginTop: '100px', backgroundColor: '#FFFF', width: '90%' }} maxWidth="xl">
-      <Typography marginTop={15} variant="h4" align="center" gutterBottom>
-        All Feedbacks
+    <Container style={{ borderRadius:'10px', padding:'30px', marginTop: '130px', backgroundColor: '#FFFF', width: '90%' }} maxWidth="xl">
+      <Typography marginTop={3} variant="h4" align="center" gutterBottom>
+       Customer Feedbacks
       </Typography>
       
       <Box display="flex" flexDirection="row" alignItems="flex-start" marginTop={5} marginBottom={5} marginRight={10}>
@@ -66,7 +66,7 @@ const FeedbackCardView = () => {
         <Box width="100%" height={150} display="flex" flexDirection="column" alignItems="flex-start" marginRight={10} marginLeft={1}>
           {[...Array(5).keys()].map((rating) => (
             <Box key={rating} display="flex" alignItems="center" marginBottom={1} onClick={() => handleFilter(rating + 1)} style={{ cursor: 'pointer' }}>
-              <Typography variant="subtitle1" style={{ marginRight: '5px' }}>
+              <Typography variant="subtitle1" style={{ marginRight: '25px' }}>
                 {countFeedbacksByRating(rating + 1)}
               </Typography>
               <Rating name="read-only" value={rating + 1} readOnly />
@@ -75,13 +75,13 @@ const FeedbackCardView = () => {
               </Typography>
             </Box>
           ))}
-          <Button onClick={handleResetFilter}>Reset</Button>
+          <Button onClick={handleResetFilter} style={{ marginTop:'10px', backgroundColor: '#3C843F', color: 'white' }}>Reset</Button>
         </Box>
-        <Box width="60%">
-          <Typography variant="h6" align="center" gutterBottom>
-            Feedback Ratings Distribution
+        <Box width="50%">
+          <Typography variant="h6" align="right" gutterBottom>
+            Ratings Distribution
           </Typography>
-          <ResponsiveContainer width="100%" height={150}>
+          <ResponsiveContainer width="110%" height={180}>
             <BarChart data={data}>
               <XAxis dataKey="rating" />
               <YAxis />
@@ -95,7 +95,7 @@ const FeedbackCardView = () => {
         </Box>
       </Box>
       {/* Feedback cards*/}
-      <Grid container spacing={2}>
+      <Grid marginTop={8} container spacing={2}>
         {feedbacks
           .filter((feedback) => filterRating ? feedback.starRating === filterRating : true)
           .map((feedback) => (
