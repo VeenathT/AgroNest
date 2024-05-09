@@ -125,7 +125,7 @@ const ItemView = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: 'rgba(144, 238, 144, 0.6)' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '120vh' }}>
       <Container maxWidth="md">
         {loading ? (
           <div>Loading...</div>

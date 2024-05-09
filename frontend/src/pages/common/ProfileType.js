@@ -5,7 +5,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 
 const Logintype = () => {
   return (
-    <Container style={{ backgroundColor: 'white', width: '80%', maxWidth: '400px', height: '60vh', 
+    <Container style={{ backgroundColor: 'white', width: '100%', maxWidth: '500px', height: '70vh', 
     padding: '20px', marginTop: '10rem', borderRadius: '20px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8)', border: '3px solid black' }}>
       <Grid
         container
@@ -23,39 +23,39 @@ const Logintype = () => {
 
         <Grid item>
           <Typography variant="h4" gutterBottom style={{ textAlign: 'center', color: '#0f5132' }}>
-            Choose Your Profile Type
+            Profile
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to={`/Profile/${localStorage.getItem('logId')}`} sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to={`/Profile/${localStorage.getItem('logId')}`} sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '200px'
           }}>
-            Farmers
+            Farmer
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/profileDealer" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/profileDealer" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '200px'
           }}>
-            Dealers
+            Dealer
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/laboratories" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/laboratories" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '200px'
           }}>
-            Laboratories
+            Laboratory
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" component={Link} to="/laboratories" sx={{
-            borderRadius: '20px',
+          <Button variant="contained" color="success" component={Link} to="/laboratories" sx={{
+            borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.6)',
             width: '200px'
           }}>
