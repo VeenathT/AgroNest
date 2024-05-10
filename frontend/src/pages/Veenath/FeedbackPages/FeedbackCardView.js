@@ -18,49 +18,48 @@ const FeedbackCardView = () => {
         setFeedbacks(response.data.feedbacks);
       } catch (err) {
         console.error(err);
-       
       }
     };
 
     fetchFeedbacks();
   }, []);
 
-  
   const countFeedbacksByRating = (rating) => {
     return feedbacks.filter((feedback) => feedback.starRating === rating).length;
   };
 
-  
   const handleFilter = (rating) => {
     setFilterRating(rating);
   };
 
-  
   const handleResetFilter = () => {
     setFilterRating(null);
   };
 
-  
   const starLabels = ['Poor', 'OK', 'Average', 'Good', 'Excellent'];
 
-  
   const data = [...Array(5).keys()].map((rating) => ({
     rating: rating + 1,
     count: countFeedbacksByRating(rating + 1)
   }));
 
- 
   const handleViewDetails = (feedback) => {
     setSelectedFeedback(feedback);
     setOpenDetailsDialog(true);
   };
 
   return (
-    <Container style={{ borderRadius:'10px', padding:'30px', marginTop: '130px', backgroundColor: '#FFFF', width: '90%' }} maxWidth="xl">
+    <Container style={{ borderRadius:'10px', padding:'30px', marginTop: '130px', backgroundColor: '#FFFF', width: '90%', position: 'relative' }} maxWidth="xl">
+      <div style={{ position: 'absolute', top: '20px', right: '20px', width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#3C843F', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '24px', fontWeight: 'bold' }}>
+        {feedbacks.length}
+      </div>
       <Typography marginTop={3} variant="h4" align="center" gutterBottom>
        Customer Feedbacks
       </Typography>
-      
+      {/* Feedback count */}
+      <Typography variant="h6" align="center" gutterBottom>
+        Total Feedbacks: {feedbacks.length}
+      </Typography>
       <Box display="flex" flexDirection="row" alignItems="flex-start" marginTop={5} marginBottom={5} marginRight={10}>
       
         <Box width="100%" height={150} display="flex" flexDirection="column" alignItems="flex-start" marginRight={10} marginLeft={1}>
